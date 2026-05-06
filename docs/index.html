@@ -2091,10 +2091,11 @@ const PROGRAMS = [
   {
     id: 'fortalecimiento_municipal',
     name: 'Fortalecimiento Municipal',
-    source: 'Kobo',
+    source: 'Google Sheets',
     dashboard: './index_fortalecimiento_municipal.html',
     totalUrl: './data/fortalecimiento_municipal/total_mes.csv',
     indUrl: './data/fortalecimiento_municipal/institucional_indicadores.csv',
+    cardUrl: './data/fortalecimiento_municipal/programa_card.csv',
     loader: loadFM
   },
   {
@@ -2347,71 +2348,85 @@ async function loadConservando(cfg){
 }
 
 async function loadFM(cfg){
-  // Fortalecimiento Municipal queda temporalmente en 0 mientras se reestructura
-  // la arquitectura de CSV y la fuente operativa del programa.
-  const municipiosVal = 0;
-  const municipiosMeta = 15;
-  const estudiosVal = 0;
-  const estudiosMeta = 6;
-  const planesVal = 0;
-  const planesMeta = 5;
-  const asistenciasVal = 0;
-  const asistenciasMeta = 5;
-
-  const pctMunicipios = (municipiosVal / municipiosMeta) * 100;
-  const pctEstudios = (estudiosVal / estudiosMeta) * 100;
-  const pctPlanes = (planesVal / planesMeta) * 100;
-  const pctAsistencias = (asistenciasVal / asistenciasMeta) * 100;
-
   const vigenciaMunicipal = 'Este indicador tiene por periodo de enero a diciembre de 2026, considerando los plazos y procedimientos administrativos propios de las municipalidades';
 
-  const keyMetrics = [
-    {
+  const defaults = {
+    FM_GEN_01: {
       label:'15 municipalidades de la Cuenca del Lago de Atitlán con capacidad instalada en los temas de SNIP (Sistema nacional de inversión pública), SIG (Sistemas de Información Geográfica), recolección digital de datos y cumplimiento legal ambiental.',
-      acumDisplay:`${municipiosVal}/${municipiosMeta} municipalidades`,
-      pct:pctMunicipios,
-      pctDisplay:`${fmtPct(pctMunicipios)} de avance`,
-      barPct:pctMunicipios,
-      temporality: vigenciaMunicipal,
-      temporalFullRow:true
+      meta: 15,
+      unidad: 'municipalidades'
     },
-    {
+    FM_GEN_02: {
       label:'6 Estudios de caracterización de desechos y residuos sólidos y o aguas residuales.',
-      acumDisplay:`${estudiosVal}/${estudiosMeta} estudios`,
-      pct:pctEstudios,
-      pctDisplay:`${fmtPct(pctEstudios)} de avance`,
-      barPct:pctEstudios,
-      temporality: vigenciaMunicipal,
-      temporalFullRow:true
+      meta: 6,
+      unidad: 'estudios'
     },
-    {
+    FM_GEN_03: {
       label:'5 PIRDES Municipales (Planes de Manejo integrales de residuos y desechos sólidos)',
-      acumDisplay:`${planesVal}/${planesMeta} planes integrales`,
-      pct:pctPlanes,
-      pctDisplay:`${fmtPct(pctPlanes)} de avance`,
-      barPct:pctPlanes,
-      temporality: vigenciaMunicipal,
-      temporalFullRow:true
+      meta: 5,
+      unidad: 'planes integrales'
     },
-    {
-      label:'5 Asistencias técnicas municipales en aguas residuales.',
-      acumDisplay:`${asistenciasVal}/${asistenciasMeta} asistencias técnicas`,
-      pct:pctAsistencias,
-      pctDisplay:`${fmtPct(pctAsistencias)} de avance`,
-      barPct:pctAsistencias,
+    FM_GEN_04: {
+      label:'20 Asistencias técnicas municipales en aguas residuales.',
+      meta: 20,
+      unidad: 'asistencias técnicas'
+    }
+  };
+
+  const order = ['FM_GEN_01', 'FM_GEN_02', 'FM_GEN_03', 'FM_GEN_04'];
+  let rows = [];
+
+  try {
+    rows = cast(await parseCsv(cfg.cardUrl || './data/fortalecimiento_municipal/programa_card.csv'));
+  } catch (err) {
+    console.warn('No se pudo cargar programa_card.csv para Fortalecimiento Municipal. Se usará respaldo en 0.', err);
+    rows = [];
+  }
+
+  const byId = {};
+  rows.forEach(row => {
+    const id = String(row.indicador_id || '').trim();
+    if (id) byId[id] = row;
+  });
+
+  const toNumber = (value, fallback = 0) => {
+    if (value === undefined || value === null || value === '') return fallback;
+    const n = Number(String(value).replace(/,/g, ''));
+    return Number.isFinite(n) ? n : fallback;
+  };
+
+  const buildMetric = (id) => {
+    const fallback = defaults[id];
+    const row = byId[id] || {};
+
+    const valor = toNumber(row.valor_acumulado, 0);
+    const meta = toNumber(row.meta_anual, fallback.meta);
+    const unidad = safe(row.unidad || fallback.unidad);
+    const label = fallback.label;
+    const pct = meta > 0 ? (valor / meta) * 100 : 0;
+
+    return {
+      label,
+      acumDisplay:`${fmt(valor)}/${fmt(meta)} ${unidad}`,
+      pct,
+      pctDisplay:`${fmtPct(pct)} de avance`,
+      barPct:pct,
       temporality: vigenciaMunicipal,
       temporalFullRow:true
-    }
-  ];
+    };
+  };
+
+  const keyMetrics = order.map(buildMetric);
+  const score = avg(keyMetrics.map(metric => Number(metric.pct || 0)));
 
   return {
     ...cfg,
-    latestLabel:'Marzo 2026',
-    periodKey:'2026-03',
-    score:0,
-    scoreLabel:'Cumplimiento promedio con respecto a metas mensuales',
+    latestLabel:'Acumulado 2026 validado',
+    periodKey:'2026-validado',
+    score:score || 0,
+    scoreLabel:'Cumplimiento promedio con respecto a meta anual',
     metrics:keyMetrics,
-    sourceSummary:'Pendiente de reestructuración de CSV'
+    sourceSummary:'Google Sheets · programa_card.csv'
   };
 }
 
