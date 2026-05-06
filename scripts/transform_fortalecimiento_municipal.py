@@ -91,6 +91,136 @@ MODULE_FILE_MAP = {
 }
 
 
+# ─────────────────────────────────────────────
+# Nueva arquitectura validada por coordinador
+# ─────────────────────────────────────────────
+
+VALIDATED_SUMMARY_RAW = "indicadores_resumen_validado_raw.csv"
+PROGRAM_CARD_RAW = "programa_card_raw.csv"
+
+VALIDATED_SUMMARY_COLUMNS = [
+    "indicador_id",
+    "dashboard",
+    "indicador",
+    "valor_validado",
+    "meta",
+    "unidad",
+    "criterio_de_conteo",
+]
+
+PROGRAM_CARD_COLUMNS = [
+    "programa_id",
+    "indicador_id",
+    "label",
+    "valor_acumulado",
+    "meta_anual",
+    "unidad",
+    "pct_avance",
+    "orden",
+    "estado",
+]
+
+DEFAULT_VALIDATED_INDICATORS = [
+    {
+        "indicador_id": "FM_GEN_01",
+        "dashboard": "index_general",
+        "indicador": "Municipalidades con capacidad instalada",
+        "valor_validado": 0,
+        "meta": 15,
+        "unidad": "municipalidades",
+        "criterio_de_conteo": "Solo municipios con capacidad instalada confirmada.",
+    },
+    {
+        "indicador_id": "FM_GEN_02",
+        "dashboard": "index_general",
+        "indicador": "Estudios de caracterización de desechos y residuos sólidos y/o aguas residuales",
+        "valor_validado": 0,
+        "meta": 6,
+        "unidad": "estudios",
+        "criterio_de_conteo": "Solo estudios confirmados con clave única validada.",
+    },
+    {
+        "indicador_id": "FM_GEN_03",
+        "dashboard": "index_general",
+        "indicador": "PIRDES Municipales",
+        "valor_validado": 0,
+        "meta": 5,
+        "unidad": "planes integrales",
+        "criterio_de_conteo": "Solo PIRDES confirmados con clave única validada.",
+    },
+    {
+        "indicador_id": "FM_GEN_04",
+        "dashboard": "index_general",
+        "indicador": "Asistencias técnicas municipales en aguas residuales",
+        "valor_validado": 0,
+        "meta": 20,
+        "unidad": "asistencias técnicas",
+        "criterio_de_conteo": "Solo asistencias confirmadas como aguas residuales.",
+    },
+    {
+        "indicador_id": "FM_SPEC_01",
+        "dashboard": "index_especifico",
+        "indicador": "Personal municipal capacitado por eje temático",
+        "valor_validado": 0,
+        "meta": 4,
+        "unidad": "ejes cumplidos",
+        "criterio_de_conteo": "Registros confirmados para capacitación por eje.",
+    },
+    {
+        "indicador_id": "FM_SPEC_02",
+        "dashboard": "index_especifico",
+        "indicador": "Estudios de caracterización finalizados",
+        "valor_validado": 0,
+        "meta": 6,
+        "unidad": "estudios",
+        "criterio_de_conteo": "Estudios confirmados para el tablero específico.",
+    },
+    {
+        "indicador_id": "FM_SPEC_03",
+        "dashboard": "index_especifico",
+        "indicador": "PIRDES finalizados / implementados",
+        "valor_validado": 0,
+        "meta": 5,
+        "unidad": "PIRDES",
+        "criterio_de_conteo": "PIRDES confirmados para el tablero específico.",
+    },
+    {
+        "indicador_id": "FM_SPEC_04",
+        "dashboard": "index_especifico",
+        "indicador": "Reuniones CODEMA / eje agua y saneamiento",
+        "valor_validado": 0,
+        "meta": 10,
+        "unidad": "reuniones",
+        "criterio_de_conteo": "Reuniones CODEMA confirmadas.",
+    },
+    {
+        "indicador_id": "FM_SPEC_05",
+        "dashboard": "index_especifico",
+        "indicador": "Asistencias técnicas municipales en aguas residuales",
+        "valor_validado": 0,
+        "meta": 20,
+        "unidad": "asistencias técnicas",
+        "criterio_de_conteo": "Asistencias confirmadas para el tablero específico.",
+    },
+    {
+        "indicador_id": "FM_SPEC_06",
+        "dashboard": "index_especifico",
+        "indicador": "Municipalidades con avance hacia capacidad instalada",
+        "valor_validado": 0,
+        "meta": 15,
+        "unidad": "municipalidades",
+        "criterio_de_conteo": "Municipios con avance confirmado hacia capacidad instalada.",
+    },
+]
+
+GENERAL_ORDER = {
+    "FM_GEN_01": 1,
+    "FM_GEN_02": 2,
+    "FM_GEN_03": 3,
+    "FM_GEN_04": 4,
+}
+
+
 def read_csv(path: Path) -> pd.DataFrame:
     if not path.exists():
         return pd.DataFrame()
@@ -972,6 +1102,231 @@ def build_quality_table(
     return pd.DataFrame(quality_rows)
 
 
+
+def clean_column_names(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.copy()
+    df.columns = [str(c).strip() for c in df.columns]
+    return df
+
+
+def number_or_zero(value) -> float:
+    num = parse_number(value)
+    if pd.isna(num):
+        return 0.0
+    return float(num)
+
+
+def estado_from_pct_public(pct: float) -> str:
+    if pct >= 1:
+        return "cumplido"
+    if pct >= 0.70:
+        return "alto"
+    if pct >= 0.35:
+        return "medio"
+    if pct > 0:
+        return "bajo"
+    return "sin_avance"
+
+
+def ensure_columns(df: pd.DataFrame, columns: list[str]) -> pd.DataFrame:
+    df = df.copy()
+    for col in columns:
+        if col not in df.columns:
+            df[col] = ""
+    return df[columns]
+
+
+def build_default_validated_summary() -> pd.DataFrame:
+    return pd.DataFrame(DEFAULT_VALIDATED_INDICATORS, columns=VALIDATED_SUMMARY_COLUMNS)
+
+
+def build_validated_summary() -> pd.DataFrame:
+    """
+    Lee la salida del Apps Script:
+    data_raw/fortalecimiento_municipal/indicadores_resumen_validado_raw.csv
+
+    Si no existe o viene vacía, genera una estructura segura con los indicadores en 0.
+    """
+    path = RAW_DIR / VALIDATED_SUMMARY_RAW
+
+    if not path.exists():
+        return build_default_validated_summary()
+
+    df = read_csv(path)
+    df = clean_column_names(df)
+
+    if df.empty:
+        return build_default_validated_summary()
+
+    df = ensure_columns(df, VALIDATED_SUMMARY_COLUMNS)
+
+    df["indicador_id"] = df["indicador_id"].astype(str).str.strip()
+    df["dashboard"] = df["dashboard"].astype(str).str.strip()
+    df["indicador"] = df["indicador"].astype(str).str.strip()
+    df["unidad"] = df["unidad"].astype(str).str.strip()
+    df["criterio_de_conteo"] = df["criterio_de_conteo"].astype(str).str.strip()
+
+    df["valor_validado"] = df["valor_validado"].apply(number_or_zero)
+    df["meta"] = df["meta"].apply(number_or_zero)
+
+    # Si por alguna razón el Apps Script no devolvió todos los indicadores,
+    # se completan con defaults sin inventar avance.
+    defaults = build_default_validated_summary()
+    existing_ids = set(df["indicador_id"].astype(str))
+
+    missing = defaults[~defaults["indicador_id"].isin(existing_ids)].copy()
+
+    if not missing.empty:
+        df = pd.concat([df, missing], ignore_index=True)
+
+    return df[VALIDATED_SUMMARY_COLUMNS]
+
+
+def read_program_card_raw() -> pd.DataFrame:
+    """
+    Lee programa_card_raw.csv si el Apps Script ya lo generó.
+    Si no existe o está vacío, devuelve DataFrame vacío.
+    """
+    path = RAW_DIR / PROGRAM_CARD_RAW
+
+    if not path.exists():
+        return pd.DataFrame(columns=PROGRAM_CARD_COLUMNS)
+
+    df = read_csv(path)
+    df = clean_column_names(df)
+
+    if df.empty:
+        return pd.DataFrame(columns=PROGRAM_CARD_COLUMNS)
+
+    df = ensure_columns(df, PROGRAM_CARD_COLUMNS)
+
+    df["programa_id"] = df["programa_id"].astype(str).str.strip()
+    df["indicador_id"] = df["indicador_id"].astype(str).str.strip()
+    df["label"] = df["label"].astype(str).str.strip()
+    df["unidad"] = df["unidad"].astype(str).str.strip()
+    df["estado"] = df["estado"].astype(str).str.strip()
+
+    df["valor_acumulado"] = df["valor_acumulado"].apply(number_or_zero)
+    df["meta_anual"] = df["meta_anual"].apply(number_or_zero)
+    df["pct_avance"] = df["pct_avance"].apply(number_or_zero)
+    df["orden"] = df["orden"].apply(number_or_zero)
+
+    return df[PROGRAM_CARD_COLUMNS]
+
+
+def build_program_card_from_summary(summary: pd.DataFrame) -> pd.DataFrame:
+    """
+    Construye programa_card.csv desde 99_Indicadores_Resumen
+    cuando Apps Script no haya generado programa_card todavía.
+    """
+    df = summary.copy()
+    df = df[df["dashboard"].astype(str).str.strip().eq("index_general")].copy()
+
+    if df.empty:
+        return pd.DataFrame(columns=PROGRAM_CARD_COLUMNS)
+
+    rows = []
+
+    for _, row in df.iterrows():
+        indicador_id = str(row.get("indicador_id", "")).strip()
+        valor = number_or_zero(row.get("valor_validado", 0))
+        meta = number_or_zero(row.get("meta", 0))
+        pct = min(valor / meta, 1.0) if meta > 0 else 0.0
+
+        rows.append(
+            {
+                "programa_id": PROGRAM_ID,
+                "indicador_id": indicador_id,
+                "label": str(row.get("indicador", "")).strip(),
+                "valor_acumulado": valor,
+                "meta_anual": meta,
+                "unidad": str(row.get("unidad", "")).strip(),
+                "pct_avance": pct,
+                "orden": GENERAL_ORDER.get(indicador_id, 99),
+                "estado": estado_from_pct_public(pct),
+            }
+        )
+
+    out = pd.DataFrame(rows, columns=PROGRAM_CARD_COLUMNS)
+    out = out.sort_values(["orden", "indicador_id"]).reset_index(drop=True)
+
+    return out
+
+
+def build_program_card(summary: pd.DataFrame) -> pd.DataFrame:
+    """
+    Prioridad:
+    1. Si existe programa_card_raw.csv con filas reales, usa ese archivo.
+    2. Si no, genera programa_card.csv desde indicadores_resumen_validado_raw.csv.
+    """
+    card_raw = read_program_card_raw()
+
+    if not card_raw.empty:
+        card_raw = card_raw.copy()
+
+        # Asegura consistencia de estado y porcentaje.
+        card_raw["pct_avance"] = card_raw.apply(
+            lambda r: min(
+                number_or_zero(r.get("valor_acumulado", 0)) / number_or_zero(r.get("meta_anual", 0)),
+                1.0,
+            )
+            if number_or_zero(r.get("meta_anual", 0)) > 0
+            else 0.0,
+            axis=1,
+        )
+
+        card_raw["estado"] = card_raw["pct_avance"].apply(estado_from_pct_public)
+        card_raw["orden"] = card_raw.apply(
+            lambda r: GENERAL_ORDER.get(str(r.get("indicador_id", "")).strip(), number_or_zero(r.get("orden", 99))),
+            axis=1,
+        )
+
+        return card_raw[PROGRAM_CARD_COLUMNS].sort_values(["orden", "indicador_id"]).reset_index(drop=True)
+
+    return build_program_card_from_summary(summary)
+
+
+def build_validated_compat_indicators(summary: pd.DataFrame) -> pd.DataFrame:
+    """
+    Convierte el resumen validado a un formato cercano a institucional_indicadores.csv,
+    sin sustituir aún la lógica vieja del dashboard específico.
+
+    Este archivo nuevo sirve para el siguiente paso:
+    docs/data/fortalecimiento_municipal/institucional_indicadores_validado.csv
+    """
+    rows = []
+
+    for _, row in summary.iterrows():
+        valor = number_or_zero(row.get("valor_validado", 0))
+        meta = number_or_zero(row.get("meta", 0))
+        pct = valor / meta if meta > 0 else 0.0
+
+        rows.append(
+            {
+                "programa_id": PROGRAM_ID,
+                "programa_nombre": PROGRAM_NAME,
+                "periodo": "validado",
+                "anio": "",
+                "mes_num": "",
+                "mes_nombre": "",
+                "indicador_id": str(row.get("indicador_id", "")).strip(),
+                "indicador_nombre": str(row.get("indicador", "")).strip(),
+                "categoria": str(row.get("dashboard", "")).strip(),
+                "orden_dashboard": GENERAL_ORDER.get(str(row.get("indicador_id", "")).strip(), 100),
+                "unidad": str(row.get("unidad", "")).strip(),
+                "valor_mes": valor,
+                "valor_acumulado": valor,
+                "meta_anual": meta,
+                "meta_cohorte": meta,
+                "pct_meta_anual": pct,
+                "pct_cohorte": pct,
+                "semaforo": semaforo_from_pct(pct),
+                "criterio_de_conteo": str(row.get("criterio_de_conteo", "")).strip(),
+            }
+        )
+
+    return pd.DataFrame(rows)
+
 def write_csv(df: pd.DataFrame, filename: str):
     out_path = OUT_DIR / filename
     doc_path = DOCS_DIR / filename
@@ -1015,6 +1370,13 @@ def main():
         ]
     )
 
+    # ─────────────────────────────────────────────
+    # Nueva capa validada por coordinador
+    # ─────────────────────────────────────────────
+    resumen_validado = build_validated_summary()
+    programa_card = build_program_card(resumen_validado)
+    institucional_validado = build_validated_compat_indicators(resumen_validado)
+
     outputs = {
         "detalle_capacitaciones.csv": cap_detail,
         "detalle_asistencias.csv": asis_detail,
@@ -1030,6 +1392,9 @@ def main():
         "total_mes.csv": total_mes,
         "institucional_indicadores.csv": institucional.sort_values(["periodo", "orden_dashboard", "indicador_id"]),
         "metadata_publicacion.csv": metadata,
+        "indicadores_resumen_validado.csv": resumen_validado,
+        "programa_card.csv": programa_card,
+        "institucional_indicadores_validado.csv": institucional_validado,
     }
 
     for filename, df in outputs.items():
