@@ -1,0 +1,11 @@
+indicador_id,dashboard,indicador,valor_validado,meta,unidad,criterio_de_conteo
+FM_GEN_01,index_general,Municipalidades con capacidad instalada,0.0,15.0,municipalidades,Solo municipios con capacidad instalada confirmada.
+FM_GEN_02,index_general,Estudios de caracterización de desechos y residuos sólidos y/o aguas residuales,5.0,6.0,estudios,Estudios finalizados autovalidados por campo explícito de finalización.
+FM_GEN_03,index_general,PIRDES Municipales,2.0,5.0,planes integrales,PIRDES implementados autovalidados y deduplicados por municipio.
+FM_GEN_04,index_general,Asistencias técnicas municipales en aguas residuales,5.0,20.0,asistencias técnicas,Asistencias nuevas autovalidadas con sector de aguas residuales / alcantarillado / tratamiento.
+FM_SPEC_01,index_especifico,Personal municipal capacitado por eje temático,0.0,4.0,ejes cumplidos,"No se autovalida ningún eje núcleo porque no hay evidencia explícita de SNIP, SIG, recolección digital y cumplimiento legal."
+FM_SPEC_02,index_especifico,Estudios de caracterización finalizados,5.0,6.0,estudios,Estudios confirmados para tablero específico.
+FM_SPEC_03,index_especifico,PIRDES finalizados / implementados,2.0,5.0,PIRDES,PIRDES confirmados para tablero específico.
+FM_SPEC_04,index_especifico,Reuniones CODEMA / eje agua y saneamiento,3.0,10.0,reuniones,Reuniones CODEMA confirmadas.
+FM_SPEC_05,index_especifico,Asistencias técnicas municipales en aguas residuales,5.0,20.0,asistencias técnicas,Asistencias confirmadas para tablero específico.
+FM_SPEC_06,index_especifico,Municipalidades con avance hacia capacidad instalada,1.0,15.0,municipalidades,Municipalidades con avance hacia capacidad instalada.
