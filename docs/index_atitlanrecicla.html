@@ -5624,7 +5624,7 @@ function renderIncomeMaterialCards(state, ctx){
   ];
   const IMPACT_KPI_IDS = [
     'materiales_generales','pet','vidrio','ingreso_bruto_total','ingreso_bruto_mujeres','ingreso_bruto_municipalidades',
-    'ingreso_diario_lideresa','participacion_actividades','participacion_comercializacion','surusic_ventas','surusic_vidrio'
+    'ingreso_diario_lideresa','participacion_actividades','participacion_comercializacion'
   ];
 
   function injectImpactStyles(){
@@ -5638,7 +5638,7 @@ function renderIncomeMaterialCards(state, ctx){
       .impact-analysis-section .section-head{align-items:flex-start!important}
       .impact-explain{padding:16px 18px;margin-bottom:14px;border-radius:18px;background:linear-gradient(135deg,var(--blue-pale),#fff);border:1.5px solid var(--line-soft);color:var(--text-2);font-size:.86rem;line-height:1.7}
       .impact-explain strong{color:var(--blue)}
-      .impact-toolbar{display:grid;grid-template-columns:minmax(220px,1fr) minmax(260px,1fr) auto;gap:12px;margin-bottom:16px}
+      .impact-toolbar{display:grid;grid-template-columns:minmax(220px,1fr) minmax(260px,1fr);gap:12px;margin-bottom:16px}
       .impact-status-card{display:flex;align-items:center;justify-content:center;padding:12px 14px;border-radius:18px;background:#fff;border:1.5px solid var(--line-soft);box-shadow:var(--shadow-sm);color:var(--text-2);font-weight:800;font-size:.84rem;text-align:center}
       .impact-group-title{display:flex;align-items:center;gap:10px;margin:18px 0 10px;font-size:.78rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase;color:var(--blue)}
       .impact-group-title::before{content:'';width:24px;height:3px;border-radius:999px;background:linear-gradient(90deg,var(--green),var(--blue-mid))}
@@ -5648,7 +5648,7 @@ function renderIncomeMaterialCards(state, ctx){
       .impact-kpi-grid .kpi-value{font-size:1.28rem!important}
       .impact-kpi-grid .kpi-meta,.impact-kpi-grid .kpi-ref,.impact-kpi-grid .kpi-copy{font-size:.76rem!important;line-height:1.48!important;color:var(--muted)}
       .impact-zero{grid-column:1/-1;padding:18px;border:1.5px dashed var(--line);border-radius:18px;background:#fff;color:var(--muted);font-size:.9rem;text-align:center}
-      @media(max-width:1180px){.impact-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.impact-toolbar{grid-template-columns:1fr 1fr}.impact-status-card{grid-column:1/-1}}
+      @media(max-width:1180px){.impact-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.impact-toolbar{grid-template-columns:1fr 1fr}}
       @media(max-width:680px){.impact-kpi-grid,.impact-toolbar{grid-template-columns:1fr}}
     `;
     document.head.appendChild(style);
@@ -5789,9 +5789,6 @@ function renderIncomeMaterialCards(state, ctx){
     const shareLine = avg
       ? `Meta: <strong>${escapeHtml(fmtVal(cfg.meta, unit))}</strong>`
       : `Aporte al total del programa: <strong>${escapeHtml(pctText(share))}</strong>`;
-    const progressLine = cfg.meta
-      ? `${mode==='monthly' ? 'Avance contra meta mensual' : (avg ? 'Avance contra meta de referencia' : 'Avance contra meta acumulada')}: <strong>${escapeHtml(pctText(progress))}</strong>`
-      : (id.indexOf('surusic')===0 ? 'Dato SURUSIC sin desglose por zona o municipio.' : 'Sin meta configurada.');
     const cardCls = scope.type==='none' || !value ? 'muted' : 'green';
     return `<article class="card kpi tone-${cardCls}" style="--delay:${index*50}ms">
       <div class="kpi-top"><div class="kpi-label">${escapeHtml(cfg.label)} ${escapeHtml(plainMode)}</div></div>
@@ -5804,16 +5801,15 @@ function renderIncomeMaterialCards(state, ctx){
         </div>
       </div>
       <div class="chip ${cardCls}">${scope.type==='none'?'0 hasta seleccionar':(avg?'Promedio':'Aporte')}</div>
-      <div class="kpi-copy">${progressLine}</div>
       <div class="progress"><span style="width:${Math.max(0,Math.min(clampPct(progress || share || 0),100))}%"></span></div>
     </article>`;
   }
   function renderImpactCards(bundle, scope){
     return `
-      <div class="impact-group-title">Aporte del mes seleccionado</div>
-      <div class="impact-kpi-grid">${IMPACT_KPI_IDS.map((id,i)=>impactCard(id,'monthly',bundle,i,scope)).join('')}</div>
-      <div class="impact-group-title">Aporte acumulado de enero al mes seleccionado</div>
-      <div class="impact-kpi-grid">${IMPACT_KPI_IDS.map((id,i)=>impactCard(id,'annual',bundle,i,scope)).join('')}</div>`;
+      <div class="impact-group-title">Aporte a las metas acumuladas</div>
+      <div class="impact-kpi-grid">${IMPACT_KPI_IDS.map((id,i)=>impactCard(id,'annual',bundle,i,scope)).join('')}</div>
+      <div class="impact-group-title">Aporte a las metas mensuales</div>
+      <div class="impact-kpi-grid">${IMPACT_KPI_IDS.map((id,i)=>impactCard(id,'monthly',bundle,i,scope)).join('')}</div>`;
   }
   function renderImpactAnalyzer(state){
     injectImpactStyles();
@@ -5827,22 +5823,16 @@ function renderIncomeMaterialCards(state, ctx){
     if(!section) return;
     section.className='section impact-analysis-section';
     const period=getSelectedPeriod(state);
-    const pLabel=period ? periodLabel(period) : 'mes seleccionado';
     const zones=window.ATITLAN_PRECALC.zones || [];
     const municipios=window.ATITLAN_PRECALC.municipios || [];
     const f=window.AT_ANALYSIS_FILTER;
     const scope=getImpactScope();
     const bundle=scope.data || zeroBundle();
-    const statusText = scope.type==='none'
-      ? 'Seleccione una zona o municipio: todos los indicadores están en 0.'
-      : `Calculando aporte de ${scope.type}: ${scope.label}`;
     section.innerHTML=`
-      <div class="section-head"><div><h2>¿Cuánto aporta cada zona o municipio a las metas?</h2><p>Lectura directa para jefatura: primero se escoge una zona o municipio; luego se muestran los mismos indicadores del tablero en versión mensual y acumulada.</p></div></div>
-      <div class="impact-explain"><strong>Cómo leer esta sección:</strong> si no se selecciona nada, todo aparece en 0 para evitar interpretaciones falsas. Al escoger una zona o municipio, cada tarjeta muestra el valor del filtro, cuánto pesa contra el total del programa y su avance frente a la meta correspondiente.</div>
+      <div class="section-head"><div><h2>Análisis de aporte por municipio y zona a las metas acumuladas anuales y mensual</h2></div></div>
       <section class="toolbar toolbar-compact impact-toolbar">
         <div class="card filter"><label for="impactZoneSelect">1. Escoger zona</label><select id="impactZoneSelect"><option value="__none__">Seleccione una zona</option>${zones.map(z=>`<option value="${escapeHtml(z)}">${escapeHtml(z)}</option>`).join('')}</select></div>
         <div class="card filter"><label for="impactMunicipioSelect">2. O escoger municipio</label><select id="impactMunicipioSelect"><option value="__none__">Seleccione un municipio</option>${municipios.map(m=>`<option value="${escapeHtml(m)}">${escapeHtml(m)}</option>`).join('')}</select></div>
-        <div class="impact-status-card">${escapeHtml(pLabel)} · ${escapeHtml(statusText)}</div>
       </section>
       ${renderImpactCards(bundle, scope)}
     `;
