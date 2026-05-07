@@ -213,39 +213,92 @@ body{
 /* ─── LAYOUT ──────────────────────────────────────────────────────────── */
 .page{max-width:1720px;margin:0 auto;padding:28px 24px 60px}
 
-/* ─── HERO STRIP ──────────────────────────────────────────────────────── */
-.hero-strip{
+/* ─── HERO ────────────────────────────────────────────────────────────── */
+.hero{
   display:grid;
-  grid-template-columns:1fr auto;
-  gap:20px;align-items:start;
-  margin-bottom:24px;
+  grid-template-columns:minmax(0,1.62fr) minmax(300px,.72fr);
+  gap:16px;align-items:stretch;
+  margin-bottom:20px;
+}
+.hero-main{
+  padding:32px 36px 30px;
+  background:linear-gradient(135deg,#fff 0%,#eef6f2 52%,#ddf0f8 100%);
+  border:1px solid var(--hairline);
+  border-radius:var(--r);
+  box-shadow:var(--sh-sm);
+  position:relative;overflow:hidden;
+}
+.hero-main::before{
+  content:'';position:absolute;
+  right:-80px;top:-80px;
+  width:320px;height:320px;border-radius:50%;
+  background:radial-gradient(circle,rgba(4,120,87,.1) 0%,rgba(3,105,161,.06) 50%,transparent 72%);
+  pointer-events:none;
 }
 .hero-eyebrow{
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:.66rem;font-weight:800;letter-spacing:.13em;
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:.66rem;font-weight:800;letter-spacing:.12em;
   text-transform:uppercase;color:var(--emerald);
-  margin-bottom:8px;
+  margin-bottom:8px;position:relative;z-index:1;
 }
 .hero-eyebrow::before{
-  content:'';display:block;
-  width:20px;height:2px;
-  background:var(--emerald);border-radius:2px;
+  content:'';display:inline-block;
+  width:16px;height:2px;
+  background:linear-gradient(90deg,var(--emerald),var(--teal));
+  border-radius:2px;
 }
-.hero-strip h1{
-  font-family:var(--font-head);
-  font-size:clamp(1.7rem,2.8vw,2.6rem);
-  font-weight:600;line-height:1.08;
-  letter-spacing:-.03em;
-  color:var(--ink);margin-bottom:10px;
+.hero-main h1{
+  font-family:var(--font-body);
+  font-size:clamp(2.1rem,3.6vw,3.6rem);
+  font-weight:800;line-height:.96;
+  letter-spacing:-.05em;
+  color:var(--ink);margin-bottom:14px;
+  position:relative;z-index:1;
 }
-.hero-strip p{
-  font-size:.88rem;line-height:1.75;
-  color:var(--muted);max-width:700px;
+.hero-lead{
+  color:var(--ink-3);max-width:78ch;
+  font-size:.81rem;line-height:1.82;
+  text-align:justify;
+  display:grid;gap:11px;
+  position:relative;z-index:1;
 }
-.hero-logo img{
-  width:130px;height:auto;
-  opacity:.88;
-  filter:drop-shadow(0 4px 12px rgba(0,0,0,.1));
+.hero-tags{
+  display:flex;gap:7px;flex-wrap:wrap;
+  margin-top:18px;position:relative;z-index:1;
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 12px;border-radius:999px;
+  background:rgba(255,255,255,.82);
+  border:1px solid var(--hairline);
+  font-size:.72rem;font-weight:700;
+  color:var(--ink-3);
+  box-shadow:var(--sh-sm);
+}
+.hero-tag::before{
+  content:'';width:6px;height:6px;border-radius:50%;
+  background:linear-gradient(135deg,var(--emerald),var(--teal));
+  display:block;flex-shrink:0;
+}
+/* Right side: logo card */
+.hero-side{
+  display:flex;align-items:center;justify-content:center;
+  padding:0;
+  background:transparent;
+}
+.program-logo-card{
+  display:grid;place-items:center;
+  width:100%;padding:28px 24px;
+  border-radius:var(--r);
+  background:#fff;
+  border:1px solid rgba(200,220,230,.9);
+  box-shadow:0 18px 48px rgba(11,29,53,.13);
+}
+.program-logo-card img{
+  display:block;
+  width:min(100%,330px);
+  height:auto;object-fit:contain;
+  filter:drop-shadow(0 8px 22px rgba(11,29,53,.14));
 }
 
 /* ─── KPI GRID ────────────────────────────────────────────────────────── */
@@ -973,6 +1026,8 @@ body.presentation-open .nav-bar{
   .footer-inner{grid-template-columns:1fr 1fr}
   .footer-logo{grid-column:1/-1;justify-self:end}
   .status-row{grid-template-columns:1fr}
+  .hero{grid-template-columns:1fr}
+  .hero-side{min-height:260px}
 }
 @media(max-width:900px){
   .header-inner{height:auto;padding:10px 16px;flex-wrap:wrap}
@@ -983,10 +1038,12 @@ body.presentation-open .nav-bar{
   .diag-grid{grid-template-columns:1fr}
   .pres-cards{grid-template-columns:1fr 1fr}
   .footer-inner{grid-template-columns:1fr}
+  .hero-main{padding:24px 22px 22px}
+  .hero-main h1{font-size:2.2rem}
 }
 @media(max-width:600px){
-  .hero-strip{grid-template-columns:1fr}
-  .hero-logo{display:none}
+  .hero{grid-template-columns:1fr}
+  .hero-side{display:none}
   .kpi-grid,.module-tabs,.exec-kpi-grid,.mini-stat-grid,
   .diag-grid,.pres-cards,.toolbar{grid-template-columns:1fr}
   .page{padding:16px 14px 48px}
@@ -1049,15 +1106,33 @@ body.presentation-open .nav-bar{
 <div class="page">
 
   <!-- ── HERO ─────────────────────────────── -->
-  <div class="hero-strip" id="resumen">
-    <div>
-      <div class="hero-eyebrow">Seguimiento institucional</div>
-      <h1>Procesos municipales<br>en seguimiento</h1>
-      <p>El Programa de Fortalecimiento Municipal registra el avance de los procesos que acompaña con municipalidades de la cuenca del Lago de Atitlán. Este tablero muestra qué acciones están confirmadas, cuáles avanzan en fase operativa y cuáles requieren cierre técnico para aportar a las metas.</p>
-    </div>
-    <div class="hero-logo">
-      <img src="./Fortale.png" alt="Fortalecimiento Municipal">
-    </div>
+  <div class="hero" id="resumen">
+
+    <!-- Left: description -->
+    <article class="hero-main">
+      <div class="hero-eyebrow">Saneamiento Ambiental · Fortalecimiento institucional</div>
+      <h1>Fortalecimiento<br>Municipal</h1>
+      <div class="hero-lead">
+        <p>Dentro de sus proyectos de Saneamiento Ambiental, la Asociación de Amigos del Lago implementa un componente de fortalecimiento institucional que asesora y capacita a las dependencias municipales en agua y saneamiento, con el objetivo de mejorar estos servicios para la salud de los habitantes y la conservación del Lago Atitlán.</p>
+        <p>Para fortalecer aún más a los municipios, se desarrollan procesos de formación técnica con talleres dirigidos a directores y técnicos de Planificación Municipal, DIGAM, UGAM y OMAS sobre SNIP – Sistema Nacional de Inversión Pública, SIG – Sistemas de Información Geográfica y levantamiento de información con herramientas digitales, saneamiento e higiene enfocados en proyectos de agua y saneamiento, en coordinación con las instituciones gubernamentales rectoras; y concatenada con la primera Política Departamental de Agua y Saneamiento construida en 2022.</p>
+        <p>Queremos que los municipios cuenten con expedientes técnicamente formulados sobre proyectos de agua y saneamiento ambiental que cumplan con todos los requerimientos legales, aprobaciones y autorizaciones técnicas, así como estudios técnicos de aguas residuales dentro de las normativas ambientales vigentes. Esto les permitirá cumplir con la legislación para no verter aguas residuales sin tratamiento en el Lago Atitlán, mejorar el acceso al agua potable y lograr un manejo integral adecuado de desechos y residuos sólidos. Con ello, buscamos mejorar la calidad de vida y salud de los habitantes del departamento de Sololá.</p>
+      </div>
+      <div class="hero-tags">
+        <span class="hero-tag">Procesos municipales</span>
+        <span class="hero-tag">Agua y saneamiento</span>
+        <span class="hero-tag">Asesoría técnica</span>
+        <span class="hero-tag">Capacidad institucional</span>
+        <span class="hero-tag">Lago Atitlán</span>
+      </div>
+    </article>
+
+    <!-- Right: program logo -->
+    <aside class="hero-side">
+      <div class="program-logo-card">
+        <img src="./Fortale.png" alt="Programa de Fortalecimiento Municipal – AALA">
+      </div>
+    </aside>
+
   </div>
 
   <!-- ── KPI GRID ──────────────────────────── -->
