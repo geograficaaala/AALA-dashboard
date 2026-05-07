@@ -1853,7 +1853,7 @@
     <section class="toolbar toolbar-compact">
       <select id="periodSelect" hidden></select>
       <span id="latestPeriodPill" hidden></span>
-      
+      <div class="card filter"><label for="zoneSelect">Zona</label><select id="zoneSelect"></select></div>
     </section>
     <section class="section">
       <div class="section-head"><div><h2>Metas mensuales</h2><p id="kpiSubtitle" class="hidden"></p></div></div>
@@ -2140,7 +2140,6 @@ function buildState(data){
 
 function render(state){
   appState=state;
-  state.selectedZone='__all__';
   bindControls(state);
   renderHero(state);
   renderAnnualGoals(state);
@@ -2181,7 +2180,8 @@ function bindControls(state){
   periodSelect.innerHTML = state.periods.map(p=>`<option value="${periodKey(p)}">${escapeHtml(periodLabel(p))}</option>`).join("");
   if(state.selectedPeriodKey) periodSelect.value = state.selectedPeriodKey;
 
-  if(zoneSelect){ zoneSelect.innerHTML = state.zones.map(z=>`<option value="${escapeHtml(z)}">${escapeHtml(z==="__all__"?"Todas las zonas":z)}</option>`).join(""); zoneSelect.value = state.selectedZone; }
+  zoneSelect.innerHTML = state.zones.map(z=>`<option value="${escapeHtml(z)}">${escapeHtml(z==="__all__"?"Todas las zonas":z)}</option>`).join("");
+  zoneSelect.value = state.selectedZone;
 
   indicatorSelect.innerHTML = state.indicators.map(i=>`<option value="${escapeHtml(i.id)}">${escapeHtml(i.name)}</option>`).join("");
   if(state.selectedIndicatorId) indicatorSelect.value = state.selectedIndicatorId;
@@ -2194,7 +2194,10 @@ function bindControls(state){
     state.selectedPeriodKey = periodSelect.value;
     render(state);
   };
-  if(zoneSelect){ zoneSelect.onchange = ()=>{ state.selectedZone = zoneSelect.value; render(state); }; }
+  zoneSelect.onchange = ()=>{
+    state.selectedZone = zoneSelect.value;
+    render(state);
+  };
   indicatorSelect.onchange = (e)=>{
     e.stopPropagation();
     state.selectedIndicatorId = indicatorSelect.value;
@@ -2335,10 +2338,17 @@ function renderKpis(state){
     const card=document.createElement("article");
     let chipClass="green", chipText="", line1="—", line2="—", progressWidth=0;
 
-    chipClass=semaforoClass(row.monthlyPct);
+    if(state.selectedZone==="__all__"){
+      chipClass=semaforoClass(row.monthlyPct);
       line1=`Meta mensual: <strong>${escapeHtml(formatByUnit(row.meta,row.unit))}</strong>`;
       line2=`Cumplimiento: <strong>${escapeHtml(formatPercent(row.monthlyPct))}</strong>`;
       progressWidth=Math.max(0,Math.min((row.monthlyPct||0)*100,100));
+    }else{
+      chipClass=shareClass(row.sharePct);
+      line1=`Meta mensual: <strong>${escapeHtml(formatByUnit(row.meta,row.unit))}</strong>`;
+      line2=`Participación: <strong>${escapeHtml(formatPercent(row.sharePct))}</strong>`;
+      progressWidth=Math.max(0,Math.min((row.sharePct||0)*100,100));
+    }
 
     const displayValue=formatByUnit(row.valor,row.unit);
     const parts=splitDisplayValue(displayValue);
@@ -2506,7 +2516,7 @@ function renderMaterials(state){
   if(currentData.materialesRaw.length) rows=currentData.materialesRaw.filter(r=>samePeriodLoose(r,period));
   else rows=currentData.materialesResumen.filter(r=>samePeriodLoose(r,period));
 
-  // zone filter removed — always use totals
+  if(state.selectedZone!=="__all__") rows=rows.filter(r=>sameZoneMaterial(r,state.selectedZone));
 
   subtitle.textContent=`${getZoneLabel(state.selectedZone)} · ${periodLabel(period)}.`;
 
@@ -2525,8 +2535,11 @@ function renderTerritory(state){
   const subtitle=document.getElementById("territorySubtitle");
   let rows=getTerritoryRows(state,period);
 
-  // zone filter removed
-else{
+  if(state.selectedZone!=="__all__"){
+    rows=rows.filter(r=>sameZone(r,state.selectedZone));
+    title.textContent="Detalle territorial de la zona";
+    subtitle.textContent=`Territorios de ${getZoneLabel(state.selectedZone)} con actividad reportada.`;
+  }else{
     title.textContent="Detalle territorial del mes";
     subtitle.textContent="Territorios con resultado reportado.";
   }
@@ -5730,7 +5743,26 @@ function renderIncomeMaterialCards(state, ctx){
       prevRenderKpis(state);
       const grid=document.getElementById('kpiGrid');
       if(!grid) return;
-
+      const cards=Array.from(grid.querySelectorAll('.kpi'));
+      const surusicCards=cards.filter(card=>{
+        const txt=(card.querySelector('.kpi-label')?.textContent||'').trim();
+        return txt==='Ventas SURUSIC' || txt==='Unidades productos SURUSIC vendidas' || txt==='Unidades vendidas de SURUSIC';
+      });
+      if(state.selectedZone && state.selectedZone!=='__all__'){
+        surusicCards.forEach(card=>card.remove());
+        if(!grid.querySelector('.surusic-zone-note')){
+          const note=document.createElement('div');
+          note.className='surusic-zone-note';
+          note.innerHTML='<strong>SURUSIC no está desagregado por zona.</strong>Las tarjetas de Ventas SURUSIC y Unidades vendidas de SURUSIC se ocultan cuando se selecciona una zona específica. Seleccione “Todas las zonas” para volver a verlas.';
+          grid.appendChild(note);
+        }
+      }else{
+        grid.querySelector('.surusic-zone-note')?.remove();
+        surusicCards.forEach(card=>{
+          const label=card.querySelector('.kpi-label');
+          if(label && label.textContent.trim()==='Unidades productos SURUSIC vendidas') label.textContent='Unidades vendidas de SURUSIC';
+        });
+      }
     };
   }
 
