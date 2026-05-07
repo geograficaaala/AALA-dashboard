@@ -2272,8 +2272,8 @@ function renderAnnualGoals(state){
 
   const surusicAccum=getSurusicAccumulated(period);
   const surusicStart=grid.children.length;
-  grid.appendChild(makeSurusicGoalCard('Ventas acumuladas SURUSIC', formatByUnit(surusicAccum.ventas,'GTQ'), surusicStart));
-  grid.appendChild(makeSurusicGoalCard('Vidrio SURUSIC vendido', `${formatNumber(surusicAccum.unidades)} unidades`, surusicStart+1));
+  grid.appendChild(makeSurusicGoalCard('Ventas SURUSIC', formatByUnit(surusicAccum.ventas,'GTQ'), surusicStart));
+  grid.appendChild(makeSurusicGoalCard('Unidades productos SURUSIC vendidas', `${formatNumber(surusicAccum.unidades)} unidades`, surusicStart+1));
 
   if(!grid.children.length){
     grid.innerHTML = `<div class="empty">No fue posible calcular las metas anuales del programa.</div>`;
@@ -2379,7 +2379,7 @@ function renderKpis(state){
   const surusicMonth=getSurusicMonthly(period);
   const surusicMonthlyCards=[
     {label:'Ventas SURUSIC', valueText:formatByUnit(surusicMonth.ventas,'GTQ'), metaTitle:'Venta registrada SURUSIC'},
-    {label:'Vidrio SURUSIC vendido', valueText:`${formatNumber(surusicMonth.unidades)} unidades`, metaTitle:'Unidades registradas'}
+    {label:'Unidades productos SURUSIC vendidas', valueText:`${formatNumber(surusicMonth.unidades)} unidades`, metaTitle:'Unidades registradas'}
   ];
   surusicMonthlyCards.forEach((item,offset)=>{
     const displayValue=item.valueText;
@@ -4522,12 +4522,12 @@ document.body.classList.add('view-full');
     const existing=q('#incomeSection');
     if(kpiSection && !existing){
       kpiSection.insertAdjacentHTML('afterend', `
-        <div class="section-divider">Análisis territorial acumulado</div>
         <section class="section" id="incomeSection">
           <div class="section-head"><div><h2>Análisis metas acumuladas por municipio y zonas</h2><p id="incomeSubtitle" class="hidden"></p></div></div>
           <section class="toolbar toolbar-compact income-toolbar">
+            <div class="card filter"><label for="incomeZoneSelect">Zona</label><select id="incomeZoneSelect"></select></div>
             <div class="card filter"><label for="incomeSubjectSelect">Ingreso a revisar</label><select id="incomeSubjectSelect"></select></div>
-            <div class="card filter"><label for="incomeTerritorySelect">Territorio</label><select id="incomeTerritorySelect"></select></div>
+            <div class="card filter" style="display:none"><label for="incomeTerritorySelect">Territorio</label><select id="incomeTerritorySelect"></select></div>
             <div class="card filter"><label for="incomeMaterialSelect">Material</label><select id="incomeMaterialSelect"></select></div>
             <div class="card filter"><label for="incomeMunicipioSelect">Municipio</label><select id="incomeMunicipioSelect"></select></div>
             <div class="card filter"><label for="incomeRecolectorSelect">Recolector</label><select id="incomeRecolectorSelect"></select></div>
@@ -5402,6 +5402,209 @@ function renderIncomeMaterialCards(state, ctx){
   const observer = new MutationObserver(()=>{ run(); });
   const startObs = ()=>{ if(document.body) observer.observe(document.body, {childList:true, subtree:true}); };
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', startObs); else startObs();
+})();
+</script>
+
+
+<script id="final-surusic-income-fix">
+(function(){
+  const SURUSIC_TOTALS={
+    2026:{
+      1:{ventas:1220,unidades:14},
+      2:{ventas:6170,unidades:90},
+      3:{ventas:2130,unidades:29},
+      4:{ventas:11020,unidades:190}
+    }
+  };
+  function getSurusicMonthValue(period){
+    const y=SURUSIC_TOTALS[Number(period?.anio)]||{};
+    return y[Number(period?.mes_num)]||{ventas:0,unidades:0};
+  }
+  function getSurusicAccumValue(period){
+    const y=SURUSIC_TOTALS[Number(period?.anio)]||{};
+    const cut=Number(period?.mes_num)||0;
+    return Object.entries(y).reduce((acc,[m,row])=>{
+      if(Number(m)<=cut){ acc.ventas+=Number(row.ventas)||0; acc.unidades+=Number(row.unidades)||0; }
+      return acc;
+    },{ventas:0,unidades:0});
+  }
+  function addGreenCard(grid,title,valueText,index){
+    const card=document.createElement('article');
+    card.className='goal-card card kpi tone-green surusic-goal-card';
+    card.style.setProperty('--delay',`${index*65}ms`);
+    const parts=typeof splitDisplayValue==='function'?splitDisplayValue(valueText):{number:'',prefix:'',suffix:'',decimals:0,text:valueText};
+    card.innerHTML=`
+      <div class="kpi-top"><div class="kpi-label">${escapeHtml(title)}</div></div>
+      <div class="kpi-figure">
+        <div class="kpi-pillar"><span class="kpi-pillar-track"></span><span class="kpi-pillar-fill" style="height:100%"></span></div>
+        <div class="kpi-reading">
+          <div class="kpi-value" data-value="${parts.number!=null?parts.number:''}" data-prefix="${escapeHtml(parts.prefix||'')}" data-suffix="${escapeHtml(parts.suffix||'')}" data-decimals="${parts.decimals||0}">${escapeHtml(parts.text||valueText)}</div>
+        </div>
+      </div>
+      <div class="progress"><span style="width:100%"></span></div>`;
+    grid.appendChild(card);
+  }
+
+  // Override final annual cards so SURUSIC always appears in annual accumulated section.
+  if(typeof renderAnnualGoals==='function'){
+    renderAnnualGoals=function(state){
+      const period=getSelectedPeriod(state);
+      const grid=document.getElementById('annualGoalsGrid');
+      const subtitle=document.getElementById('annualGoalsSubtitle');
+      if(subtitle) subtitle.textContent='';
+      if(!grid) return;
+      grid.innerHTML='';
+      (ANNUAL_GOAL_IDS||[]).forEach((id,index)=>{
+        const cfg=METRIC_CONFIG[id]; if(!cfg) return;
+        const annualGoal=safeNumber(cfg.meta)*11;
+        const accumulated=sumMetricSeries(state,id,period.anio,'__all__',period.mes_num);
+        const pct=annualGoal ? accumulated/annualGoal : 0;
+        const cls='green';
+        const parts=splitDisplayValue(formatByUnit(accumulated,cfg.unit));
+        const card=document.createElement('article');
+        card.className='goal-card card kpi tone-green';
+        card.style.setProperty('--delay',`${index*65}ms`);
+        card.innerHTML=`
+          <div class="kpi-top"><div class="kpi-label">${escapeHtml(cfg.label)}</div></div>
+          <div class="kpi-figure">
+            <div class="kpi-pillar"><span class="kpi-pillar-track"></span><span class="kpi-pillar-fill" style="height:${Math.max(8,Math.min(pct*100,100))}%"></span></div>
+            <div class="kpi-reading">
+              <div class="kpi-value" data-value="${parts.number!=null?parts.number:''}" data-prefix="${escapeHtml(parts.prefix)}" data-suffix="${escapeHtml(parts.suffix)}" data-decimals="${parts.decimals}">${escapeHtml(parts.text)}</div>
+              <div class="kpi-ref">Meta anual: <strong>${escapeHtml(formatByUnit(annualGoal,cfg.unit))}</strong></div>
+            </div>
+          </div>
+          <div class="chip ${cls}">${escapeHtml(formatPercent(pct))} del objetivo anual</div>
+          <div class="progress"><span style="width:${Math.max(0,Math.min(pct*100,100))}%"></span></div>`;
+        grid.appendChild(card);
+      });
+      const surusic=getSurusicAccumValue(period);
+      addGreenCard(grid,'Ventas SURUSIC',formatByUnit(surusic.ventas,'GTQ'),grid.children.length);
+      addGreenCard(grid,'Unidades productos SURUSIC vendidas',`${formatNumber(surusic.unidades)} unidades`,grid.children.length);
+      Array.from(grid.querySelectorAll('.kpi-value')).forEach(animateMetricValue);
+    };
+  }
+
+  // Keep monthly SURUSIC titles consistent.
+  if(typeof renderKpis==='function'){
+    const previousRenderKpis=renderKpis;
+    renderKpis=function(state){
+      previousRenderKpis(state);
+      document.querySelectorAll('#kpiGrid .kpi-label').forEach(label=>{
+        const txt=(label.textContent||'').trim();
+        if(txt==='Unidades productos SURUSIC vendidas') label.textContent='Unidades productos SURUSIC vendidas';
+        if(txt==='Ventas SURUSIC') label.textContent='Ventas SURUSIC';
+      });
+      document.querySelectorAll('#kpiGrid .kpi').forEach(card=>{
+        card.className=card.className.replace(/tone-(red|yellow|blue|gray|muted|purple)/g,'tone-green');
+        const chip=card.querySelector('.chip');
+        if(chip) chip.className='chip green';
+      });
+    };
+  }
+
+  function cleanOptionText(v){
+    return String(v||'')
+      .replace(/^[A-Z]{1,3}\s*-\s*/,'')
+      .replace(/\s+/g,' ')
+      .trim();
+  }
+  function normalizeOption(v){
+    return cleanOptionText(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+  }
+  function dedupeSelect(select, allLabel){
+    if(!select) return;
+    const selected=select.value;
+    const seen=new Set();
+    const options=[];
+    Array.from(select.options).forEach(opt=>{
+      const raw=opt.value;
+      if(raw==='__all__'){
+        if(!seen.has('__all__')){ opt.textContent=allLabel; options.push(opt.cloneNode(true)); seen.add('__all__'); }
+        return;
+      }
+      const cleaned=cleanOptionText(opt.textContent||raw);
+      const key=normalizeOption(cleaned);
+      if(!key || seen.has(key)) return;
+      seen.add(key);
+      const clone=opt.cloneNode(true);
+      clone.textContent=cleaned;
+      clone.value=raw;
+      options.push(clone);
+    });
+    select.innerHTML='';
+    options.forEach(o=>select.appendChild(o));
+    if(Array.from(select.options).some(o=>o.value===selected)) select.value=selected;
+    else select.value='__all__';
+  }
+  function patchIncomeAnalyzerUI(state){
+    const section=document.getElementById('incomeSection');
+    if(!section) return;
+    const prev=section.previousElementSibling;
+    if(prev && prev.classList && prev.classList.contains('section-divider') && /Análisis territorial acumulado/i.test(prev.textContent||'')) prev.remove();
+
+    const toolbar=section.querySelector('.income-toolbar');
+    if(toolbar && !document.getElementById('incomeZoneSelect')){
+      const box=document.createElement('div');
+      box.className='card filter';
+      box.innerHTML='<label for="incomeZoneSelect">Zona</label><select id="incomeZoneSelect"></select>';
+      toolbar.insertBefore(box, toolbar.firstElementChild);
+    }
+    const territoryBox=document.getElementById('incomeTerritorySelect')?.closest('.filter');
+    if(territoryBox) territoryBox.style.display='none';
+
+    const zoneSelect=document.getElementById('incomeZoneSelect');
+    if(zoneSelect){
+      const labels={__all__:'Todas las zonas',K:'Kaqchiquel',LL:'Las Lagunas',T:'Tzolojya',ZS:'Zona Sur'};
+      zoneSelect.innerHTML=Object.entries(labels).map(([value,label])=>`<option value="${escapeHtml(value)}">${escapeHtml(label)}</option>`).join('');
+      zoneSelect.value=state?.selectedZone||'__all__';
+      zoneSelect.onchange=function(){
+        state.selectedZone=zoneSelect.value;
+        state.incomeTerritory='__all__';
+        state.incomeMunicipio='__all__';
+        const globalZone=document.getElementById('zoneSelect');
+        if(globalZone) globalZone.value=zoneSelect.value;
+        render(state);
+      };
+    }
+    const materialSelect=document.getElementById('incomeMaterialSelect');
+    if(materialSelect){
+      Array.from(materialSelect.options).forEach(opt=>{
+        const t=(opt.textContent||opt.value||'').toLowerCase();
+        if(t.includes('surusic') || t.includes('montecarlo') || t.includes('sky')) opt.remove();
+      });
+      dedupeSelect(materialSelect,'Todos los materiales');
+    }
+    dedupeSelect(document.getElementById('incomeMunicipioSelect'),'Todos los municipios');
+    dedupeSelect(document.getElementById('incomeRecolectorSelect'),'Todos los recolectores');
+
+    // Plain-language labels for the analyzer cards.
+    const topLabels=['Ingreso calculado','Meta del mes','Aporte al total','Acumulado del año','Avance de meta anual','Diferencia para meta del mes'];
+    document.querySelectorAll('#incomeKpiGrid .kpi-label').forEach((el,i)=>{ if(topLabels[i]) el.textContent=topLabels[i]; });
+    const materialLabels=['Material recolectado','PET recolectado','Vidrio recolectado','Material principal','Acumulado de materiales'];
+    document.querySelectorAll('#incomeMaterialKpiGrid .kpi-label').forEach((el,i)=>{ if(materialLabels[i]) el.textContent=materialLabels[i]; });
+    const h3=document.getElementById('incomeTableTitle');
+    if(h3) h3.textContent='Detalle según filtro aplicado';
+    const chartTitle=document.querySelector('#incomeSection .trend-panel-head h3');
+    if(chartTitle) chartTitle.textContent='Comparación del filtro aplicado';
+    const chartSub=document.getElementById('incomeBreakdownSubtitle');
+    if(chartSub) chartSub.textContent='';
+
+    // Force green visual system in this analyzer too.
+    section.querySelectorAll('.kpi').forEach(card=>{ card.className=card.className.replace(/tone-(red|yellow|blue|gray|muted|purple)/g,'tone-green'); });
+    section.querySelectorAll('.chip').forEach(chip=>{ chip.className='chip green'; });
+  }
+
+  if(typeof render==='function'){
+    const previousRender=render;
+    render=function(state){
+      previousRender(state);
+      patchIncomeAnalyzerUI(state);
+    };
+  }
+
+  document.addEventListener('DOMContentLoaded',function(){
+    if(window.appState) patchIncomeAnalyzerUI(window.appState);
+  });
 })();
 </script>
 
