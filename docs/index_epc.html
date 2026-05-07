@@ -603,16 +603,22 @@
 ];
 
     const OP_ANNUAL_META = [
-      { key:'act_tul_mes', label:'Siembra y poda', annualTarget:10, window:'Marzo a diciembre', start:3, end:12 },
-      { key:'act_giras_mes', label:'Giras educativas', annualTarget:24, window:'Marzo a septiembre', start:3, end:9 },
-      { key:'act_ferias_mes', label:'Ferias ambientales', annualTarget:16, window:'Febrero a diciembre', start:2, end:12 },
-      { key:'act_huertos_mes', label:'Huertos', annualTarget:8, window:'Abril a septiembre', start:4, end:9 },
-      { key:'act_murales_mes', label:'Murales', annualTarget:4, window:'Abril a mayo', start:4, end:5 },
-      { key:'act_limpiezas_mes', label:'Jornadas de limpieza', annualTarget:24, window:'Febrero a octubre', start:2, end:10 },
-      { key:'act_reforestacion_mes', label:'Reforestaciones', annualTarget:20, window:'Junio a agosto', start:6, end:8 },
-      { key:'act_monitoreo_reforestadas_mes', label:'Monitoreo', annualTarget:8, window:'Octubre a diciembre', start:10, end:12 },
-      { key:'act_centros_acopio_mes', label:'Centros de acopio escolar', annualTarget:8, window:'Programado', start:null, end:null },
-      { key:'act_proyectos_gestion_mes', label:'Proyectos de Gestión Ambiental Escolar', annualTarget:2, window:'Programado', start:null, end:null }
+      { key:'act_tul_mes', label:'Siembra y poda', annualTarget:10, window:'Marzo a diciembre', start:3, end:12, resultSuffix:'actividades acumuladas' },
+      { key:'act_giras_mes', label:'Giras educativas', annualTarget:24, window:'Marzo a septiembre', start:3, end:9, resultSuffix:'actividades acumuladas' },
+      { key:'act_ferias_mes', label:'Ferias ambientales', annualTarget:16, window:'Febrero a diciembre', start:2, end:12, resultSuffix:'actividades acumuladas' },
+      { key:'act_huertos_mes', label:'Huertos', annualTarget:8, window:'Abril a septiembre', start:4, end:9, resultSuffix:'actividades acumuladas' },
+      { key:'act_murales_mes', label:'Murales', annualTarget:4, window:'Abril a mayo', start:4, end:5, resultSuffix:'actividades acumuladas' },
+      { key:'act_limpiezas_mes', label:'Jornadas de limpieza', annualTarget:24, window:'Febrero a octubre', start:2, end:10, resultSuffix:'actividades acumuladas' },
+      { key:'act_reforestacion_mes', label:'Reforestaciones', annualTarget:20, window:'Junio a agosto', start:6, end:8, resultSuffix:'actividades acumuladas' },
+      { key:'act_monitoreo_reforestadas_mes', label:'Monitoreo', annualTarget:8, window:'Octubre a diciembre', start:10, end:12, resultSuffix:'actividades acumuladas' },
+      { key:'act_centros_acopio_mes', label:'Centros de acopio escolar', annualTarget:8, window:'Programado', start:null, end:null, resultSuffix:'actividades acumuladas' },
+      { key:'act_proyectos_gestion_mes', label:'Proyectos de Gestión Ambiental Escolar', annualTarget:2, window:'Programado', start:null, end:null, resultSuffix:'proyectos acumulados' }
+    ];
+
+    const FIELD_ACTIVITY_CUMULATIVE_META = [
+      { key:'actividades_campo_mes', label:'Actividades de campo totales', annualTarget:128, window:'Marzo a octubre', start:3, end:10, resultSuffix:'actividades acumuladas' },
+      { key:'estudiantes_actividades_campo_mes', label:'Estudiantes en actividades de campo', annualTarget:3514, window:'Marzo a octubre', start:3, end:10, resultSuffix:'estudiantes acumulados' },
+      ...OP_ANNUAL_META
     ];
 
     const PEDAGOGICAL_MODULES = [
@@ -757,7 +763,7 @@
         ? (currentValue > 0 ? 'tone-green' : 'tone-yellow')
         : 'tone-muted';
       const modulesText = `${visits} de ${ACTIVE_VISITS_TOTAL} módulos desarrollados`;
-      const progressText = `${fmtPct(pct)} de avance acumulado al presente mes`;
+      const progressText = '';
 
       return {
         label: cfg.label,
@@ -767,7 +773,7 @@
         chip: status==='active' ? modulesText : badgeText(status, 0),
         valueText: fmtPct(pct),
         reference: currentValue>0 ? `Cobertura al presente mes <strong>${fmt(currentValue)}</strong>` : 'Cobertura al presente mes <strong>sin registro</strong>',
-        line1: progressText,
+        line1: '',
         line2: '',
         progressWidth: pct*100,
         pillarHeight: Math.max(8, pct*100)
@@ -992,7 +998,7 @@
           <p class="kpi-custom-title">Meta anual de ${esc(cfg.label)}: <strong>${fmt(cfg.annualTarget)}</strong></p>
           <div class="kpi-custom-section">
             <div class="kpi-custom-section-title">Resultado alcanzado:</div>
-            <div>${fmt(actual)} actividades acumuladas.</div>
+            <div>${fmt(actual)} ${esc(cfg.resultSuffix || 'actividades acumuladas')}.</div>
           </div>
           <div class="kpi-module-lines">${monthlyLines}</div>
           <p class="kpi-custom-bold">${fmt(pct * 100, 2)}% de avance acumulado anual.</p>
@@ -1003,14 +1009,14 @@
     }
 
     function operationalAnnualKpisMarkup(row){
-      const cards = OP_ANNUAL_META
+      const cards = FIELD_ACTIVITY_CUMULATIVE_META
         .map((cfg, idx) => renderKpiCard(operationalAnnualKpiData(cfg, row), idx))
         .join('');
       return `
         <section class="section present-slide" id="acumulado-operativos">
           <div class="section-head">
             <div>
-              <div class="section-title">Metas anuales de actividades operativas</div>
+              <div class="section-title">KPIs acumulados mensuales de actividades de campo</div>
             </div>
           </div>
           <div class="kpis">${cards || '<div class="empty">No hay actividades operativas acumuladas para este al presente mes.</div>'}</div>
