@@ -1,15 +1,15 @@
 row_number,module_name,fecha,anio,mes_num,mes_nombre,periodo,registro_valido,estado_fila_norm,row_alert_estado_incompleto,municipio,tipo_estudio,estado_estudio,se_finalizo_mes,es_rs_comercial_mercados,cuenta_indicador_estudio,sectores,instituciones_apoyo,observaciones
 1,estudios,2026-01-25,2026,1,Enero,2026-01,True,OK,False,Panajachel,Caracterización de residuos sólidos,Análisis,False,True,False,Comercial,AALA,Estudio de caracterizaci+on de residuos de cooperativa INTERCOP
-2,estudios,2026-02-02,2026,2,Febrero,2026-02,True,OK,False,San Antonio Palopó,Caracterización de aguas residuales,Planificación,True,False,False,Mixto,AALA,
+2,estudios,2026-02-02,2026,2,Febrero,2026-02,True,OK,False,San Antonio Palopó,Caracterización de aguas residuales,Planificación,True,False,False,Mixto,AALA,"Cotización de análisis de laboratorio para caracterización de aguas residuales San Antonio Palopó, con soluciones analiticas y ANALAB"
 3,estudios,2026-02-13,2026,2,Febrero,2026-02,True,OK,False,San Andrés Semetabaj,Caracterización de residuos sólidos,Análisis,False,False,False,Domiciliar,AALA,Corrección de observaciónes del MARN
 4,estudios,2026-02-13,2026,2,Febrero,2026-02,True,OK,False,Santa Lucía Utatlán,Caracterización de residuos sólidos,Análisis,True,False,False,Domiciliar,AALA-AMSCLAE,Corrección de observaciónes del MARN
 5,estudios,2026-02-16,2026,2,Febrero,2026-02,True,OK,False,San Andrés Semetabaj,Caracterización de residuos sólidos,Análisis,False,False,False,Domiciliar,AALA,Corrección de observaciónes del MARN
-6,estudios,2026-02-16,2026,2,Febrero,2026-02,True,OK,False,Santa Lucía Utatlán,Caracterización de residuos sólidos,Finalizado,True,False,False,Domiciliar,AALA-AMSCLAE,
+6,estudios,2026-02-16,2026,2,Febrero,2026-02,True,OK,False,Santa Lucía Utatlán,Caracterización de residuos sólidos,Finalizado,True,False,False,Domiciliar,AALA-AMSCLAE,Entrega de estudio revisado
 7,estudios,2026-03-10,2026,3,Marzo,2026-03,True,OK,False,Panajachel,Caracterización de residuos sólidos,Borrador,True,True,True,Comercial,AALA-INTERCOP,Borrador informe final de estudio de carcaterización de residuos sólidos.
 8,estudios,2026-03-12,2026,3,Marzo,2026-03,True,OK,False,San Antonio Palopó,Caracterización de aguas residuales,Levantamiento,True,False,False,Mixto,AALA- MUNI-EPSUM,Caracterización de descarga de aguas residuales
 9,estudios,2026-03-13,2026,3,Marzo,2026-03,True,OK,False,San Andrés Semetabaj,Caracterización de residuos sólidos,Finalizado,True,False,False,Domiciliar,AALA,"Se finalizo la correccion del estudio y entrega a UGAM, San Andrés Semetabaj"
 10,estudios,2026-04-07,2026,4,Abril,2026-04,True,OK,False,Sololá,Caracterización de residuos sólidos,Finalizado,True,False,False,Domiciliar,AMSCLAE,"Revisión y entrega en conjunto el estudio de caracterizacion de aldes Argueta, Sololá"
-11,estudios,2026-04-22,2026,4,Abril,2026-04,True,OK,False,San Antonio Palopó,Caracterización de aguas residuales,Análisis,True,False,False,Mixto,,Se análiso los resultados del estudio de descarga de aguas residuales del municipio.
+11,estudios,2026-04-22,2026,4,Abril,2026-04,True,OK,False,San Antonio Palopó,Caracterización de aguas residuales,Análisis,True,False,False,Mixto,,Se análizo los resultados del estudio de descarga de aguas residuales del municipio.
 12,estudios,2026-03-31,2026,3,Marzo,2026-03,True,OK,False,Panajachel,Caracterización de residuos sólidos,Finalizado,True,True,True,Comercial,AALA-INTERCOP,Entrega informe técnico estudio de caracterización de residuos y desechos solidos agencias INTERCOP
 13,estudios,,,,,,False,,False,,,,False,False,False,,,
 14,estudios,,,,,,False,,False,,,,False,False,False,,,

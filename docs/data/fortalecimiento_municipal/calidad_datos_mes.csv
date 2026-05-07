@@ -1,5 +1,5 @@
 programa_id,periodo,anio,mes_num,mes_nombre,modulo,filas_con_fecha,filas_validas,filas_estado_incompleto,filas_alerta_municipio_missing
-fortalecimiento_municipal,2026-01,2026,1,Enero,capacitaciones,1,1,1,1
+fortalecimiento_municipal,2026-01,2026,1,Enero,capacitaciones,1,1,0,0
 fortalecimiento_municipal,2026-01,2026,1,Enero,asistencias,0,0,0,0
 fortalecimiento_municipal,2026-01,2026,1,Enero,estudios,1,1,0,0
 fortalecimiento_municipal,2026-01,2026,1,Enero,pirdes,1,1,0,0
@@ -17,5 +17,5 @@ fortalecimiento_municipal,2026-03,2026,3,Marzo,reuniones,9,9,0,0
 fortalecimiento_municipal,2026-04,2026,4,Abril,capacitaciones,2,2,0,0
 fortalecimiento_municipal,2026-04,2026,4,Abril,asistencias,2,2,0,0
 fortalecimiento_municipal,2026-04,2026,4,Abril,estudios,2,2,0,0
-fortalecimiento_municipal,2026-04,2026,4,Abril,pirdes,1,1,0,0
+fortalecimiento_municipal,2026-04,2026,4,Abril,pirdes,3,3,2,0
 fortalecimiento_municipal,2026-04,2026,4,Abril,reuniones,3,3,0,0
