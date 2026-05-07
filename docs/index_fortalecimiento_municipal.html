@@ -4,257 +4,1796 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Fortalecimiento Municipal · AALA</title>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Manrope:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 <style>
-:root{--bg:#f7faf7;--surface:#f5fbfb;--card:#fff;--text:#17314f;--text-2:#36516a;--muted:#6b7f90;--line:#dfe9e5;--line-soft:#e8f0ed;--blue:#163a5f;--blue-mid:#1c6084;--blue-light:#4ca5bf;--blue-soft:#dceef4;--blue-pale:#eef8fb;--green:#2e6a57;--green-mid:#3f9475;--green-soft:#dcefe7;--green-pale:#eef8f3;--gold:#9a6c16;--gold-soft:#fff3cf;--red:#9c2f2f;--red-soft:#f9e2e0;--shadow-sm:0 4px 18px rgba(18,42,66,.06);--shadow:0 16px 42px rgba(18,42,66,.10);--shadow-lg:0 28px 80px rgba(18,42,66,.22);--radius:24px;--radius-sm:16px;--radius-xs:10px;--font-head:'Lora',Georgia,serif;--font-body:'Sora',system-ui,sans-serif;--font-mono:'JetBrains Mono',monospace}
-*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:var(--font-body);background:radial-gradient(circle at 0% 0%,rgba(76,165,191,.12) 0%,transparent 28%),radial-gradient(circle at 100% 100%,rgba(46,106,87,.08) 0%,transparent 24%),linear-gradient(180deg,#f7faf7 0%,#f3f7f3 100%) fixed;color:var(--text);min-height:100vh;line-height:1.6;-webkit-font-smoothing:antialiased}body::before{content:'';position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 45% at 10% 20%,rgba(28,96,132,.08) 0%,transparent 60%),radial-gradient(ellipse 55% 40% at 80% 10%,rgba(76,165,191,.08) 0%,transparent 60%),radial-gradient(ellipse 70% 50% at 50% 100%,rgba(46,106,87,.06) 0%,transparent 60%);z-index:0}.header{position:sticky;top:0;z-index:400;min-height:82px;display:flex;align-items:center;gap:18px;padding:12px 28px;border-bottom:1px solid rgba(255,255,255,.10);background:linear-gradient(135deg,rgba(18,62,104,.96) 0%,rgba(23,84,129,.95) 48%,rgba(31,116,145,.93) 100%);backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);box-shadow:0 16px 40px rgba(13,39,67,.18);animation:fadeDown .45s ease both}.header-brand{display:flex;align-items:center;gap:14px;text-decoration:none;min-width:0}.header-logo-img{height:42px;width:auto;display:block;flex-shrink:0;border-radius:9px;background:rgba(255,255,255,.92);padding:4px 6px;box-shadow:0 2px 8px rgba(0,0,0,.18)}.brand-text{display:grid;gap:1px;min-width:0}.brand-kicker{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.74);font-weight:800;line-height:1.1}.brand-title{font-size:1rem;font-weight:700;color:#fff;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.header-stack{margin-left:auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:flex-end}.nav-tabs{display:flex;gap:6px;padding:5px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);overflow-x:auto}.nav-tab{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border-radius:999px;padding:10px 16px;border:none;font:700 .79rem/1 var(--font-body);color:rgba(255,255,255,.78);background:transparent;white-space:nowrap;transition:all .2s ease}.nav-tab:hover{background:rgba(255,255,255,.10);color:#fff}.nav-tab.active{background:rgba(255,255,255,.92);color:#163a5f;box-shadow:0 8px 18px rgba(6,24,42,.20)}.header-utility{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}.back{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:rgba(255,255,255,.92);border:1px solid rgba(255,255,255,.55);text-decoration:none;color:var(--blue);font-weight:700;font-size:.82rem;transition:all .2s ease}.back:hover{transform:translateY(-1px);background:#fff}.back-arrow{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--blue-soft);color:var(--blue);font-size:.75rem;font-weight:800;flex-shrink:0}.view-switcher,.month-pills{display:inline-flex;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:4px;gap:3px}.view-btn,.month-pill{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 14px;border-radius:999px;border:none;background:transparent;font-family:var(--font-body);font-size:.78rem;font-weight:800;color:rgba(255,255,255,.78);cursor:pointer;transition:all .2s ease;text-decoration:none;white-space:nowrap}.view-btn:hover,.month-pill:hover:not(:disabled){color:#fff;background:rgba(255,255,255,.13)}.view-btn.active,.month-pill.active{background:rgba(255,255,255,.92);color:#163a5f;box-shadow:0 8px 18px rgba(6,24,42,.20)}.month-pill:disabled{opacity:.34;cursor:default}.present-btn{background:linear-gradient(135deg,var(--green-mid),var(--green));color:#fff;border:1px solid rgba(255,255,255,.2);box-shadow:0 8px 24px rgba(46,106,87,.25)}.period-rack{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.period-rack-label{font-size:.66rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.66)}.wrap{width:min(1700px,calc(100vw - 24px));max-width:none;margin:0 auto;padding:26px 0 44px;position:relative;z-index:1}.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-sm);transition:transform .3s cubic-bezier(.25,.46,.45,.94),box-shadow .3s ease,border-color .2s}.card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#c9dfd7}.exec-only{display:none}.full-only{display:block}body.view-exec .exec-only{display:block}body.view-exec .full-only{display:none}body.view-full .exec-only{display:none}body.view-full .full-only{display:block}.hero{display:grid;grid-template-columns:minmax(0,1.48fr) minmax(300px,.72fr);gap:22px;margin-bottom:24px}.hero-main{padding:34px 36px 30px;background:linear-gradient(135deg,#fff 0%,#eef8f3 42%,#dff2f7 100%);position:relative;overflow:hidden}.hero-main::before{content:'';position:absolute;right:-100px;top:-120px;width:390px;height:390px;border-radius:50%;background:radial-gradient(circle,rgba(83,188,193,.18) 0%,rgba(31,111,141,.08) 46%,transparent 72%);pointer-events:none}.hero-shell{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:22px;align-items:center;position:relative;z-index:1}.hero-eyebrow,.section-kicker{display:inline-flex;align-items:center;gap:8px;font-size:.68rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-mid);margin-bottom:10px}.hero-eyebrow::before,.section-kicker::before{content:'';display:inline-block;width:18px;height:2px;background:linear-gradient(90deg,var(--green),var(--blue-mid));border-radius:2px}.hero-main h1{font-family:var(--font-head);font-size:clamp(2.1rem,3.2vw,3rem);font-weight:600;line-height:1.06;letter-spacing:-.03em;margin-bottom:12px;color:var(--text)}.hero-lead{font-size:.96rem;color:var(--text-2);line-height:1.8;max-width:73ch;text-wrap:pretty}.hero-tag-row{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 22px}.hero-tag,.stat-chip{display:inline-flex;align-items:center;gap:7px;padding:8px 13px;border-radius:999px;background:rgba(255,255,255,.78);border:1px solid var(--line);color:var(--text-2);font-size:.78rem;font-weight:800;box-shadow:var(--shadow-sm)}.hero-tag::before,.stat-chip::before{content:'';width:7px;height:7px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--blue-mid));display:inline-block;flex-shrink:0}.program-logo{display:flex;align-items:center;justify-content:center;min-width:220px;max-width:250px}.program-logo img{width:100%;height:auto;max-height:220px;object-fit:contain;filter:drop-shadow(0 10px 22px rgba(6,24,42,.12))}.context-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.context-card{min-height:94px;padding:14px 16px;border-radius:var(--radius-sm);background:rgba(255,255,255,.75);border:1px solid var(--line);display:flex;flex-direction:column;justify-content:space-between;transition:transform .25s,box-shadow .25s}.context-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-sm)}.context-card small{display:block;color:var(--muted);font-size:.66rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em;line-height:1.45}.context-card strong{font-family:var(--font-mono);font-size:1.05rem;font-weight:500;color:var(--text);line-height:1.15}.hero-side{padding:24px;background:linear-gradient(180deg,#f1fbf7 0%,#dff2f6 100%)}.side-label{font-size:.68rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}.status-badge,.estado-global{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:999px;font-weight:800;font-size:.84rem;border:1px solid transparent}.status-badge::before,.estado-global .dot{content:'';width:7px;height:7px;border-radius:50%;display:inline-block;animation:pulseDot 2.4s ease-in-out infinite}.green{background:var(--green-soft);color:var(--green);border-color:rgba(46,106,87,.16)}.green::before,.green .dot{background:var(--green)}.yellow{background:var(--gold-soft);color:var(--gold);border-color:rgba(154,108,22,.18)}.yellow::before,.yellow .dot{background:var(--gold)}.red{background:var(--red-soft);color:var(--red);border-color:rgba(156,47,47,.16)}.red::before,.red .dot{background:var(--red)}.blue{background:var(--blue-soft);color:var(--blue);border-color:rgba(28,96,132,.14)}.muted-state{background:var(--surface);color:var(--muted);border-color:var(--line)}.muted-state::before,.muted-state .dot{background:var(--muted)}.mini-list{display:grid;gap:8px;margin-top:14px}.mini-item{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 12px;border-radius:var(--radius-sm);background:rgba(255,255,255,.65);border:1px solid var(--line)}.mini-item span{font-size:.82rem;color:var(--muted)}.mini-item strong{font-family:var(--font-mono);font-size:.88rem;color:var(--blue-mid)}.section{margin-bottom:24px}.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--line-soft)}.section-head h2{font-family:var(--font-head);font-size:1.22rem;font-weight:600;letter-spacing:-.01em}.section-head p{margin-top:3px;color:var(--muted);font-size:.84rem}.section-divider{display:flex;align-items:center;gap:13px;margin:28px 0 16px;color:var(--blue);font-size:.67rem;font-weight:900;text-transform:uppercase;letter-spacing:.1em}.section-divider::before,.section-divider::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent)}.panel{padding:20px 22px}.panel h3{font-family:var(--font-head);font-size:1.04rem;font-weight:600;color:var(--text);margin-bottom:3px}.panel p.sub{margin:0 0 14px;color:var(--muted);font-size:.82rem;line-height:1.5}.toolbar{display:grid;grid-template-columns:minmax(220px,.8fr) minmax(220px,.75fr) minmax(220px,.75fr) minmax(260px,1fr);gap:12px;margin-bottom:20px}.filter{padding:12px 14px}.filter label{display:block;font-size:.67rem;color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:.09em;margin-bottom:7px}.filter select,.filter input,.filter .pill{width:100%;padding:9px 12px;border:1.5px solid var(--line);border-radius:var(--radius-xs);background:var(--surface);font-size:.86rem;font-family:var(--font-body);color:var(--text);outline:none}.filter select:focus,.filter input:focus{border-color:var(--blue-mid);box-shadow:0 0 0 3px rgba(43,135,166,.12)}.pill{display:flex;align-items:center;font-weight:800;background:var(--blue-pale);color:var(--blue);font-family:var(--font-mono)}.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.kpis.specific{grid-template-columns:repeat(6,minmax(0,1fr))}.kpi{padding:18px 16px 16px;position:relative;overflow:hidden;border-top:3px solid var(--line-soft);transition:box-shadow .2s,transform .25s,border-color .2s}.kpi:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(18,42,66,.13);border-top-color:var(--green)}.kpi-top{display:flex;justify-content:space-between;gap:8px;align-items:start;margin-bottom:10px}.kpi-label{font-weight:900;font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);line-height:1.35}.kpi-value{font-family:var(--font-mono);font-size:1.36rem;font-weight:500;margin-bottom:2px;color:var(--text);line-height:1;letter-spacing:-.02em}.kpi-meta{color:var(--muted);font-size:.78rem;line-height:1.55}.chip{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:999px;font-weight:900;font-size:.64rem;white-space:nowrap;letter-spacing:.04em;text-transform:uppercase;border:1px solid transparent}.chip.green{background:var(--green-soft);color:var(--green)}.chip.yellow{background:var(--gold-soft);color:var(--gold)}.chip.red{background:var(--red-soft);color:var(--red)}.chip.blue{background:var(--blue-soft);color:var(--blue)}.chip.muted{background:var(--surface);color:var(--muted);border-color:var(--line)}.progress{height:5px;border-radius:999px;background:var(--line-soft);overflow:hidden;margin-top:12px}.progress>span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--green),var(--blue-mid));transition:width .7s cubic-bezier(.4,0,.2,1)}.process-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-bottom:18px}.process-card{padding:16px;border-left:4px solid var(--line);cursor:pointer}.process-card.active{border-left-color:var(--blue-mid);background:linear-gradient(180deg,#fff 0%,var(--blue-pale) 100%)}.process-card small{display:block;color:var(--muted);font-size:.65rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}.process-card strong{font-family:var(--font-mono);font-size:1.08rem}.process-card p{font-size:.78rem;color:var(--muted);margin-top:4px}.table-card{overflow:hidden}.table-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;padding:18px 20px;border-bottom:1px solid var(--line-soft);background:linear-gradient(180deg,#fff 0%,#f9fcfb 100%)}.table-head h3{font-family:var(--font-head);font-size:1.08rem;font-weight:600}.table-head p{font-size:.82rem;color:var(--muted);margin-top:2px}.table-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.tbl-wrap{overflow:auto;max-height:680px}table{width:100%;border-collapse:collapse;min-width:980px;background:var(--card)}th,td{padding:10px 12px;border-bottom:1px solid var(--line-soft);text-align:left;font-size:.80rem;vertical-align:top}th{background:var(--surface);color:var(--blue-mid);font-size:.66rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em;position:sticky;top:0;z-index:2;border-bottom:2px solid var(--line)}tr:hover td{background:rgba(237,248,251,.85)}td:first-child{font-weight:700;color:var(--text-2)}td.mono{font-family:var(--font-mono);font-size:.78rem;color:var(--text-2)}.stage-pill{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border-radius:999px;font-size:.70rem;font-weight:900;text-transform:uppercase;letter-spacing:.05em}.stage-pill::before{content:'';width:7px;height:7px;border-radius:50%;display:block}.stage-confirmado{background:var(--green-soft);color:var(--green)}.stage-confirmado::before{background:var(--green)}.stage-proceso{background:var(--gold-soft);color:var(--gold)}.stage-proceso::before{background:var(--gold)}.stage-pendiente{background:var(--blue-soft);color:var(--blue)}.stage-pendiente::before{background:var(--blue)}.stage-no{background:var(--red-soft);color:var(--red)}.stage-no::before{background:var(--red)}.stage-neutro{background:var(--surface);color:var(--muted);border:1px solid var(--line)}.stage-neutro::before{background:var(--muted)}.note-text{max-width:420px;white-space:normal;color:var(--text-2);line-height:1.55}.empty{padding:24px;border:1.5px dashed var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--muted);text-align:center;font-size:.88rem}.diagnostic{padding:26px 32px;line-height:1.82;font-size:.84rem;border-left:4px solid var(--green);background:linear-gradient(to right,var(--blue-pale) 0%,var(--card) 58%)}.diagnostic h3{font-family:var(--font-head);font-size:1.08rem;font-weight:600;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--line-soft)}.diagnostic p{color:var(--text-2);margin-bottom:10px}.diagnostic strong{color:var(--blue)}.diag-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}.diag-block{padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.72);border:1px solid var(--line-soft)}.diag-block strong{display:block;font-size:.72rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}.diag-block p{font-size:.80rem;margin:0;color:var(--muted)}.exec-toolbar{display:grid;grid-template-columns:1fr 1fr auto;gap:13px;align-items:end;margin-bottom:20px}.exec-hero-row{display:grid;grid-template-columns:300px 1fr;gap:16px;margin-bottom:16px}.exec-status-card{padding:24px 22px;background:linear-gradient(150deg,var(--blue) 0%,var(--blue-mid) 60%,var(--blue-light) 100%);color:#fff;border-radius:var(--radius);box-shadow:0 8px 28px rgba(26,86,168,.30);display:flex;flex-direction:column;justify-content:space-between}.exec-status-card .es-label{font-size:.67rem;font-weight:900;text-transform:uppercase;letter-spacing:.12em;opacity:.75;margin-bottom:5px}.exec-status-card .es-title{font-family:var(--font-head);font-size:1.3rem;font-weight:600;line-height:1.2;margin-bottom:13px}.exec-period-info{font-size:.79rem;opacity:.7}.exec-kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}.exec-kpi{padding:18px 16px 16px;border-radius:22px;background:var(--card);border:1.5px solid var(--line-soft);box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:8px;transition:transform .2s,box-shadow .2s,border-color .2s;position:relative;overflow:hidden}.exec-kpi::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--green),var(--blue-mid))}.exec-kpi:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:#cfe0d9}.exec-kpi-label{font-size:.66rem;font-weight:900;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}.exec-kpi-value{font-family:var(--font-mono);font-size:1.28rem;font-weight:500;color:var(--text);line-height:1;letter-spacing:-.02em}.exec-kpi-bar{height:5px;border-radius:99px;background:var(--line-soft);overflow:hidden;margin-top:4px}.exec-kpi-bar span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--green),var(--blue-mid));transition:width .7s cubic-bezier(.4,0,.2,1)}.site-footer{position:relative;z-index:1;margin-top:52px;padding:34px 24px;background:linear-gradient(135deg,rgba(18,62,104,.96),rgba(31,116,145,.93));color:rgba(255,255,255,.86)}.footer-wrap{width:min(1700px,calc(100vw - 24px));margin:0 auto;display:grid;grid-template-columns:minmax(0,1.35fr) repeat(2,minmax(220px,.7fr)) auto;gap:28px;align-items:start}.footer-title{font-family:var(--font-head);font-size:1.2rem;color:#fff;margin-bottom:8px}.footer-copy{font-size:.84rem;line-height:1.75;color:rgba(255,255,255,.72);max-width:720px}.footer-col h3{font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.70);margin-bottom:10px}.footer-links{display:grid;gap:8px}.footer-links a{display:flex;align-items:center;gap:9px;color:#fff;text-decoration:none;font-size:.86rem;font-weight:700;opacity:.85;transition:opacity .2s}.footer-links a:hover{opacity:1}.social-icon{width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.12);color:#fff}.social-icon svg{width:16px;height:16px}.footer-mark{margin-left:auto;align-self:end;justify-self:end}.footer-mark img{width:148px;max-width:100%;height:auto;opacity:.96}.modal-overlay,.presentation-overlay{position:fixed;inset:0;z-index:2000;background:rgba(8,18,40,.72);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .24s}.modal-overlay.open,.presentation-overlay.open{opacity:1;pointer-events:auto}.modal-box{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow-lg);width:100%;max-width:900px;max-height:90vh;display:flex;flex-direction:column}.modal-head{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;border-bottom:1px solid var(--line-soft)}.modal-head h2{font-family:var(--font-head);font-size:1.12rem}.modal-close{width:34px;height:34px;border-radius:50%;border:none;background:var(--surface);color:var(--muted);font-size:1.3rem;cursor:pointer}.modal-body{overflow:auto;padding:24px}.presentation-overlay{align-items:stretch;justify-content:stretch;flex-direction:column;padding:0;background:linear-gradient(160deg,rgba(10,22,42,.96) 0%,rgba(18,36,60,.97) 50%,rgba(8,24,40,.95) 100%)}body.presentation-open .wrap,body.presentation-open .site-footer,body.presentation-open .header{filter:blur(10px) saturate(.82);pointer-events:none;user-select:none}.presentation-chrome{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 28px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.1);flex-shrink:0}.presentation-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.presentation-meta span{display:inline-flex;align-items:center;gap:6px;padding:6px 13px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);font-size:.78rem;font-weight:700;color:rgba(255,255,255,.85);letter-spacing:.02em}.presentation-actions{display:flex;align-items:center;gap:7px}.presentation-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;border-radius:999px;padding:9px 18px;background:rgba(255,255,255,.1);color:#fff;font-family:var(--font-body);font-size:.82rem;font-weight:700;cursor:pointer;border:1px solid rgba(255,255,255,.14)}.presentation-btn.primary{background:linear-gradient(135deg,var(--green-mid),var(--green));border-color:transparent}.presentation-stage-wrap{flex:1;min-height:0;display:flex;flex-direction:column;padding:20px 32px 0;overflow:hidden}.presentation-stage{flex:1;min-height:0;overflow:hidden;border-radius:24px 24px 0 0;box-shadow:0 -8px 60px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.08)}.presentation-track{display:flex;height:100%;transition:transform .48s cubic-bezier(.22,.61,.36,1)}.presentation-slide{flex:0 0 100%;height:100%;background:linear-gradient(148deg,#f5fafd 0%,#ebf5fc 40%,#dfedf8 100%);color:var(--text);padding:36px 46px 30px;position:relative;overflow:hidden}.presentation-slide-inner{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;gap:20px}.presentation-kicker{display:inline-flex;align-items:center;gap:9px;padding:7px 14px;border-radius:999px;background:rgba(255,255,255,.75);border:1px solid var(--line-soft);font-size:.71rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase;color:var(--blue-mid);width:fit-content}.presentation-title-row{display:flex;justify-content:space-between;gap:24px;align-items:flex-start}.presentation-title-row h2{font-family:var(--font-head);font-size:clamp(1.8rem,3.2vw,2.8rem);line-height:1.04;letter-spacing:-.03em;margin:0 0 8px;max-width:720px}.presentation-title-row p{font-size:.97rem;line-height:1.72;color:var(--text-2);max-width:760px}.presentation-brand-badge{text-align:right}.presentation-brand-badge img{width:150px;max-width:100%;filter:drop-shadow(0 8px 18px rgba(10,35,80,.12))}.presentation-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;overflow:auto}.presentation-card{background:rgba(255,255,255,.82);border:1.5px solid rgba(200,220,240,.9);border-radius:22px;padding:18px 20px 16px;box-shadow:0 8px 28px rgba(23,50,58,.09)}.presentation-card small{display:block;font-size:.69rem;font-weight:900;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}.presentation-card strong{display:block;font-size:1.42rem;line-height:1.1;font-family:var(--font-mono);font-weight:500;color:var(--text)}.presentation-card p{margin-top:8px;color:var(--text-2);font-size:.83rem;line-height:1.58}.presentation-footer-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 32px 16px;flex-shrink:0}.presentation-dots{display:flex;gap:7px;align-items:center}.presentation-dot{width:9px;height:9px;border-radius:50%;border:none;background:rgba(255,255,255,.28);cursor:pointer;transition:transform .2s ease,background .2s ease}.presentation-dot.active{background:#fff;transform:scale(1.2)}.presentation-counter{font-family:var(--font-mono);font-size:.82rem;background:rgba(255,255,255,.1);padding:6px 13px;border-radius:999px;border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.8)}@keyframes fadeDown{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:none}}@keyframes pulseDot{0%,100%{opacity:1}50%{opacity:.42}}@media(max-width:1200px){.hero,.exec-hero-row{grid-template-columns:1fr}.context-grid,.kpis,.kpis.specific,.process-grid,.exec-kpi-grid{grid-template-columns:repeat(2,1fr)}.toolbar{grid-template-columns:repeat(2,1fr)}.program-logo{max-width:200px}.footer-wrap{grid-template-columns:1fr 1fr}.footer-mark{grid-column:1/-1;justify-self:end}}@media(max-width:740px){.header{align-items:flex-start;flex-direction:column}.header-stack{margin-left:0;justify-content:flex-start}.nav-tabs,.header-utility{width:100%;justify-content:flex-start}.view-switcher,.month-pills{overflow:auto;max-width:100%}.wrap{width:min(100%,calc(100vw - 18px));padding-top:18px}.hero-main{padding:24px 20px}.hero-shell{grid-template-columns:1fr}.context-grid,.kpis,.kpis.specific,.process-grid,.toolbar,.exec-kpi-grid,.diag-grid,.presentation-grid{grid-template-columns:1fr}.footer-wrap{grid-template-columns:1fr}.footer-mark{justify-self:start}.table-head{flex-direction:column}.presentation-title-row{display:grid}.presentation-brand-badge{text-align:left}}
+/* ─── TOKENS ──────────────────────────────────────────────────────────── */
+:root{
+  --ink:       #0B1D35;
+  --ink-2:     #1E3A5F;
+  --ink-3:     #3D5A80;
+  --muted:     #6B84A0;
+  --hairline:  #DDE6EF;
+  --surface:   #F3F7FB;
+  --card:      #FFFFFF;
+  --emerald:   #047857;
+  --emerald-2: #059669;
+  --emerald-bg:#ECFDF5;
+  --emerald-bd:#A7F3D0;
+  --teal:      #0369A1;
+  --teal-bg:   #EFF6FF;
+  --teal-bd:   #BFDBFE;
+  --amber:     #B45309;
+  --amber-bg:  #FFFBEB;
+  --amber-bd:  #FDE68A;
+  --red:       #B91C1C;
+  --red-bg:    #FEF2F2;
+  --red-bd:    #FECACA;
+  --header-bg: #0B1D35;
+  --header-bd: rgba(255,255,255,.08);
+  --r:         16px;
+  --r-sm:      10px;
+  --r-xs:      7px;
+  --sh-sm:     0 1px 3px rgba(11,29,53,.06), 0 2px 8px rgba(11,29,53,.04);
+  --sh:        0 4px 16px rgba(11,29,53,.08), 0 1px 4px rgba(11,29,53,.04);
+  --sh-lg:     0 16px 48px rgba(11,29,53,.14), 0 4px 12px rgba(11,29,53,.06);
+  --font-head: 'Fraunces', Georgia, serif;
+  --font-body: 'Manrope', system-ui, sans-serif;
+  --font-mono: 'Fira Code', 'JetBrains Mono', monospace;
+  --timing:    cubic-bezier(.22,.61,.36,1);
+}
+
+/* ─── RESET ───────────────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:15px}
+body{
+  font-family:var(--font-body);
+  background:var(--surface);
+  color:var(--ink);
+  min-height:100vh;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ─── HEADER ──────────────────────────────────────────────────────────── */
+.header{
+  position:sticky;top:0;z-index:600;
+  background:var(--header-bg);
+  border-bottom:1px solid var(--header-bd);
+  box-shadow:0 2px 24px rgba(0,0,0,.28);
+  animation:slideDown .4s var(--timing) both;
+}
+.header-inner{
+  max-width:1720px;margin:0 auto;
+  display:flex;align-items:center;gap:16px;
+  padding:0 24px;height:60px;
+}
+.header-brand{
+  display:flex;align-items:center;gap:12px;
+  text-decoration:none;flex-shrink:0;
+}
+.header-logo{
+  height:34px;width:auto;display:block;
+  border-radius:6px;background:rgba(255,255,255,.9);
+  padding:3px 5px;
+  box-shadow:0 2px 8px rgba(0,0,0,.25);
+}
+.brand-text{display:grid;gap:0;line-height:1.1}
+.brand-sup{
+  font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);font-weight:700;
+}
+.brand-name{
+  font-size:.9rem;font-weight:700;color:#fff;
+  white-space:nowrap;
+}
+.header-divider{
+  width:1px;height:28px;
+  background:rgba(255,255,255,.14);
+  flex-shrink:0;
+}
+.header-program{
+  font-size:.82rem;font-weight:600;
+  color:rgba(255,255,255,.72);
+  white-space:nowrap;
+}
+.header-right{
+  margin-left:auto;
+  display:flex;align-items:center;gap:10px;flex-wrap:nowrap;
+}
+/* Pill groups in header */
+.pill-group{
+  display:flex;gap:2px;padding:3px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:999px;
+}
+.pill-btn{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:6px 13px;border-radius:999px;
+  border:none;font-family:var(--font-body);
+  font-size:.73rem;font-weight:700;
+  color:rgba(255,255,255,.65);
+  background:transparent;cursor:pointer;
+  white-space:nowrap;transition:all .18s;
+}
+.pill-btn:hover{color:#fff;background:rgba(255,255,255,.09)}
+.pill-btn.active{
+  background:rgba(255,255,255,.92);
+  color:var(--ink);
+  box-shadow:0 2px 8px rgba(0,0,0,.22);
+}
+.pill-btn.accent{
+  background:linear-gradient(135deg,#065f46,#047857);
+  color:#fff;border:none;
+}
+.pill-btn.accent:hover{filter:brightness(1.1)}
+/* Period rack */
+.period-rack{
+  display:flex;align-items:center;gap:8px;
+}
+.period-label{
+  font-size:.64rem;letter-spacing:.11em;text-transform:uppercase;
+  color:rgba(255,255,255,.45);font-weight:700;
+}
+.month-pills{
+  display:flex;gap:2px;padding:3px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:999px;
+  max-width:340px;overflow-x:auto;
+  scrollbar-width:none;
+}
+.month-pills::-webkit-scrollbar{display:none}
+.month-pill{
+  display:inline-flex;align-items:center;
+  padding:5px 11px;border-radius:999px;
+  border:none;font-family:var(--font-body);
+  font-size:.71rem;font-weight:700;
+  color:rgba(255,255,255,.65);
+  background:transparent;cursor:pointer;
+  white-space:nowrap;transition:all .18s;
+}
+.month-pill:hover:not(:disabled){color:#fff;background:rgba(255,255,255,.09)}
+.month-pill.active{
+  background:rgba(255,255,255,.92);
+  color:var(--ink);
+  box-shadow:0 2px 8px rgba(0,0,0,.22);
+}
+.month-pill:disabled{opacity:.3;cursor:default}
+/* Back link */
+.back-link{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 12px;border-radius:999px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.12);
+  text-decoration:none;
+  font-size:.73rem;font-weight:700;
+  color:rgba(255,255,255,.75);
+  transition:all .18s;
+}
+.back-link:hover{background:rgba(255,255,255,.15);color:#fff}
+.back-link svg{flex-shrink:0;opacity:.7}
+
+/* ─── NAV BAR ─────────────────────────────────────────────────────────── */
+.nav-bar{
+  background:var(--card);
+  border-bottom:1px solid var(--hairline);
+  position:sticky;top:60px;z-index:500;
+  box-shadow:0 1px 6px rgba(11,29,53,.04);
+}
+.nav-bar-inner{
+  max-width:1720px;margin:0 auto;
+  display:flex;align-items:center;gap:0;
+  padding:0 24px;
+  overflow-x:auto;scrollbar-width:none;
+}
+.nav-bar-inner::-webkit-scrollbar{display:none}
+.nav-tab{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:0 20px;height:44px;
+  border:none;background:transparent;
+  font-family:var(--font-body);font-size:.78rem;font-weight:700;
+  color:var(--muted);cursor:pointer;
+  border-bottom:2px solid transparent;
+  transition:all .18s;white-space:nowrap;
+  text-decoration:none;
+}
+.nav-tab:hover{color:var(--ink-2)}
+.nav-tab.active{
+  color:var(--emerald);
+  border-bottom-color:var(--emerald);
+}
+.nav-tab-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:currentColor;opacity:.5;
+}
+
+/* ─── LAYOUT ──────────────────────────────────────────────────────────── */
+.page{max-width:1720px;margin:0 auto;padding:28px 24px 60px}
+
+/* ─── HERO STRIP ──────────────────────────────────────────────────────── */
+.hero-strip{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:20px;align-items:start;
+  margin-bottom:24px;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.66rem;font-weight:800;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--emerald);
+  margin-bottom:8px;
+}
+.hero-eyebrow::before{
+  content:'';display:block;
+  width:20px;height:2px;
+  background:var(--emerald);border-radius:2px;
+}
+.hero-strip h1{
+  font-family:var(--font-head);
+  font-size:clamp(1.7rem,2.8vw,2.6rem);
+  font-weight:600;line-height:1.08;
+  letter-spacing:-.03em;
+  color:var(--ink);margin-bottom:10px;
+}
+.hero-strip p{
+  font-size:.88rem;line-height:1.75;
+  color:var(--muted);max-width:700px;
+}
+.hero-logo img{
+  width:130px;height:auto;
+  opacity:.88;
+  filter:drop-shadow(0 4px 12px rgba(0,0,0,.1));
+}
+
+/* ─── KPI GRID ────────────────────────────────────────────────────────── */
+.kpi-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+  margin-bottom:28px;
+}
+.kpi-card{
+  background:var(--card);
+  border:1px solid var(--hairline);
+  border-radius:var(--r);
+  padding:20px 20px 18px;
+  box-shadow:var(--sh-sm);
+  position:relative;overflow:hidden;
+  transition:box-shadow .2s,transform .2s;
+}
+.kpi-card:hover{
+  transform:translateY(-3px);
+  box-shadow:var(--sh);
+}
+.kpi-card::after{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:3px;
+  background:var(--kpi-color,var(--emerald));
+  border-radius:var(--r) var(--r) 0 0;
+}
+.kpi-label{
+  font-size:.67rem;font-weight:800;
+  letter-spacing:.09em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:10px;
+  line-height:1.4;
+}
+.kpi-val{
+  font-family:var(--font-mono);
+  font-size:1.7rem;font-weight:500;
+  color:var(--ink);line-height:1;
+  letter-spacing:-.02em;margin-bottom:6px;
+}
+.kpi-val em{
+  font-style:normal;
+  font-size:1rem;color:var(--muted);
+  margin-left:4px;
+}
+.kpi-meta{
+  font-size:.75rem;color:var(--muted);
+  line-height:1.5;
+}
+.kpi-bar{
+  height:4px;border-radius:99px;
+  background:var(--hairline);
+  overflow:hidden;margin-top:14px;
+}
+.kpi-bar span{
+  display:block;height:100%;
+  border-radius:99px;
+  background:var(--kpi-color,var(--emerald));
+  transition:width .7s var(--timing);
+}
+
+/* ─── SECTION HEADER ──────────────────────────────────────────────────── */
+.section-header{
+  display:flex;justify-content:space-between;
+  align-items:flex-end;gap:16px;
+  margin-bottom:16px;
+}
+.section-title{
+  font-family:var(--font-head);
+  font-size:1.18rem;font-weight:600;
+  color:var(--ink);
+}
+.section-sub{
+  font-size:.8rem;color:var(--muted);
+  margin-top:2px;line-height:1.5;
+}
+.section-rule{
+  display:flex;align-items:center;gap:12px;
+  font-size:.65rem;font-weight:800;
+  letter-spacing:.11em;text-transform:uppercase;
+  color:var(--muted);margin:28px 0 18px;
+}
+.section-rule::before,.section-rule::after{
+  content:'';flex:1;height:1px;background:var(--hairline);
+}
+
+/* ─── MODULE TABS ─────────────────────────────────────────────────────── */
+.module-tabs{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:10px;margin-bottom:20px;
+}
+.module-tab{
+  background:var(--card);
+  border:1px solid var(--hairline);
+  border-radius:var(--r-sm);
+  padding:14px 16px;
+  cursor:pointer;
+  transition:all .2s;
+  text-align:left;
+  box-shadow:var(--sh-sm);
+  position:relative;
+  border-top:3px solid transparent;
+}
+.module-tab:hover{
+  box-shadow:var(--sh);
+  border-top-color:var(--hairline);
+}
+.module-tab.active{
+  border-top-color:var(--ink-2);
+  background:linear-gradient(180deg,var(--teal-bg),var(--card));
+  box-shadow:var(--sh);
+}
+.module-tab small{
+  display:block;
+  font-size:.64rem;font-weight:800;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);
+  margin-bottom:5px;
+}
+.module-tab strong{
+  font-family:var(--font-mono);
+  font-size:1.1rem;font-weight:500;
+  color:var(--ink);display:block;
+  line-height:1;margin-bottom:4px;
+}
+.module-tab p{
+  font-size:.73rem;color:var(--muted);
+  line-height:1.4;
+}
+
+/* ─── TOOLBAR ─────────────────────────────────────────────────────────── */
+.toolbar{
+  display:grid;
+  grid-template-columns:minmax(200px,.9fr) minmax(180px,.7fr) 1fr auto;
+  gap:10px;margin-bottom:18px;align-items:end;
+}
+.filter-group label{
+  display:block;font-size:.64rem;
+  font-weight:800;text-transform:uppercase;
+  letter-spacing:.09em;color:var(--muted);
+  margin-bottom:6px;
+}
+.filter-group select,.filter-group input{
+  width:100%;
+  padding:9px 12px;
+  border:1.5px solid var(--hairline);
+  border-radius:var(--r-xs);
+  background:var(--card);
+  font-family:var(--font-body);
+  font-size:.82rem;color:var(--ink);
+  outline:none;
+  transition:border-color .15s,box-shadow .15s;
+}
+.filter-group select:focus,.filter-group input:focus{
+  border-color:var(--teal);
+  box-shadow:0 0 0 3px rgba(3,105,161,.1);
+}
+.filter-group input{
+  background:var(--card) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%236B84A0' stroke-width='2' viewBox='0 0 24 24'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E") no-repeat 10px center;
+  padding-left:32px;
+}
+.period-pill-display{
+  padding:9px 12px;
+  border:1.5px solid var(--hairline);
+  border-radius:var(--r-xs);
+  background:var(--teal-bg);
+  font-family:var(--font-mono);
+  font-size:.82rem;font-weight:500;
+  color:var(--teal);
+}
+
+/* ─── TABLE CARD ──────────────────────────────────────────────────────── */
+.table-card{
+  background:var(--card);
+  border:1px solid var(--hairline);
+  border-radius:var(--r);
+  box-shadow:var(--sh-sm);
+  overflow:hidden;
+}
+.table-header{
+  display:flex;justify-content:space-between;
+  align-items:flex-start;gap:16px;
+  padding:18px 22px 16px;
+  border-bottom:1px solid var(--hairline);
+}
+.table-header h3{
+  font-family:var(--font-head);
+  font-size:1rem;font-weight:600;
+  color:var(--ink);
+}
+.table-header p{
+  font-size:.77rem;color:var(--muted);
+  margin-top:2px;
+}
+.table-stats{
+  display:flex;gap:6px;align-items:center;
+  flex-wrap:wrap;
+}
+.tbl-wrap{
+  overflow:auto;max-height:660px;
+}
+table{
+  width:100%;border-collapse:collapse;
+  min-width:900px;
+}
+thead tr{
+  background:var(--surface);
+  position:sticky;top:0;z-index:2;
+}
+th{
+  padding:9px 14px;
+  text-align:left;
+  font-size:.62rem;font-weight:800;
+  letter-spacing:.09em;text-transform:uppercase;
+  color:var(--muted);
+  border-bottom:1.5px solid var(--hairline);
+  white-space:nowrap;
+}
+td{
+  padding:11px 14px;
+  border-bottom:1px solid var(--hairline);
+  font-size:.79rem;vertical-align:top;
+  color:var(--ink-2);
+}
+tr:last-child td{border-bottom:none}
+tbody tr{transition:background .12s}
+tbody tr:hover td{background:rgba(3,105,161,.04)}
+td.bold{font-weight:700;color:var(--ink)}
+td.mono{
+  font-family:var(--font-mono);
+  font-size:.73rem;color:var(--muted);
+}
+td.note{
+  max-width:400px;
+  white-space:normal;
+  line-height:1.5;
+  color:var(--muted);
+}
+
+/* ─── STATUS PILLS ────────────────────────────────────────────────────── */
+.stage-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:4px 9px;border-radius:999px;
+  font-size:.67rem;font-weight:800;
+  text-transform:uppercase;letter-spacing:.05em;
+  white-space:nowrap;
+}
+.stage-pill::before{
+  content:'';width:6px;height:6px;
+  border-radius:50%;display:block;flex-shrink:0;
+}
+.s-confirmado{background:var(--emerald-bg);color:var(--emerald);border:1px solid var(--emerald-bd)}
+.s-confirmado::before{background:var(--emerald)}
+.s-proceso{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-bd)}
+.s-proceso::before{background:var(--amber)}
+.s-pendiente{background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-bd)}
+.s-pendiente::before{background:var(--teal)}
+.s-no{background:var(--red-bg);color:var(--red);border:1px solid var(--red-bd)}
+.s-no::before{background:var(--red)}
+.s-neutro{background:var(--surface);color:var(--muted);border:1px solid var(--hairline)}
+.s-neutro::before{background:var(--muted)}
+
+/* Contribution chips */
+.chip{
+  display:inline-flex;align-items:center;
+  padding:3px 8px;border-radius:999px;
+  font-size:.65rem;font-weight:800;
+  text-transform:uppercase;letter-spacing:.05em;
+}
+.chip-yes{background:var(--emerald-bg);color:var(--emerald)}
+.chip-no{background:var(--red-bg);color:var(--red)}
+.chip-pend{background:var(--amber-bg);color:var(--amber)}
+
+/* ─── EMPTY STATE ─────────────────────────────────────────────────────── */
+.empty-state{
+  padding:48px 24px;
+  text-align:center;
+  color:var(--muted);
+  font-size:.84rem;
+  border:1.5px dashed var(--hairline);
+  border-radius:var(--r-sm);
+  margin:16px;
+}
+.empty-state svg{
+  display:block;margin:0 auto 12px;
+  opacity:.35;
+}
+
+/* ─── DIAGNOSTIC ──────────────────────────────────────────────────────── */
+.diagnostic-card{
+  background:var(--card);
+  border:1px solid var(--hairline);
+  border-radius:var(--r);
+  box-shadow:var(--sh-sm);
+  overflow:hidden;
+}
+.diag-top{
+  padding:22px 24px;
+  border-bottom:1px solid var(--hairline);
+  display:flex;gap:20px;align-items:flex-start;
+}
+.diag-accent{
+  width:4px;border-radius:2px;
+  background:linear-gradient(180deg,var(--emerald),var(--teal));
+  flex-shrink:0;align-self:stretch;
+}
+.diag-content h3{
+  font-family:var(--font-head);
+  font-size:1rem;font-weight:600;
+  color:var(--ink);margin-bottom:6px;
+}
+.diag-content p{
+  font-size:.82rem;line-height:1.7;
+  color:var(--ink-3);
+}
+.diag-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--hairline);
+}
+.diag-block{
+  padding:18px 20px;
+  background:var(--card);
+}
+.diag-block strong{
+  display:block;font-size:.64rem;
+  font-weight:800;text-transform:uppercase;
+  letter-spacing:.09em;color:var(--muted);
+  margin-bottom:6px;
+}
+.diag-block p{
+  font-size:.79rem;color:var(--ink-3);
+  line-height:1.55;
+}
+
+/* ─── PROGRAM STATUS CARD ─────────────────────────────────────────────── */
+.status-row{
+  display:grid;
+  grid-template-columns:280px 1fr;
+  gap:14px;margin-bottom:20px;
+}
+.status-card{
+  background:linear-gradient(145deg,var(--ink) 0%,var(--ink-2) 100%);
+  border-radius:var(--r);
+  padding:22px 20px;
+  color:#fff;
+  display:flex;flex-direction:column;
+  justify-content:space-between;
+  gap:16px;
+  box-shadow:0 8px 28px rgba(11,29,53,.25);
+}
+.status-card .sc-sup{
+  font-size:.62rem;font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);margin-bottom:4px;
+}
+.status-card .sc-title{
+  font-family:var(--font-head);
+  font-size:1.15rem;font-weight:600;
+  line-height:1.2;
+}
+.status-card .sc-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:6px 12px;border-radius:999px;
+  font-size:.73rem;font-weight:800;
+  margin-top:10px;width:fit-content;
+}
+.status-card .sc-badge::before{
+  content:'';width:7px;height:7px;
+  border-radius:50%;display:block;
+  animation:pulse 2.2s ease-in-out infinite;
+}
+.sc-green{background:rgba(16,185,129,.2);color:#6EE7B7}
+.sc-green::before{background:#6EE7B7}
+.sc-yellow{background:rgba(245,158,11,.2);color:#FCD34D}
+.sc-yellow::before{background:#FCD34D}
+.sc-red{background:rgba(239,68,68,.2);color:#FCA5A5}
+.sc-red::before{background:#FCA5A5}
+.sc-muted{background:rgba(255,255,255,.1);color:rgba(255,255,255,.6)}
+.sc-muted::before{background:rgba(255,255,255,.4)}
+.status-card .sc-period{
+  font-size:.74rem;
+  color:rgba(255,255,255,.45);
+}
+/* Exec KPIs */
+.exec-kpi-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+.exec-kpi{
+  background:var(--card);
+  border:1px solid var(--hairline);
+  border-radius:var(--r-sm);
+  padding:16px 16px 14px;
+  box-shadow:var(--sh-sm);
+  position:relative;overflow:hidden;
+  transition:transform .2s,box-shadow .2s;
+}
+.exec-kpi::before{
+  content:'';position:absolute;
+  left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,var(--emerald),var(--teal));
+}
+.exec-kpi:hover{transform:translateY(-2px);box-shadow:var(--sh)}
+.exec-kpi .ek-label{
+  font-size:.64rem;font-weight:800;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:8px;
+}
+.exec-kpi .ek-val{
+  font-family:var(--font-mono);
+  font-size:1.2rem;font-weight:500;
+  color:var(--ink);line-height:1;margin-bottom:3px;
+}
+.exec-kpi .ek-sub{
+  font-size:.71rem;color:var(--muted);
+}
+.exec-kpi .ek-bar{
+  height:4px;border-radius:99px;
+  background:var(--hairline);overflow:hidden;
+  margin-top:10px;
+}
+.exec-kpi .ek-bar span{
+  display:block;height:100%;
+  border-radius:99px;
+  background:linear-gradient(90deg,var(--emerald),var(--teal));
+  transition:width .7s var(--timing);
+}
+
+/* ─── MINI LIST ───────────────────────────────────────────────────────── */
+.mini-stat-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;margin-bottom:20px;
+}
+.mini-stat{
+  background:var(--card);
+  border:1px solid var(--hairline);
+  border-radius:var(--r-sm);
+  padding:12px 14px;
+  display:flex;flex-direction:column;gap:4px;
+  box-shadow:var(--sh-sm);
+}
+.mini-stat small{
+  font-size:.64rem;font-weight:800;
+  letter-spacing:.07em;text-transform:uppercase;
+  color:var(--muted);
+}
+.mini-stat strong{
+  font-family:var(--font-mono);
+  font-size:.94rem;font-weight:500;
+  color:var(--teal);
+}
+
+/* ─── EXEC ONLY / FULL ONLY ───────────────────────────────────────────── */
+.exec-only{display:none}
+.full-only{display:block}
+body.view-exec .exec-only{display:block}
+body.view-exec .full-only{display:none}
+body.view-full .exec-only{display:none}
+body.view-full .full-only{display:block}
+
+/* ─── FOOTER ──────────────────────────────────────────────────────────── */
+.footer{
+  background:var(--ink);
+  color:rgba(255,255,255,.75);
+  padding:40px 24px 30px;
+  margin-top:48px;
+}
+.footer-inner{
+  max-width:1720px;margin:0 auto;
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr auto;
+  gap:32px;align-items:start;
+}
+.footer h2{
+  font-family:var(--font-head);
+  font-size:1rem;color:#fff;
+  margin-bottom:10px;
+}
+.footer p{
+  font-size:.79rem;line-height:1.8;
+  color:rgba(255,255,255,.55);max-width:620px;
+}
+.footer-col h3{
+  font-size:.64rem;text-transform:uppercase;
+  letter-spacing:.12em;
+  color:rgba(255,255,255,.4);
+  margin-bottom:10px;font-weight:800;
+}
+.footer-links{display:grid;gap:7px}
+.footer-link{
+  display:flex;align-items:center;gap:8px;
+  color:rgba(255,255,255,.75);
+  text-decoration:none;font-size:.81rem;
+  font-weight:600;transition:color .15s;
+}
+.footer-link:hover{color:#fff}
+.footer-link .ico{
+  width:26px;height:26px;border-radius:50%;
+  background:rgba(255,255,255,.1);
+  display:inline-flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.footer-logo img{
+  width:120px;height:auto;opacity:.75;
+  filter:brightness(.9);
+}
+.footer-rule{
+  margin-top:28px;padding-top:20px;
+  border-top:1px solid rgba(255,255,255,.1);
+  font-size:.73rem;color:rgba(255,255,255,.3);
+  text-align:center;
+}
+
+/* ─── MODAL ───────────────────────────────────────────────────────────── */
+.modal-overlay{
+  position:fixed;inset:0;z-index:2000;
+  background:rgba(11,29,53,.65);
+  backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;
+  opacity:0;pointer-events:none;transition:opacity .2s;
+}
+.modal-overlay.open{opacity:1;pointer-events:auto}
+.modal-box{
+  background:var(--card);
+  border-radius:var(--r);
+  box-shadow:var(--sh-lg);
+  width:100%;max-width:880px;
+  max-height:90vh;display:flex;flex-direction:column;
+  border:1px solid var(--hairline);
+}
+.modal-head{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 22px;border-bottom:1px solid var(--hairline);
+}
+.modal-head h2{
+  font-family:var(--font-head);
+  font-size:1rem;font-weight:600;color:var(--ink);
+}
+.modal-close{
+  width:30px;height:30px;border-radius:50%;
+  border:1px solid var(--hairline);
+  background:var(--surface);color:var(--muted);
+  font-size:1rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .15s;
+}
+.modal-close:hover{background:var(--red-bg);color:var(--red);border-color:var(--red-bd)}
+.modal-body{overflow:auto;padding:22px}
+
+/* ─── PRESENTATION ────────────────────────────────────────────────────── */
+.pres-overlay{
+  position:fixed;inset:0;z-index:2000;
+  background:linear-gradient(160deg,#071526 0%,#0d2039 60%,#071526 100%);
+  display:flex;flex-direction:column;
+  opacity:0;pointer-events:none;transition:opacity .22s;
+}
+.pres-overlay.open{opacity:1;pointer-events:auto}
+body.presentation-open .page,
+body.presentation-open .footer,
+body.presentation-open .header,
+body.presentation-open .nav-bar{
+  filter:blur(8px);pointer-events:none;user-select:none;
+}
+.pres-chrome{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;padding:12px 24px;
+  background:rgba(255,255,255,.04);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  flex-shrink:0;
+}
+.pres-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.pres-meta span{
+  display:inline-flex;align-items:center;
+  padding:5px 11px;border-radius:999px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.1);
+  font-size:.72rem;font-weight:700;
+  color:rgba(255,255,255,.75);
+}
+.pres-actions{display:flex;align-items:center;gap:6px}
+.pres-btn{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:7px 16px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.08);
+  color:#fff;font-family:var(--font-body);
+  font-size:.74rem;font-weight:700;cursor:pointer;
+  transition:background .15s;
+}
+.pres-btn:hover{background:rgba(255,255,255,.16)}
+.pres-btn.primary{
+  background:linear-gradient(135deg,#065f46,#047857);
+  border-color:transparent;
+}
+.pres-stage-wrap{
+  flex:1;min-height:0;
+  display:flex;flex-direction:column;
+  padding:20px 28px 0;overflow:hidden;
+}
+.pres-stage{
+  flex:1;min-height:0;overflow:hidden;
+  border-radius:16px 16px 0 0;
+  box-shadow:0 -4px 40px rgba(0,0,0,.4),0 0 0 1px rgba(255,255,255,.07);
+}
+.pres-track{
+  display:flex;height:100%;
+  transition:transform .48s var(--timing);
+}
+.pres-slide{
+  flex:0 0 100%;height:100%;
+  background:linear-gradient(148deg,#f5fafd 0%,#ebf6fc 50%,#deedf8 100%);
+  padding:40px 48px 32px;overflow:auto;
+}
+.pres-kicker{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 13px;border-radius:999px;
+  background:rgba(255,255,255,.75);
+  border:1px solid rgba(0,0,0,.08);
+  font-size:.68rem;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--teal);margin-bottom:16px;
+}
+.pres-slide h2{
+  font-family:var(--font-head);
+  font-size:clamp(1.8rem,3vw,2.8rem);
+  line-height:1.05;letter-spacing:-.03em;
+  margin-bottom:8px;color:var(--ink);
+}
+.pres-slide p{
+  font-size:.92rem;line-height:1.75;
+  color:var(--ink-3);max-width:700px;margin-bottom:24px;
+}
+.pres-cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+.pres-card{
+  background:rgba(255,255,255,.85);
+  border:1px solid rgba(200,220,240,.8);
+  border-radius:14px;
+  padding:16px 18px 14px;
+  box-shadow:0 4px 16px rgba(11,29,53,.07);
+}
+.pres-card small{
+  display:block;font-size:.66rem;
+  font-weight:800;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);
+  margin-bottom:6px;
+}
+.pres-card strong{
+  display:block;
+  font-family:var(--font-mono);
+  font-size:1.35rem;font-weight:500;
+  color:var(--ink);line-height:1;margin-bottom:6px;
+}
+.pres-card p{
+  font-size:.79rem;color:var(--ink-3);
+  line-height:1.5;margin:0;
+}
+.pres-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;padding:12px 28px 14px;flex-shrink:0;
+}
+.pres-dots{display:flex;gap:6px;align-items:center}
+.pres-dot{
+  width:8px;height:8px;border-radius:50%;
+  border:none;background:rgba(255,255,255,.25);
+  cursor:pointer;transition:all .2s;
+}
+.pres-dot.active{background:#fff;transform:scale(1.25)}
+.pres-counter{
+  font-family:var(--font-mono);font-size:.77rem;
+  background:rgba(255,255,255,.08);
+  padding:5px 12px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  color:rgba(255,255,255,.7);
+}
+
+/* ─── LOADING ─────────────────────────────────────────────────────────── */
+.loader{
+  display:flex;align-items:center;justify-content:center;
+  gap:10px;padding:48px;
+  color:var(--muted);font-size:.84rem;
+}
+.spinner{
+  width:20px;height:20px;border-radius:50%;
+  border:2px solid var(--hairline);
+  border-top-color:var(--emerald);
+  animation:spin .7s linear infinite;
+}
+
+/* ─── UTIL ────────────────────────────────────────────────────────────── */
+.sr-only{
+  position:absolute;width:1px;height:1px;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;
+}
+.mb-4{margin-bottom:16px}
+.mb-6{margin-bottom:24px}
+
+/* ─── ANIMATIONS ──────────────────────────────────────────────────────── */
+@keyframes slideDown{
+  from{opacity:0;transform:translateY(-8px)}
+  to{opacity:1;transform:none}
+}
+@keyframes pulse{
+  0%,100%{opacity:1}50%{opacity:.4}
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(6px)}
+  to{opacity:1;transform:none}
+}
+.fade-in{animation:fadeIn .3s var(--timing) both}
+
+/* ─── RESPONSIVE ──────────────────────────────────────────────────────── */
+@media(max-width:1280px){
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .module-tabs{grid-template-columns:repeat(3,1fr)}
+  .exec-kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-inner{grid-template-columns:1fr 1fr}
+  .footer-logo{grid-column:1/-1;justify-self:end}
+  .status-row{grid-template-columns:1fr}
+}
+@media(max-width:900px){
+  .header-inner{height:auto;padding:10px 16px;flex-wrap:wrap}
+  .header-right{flex-wrap:wrap}
+  .toolbar{grid-template-columns:1fr 1fr}
+  .module-tabs{grid-template-columns:repeat(2,1fr)}
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .diag-grid{grid-template-columns:1fr}
+  .pres-cards{grid-template-columns:1fr 1fr}
+  .footer-inner{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .hero-strip{grid-template-columns:1fr}
+  .hero-logo{display:none}
+  .kpi-grid,.module-tabs,.exec-kpi-grid,.mini-stat-grid,
+  .diag-grid,.pres-cards,.toolbar{grid-template-columns:1fr}
+  .page{padding:16px 14px 48px}
+  .table-header{flex-direction:column}
+  .footer-inner{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body class="view-full">
+
+<!-- ════════════════ HEADER ════════════════ -->
 <header class="header">
-  <a class="header-brand" href="./index.html">
-    <img src="./aala_logo.png" alt="Logo Amigos del Lago de Atitlán" class="header-logo-img">
-    <span class="brand-text">
-      <span class="brand-kicker">Asociación Amigos del Lago de Atitlán</span>
-      <span class="brand-title">Fortalecimiento Municipal · Tablero de procesos</span>
-    </span>
-  </a>
-  <div class="header-stack">
-    <nav class="nav-tabs" aria-label="Navegación de la página">
-      <a class="nav-tab active" href="#resumen">Resumen</a>
-      <a class="nav-tab" href="#procesos">Procesos</a>
-      <a class="nav-tab" href="#diagnostico">Diagnóstico</a>
-    </nav>
-    <div class="header-utility">
-      <a class="back" href="./index.html"><span class="back-arrow">&#8592;</span>Volver al inicio</a>
-      <div class="view-switcher" role="group" aria-label="Cambiar vista del tablero">
-        <button class="view-btn active" id="btnFull" onclick="switchView('full')">Tablero completo</button>
-        <button class="view-btn" id="btnExec" onclick="switchView('exec')">Resumen ejecutivo</button>
+  <div class="header-inner">
+    <a class="header-brand" href="./index.html">
+      <img src="./aala_logo.png" alt="AALA" class="header-logo">
+      <span class="brand-text">
+        <span class="brand-sup">Asociación Amigos del Lago de Atitlán</span>
+        <span class="brand-name">Fortalecimiento Municipal</span>
+      </span>
+    </a>
+    <div class="header-divider" aria-hidden="true"></div>
+    <span class="header-program">Tablero de procesos</span>
+    <div class="header-right">
+      <a class="back-link" href="./index.html">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        Inicio
+      </a>
+      <div class="pill-group" role="group" aria-label="Vista del tablero">
+        <button class="pill-btn active" id="btnFull" onclick="switchView('full')">Tablero completo</button>
+        <button class="pill-btn" id="btnExec" onclick="switchView('exec')">Resumen ejecutivo</button>
       </div>
-      <button class="view-btn present-btn" onclick="openPresentation()">Modo presentación</button>
+      <button class="pill-btn accent" onclick="openPresentation()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        Presentación
+      </button>
       <div class="period-rack">
-        <span class="period-rack-label">Período</span>
+        <span class="period-label">Período</span>
         <div class="month-pills" id="monthPills" role="group" aria-label="Seleccionar período"></div>
       </div>
     </div>
   </div>
 </header>
-<div class="wrap">
-  <main>
-    <section class="hero" id="resumen">
-      <article class="card hero-main">
-        <div class="hero-shell">
-          <div>
-            <div class="hero-eyebrow">Seguimiento institucional</div>
-            <h1>Procesos municipales en seguimiento</h1>
-            <p class="hero-lead">El Programa de Fortalecimiento Municipal presenta el estado de los procesos que acompaña con municipalidades de la cuenca. Este tablero permite observar qué acciones están confirmadas, cuáles avanzan en una fase operativa y cuáles todavía requieren cierre técnico o evidencia para aportar a las metas institucionales.</p>
-            <div class="hero-tag-row">
-              <span class="hero-tag">Procesos municipales</span>
-              <span class="hero-tag">Estados de avance</span>
-              <span class="hero-tag">Trazabilidad por período</span>
-            </div>
-            <div class="context-grid" id="contextGrid"></div>
-          </div>
-          <div class="program-logo"><img src="./Fortale.png" alt="Logo del Programa de Fortalecimiento Municipal"></div>
-        </div>
-      </article>
-      <aside class="card hero-side">
-        <div class="side-label">Lectura del programa</div>
-        <div id="programStatus" class="status-badge muted-state">Cargando</div>
-        <div class="mini-list" id="miniList"></div>
-      </aside>
-    </section>
 
-    <section class="exec-only">
-      <div class="exec-toolbar">
-        <div class="card filter">
-          <label for="execPeriodSelect">Período de análisis</label>
-          <select id="execPeriodSelect"></select>
-        </div>
-        <div class="card filter">
-          <label>Lectura vigente</label>
-          <div class="pill" id="execLatestPill">—</div>
-        </div>
-        <div class="card filter">
-          <label>Tipo de tablero</label>
-          <div class="pill">Procesos activos</div>
-        </div>
-      </div>
-      <div class="exec-hero-row">
-        <div class="exec-status-card">
-          <div>
-            <div class="es-label">Estado programático</div>
-            <div class="es-title">Fortalecimiento Municipal</div>
-            <div class="exec-status-badge" id="execStatusBadge">Cargando…</div>
-          </div>
-          <div class="exec-period-info" id="execPeriodInfo">—</div>
-        </div>
-        <div class="exec-kpi-grid" id="execKpiGrid"></div>
-      </div>
-      <section class="section">
-        <article class="card table-card">
-          <div class="table-head"><div><h3>Procesos destacados del período</h3><p>Registros con avance o confirmación visible.</p></div></div>
-          <div id="execTable"></div>
-        </article>
-      </section>
-    </section>
+<!-- ════════════════ NAV BAR ════════════════ -->
+<nav class="nav-bar" aria-label="Secciones">
+  <div class="nav-bar-inner">
+    <a class="nav-tab active" href="#resumen">
+      <span class="nav-tab-dot"></span>Resumen
+    </a>
+    <a class="nav-tab" href="#procesos">
+      <span class="nav-tab-dot"></span>Procesos
+    </a>
+    <a class="nav-tab" href="#diagnostico">
+      <span class="nav-tab-dot"></span>Diagnóstico
+    </a>
+  </div>
+</nav>
 
-    <div class="full-only">
-      <section class="section" id="procesos">
-        <div class="section-head">
-          <div>
-            <h2>Procesos activos por módulo</h2>
-            <p>El tablero muestra el estado de cada proceso municipal y su situación frente a las metas del programa.</p>
-          </div>
-        </div>
-        <div class="process-grid" id="processCards"></div>
-        <section class="toolbar">
-          <div class="card filter">
-            <label for="processSelect">Módulo</label>
-            <select id="processSelect"></select>
-          </div>
-          <div class="card filter">
-            <label for="stageSelect">Situación</label>
-            <select id="stageSelect">
-              <option value="all">Todas las situaciones</option>
-              <option value="confirmado">Confirmados</option>
-              <option value="proceso">En proceso</option>
-              <option value="pendiente">Pendientes</option>
-              <option value="no">No elegibles</option>
-            </select>
-          </div>
-          <div class="card filter">
-            <label for="municipioInput">Búsqueda</label>
-            <input id="municipioInput" type="search" placeholder="Municipio, actividad o estado">
-          </div>
-          <div class="card filter">
-            <label>Período seleccionado</label>
-            <div class="pill" id="latestPeriodPill">—</div>
-          </div>
-        </section>
-        <article class="card table-card">
-          <div class="table-head">
-            <div>
-              <h3 id="tableTitle">Procesos</h3>
-              <p id="tableSub">—</p>
-            </div>
-            <div class="table-actions" id="tableStats"></div>
-          </div>
-          <div id="processTable"></div>
-        </article>
-      </section>
-      <div class="section-divider">Lectura institucional</div>
-      <section class="section" id="diagnostico">
-        <article class="card diagnostic" id="diagnosticPanel"></article>
-      </section>
+<!-- ════════════════ PAGE ════════════════ -->
+<div class="page">
+
+  <!-- ── HERO ─────────────────────────────── -->
+  <div class="hero-strip" id="resumen">
+    <div>
+      <div class="hero-eyebrow">Seguimiento institucional</div>
+      <h1>Procesos municipales<br>en seguimiento</h1>
+      <p>El Programa de Fortalecimiento Municipal registra el avance de los procesos que acompaña con municipalidades de la cuenca del Lago de Atitlán. Este tablero muestra qué acciones están confirmadas, cuáles avanzan en fase operativa y cuáles requieren cierre técnico para aportar a las metas.</p>
     </div>
-  </main>
-</div>
-<footer class="site-footer">
-  <div class="footer-wrap">
-    <section class="footer-brand">
-      <div class="footer-title">Asociación Amigos del Lago de Atitlán</div>
-      <p class="footer-copy">La Asociación Amigos del Lago de Atitlán se enfoca en generar una cultura regenerativa en la cuenca del Lago, para que los seres humanos podamos coexistir de forma sostenible y sana con el entorno natural. Hacemos educación ambiental, reforestación, reciclaje, empoderamiento económico de mujeres y asesoría municipal en agua y saneamiento.</p>
+    <div class="hero-logo">
+      <img src="./Fortale.png" alt="Fortalecimiento Municipal">
+    </div>
+  </div>
+
+  <!-- ── KPI GRID ──────────────────────────── -->
+  <div class="kpi-grid mb-6" id="kpiGrid">
+    <div class="loader"><span class="spinner"></span> Cargando indicadores…</div>
+  </div>
+
+  <!-- ═══════ EXECUTIVE VIEW ═══════ -->
+  <section class="exec-only mb-6">
+    <div class="status-row">
+      <div class="status-card">
+        <div>
+          <div class="sc-sup">Estado programático</div>
+          <div class="sc-title">Fortalecimiento Municipal</div>
+          <div id="execStatusBadge" class="sc-badge sc-muted" style="margin-top:12px">Cargando…</div>
+        </div>
+        <div class="sc-period" id="execPeriodInfo">—</div>
+      </div>
+      <div class="exec-kpi-grid" id="execKpiGrid">
+        <div class="loader"><span class="spinner"></span></div>
+      </div>
+    </div>
+    <div class="table-card mb-4">
+      <div class="table-header">
+        <div>
+          <h3>Procesos destacados del período</h3>
+          <p>Registros con avance o confirmación visible.</p>
+        </div>
+      </div>
+      <div id="execTable"><div class="loader"><span class="spinner"></span></div></div>
+    </div>
+  </section>
+
+  <!-- ═══════ FULL VIEW ═══════ -->
+  <div class="full-only">
+
+    <!-- ── PROCESSES ─────────────────────────── -->
+    <section id="procesos" class="mb-6">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Procesos activos por módulo</div>
+          <div class="section-sub">Seleccione un módulo para ver el detalle de sus registros y su situación frente a las metas.</div>
+        </div>
+      </div>
+
+      <!-- Module cards -->
+      <div class="module-tabs" id="moduleTabs"></div>
+
+      <!-- Filters -->
+      <div class="toolbar mb-4">
+        <div class="filter-group">
+          <label for="processSelect">Módulo</label>
+          <select id="processSelect"></select>
+        </div>
+        <div class="filter-group">
+          <label for="stageSelect">Situación</label>
+          <select id="stageSelect">
+            <option value="all">Todas las situaciones</option>
+            <option value="confirmado">Confirmados</option>
+            <option value="proceso">En proceso</option>
+            <option value="pendiente">Pendientes</option>
+            <option value="no">No elegibles</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="searchInput">Búsqueda</label>
+          <input id="searchInput" type="search" placeholder="Municipio, actividad, estado…">
+        </div>
+        <div class="filter-group">
+          <label>Período activo</label>
+          <div class="period-pill-display" id="activePeriodPill">—</div>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="table-card">
+        <div class="table-header">
+          <div>
+            <h3 id="tableTitle">Procesos</h3>
+            <p id="tableSub">—</p>
+          </div>
+          <div class="table-stats" id="tableStats"></div>
+        </div>
+        <div id="processTable">
+          <div class="loader"><span class="spinner"></span> Cargando datos…</div>
+        </div>
+      </div>
     </section>
-    <section class="footer-col">
+
+    <!-- Divider -->
+    <div class="section-rule">Lectura institucional</div>
+
+    <!-- ── DIAGNOSTIC ─────────────────────────── -->
+    <section id="diagnostico" class="mb-4">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Diagnóstico del programa</div>
+          <div class="section-sub">Lectura consolidada del estado de avance por módulo y su relación con las metas institucionales.</div>
+        </div>
+      </div>
+      <div id="diagnosticPanel">
+        <div class="loader"><span class="spinner"></span></div>
+      </div>
+    </section>
+
+  </div><!-- /full-only -->
+
+</div><!-- /page -->
+
+<!-- ════════════════ FOOTER ════════════════ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <h2>Asociación Amigos del Lago de Atitlán</h2>
+      <p>Enfocados en generar una cultura regenerativa en la cuenca del Lago, para que los seres humanos podamos coexistir de forma sostenible y sana con el entorno natural. Hacemos educación ambiental, reforestación, reciclaje, empoderamiento económico de mujeres y asesoría municipal en agua y saneamiento.</p>
+    </div>
+    <div class="footer-col">
       <h3>Contacto y sitio</h3>
       <div class="footer-links">
-        <a href="https://amigosdeatitlan.org/" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><path d="M12 3c2.7 2.8 4.1 5.8 4.1 9S14.7 18.2 12 21c-2.7-2.8-4.1-5.8-4.1-9S9.3 5.8 12 3z"></path></svg></span><span>Página web</span></a>
-        <a href="https://www.youtube.com/@asociacionamigosdellagodea2358" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2a2.9 2.9 0 0 0-2-2C17.8 4.7 12 4.7 12 4.7s-5.8 0-7.6.5a2.9 2.9 0 0 0-2 2A30.8 30.8 0 0 0 2 12a30.8 30.8 0 0 0 .4 4.8 2.9 2.9 0 0 0 2 2c1.8.5 7.6.5 7.6.5s5.8 0 7.6-.5a2.9 2.9 0 0 0 2-2A30.8 30.8 0 0 0 22 12a30.8 30.8 0 0 0-.4-4.8z"></path><path d="M10 15.5v-7l6 3.5-6 3.5z" fill="#1b4f68"></path></svg></span><span>YouTube</span></a>
-        <a href="https://www.facebook.com/AmigoAtitlan/?locale=es_LA" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.4H16l.4-3h-2.9V8.7c0-.9.3-1.5 1.6-1.5h1.4V4.5c-.2 0-1-.1-2-.1-2 0-3.4 1.2-3.4 3.6v2.6H9v3h2.1V21h2.4z"></path></svg></span><span>Facebook</span></a>
+        <a class="footer-link" href="https://amigosdeatitlan.org/" target="_blank" rel="noreferrer">
+          <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.7 2.8 4.1 5.8 4.1 9S14.7 18.2 12 21"/></svg></span>
+          Página web
+        </a>
+        <a class="footer-link" href="https://www.youtube.com/@asociacionamigosdellagodea2358" target="_blank" rel="noreferrer">
+          <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2a2.9 2.9 0 0 0-2-2C17.8 4.7 12 4.7 12 4.7s-5.8 0-7.6.5a2.9 2.9 0 0 0-2 2A30.8 30.8 0 0 0 2 12a30.8 30.8 0 0 0 .4 4.8 2.9 2.9 0 0 0 2 2c1.8.5 7.6.5 7.6.5s5.8 0 7.6-.5a2.9 2.9 0 0 0 2-2A30.8 30.8 0 0 0 22 12a30.8 30.8 0 0 0-.4-4.8z"/><path d="M10 15.5v-7l6 3.5-6 3.5z" fill="#0B1D35"/></svg></span>
+          YouTube
+        </a>
+        <a class="footer-link" href="https://www.facebook.com/AmigoAtitlan/" target="_blank" rel="noreferrer">
+          <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.4H16l.4-3h-2.9V8.7c0-.9.3-1.5 1.6-1.5h1.4V4.5c-.2 0-1-.1-2-.1-2 0-3.4 1.2-3.4 3.6v2.6H9v3h2.1V21h2.4z"/></svg></span>
+          Facebook
+        </a>
       </div>
-    </section>
-    <section class="footer-col">
+    </div>
+    <div class="footer-col">
       <h3>Redes</h3>
       <div class="footer-links">
-        <a href="https://www.linkedin.com/in/aala-atitl%C3%A1n-3653a0325/" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 8.5H3.56V20h3.38V8.5zM5.25 7A1.97 1.97 0 1 0 5.2 3a1.97 1.97 0 0 0 .05 4zm5.28 13h3.38v-5.6c0-1.5.29-3 2.15-3 1.83 0 1.86 1.7 1.86 3.1V20h3.38v-6.2c0-3.05-.66-5.4-4.22-5.4-1.7 0-2.84.94-3.3 1.83h-.05V8.5h-3.2c.04.97 0 11.5 0 11.5z"></path></svg></span><span>LinkedIn</span></a>
-        <a href="https://www.instagram.com/amigoslagoatitlan/" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3.5" y="3.5" width="17" height="17" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.2" cy="6.8" r="1"></circle></svg></span><span>Instagram</span></a>
+        <a class="footer-link" href="https://www.linkedin.com/in/aala-atitl%C3%A1n-3653a0325/" target="_blank" rel="noreferrer">
+          <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 8.5H3.56V20h3.38V8.5zM5.25 7A1.97 1.97 0 1 0 5.2 3a1.97 1.97 0 0 0 .05 4zm5.28 13h3.38v-5.6c0-1.5.29-3 2.15-3 1.83 0 1.86 1.7 1.86 3.1V20h3.38v-6.2c0-3.05-.66-5.4-4.22-5.4-1.7 0-2.84.94-3.3 1.83h-.05V8.5h-3.2c.04.97 0 11.5 0 11.5z"/></svg></span>
+          LinkedIn
+        </a>
+        <a class="footer-link" href="https://www.instagram.com/amigoslagoatitlan/" target="_blank" rel="noreferrer">
+          <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></span>
+          Instagram
+        </a>
       </div>
-    </section>
-    <section class="footer-mark" aria-label="Imagen institucional"><img src="./chill_lago.png" alt="Atitlán Chill"></section>
+    </div>
+    <div class="footer-logo">
+      <img src="./chill_lago.png" alt="Atitlán">
+    </div>
+  </div>
+  <div class="footer-rule">
+    Asociación Amigos del Lago de Atitlán · Programa de Fortalecimiento Municipal · Tablero interno de seguimiento
   </div>
 </footer>
-<div class="modal-overlay" id="mainModal" aria-hidden="true"><div class="modal-box"><div class="modal-head"><h2 id="modalTitle">Detalle</h2><button class="modal-close" onclick="closeModal()">×</button></div><div class="modal-body" id="modalBody"></div></div></div>
-<div class="presentation-overlay" id="presentationOverlay" aria-hidden="true">
-  <div class="presentation-chrome"><div class="presentation-meta" id="presentationMeta"></div><div class="presentation-actions"><button class="presentation-btn" onclick="prevSlide()">Anterior</button><button class="presentation-btn primary" onclick="nextSlide()">Siguiente</button><button class="presentation-btn" onclick="closePresentation()">Cerrar</button></div></div>
-  <div class="presentation-stage-wrap"><div class="presentation-stage"><div class="presentation-track" id="presentationTrack"></div></div></div>
-  <div class="presentation-footer-bar"><div class="presentation-dots" id="presentationDots"></div><div class="presentation-counter" id="presentationCounter">1 / 1</div></div>
+
+<!-- ════════════════ MODAL ════════════════ -->
+<div class="modal-overlay" id="mainModal" aria-hidden="true">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 id="modalTitle">Detalle</h2>
+      <button class="modal-close" onclick="closeModal()" aria-label="Cerrar">×</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
 </div>
+
+<!-- ════════════════ PRESENTATION ════════════════ -->
+<div class="pres-overlay" id="presentationOverlay" aria-hidden="true">
+  <div class="pres-chrome">
+    <div class="pres-meta" id="presentationMeta"></div>
+    <div class="pres-actions">
+      <button class="pres-btn" onclick="prevSlide()">← Anterior</button>
+      <button class="pres-btn primary" onclick="nextSlide()">Siguiente →</button>
+      <button class="pres-btn" onclick="closePresentation()">Cerrar</button>
+    </div>
+  </div>
+  <div class="pres-stage-wrap">
+    <div class="pres-stage">
+      <div class="pres-track" id="presentationTrack"></div>
+    </div>
+  </div>
+  <div class="pres-footer">
+    <div class="pres-dots" id="presentationDots"></div>
+    <div class="pres-counter" id="presentationCounter">1 / 1</div>
+  </div>
+</div>
+
+<!-- ════════════════ SCRIPT ════════════════ -->
 <script>
-const BASE='./data/fortalecimiento_municipal/';
-const PATHS={programaCard:'programa_card.csv',resumen:'indicadores_resumen_validado.csv',institucional:'institucional_indicadores_validado.csv',estudios:'detalle_estudios.csv',pirdes:'detalle_pirdes.csv',asistencias:'detalle_asistencias.csv',reuniones:'detalle_reuniones.csv',capacitaciones:'detalle_capacitaciones.csv'};
-const MESES=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-const MESES_SHORT=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
-const PROCESS_LABELS={estudios:'Estudios y caracterizaciones',pirdes:'PIRDES municipales',asistencias:'Asistencias técnicas',reuniones:'Reuniones CODEMA',capacidad:'Capacidad instalada'};
-const DB={};
-const state={periodo:null,process:'estudios',stage:'all',query:''};
-let presentationIndex=0;
-function norm(v){return String(v??'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();}
-function esc(v){return String(v??'').replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]));}
-function num(v){const n=Number(String(v??'').replace(/,/g,''));return Number.isFinite(n)?n:0;}
-function fmt(v){return num(v).toLocaleString('es-GT',{maximumFractionDigits:1});}
-function fmtPct(v){return `${num(v).toLocaleString('es-GT',{maximumFractionDigits:1})}%`;}
-function parseBool(v){const x=norm(v);return ['si','sí','true','1','x','yes'].includes(x);}
-function rowPeriod(r){let p=r.periodo||'';if(/^\d{4}-\d{2}$/.test(String(p)))return p;let anio=r.anio||'';let mes=r.mes_num||'';if(anio&&mes)return `${anio}-${String(mes).padStart(2,'0')}`;const f=String(r.fecha||'');const m=f.match(/(20\d{2})[-\/](\d{1,2})/);return m?`${m[1]}-${m[2].padStart(2,'0')}`:'';}
-function periodLabel(p){if(!p)return 'Período no disponible';const [y,m]=String(p).split('-');return `${MESES[(+m||1)-1]} ${y}`;}
-async function parseCsv(file){try{const res=await fetch(BASE+file+'?v='+Date.now(),{cache:'no-store'});if(!res.ok)return[];const text=await res.text();return new Promise(resolve=>Papa.parse(text,{header:true,skipEmptyLines:true,complete:r=>resolve(r.data||[]),error:()=>resolve([])}));}catch(e){return[];}}
-function periodLTE(p,sel){return !p||!sel?true:p<=sel;}
-function dataUpto(rows){return (rows||[]).filter(r=>periodLTE(rowPeriod(r),state.periodo));}
-function shortLabel(s){s=String(s||'');return s.length>72?s.slice(0,69)+'…':s;}
-function metricById(id){return (DB.resumen||[]).find(r=>String(r.indicador_id||'').trim()===id)||{};}
-function cardMetricById(id){return (DB.programaCard||[]).find(r=>String(r.indicador_id||'').trim()===id)||{};}
-function metricValue(id){const c=cardMetricById(id);const r=metricById(id);const label=c.label||r.indicador||id;const valor=num(c.valor_acumulado||r.valor_validado);const meta=num(c.meta_anual||r.meta);const unidad=c.unidad||r.unidad||'';const pct=meta?Math.min(valor/meta*100,100):0;return{id,label,valor,meta,unidad,pct};}
-function semClassPct(p){p=num(p);if(p>=70)return'green';if(p>=35)return'yellow';if(p>0)return'blue';return'muted-state';}
-function semTextPct(p){p=num(p);if(p>=70)return'Avance alto';if(p>=35)return'Avance medio';if(p>0)return'Avance inicial';return'Sin confirmación';}
-function switchView(view){document.body.classList.toggle('view-exec',view==='exec');document.body.classList.toggle('view-full',view!=='exec');document.getElementById('btnFull').classList.toggle('active',view!=='exec');document.getElementById('btnExec').classList.toggle('active',view==='exec');}
-function municipalName(v){const x=norm(v);if(!x||x==='municipio'||x==='municipalidad')return false;return !['intercop','hotel','hoteles','cooperativa','empresa','fundacion','fundación','socio aala','socios aala'].some(t=>x.includes(norm(t)));}
-function hasExcludedActor(row){const t=norm(Object.values(row).join(' '));return ['intercop','hoteles socios aala','hotel socio','hoteles','empresa privada','actor privado','cooperativa','fundacion','fundación'].some(x=>t.includes(norm(x)));}
-function hasExcludedAssistance(row){const t=norm(Object.values(row).join(' '));return ['simulacro','terremoto','dia del agua','día del agua','conmemoracion','conmemoración','taller general'].some(x=>t.includes(norm(x)));}
-function municipalitiesFromRow(row){const out=[];if(municipalName(row.municipio))out.push(String(row.municipio).trim());if(municipalName(row.municipalidad))out.push(String(row.municipalidad).trim());if(row.municipios)String(row.municipios).split('|').forEach(v=>{if(municipalName(v))out.push(v.trim())});Object.keys(row).forEach(k=>{if(norm(k).startsWith('mun:')&&parseBool(row[k])){const m=k.replace(/^Mun:\s*/i,'').trim();if(municipalName(m))out.push(m);}});return [...new Set(out.filter(Boolean))];}
-function detectStudyType(row){const t=norm([row.tipo_estudio,row.tipo_estudio_validado,row.sectores,row.observaciones].join(' '));if(t.includes('agua residual')||t.includes('aguas residuales'))return'Caracterización de aguas residuales';if(t.includes('residuo solido')||t.includes('residuos solidos'))return'Caracterización de residuos sólidos';if(t.includes('desecho solido')||t.includes('desechos solidos'))return'Caracterización de desechos sólidos';return row.tipo_estudio||row.tipo_estudio_validado||'Estudio no clasificado';}
-function wastewaterSector(row){const t=norm([row.sectores,row.sector_validado,row.linea_enfoque,row.tipo_asistencia,row.proyecto_nombre,row.observaciones].join(' '));const solid=t.includes('ptrs')||t.includes('residuos solidos')||t.includes('desechos solidos')||t.includes('gestion integral de residuos');const water=t.includes('aguas residuales')||t.includes('agua residual')||t.includes('alcantarillado')||t.includes('ptar')||t.includes('saneamiento ambiental');if(solid&&!water)return false;return water;}
-function classifyRecord(row,type){const municipios=municipalitiesFromRow(row);const valid=norm(row.estado_fila_norm||row.estado_fila||row.estado)==='ok'||!String(row.estado_fila_norm||row.estado_fila||row.estado||'').trim();const estadoVal=norm(row.estado_validacion);const cuentaGeneral=parseBool(row.cuenta_index_general);const cuentaEsp=parseBool(row.cuenta_index_especifico);const indicador=norm(row.indicador_destino);const actorExcl=hasExcludedActor(row);let confirmed=false,stage='proceso',stageLabel='En proceso',reason='Proceso en seguimiento';
- if(estadoVal.includes('confirmado')&&(cuentaGeneral||cuentaEsp)){confirmed=true;stage='confirmado';stageLabel='Confirmado';reason='Validado para el tablero';}
- if(type==='estudios'){const fin=parseBool(row.se_finalizo_mes)||parseBool(row['¿Se finalizó este mes?'])||norm(row.estado_estudio||row.estado_estudio_validado).includes('finalizado');confirmed=confirmed||(municipios.length&&valid&&fin&&!actorExcl);stage=confirmed?'confirmado':(fin?'pendiente':'proceso');stageLabel=confirmed?'Finalizado confirmado':(fin?'Finalizado pendiente de validación':(row.estado_estudio||row.estado_estudio_validado||'En proceso'));reason=confirmed?'Aporta como estudio municipal finalizado':(actorExcl?'Actor no municipal':(municipios.length?'Proceso visible, aún no aporta al indicador':'Falta municipio municipal'));}
- if(type==='pirdes'){const imp=parseBool(row.implementado_mes)||norm(row.estado_pirdes||row.estado_pirdes_validado).includes('implementado');confirmed=confirmed||(municipios.length&&valid&&imp&&!actorExcl);stage=confirmed?'confirmado':(imp?'pendiente':'proceso');stageLabel=confirmed?'Implementado confirmado':(row.estado_pirdes||row.estado_pirdes_validado||'En proceso');reason=confirmed?'Aporta como PIRDES municipal':(municipios.length?'Proceso visible, aún no aporta al indicador':'Falta municipio municipal');}
- if(type==='asistencias'){const nueva=parseBool(row.es_nueva_asistencia)||parseBool(row.cuenta_como_nueva_asistencia)||parseBool(row['¿Cuenta como nueva asistencia?']);const agua=wastewaterSector(row);const excl=actorExcl||hasExcludedAssistance(row);confirmed=confirmed||(municipios.length&&valid&&nueva&&agua&&!excl);stage=confirmed?'confirmado':(excl?'no':(agua?'proceso':'pendiente'));stageLabel=confirmed?'Asistencia técnica confirmada':(excl?'No elegible':(agua?'En seguimiento técnico':'Pendiente de clasificación sectorial'));reason=confirmed?'Aporta como asistencia técnica municipal en aguas residuales':(excl?'Actividad o actor no elegible para el indicador':(municipios.length?'Proceso visible, aún no aporta al indicador':'Falta municipio municipal'));}
- if(type==='reuniones'){const codema=parseBool(row.is_codema)||norm(row.tipo_reunion||row.tipo_reunion_validado).includes('codema')||norm(row.tipo_reunion||row.tipo_reunion_validado).includes('eje de agua');confirmed=confirmed||(valid&&codema);stage=confirmed?'confirmado':(codema?'pendiente':'proceso');stageLabel=confirmed?'Reunión CODEMA confirmada':(codema?'CODEMA pendiente':'Reunión en seguimiento');reason=confirmed?'Aporta al seguimiento específico del programa':'Proceso de coordinación visible';}
- if(type==='capacidad'){const core=parseBool(row.has_core_theme)||norm(row.temas_nucleo||row.temas).includes('cumplimiento legal')||norm(row.temas||'').includes('saneamiento');confirmed=confirmed||(municipios.length&&valid&&core&&!actorExcl);stage=confirmed?'proceso':(municipios.length?'proceso':'pendiente');stageLabel=confirmed?'Avance parcial hacia capacidad instalada':(municipios.length?'Avance municipal en seguimiento':'Pendiente de municipio');reason=confirmed?'Muestra avance operativo; no equivale a capacidad instalada completa':'Requiere evidencia de ejes completos';}
- if(estadoVal.includes('no elegible')||stage==='no'){stage='no';stageLabel=stageLabel==='No elegible'?stageLabel:'No elegible';}
- return{municipios,stage,stageLabel,confirmed,reason};}
-function processRows(type){let source=[];if(type==='estudios')source=dataUpto(DB.estudios);if(type==='pirdes')source=dataUpto(DB.pirdes);if(type==='asistencias')source=dataUpto(DB.asistencias);if(type==='reuniones')source=dataUpto(DB.reuniones);if(type==='capacidad')source=dataUpto(DB.capacitaciones);return source.map((r,i)=>{const c=classifyRecord(r,type);let activity='',kind='',date=r.fecha||'',municipio=c.municipios.join(', ')||'—',note=r.observaciones||r.observacion_coordinador||r.acuerdos_principales||r.resultado_mes||'';
- if(type==='estudios'){activity=detectStudyType(r);kind=r.estado_estudio||r.estado_estudio_validado||'—';}
- if(type==='pirdes'){activity='PIRDES municipal';kind=r.estado_pirdes||r.estado_pirdes_validado||'—';}
- if(type==='asistencias'){activity=r.proyecto_nombre||r.tipo_asistencia||'Asistencia técnica';kind=r.sectores||r.sector_validado||r.linea_enfoque||'—';}
- if(type==='reuniones'){activity=r.tema_principal||r.tipo_reunion||'Reunión de coordinación';kind=r.tipo_reunion||r.tipo_reunion_validado||'—';municipio=c.municipios.join(', ')||r.municipios||'—';note=r.acuerdos_principales||r.observaciones||'';}
- if(type==='capacidad'){activity=r.tipo_actividad||r.modalidad||'Capacitación / acompañamiento municipal';kind=r.temas||r.temas_nucleo||'—';}
- return{...r,__idx:i+1,__type:type,__date:date,__municipio:municipio,__activity:activity,__kind:kind,__stage:c.stage,__stageLabel:c.stageLabel,__reason:c.reason,__note:note,__confirmed:c.confirmed,__period:rowPeriod(r)};});}
-function filteredProcessRows(){let rows=processRows(state.process);if(state.stage!=='all')rows=rows.filter(r=>r.__stage===state.stage);const q=norm(state.query);if(q)rows=rows.filter(r=>norm([r.__municipio,r.__activity,r.__kind,r.__stageLabel,r.__reason,r.__note].join(' ')).includes(q));return rows;}
-function statusPill(stage,label){return `<span class="stage-pill stage-${esc(stage)}">${esc(label)}</span>`;}
-function renderTable(rows){if(!rows.length)return`<div class="empty">No hay procesos visibles para los filtros seleccionados.</div>`;return`<div class="tbl-wrap"><table><thead><tr><th>Fecha</th><th>Municipio / alcance</th><th>Actividad o proceso</th><th>Estadio</th><th>Situación</th><th>Lectura del programa</th></tr></thead><tbody>${rows.map(r=>`<tr><td class="mono">${esc(formatDate(r.__date)||'—')}</td><td>${esc(r.__municipio)}</td><td><strong>${esc(r.__activity)}</strong><div class="kpi-meta">${esc(r.__kind)}</div></td><td>${statusPill(r.__stage,r.__stageLabel)}</td><td>${r.__confirmed?'<span class="chip green">Aporta</span>':(r.__stage==='no'?'<span class="chip red">No aporta</span>':'<span class="chip yellow">En seguimiento</span>')}</td><td class="note-text">${esc(r.__reason)}${r.__note?`<br><span class="muted">${esc(shortLabel(r.__note))}</span>`:''}</td></tr>`).join('')}</tbody></table></div>`;}
-function formatDate(v){if(!v)return'';const s=String(v);const m=s.match(/(20\d{2})[-\/](\d{1,2})[-\/](\d{1,2})/);if(!m)return s.split(' ')[0];return `${m[3].padStart(2,'0')}/${m[2].padStart(2,'0')}/${m[1]}`;}
-function renderProcessCards(){const container=document.getElementById('processCards');container.innerHTML=Object.entries(PROCESS_LABELS).map(([k,label])=>{const rows=processRows(k);const confirmed=rows.filter(r=>r.__confirmed).length;return`<article class="card process-card ${state.process===k?'active':''}" onclick="selectProcess('${k}')"><small>${esc(label)}</small><strong>${fmt(rows.length)}</strong><p>${fmt(confirmed)} confirmados · ${fmt(rows.length-confirmed)} en seguimiento</p></article>`;}).join('');}
-function selectProcess(k){state.process=k;document.getElementById('processSelect').value=k;renderProcesses();}
-function renderProcesses(){renderProcessCards();const rows=filteredProcessRows();const all=processRows(state.process);const conf=all.filter(r=>r.__confirmed).length;const proc=all.filter(r=>!r.__confirmed&&r.__stage!=='no').length;const no=all.filter(r=>r.__stage==='no').length;document.getElementById('tableTitle').textContent=PROCESS_LABELS[state.process];document.getElementById('tableSub').textContent=`Procesos acumulados al período ${periodLabel(state.periodo)}.`;document.getElementById('tableStats').innerHTML=`<span class="chip green">${fmt(conf)} confirmados</span><span class="chip yellow">${fmt(proc)} en seguimiento</span><span class="chip red">${fmt(no)} no elegibles</span>`;document.getElementById('processTable').innerHTML=renderTable(rows);}
-function renderContext(){const genIds=['FM_GEN_01','FM_GEN_02','FM_GEN_03','FM_GEN_04'];const metrics=genIds.map(metricValue);const avg=metrics.length?metrics.reduce((a,m)=>a+m.pct,0)/metrics.length:0;document.getElementById('contextGrid').innerHTML=[{label:'Lectura general',value:fmtPct(avg)},{label:'Estudios confirmados',value:`${fmt(metricValue('FM_GEN_02').valor)}/${fmt(metricValue('FM_GEN_02').meta)}`},{label:'PIRDES confirmados',value:`${fmt(metricValue('FM_GEN_03').valor)}/${fmt(metricValue('FM_GEN_03').meta)}`},{label:'Asistencias confirmadas',value:`${fmt(metricValue('FM_GEN_04').valor)}/${fmt(metricValue('FM_GEN_04').meta)}`}].map(x=>`<div class="context-card"><small>${esc(x.label)}</small><strong>${esc(x.value)}</strong></div>`).join('');const cls=semClassPct(avg);const st=document.getElementById('programStatus');st.className=`status-badge ${cls}`;st.textContent=semTextPct(avg);document.getElementById('miniList').innerHTML=`<div class="mini-item"><span>Período observado</span><strong>${periodLabel(state.periodo)}</strong></div><div class="mini-item"><span>Procesos visibles</span><strong>${fmt(Object.keys(PROCESS_LABELS).reduce((a,k)=>a+processRows(k).length,0))}</strong></div><div class="mini-item"><span>Confirmados</span><strong>${fmt(Object.keys(PROCESS_LABELS).reduce((a,k)=>a+processRows(k).filter(r=>r.__confirmed).length,0))}</strong></div>`;}
-function renderSelects(){const p=document.getElementById('processSelect');p.innerHTML=Object.entries(PROCESS_LABELS).map(([k,v])=>`<option value="${k}" ${state.process===k?'selected':''}>${esc(v)}</option>`).join('');}
-function renderDiagnostic(){const est=metricValue('FM_GEN_02'),pir=metricValue('FM_GEN_03'),asis=metricValue('FM_GEN_04'),cap=metricValue('FM_GEN_01'),avance=metricValue('FM_SPEC_06');document.getElementById('diagnosticPanel').innerHTML=`<h3>Lectura del Programa de Fortalecimiento Municipal</h3><p>El programa acompaña procesos municipales que fortalecen la gestión ambiental, la planificación local y la respuesta técnica en agua, saneamiento y residuos. En este tablero, un proceso confirmado se muestra como aporte a la meta correspondiente; los procesos en curso se conservan como trazabilidad institucional sin inflar el cumplimiento.</p><p>Al período seleccionado, el programa registra <strong>${fmt(est.valor)}/${fmt(est.meta)}</strong> estudios municipales confirmados, <strong>${fmt(pir.valor)}/${fmt(pir.meta)}</strong> PIRDES municipales confirmados y <strong>${fmt(asis.valor)}/${fmt(asis.meta)}</strong> asistencias técnicas municipales en aguas residuales confirmadas.</p><p>La capacidad instalada municipal permanece en <strong>${fmt(cap.valor)}/${fmt(cap.meta)}</strong> porque el programa solo confirma esa meta cuando existe evidencia de los ejes requeridos. A la vez, se reconoce <strong>${fmt(avance.valor)}/${fmt(avance.meta)}</strong> municipalidad con avance operativo hacia capacidad instalada.</p><div class="diag-grid"><div class="diag-block"><strong>Confirmado</strong><p>Proceso con cierre técnico o validación suficiente para aportar al indicador.</p></div><div class="diag-block"><strong>En seguimiento</strong><p>Proceso visible en el acompañamiento municipal, pero todavía sin cierre o evidencia completa.</p></div><div class="diag-block"><strong>No elegible</strong><p>Actividad o actor que no corresponde a la meta municipal definida.</p></div></div>`;}
-function renderExec(){const summaries=Object.entries(PROCESS_LABELS).map(([k,label])=>{const rows=processRows(k);const conf=rows.filter(r=>r.__confirmed).length;const pct=rows.length?conf/rows.length*100:0;return{label,rows,conf,pct};});const avg=summaries.length?summaries.reduce((a,s)=>a+s.pct,0)/summaries.length:0;document.getElementById('execStatusBadge').className=`exec-status-badge ${semClassPct(avg)}`;document.getElementById('execStatusBadge').textContent=semTextPct(avg);document.getElementById('execPeriodInfo').textContent=`Procesos acumulados al ${periodLabel(state.periodo)}`;document.getElementById('execLatestPill').textContent=periodLabel(state.periodo);document.getElementById('execKpiGrid').innerHTML=summaries.slice(0,4).map(s=>`<article class="exec-kpi"><div class="exec-kpi-label">${esc(s.label)}</div><div class="exec-kpi-value">${fmt(s.conf)}/${fmt(s.rows.length)}</div><div class="kpi-meta">confirmados / visibles</div><div class="exec-kpi-bar"><span style="width:${Math.min(s.pct,100).toFixed(1)}%"></span></div></article>`).join('');const allRows=Object.keys(PROCESS_LABELS).flatMap(k=>processRows(k).filter(r=>r.__confirmed).map(r=>({...r,__label:PROCESS_LABELS[k]}))).slice(0,8);document.getElementById('execTable').innerHTML=renderTable(allRows);}
-function collectPeriods(){const rows=[...(DB.estudios||[]),...(DB.pirdes||[]),...(DB.asistencias||[]),...(DB.reuniones||[]),...(DB.capacitaciones||[]),...(DB.resumen||[])];const p=[...new Set(rows.map(rowPeriod).filter(Boolean))].sort();return p.length?p:['2026-04'];}
-function buildMonthPills(periods){const c=document.getElementById('monthPills');c.innerHTML='';const year=(periods[0]||'2026-01').slice(0,4);for(let i=1;i<=12;i++){const p=`${year}-${String(i).padStart(2,'0')}`;const btn=document.createElement('button');btn.type='button';btn.className='month-pill'+(p===state.periodo?' active':'');btn.textContent=MESES_SHORT[i-1];btn.disabled=!periods.includes(p);btn.onclick=()=>{state.periodo=p;render();};c.appendChild(btn);}const ex=document.getElementById('execPeriodSelect');ex.innerHTML=periods.map(p=>`<option value="${p}">${periodLabel(p)}</option>`).join('');ex.value=state.periodo;}
-function setupEvents(){document.getElementById('processSelect').addEventListener('change',e=>{state.process=e.target.value;renderProcesses();});document.getElementById('stageSelect').addEventListener('change',e=>{state.stage=e.target.value;renderProcesses();});document.getElementById('municipioInput').addEventListener('input',e=>{state.query=e.target.value;renderProcesses();});document.getElementById('execPeriodSelect').addEventListener('change',e=>{state.periodo=e.target.value;render();});document.querySelectorAll('.nav-tab').forEach(a=>a.addEventListener('click',()=>{document.querySelectorAll('.nav-tab').forEach(n=>n.classList.remove('active'));a.classList.add('active');}));}
-function render(){document.getElementById('latestPeriodPill').textContent=periodLabel(state.periodo);document.querySelectorAll('.month-pill').forEach((b,i)=>{const p=`${state.periodo.slice(0,4)}-${String(i+1).padStart(2,'0')}`;b.classList.toggle('active',p===state.periodo);});document.getElementById('execPeriodSelect').value=state.periodo;renderContext();renderSelects();renderProcesses();renderDiagnostic();renderExec();}
-function openModal(t,h){document.getElementById('modalTitle').textContent=t;document.getElementById('modalBody').innerHTML=h;document.getElementById('mainModal').classList.add('open');document.body.style.overflow='hidden';}
-function closeModal(){document.getElementById('mainModal').classList.remove('open');document.body.style.overflow='';}
-function openPresentation(){buildPresentation();const o=document.getElementById('presentationOverlay');o.classList.add('open');o.setAttribute('aria-hidden','false');document.body.classList.add('presentation-open');document.body.style.overflow='hidden';}
-function closePresentation(){const o=document.getElementById('presentationOverlay');o.classList.remove('open');o.setAttribute('aria-hidden','true');document.body.classList.remove('presentation-open');document.body.style.overflow='';}
-function buildPresentation(){const summaries=Object.entries(PROCESS_LABELS).map(([k,label])=>{const rows=processRows(k);const conf=rows.filter(r=>r.__confirmed).length;return{label,rows,conf};});document.getElementById('presentationMeta').innerHTML=`<span>Fortalecimiento Municipal · AALA</span><span>${periodLabel(state.periodo)}</span><span>Procesos activos</span>`;const track=document.getElementById('presentationTrack');track.innerHTML=`<section class="presentation-slide"><div class="presentation-slide-inner"><div class="presentation-kicker">Seguimiento institucional</div><div class="presentation-title-row"><div><h2>Procesos municipales activos</h2><p>El programa presenta la trazabilidad de sus procesos, distinguiendo entre registros confirmados, procesos en seguimiento y actividades que no aportan a las metas municipales.</p></div><div class="presentation-brand-badge"><img src="./Fortale.png" alt="Fortalecimiento Municipal"></div></div><div class="presentation-grid">${summaries.map(s=>`<article class="presentation-card"><small>${esc(s.label)}</small><strong>${fmt(s.conf)}/${fmt(s.rows.length)}</strong><p>confirmados sobre procesos visibles al período.</p></article>`).join('')}</div></div></section><section class="presentation-slide"><div class="presentation-slide-inner"><div class="presentation-kicker">Lectura del programa</div><div class="presentation-title-row"><div><h2>Procesos que explican el avance</h2><p>Los estudios, PIRDES, asistencias, reuniones y avances de capacidad instalada se muestran con su estadio para facilitar la revisión pública del proceso.</p></div></div><div class="presentation-grid">${Object.keys(PROCESS_LABELS).map(k=>{const rows=processRows(k);const p=rows.filter(r=>r.__stage==='proceso'||r.__stage==='pendiente').length;const n=rows.filter(r=>r.__stage==='no').length;return`<article class="presentation-card"><small>${esc(PROCESS_LABELS[k])}</small><strong>${fmt(p)}</strong><p>${fmt(n)} no elegibles · ${fmt(rows.length)} procesos visibles.</p></article>`;}).join('')}</div></div></section>`;buildDots();gotoSlide(0);}
-function buildDots(){const track=document.getElementById('presentationTrack');const dots=document.getElementById('presentationDots');dots.innerHTML='';Array.from(track.children).forEach((_,i)=>{const b=document.createElement('button');b.type='button';b.className='presentation-dot'+(i===presentationIndex?' active':'');b.onclick=()=>gotoSlide(i);dots.appendChild(b);});}
-function gotoSlide(idx){const track=document.getElementById('presentationTrack');const n=track.children.length;if(!n)return;presentationIndex=(idx+n)%n;track.style.transform=`translateX(-${presentationIndex*100}%)`;document.querySelectorAll('.presentation-dot').forEach((d,i)=>d.classList.toggle('active',i===presentationIndex));document.getElementById('presentationCounter').textContent=`${presentationIndex+1} / ${n}`;}
-function nextSlide(){gotoSlide(presentationIndex+1);}function prevSlide(){gotoSlide(presentationIndex-1);}
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closePresentation();}if(document.getElementById('presentationOverlay').classList.contains('open')){if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();nextSlide();}if(e.key==='ArrowLeft'){e.preventDefault();prevSlide();}}});
-async function init(){const keys=Object.keys(PATHS);const data=await Promise.all(keys.map(k=>parseCsv(PATHS[k])));keys.forEach((k,i)=>DB[k]=data[i]||[]);const periods=collectPeriods();state.periodo=periods[periods.length-1]||'2026-04';buildMonthPills(periods);setupEvents();render();}
+/* ─── CONFIG ───────────────────────────────────────────────────────── */
+const BASE = './data/fortalecimiento_municipal/';
+const PATHS = {
+  programaCard:  'programa_card.csv',
+  resumen:       'indicadores_resumen_validado.csv',
+  institucional: 'institucional_indicadores_validado.csv',
+  estudios:      'detalle_estudios.csv',
+  pirdes:        'detalle_pirdes.csv',
+  asistencias:   'detalle_asistencias.csv',
+  reuniones:     'detalle_reuniones.csv',
+  capacitaciones:'detalle_capacitaciones.csv'
+};
+const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const PROCESS_LABELS = {
+  estudios:    'Estudios y caracterizaciones',
+  pirdes:      'PIRDES municipales',
+  asistencias: 'Asistencias técnicas',
+  reuniones:   'Reuniones CODEMA',
+  capacidad:   'Capacidad instalada'
+};
+const DB   = {};
+const state = { periodo: null, process: 'estudios', stage: 'all', query: '' };
+let presentationIndex = 0;
+
+/* ─── UTILS ────────────────────────────────────────────────────────── */
+function norm(v){ return String(v??'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim(); }
+function esc(v){ return String(v??'').replace(/[&<>'"]/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m])); }
+function num(v){ const n=Number(String(v??'').replace(/,/g,'')); return Number.isFinite(n)?n:0; }
+function fmt(v){ return num(v).toLocaleString('es-GT',{maximumFractionDigits:1}); }
+function fmtPct(v){ return `${num(v).toLocaleString('es-GT',{maximumFractionDigits:1})}%`; }
+function parseBool(v){ return ['si','sí','true','1','x','yes'].includes(norm(v)); }
+
+function rowPeriod(r){
+  let p = r.periodo || '';
+  if(/^\d{4}-\d{2}$/.test(String(p))) return p;
+  let anio = r.anio||'', mes = r.mes_num||'';
+  if(anio&&mes) return `${anio}-${String(mes).padStart(2,'0')}`;
+  const f = String(r.fecha||'');
+  const m = f.match(/(20\d{2})[-\/](\d{1,2})/);
+  return m ? `${m[1]}-${m[2].padStart(2,'0')}` : '';
+}
+function periodLabel(p){
+  if(!p) return 'Período no disponible';
+  const [y,m] = String(p).split('-');
+  return `${MESES[(+m||1)-1]} ${y}`;
+}
+function periodLTE(a,b){
+  if(!a||!b) return false;
+  return String(a).trim() <= String(b).trim();
+}
+
+/* ─── CSV PARSER ────────────────────────────────────────────────────── */
+async function parseCsv(file){
+  try{
+    const res = await fetch(BASE+file+'?v='+Date.now(), {cache:'no-store'});
+    if(!res.ok) return [];
+    const text = await res.text();
+    return new Promise(resolve => Papa.parse(text,{
+      header:true, skipEmptyLines:true,
+      complete: r => resolve(r.data||[]),
+      error: () => resolve([])
+    }));
+  }catch(e){ return []; }
+}
+
+/* ─── DATA FILTER ──────────────────────────────────────────────────── */
+// KEY FIX: Only include rows that have an actual estado_fila_norm value (OK or INCOMPLETA).
+// This prevents the hundreds of empty template rows from appearing as "pending" records.
+function dataUpto(rows){
+  return (rows||[]).filter(r => {
+    const s = norm(r.estado_fila_norm || '');
+    if(!s) return false; // skip rows with no estado_fila_norm (empty template rows)
+    return periodLTE(rowPeriod(r), state.periodo);
+  });
+}
+
+/* ─── CLASSIFICATION ────────────────────────────────────────────────── */
+const EXCLUDED_ACTORS = ['cooperativa','rl','empresa','privado','ong'];
+const EXCLUDED_ASIST  = ['taller regional','capacitacion externa','evento nacional'];
+const WATER_SECTORS   = ['aguas residuales','tratamiento de aguas','saneamiento','ptars','ptar','agua'];
+
+function hasExcludedActor(r){
+  const inst = norm(r.instituciones_apoyo||r.instituciones_participantes||r.actor||'');
+  return EXCLUDED_ACTORS.some(x=>inst.includes(x));
+}
+function hasExcludedAssistance(r){
+  const t = norm(r.tipo_asistencia||r.actividad||'');
+  return EXCLUDED_ASIST.some(x=>t.includes(x));
+}
+function wastewaterSector(r){
+  const s = norm(r.sectores||r.linea_enfoque||r.tipo_asistencia||'');
+  return WATER_SECTORS.some(x=>s.includes(x));
+}
+function municipalitiesFromRow(r){
+  const raw = r.municipio||r.municipios||'';
+  return String(raw).split(/[,;\/]/).map(x=>x.trim()).filter(Boolean);
+}
+function shortLabel(s){ return String(s||'').length>120 ? String(s).slice(0,120)+'…' : String(s); }
+function formatDate(d){
+  if(!d) return '';
+  const m = String(d).match(/(20\d{2})[-\/](\d{1,2})[-\/](\d{1,2})/);
+  return m ? `${m[3]}/${m[2]}/${m[1]}` : d;
+}
+function metricValue(id){
+  const rows = DB.resumen||[];
+  const r = rows.find(x=>norm(x.indicador_id)===norm(id));
+  if(!r) return {valor:0,meta:0,pct:0};
+  const valor=num(r.valor_validado), meta=num(r.meta);
+  return {valor, meta, pct: meta?valor/meta*100:0};
+}
+
+function classifyRecord(row, type){
+  const municipios = municipalitiesFromRow(row);
+  const valid = norm(row.estado_fila_norm||row.estado_fila||row.estado) === 'ok' ||
+                !String(row.estado_fila_norm||row.estado_fila||row.estado||'').trim();
+  const actorExcl = hasExcludedActor(row);
+  let confirmed=false, stage='proceso', stageLabel='En proceso', reason='Proceso en seguimiento';
+
+  if(type==='estudios'){
+    const fin = parseBool(row.se_finalizo_mes)||parseBool(row['¿Se finalizó este mes?'])||
+                norm(row.estado_estudio||row.estado_estudio_validado).includes('finalizado');
+    confirmed = !!(municipios.length&&valid&&fin&&!actorExcl);
+    stage = confirmed?'confirmado':(fin?'pendiente':'proceso');
+    stageLabel = confirmed?'Finalizado confirmado':(fin?'Finalizado – pendiente de validación':(row.estado_estudio||'En proceso'));
+    reason = confirmed?'Aporta como estudio municipal finalizado':(actorExcl?'Actor no municipal':(municipios.length?'Proceso visible, aún no aporta al indicador':'Falta municipio municipal'));
+  }
+  if(type==='pirdes'){
+    const imp = parseBool(row.implementado_mes)||norm(row.estado_pirdes||row.estado_pirdes_validado).includes('implementado');
+    confirmed = !!(municipios.length&&valid&&imp&&!actorExcl);
+    stage = confirmed?'confirmado':(imp?'pendiente':'proceso');
+    stageLabel = confirmed?'Implementado confirmado':(row.estado_pirdes||'En proceso');
+    reason = confirmed?'Aporta como PIRDES municipal':(municipios.length?'Proceso visible, aún no aporta al indicador':'Falta municipio municipal');
+  }
+  if(type==='asistencias'){
+    const nueva = parseBool(row.es_nueva_asistencia)||parseBool(row.cuenta_como_nueva_asistencia)||parseBool(row['¿Cuenta como nueva asistencia?']);
+    const agua = wastewaterSector(row);
+    const excl = actorExcl||hasExcludedAssistance(row);
+    confirmed = !!(municipios.length&&valid&&nueva&&agua&&!excl);
+    stage = confirmed?'confirmado':(excl?'no':(agua?'proceso':'pendiente'));
+    stageLabel = confirmed?'Asistencia técnica confirmada':(excl?'No elegible':(agua?'En seguimiento técnico':'Pendiente de clasificación sectorial'));
+    reason = confirmed?'Aporta como asistencia técnica municipal en aguas residuales':(excl?'Actividad o actor no elegible':(municipios.length?'Proceso visible, aún no aporta al indicador':'Falta municipio municipal'));
+  }
+  if(type==='reuniones'){
+    const codema = parseBool(row.is_codema)||norm(row.tipo_reunion||row.tipo_reunion_validado).includes('codema')||norm(row.tipo_reunion||'').includes('eje de agua');
+    confirmed = !!(valid&&codema);
+    stage = confirmed?'confirmado':(codema?'pendiente':'proceso');
+    stageLabel = confirmed?'Reunión CODEMA confirmada':(codema?'CODEMA pendiente':'Reunión en seguimiento');
+    reason = confirmed?'Aporta al seguimiento específico del programa':'Proceso de coordinación visible';
+  }
+  if(type==='capacidad'){
+    const core = parseBool(row.has_core_theme)||norm(row.temas_nucleo||row.temas).includes('cumplimiento legal')||norm(row.temas||'').includes('saneamiento');
+    confirmed = !!(municipios.length&&valid&&core&&!actorExcl);
+    stage = confirmed?'proceso':(municipios.length?'proceso':'pendiente');
+    stageLabel = confirmed?'Avance parcial hacia capacidad instalada':(municipios.length?'Avance municipal en seguimiento':'Pendiente de municipio');
+    reason = confirmed?'Muestra avance operativo; no equivale a capacidad instalada completa':'Requiere evidencia de ejes completos';
+  }
+  return {confirmed, stage, stageLabel, reason, municipios};
+}
+
+function processRows(type){
+  let source = [];
+  if(type==='estudios')    source = dataUpto(DB.estudios);
+  if(type==='pirdes')      source = dataUpto(DB.pirdes);
+  if(type==='asistencias') source = dataUpto(DB.asistencias);
+  if(type==='reuniones')   source = dataUpto(DB.reuniones);
+  if(type==='capacidad')   source = dataUpto(DB.capacitaciones);
+
+  return source.map((r,i) => {
+    const c = classifyRecord(r, type);
+    let activity='', kind='', date=r.fecha||'', municipio=c.municipios.join(', ')||'—';
+    const note = r.observaciones||r.observacion_coordinador||r.acuerdos_principales||r.resultado_mes||'';
+
+    if(type==='estudios'){ activity=r.tipo_estudio||'Estudio'; kind=r.estado_estudio||''; }
+    if(type==='pirdes'){ activity=r.municipio||'PIRDES'; kind=r.estado_pirdes||''; }
+    if(type==='asistencias'){ activity=r.proyecto_nombre||r.tipo_asistencia||'Asistencia'; kind=r.linea_enfoque||''; }
+    if(type==='reuniones'){ activity=r.tipo_reunion||'Reunión'; kind=r.tema_principal||''; municipio=r.municipios||'Varios'; }
+    if(type==='capacidad'){ activity=r.tipo_actividad||'Capacitación'; kind=r.temas_nucleo||r.temas||''; }
+
+    return {...r, __idx:i+1, __type:type, __date:date, __municipio:municipio, __activity:activity, __kind:kind,
+            __stage:c.stage, __stageLabel:c.stageLabel, __reason:c.reason, __note:note,
+            __confirmed:c.confirmed, __period:rowPeriod(r)};
+  });
+}
+
+function filteredProcessRows(){
+  let rows = processRows(state.process);
+  if(state.stage !== 'all') rows = rows.filter(r => r.__stage === state.stage);
+  const q = norm(state.query);
+  if(q) rows = rows.filter(r => norm([r.__municipio, r.__activity, r.__kind, r.__stageLabel, r.__reason, r.__note].join(' ')).includes(q));
+  return rows;
+}
+
+/* ─── RENDER HELPERS ────────────────────────────────────────────────── */
+function stagePill(stage, label){
+  const map = { confirmado:'s-confirmado', proceso:'s-proceso', pendiente:'s-pendiente', no:'s-no' };
+  return `<span class="stage-pill ${map[stage]||'s-neutro'}">${esc(label||stage)}</span>`;
+}
+function semClass(pct){
+  if(pct>=0.75) return 'sc-green';
+  if(pct>=0.4)  return 'sc-yellow';
+  return 'sc-red';
+}
+function semText(pct){
+  if(pct>=0.75) return 'En meta';
+  if(pct>=0.4)  return 'En seguimiento';
+  return 'Requiere acción';
+}
+
+/* ─── RENDER PERIOD PILLS ─────────────────────────────────────────── */
+function collectPeriods(){
+  const s = new Set();
+  Object.keys(PROCESS_LABELS).forEach(k => {
+    (DB[k==='estudios'?'estudios':k==='pirdes'?'pirdes':k==='asistencias'?'asistencias':k==='reuniones'?'reuniones':'capacitaciones']||[])
+    .forEach(r => { const p=rowPeriod(r); if(p) s.add(p); });
+  });
+  (DB.resumen||[]).forEach(r => { if(r.periodo&&/^\d{4}-\d{2}$/.test(r.periodo)) s.add(r.periodo); });
+  return Array.from(s).sort();
+}
+
+function buildMonthPills(periods){
+  const container = document.getElementById('monthPills');
+  if(!periods.length){ container.innerHTML='<span class="month-pill" disabled>Sin períodos</span>'; return; }
+  container.innerHTML = periods.map(p => {
+    const [y,m] = p.split('-');
+    const label = `${['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'][(+m||1)-1]} ${y}`;
+    return `<button class="month-pill ${p===state.periodo?'active':''}" onclick="selectPeriod('${p}')">${label}</button>`;
+  }).join('');
+}
+
+function selectPeriod(p){ state.periodo=p; buildMonthPills(collectPeriods()); render(); }
+
+/* ─── RENDER KPI GRID ───────────────────────────────────────────────── */
+function renderKpis(){
+  const IDS = [
+    {id:'FM_GEN_02', label:'Estudios de caracterización', color:'var(--emerald)'},
+    {id:'FM_GEN_03', label:'PIRDES Municipales',          color:'var(--teal)'},
+    {id:'FM_GEN_04', label:'Asistencias técnicas (AR)',   color:'var(--amber)'},
+    {id:'FM_GEN_01', label:'Municipalidades – cap. instalada', color:'var(--muted)'},
+  ];
+  const grid = document.getElementById('kpiGrid');
+  grid.innerHTML = IDS.map(({id,label,color}) => {
+    const {valor,meta,pct} = metricValue(id);
+    const r = (DB.resumen||[]).find(x=>norm(x.indicador_id)===norm(id));
+    return `<div class="kpi-card fade-in" style="--kpi-color:${color}">
+      <div class="kpi-label">${esc(label)}</div>
+      <div class="kpi-val">${fmt(valor)}<em>/ ${fmt(meta)}</em></div>
+      <div class="kpi-meta">${fmtPct(pct)} de la meta · ${r?esc(r.unidad||''):'unidades'}</div>
+      <div class="kpi-bar"><span style="width:${Math.min(pct,100).toFixed(1)}%"></span></div>
+    </div>`;
+  }).join('');
+}
+
+/* ─── RENDER MODULE TABS ──────────────────────────────────────────── */
+function renderModuleTabs(){
+  const container = document.getElementById('moduleTabs');
+  container.innerHTML = Object.entries(PROCESS_LABELS).map(([k,label]) => {
+    const rows = processRows(k);
+    const conf = rows.filter(r=>r.__confirmed).length;
+    return `<button class="module-tab ${state.process===k?'active':''}" onclick="selectProcess('${k}')">
+      <small>${esc(label)}</small>
+      <strong>${fmt(rows.length)}</strong>
+      <p>${fmt(conf)} confirmados · ${fmt(rows.length-conf)} en seguimiento</p>
+    </button>`;
+  }).join('');
+
+  // Update process select
+  const sel = document.getElementById('processSelect');
+  const prev = sel.value;
+  sel.innerHTML = Object.entries(PROCESS_LABELS).map(([k,l])=>`<option value="${k}" ${k===state.process?'selected':''}>${esc(l)}</option>`).join('');
+  if(prev) sel.value = prev;
+}
+
+/* ─── RENDER TABLE ──────────────────────────────────────────────────── */
+function renderTable(rows){
+  if(!rows.length){
+    return `<div class="empty-state">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/><dot cx="12" cy="16" r="1"/>
+      </svg>
+      No hay procesos visibles para los filtros seleccionados.
+    </div>`;
+  }
+  return `<div class="tbl-wrap"><table>
+    <thead><tr>
+      <th>Fecha</th>
+      <th>Municipio / alcance</th>
+      <th>Actividad o proceso</th>
+      <th>Estado</th>
+      <th>Aporta</th>
+      <th>Lectura del programa</th>
+    </tr></thead>
+    <tbody>${rows.map(r=>`<tr>
+      <td class="mono">${esc(formatDate(r.__date)||'—')}</td>
+      <td class="bold">${esc(r.__municipio)}</td>
+      <td>
+        <strong style="display:block;font-size:.79rem;color:var(--ink);font-weight:700">${esc(r.__activity)}</strong>
+        ${r.__kind ? `<span style="font-size:.73rem;color:var(--muted)">${esc(r.__kind)}</span>` : ''}
+      </td>
+      <td>${stagePill(r.__stage, r.__stageLabel)}</td>
+      <td>${r.__confirmed
+          ? '<span class="chip chip-yes">✓ Sí</span>'
+          : (r.__stage==='no'
+              ? '<span class="chip chip-no">✗ No</span>'
+              : '<span class="chip chip-pend">Seguimiento</span>')
+      }</td>
+      <td class="note">${esc(r.__reason)}${r.__note?`<br><span style="opacity:.7">${esc(shortLabel(r.__note))}</span>`:''}</td>
+    </tr>`).join('')}</tbody>
+  </table></div>`;
+}
+
+/* ─── RENDER PROCESSES ──────────────────────────────────────────────── */
+function renderProcesses(){
+  renderModuleTabs();
+  const rows = filteredProcessRows();
+  const all  = processRows(state.process);
+  const conf = all.filter(r=>r.__confirmed).length;
+  const proc = all.filter(r=>!r.__confirmed&&r.__stage!=='no').length;
+  const no   = all.filter(r=>r.__stage==='no').length;
+
+  document.getElementById('tableTitle').textContent = PROCESS_LABELS[state.process];
+  document.getElementById('tableSub').textContent   = `Procesos acumulados al período ${periodLabel(state.periodo)}`;
+  document.getElementById('tableStats').innerHTML =
+    `<span class="stage-pill s-confirmado">${fmt(conf)} confirmados</span>
+     <span class="stage-pill s-proceso">${fmt(proc)} en seguimiento</span>
+     <span class="stage-pill s-no">${fmt(no)} no elegibles</span>`;
+  document.getElementById('activePeriodPill').textContent = periodLabel(state.periodo)||'—';
+  document.getElementById('processTable').innerHTML = renderTable(rows);
+}
+
+/* ─── RENDER HERO STATS ──────────────────────────────────────────────── */
+function renderContext(){
+  // no separate section, KPIs cover this
+}
+
+/* ─── RENDER EXECUTIVE ──────────────────────────────────────────────── */
+function renderExec(){
+  const summaries = Object.entries(PROCESS_LABELS).map(([k,label]) => {
+    const rows = processRows(k);
+    const conf = rows.filter(r=>r.__confirmed).length;
+    const pct  = rows.length ? conf/rows.length*100 : 0;
+    return {label, rows, conf, pct};
+  });
+  const avg = summaries.length ? summaries.reduce((a,s)=>a+s.pct,0)/summaries.length : 0;
+
+  const badge = document.getElementById('execStatusBadge');
+  badge.className = `sc-badge ${semClass(avg/100)}`;
+  badge.textContent = semText(avg/100);
+
+  document.getElementById('execPeriodInfo').textContent = `Procesos acumulados al ${periodLabel(state.periodo)}`;
+
+  document.getElementById('execKpiGrid').innerHTML = summaries.slice(0,4).map(s =>
+    `<div class="exec-kpi">
+      <div class="ek-label">${esc(s.label)}</div>
+      <div class="ek-val">${fmt(s.conf)} <span style="font-size:.8rem;color:var(--muted)">/ ${fmt(s.rows.length)}</span></div>
+      <div class="ek-sub">confirmados de registros visibles</div>
+      <div class="ek-bar"><span style="width:${Math.min(s.pct,100).toFixed(1)}%"></span></div>
+    </div>`
+  ).join('');
+
+  const allRows = Object.keys(PROCESS_LABELS).flatMap(k => processRows(k).filter(r=>r.__confirmed)).slice(0,12);
+  document.getElementById('execTable').innerHTML = renderTable(allRows);
+}
+
+/* ─── RENDER DIAGNOSTIC ─────────────────────────────────────────────── */
+function renderDiagnostic(){
+  const all = Object.keys(PROCESS_LABELS).map(k => ({
+    key:k, label:PROCESS_LABELS[k],
+    rows:processRows(k),
+    conf:processRows(k).filter(r=>r.__confirmed).length,
+    no:processRows(k).filter(r=>r.__stage==='no').length,
+  }));
+  const totalConf = all.reduce((a,x)=>a+x.conf,0);
+  const totalRows = all.reduce((a,x)=>a+x.rows.length,0);
+  const avgPct    = totalRows ? totalConf/totalRows*100 : 0;
+
+  const texts = {
+    estudios:    `${all.find(x=>x.key==='estudios')?.conf??0} estudios finalizados y validados de los registros activos al período.`,
+    pirdes:      `${all.find(x=>x.key==='pirdes')?.conf??0} PIRDES implementados con evidencia completa al período de análisis.`,
+    asistencias: `${all.find(x=>x.key==='asistencias')?.conf??0} asistencias técnicas municipales elegibles en aguas residuales.`,
+    reuniones:   `${all.find(x=>x.key==='reuniones')?.conf??0} reuniones CODEMA confirmadas para el seguimiento del programa.`,
+    capacidad:   `${all.find(x=>x.key==='capacidad')?.conf??0} registros muestran avance hacia capacidad instalada municipal.`,
+  };
+
+  document.getElementById('diagnosticPanel').innerHTML = `
+    <div class="diagnostic-card">
+      <div class="diag-top">
+        <div class="diag-accent"></div>
+        <div class="diag-content">
+          <h3>Lectura general del programa — ${periodLabel(state.periodo)}</h3>
+          <p>El programa registra <strong>${fmt(totalConf)}</strong> procesos confirmados de <strong>${fmt(totalRows)}</strong> visibles al período, 
+          lo que representa el <strong>${fmtPct(avgPct)}</strong> de avance agregado. 
+          Los módulos de estudios y PIRDES lideran la tasa de confirmación; 
+          capacidad instalada requiere mayor evidencia técnica para detonarse como indicador completo.</p>
+        </div>
+      </div>
+      <div class="diag-grid">
+        ${all.map(x=>`
+          <div class="diag-block">
+            <strong>${esc(x.label)}</strong>
+            <p>${esc(texts[x.key]||'')} ${x.no>0?`${fmt(x.no)} registros no elegibles detectados.`:''}</p>
+          </div>`).join('')}
+      </div>
+    </div>`;
+}
+
+/* ─── RENDER ALL ────────────────────────────────────────────────────── */
+function render(){
+  renderKpis();
+  renderProcesses();
+  renderExec();
+  renderDiagnostic();
+}
+
+/* ─── VIEW SWITCH ───────────────────────────────────────────────────── */
+function switchView(v){
+  document.body.className = `view-${v}`;
+  document.getElementById('btnFull').classList.toggle('active', v==='full');
+  document.getElementById('btnExec').classList.toggle('active', v==='exec');
+}
+
+/* ─── SELECT PROCESS ────────────────────────────────────────────────── */
+function selectProcess(k){
+  state.process = k;
+  document.getElementById('processSelect').value = k;
+  renderProcesses();
+}
+
+/* ─── EVENTS ────────────────────────────────────────────────────────── */
+function setupEvents(){
+  document.getElementById('processSelect').addEventListener('change', e => selectProcess(e.target.value));
+  document.getElementById('stageSelect').addEventListener('change', e => { state.stage=e.target.value; renderProcesses(); });
+  document.getElementById('searchInput').addEventListener('input', e => { state.query=e.target.value; renderProcesses(); });
+}
+
+/* ─── MODAL ─────────────────────────────────────────────────────────── */
+function closeModal(){
+  const m = document.getElementById('mainModal');
+  m.classList.remove('open');
+  m.setAttribute('aria-hidden','true');
+}
+
+/* ─── PRESENTATION ──────────────────────────────────────────────────── */
+function openPresentation(){
+  buildPresentation();
+  const o = document.getElementById('presentationOverlay');
+  o.classList.add('open');
+  o.setAttribute('aria-hidden','false');
+  document.body.classList.add('presentation-open');
+}
+function closePresentation(){
+  document.getElementById('presentationOverlay').classList.remove('open');
+  document.getElementById('presentationOverlay').setAttribute('aria-hidden','true');
+  document.body.classList.remove('presentation-open');
+}
+function buildPresentation(){
+  const summaries = Object.entries(PROCESS_LABELS).map(([k,label]) => {
+    const rows = processRows(k);
+    const conf = rows.filter(r=>r.__confirmed).length;
+    return {label,rows,conf};
+  });
+  document.getElementById('presentationMeta').innerHTML =
+    `<span>Fortalecimiento Municipal · AALA</span><span>${periodLabel(state.periodo)}</span><span>Procesos activos</span>`;
+  const track = document.getElementById('presentationTrack');
+  track.innerHTML = `
+    <section class="pres-slide">
+      <div class="pres-kicker">Seguimiento institucional</div>
+      <h2>Procesos municipales activos</h2>
+      <p>El programa presenta la trazabilidad de sus procesos, distinguiendo entre registros confirmados, procesos en seguimiento y actividades que no aportan a las metas.</p>
+      <div class="pres-cards">${summaries.map(s=>`
+        <div class="pres-card">
+          <small>${esc(s.label)}</small>
+          <strong>${fmt(s.conf)} / ${fmt(s.rows.length)}</strong>
+          <p>confirmados sobre procesos visibles al período.</p>
+        </div>`).join('')}
+      </div>
+    </section>
+    <section class="pres-slide">
+      <div class="pres-kicker">Lectura del programa</div>
+      <h2>Procesos que explican el avance</h2>
+      <p>Los estudios, PIRDES, asistencias, reuniones y avances de capacidad instalada se muestran con su estadio para facilitar la revisión pública del proceso.</p>
+      <div class="pres-cards">${Object.keys(PROCESS_LABELS).map(k=>{
+        const rows = processRows(k);
+        const p = rows.filter(r=>r.__stage==='proceso'||r.__stage==='pendiente').length;
+        const n = rows.filter(r=>r.__stage==='no').length;
+        return `<div class="pres-card">
+          <small>${esc(PROCESS_LABELS[k])}</small>
+          <strong>${fmt(p)}</strong>
+          <p>${fmt(n)} no elegibles · ${fmt(rows.length)} procesos visibles.</p>
+        </div>`;}).join('')}
+      </div>
+    </section>`;
+  buildPressDots();
+  gotoSlide(0);
+}
+function buildPressDots(){
+  const track = document.getElementById('presentationTrack');
+  const dots  = document.getElementById('presentationDots');
+  dots.innerHTML = '';
+  Array.from(track.children).forEach((_,i) => {
+    const b = document.createElement('button');
+    b.type='button'; b.className='pres-dot'+(i===presentationIndex?' active':'');
+    b.onclick=()=>gotoSlide(i); dots.appendChild(b);
+  });
+}
+function gotoSlide(idx){
+  const track = document.getElementById('presentationTrack');
+  const n = track.children.length;
+  if(!n) return;
+  presentationIndex = (idx+n)%n;
+  track.style.transform = `translateX(-${presentationIndex*100}%)`;
+  document.querySelectorAll('.pres-dot').forEach((d,i)=>d.classList.toggle('active',i===presentationIndex));
+  document.getElementById('presentationCounter').textContent = `${presentationIndex+1} / ${n}`;
+}
+function nextSlide(){ gotoSlide(presentationIndex+1); }
+function prevSlide(){ gotoSlide(presentationIndex-1); }
+
+/* ─── KEYBOARD ──────────────────────────────────────────────────────── */
+document.addEventListener('keydown', e => {
+  if(e.key==='Escape'){ closeModal(); closePresentation(); }
+  if(document.getElementById('presentationOverlay').classList.contains('open')){
+    if(e.key==='ArrowRight'||e.key===' '){ e.preventDefault(); nextSlide(); }
+    if(e.key==='ArrowLeft'){ e.preventDefault(); prevSlide(); }
+  }
+});
+
+/* ─── SMOOTH NAV ────────────────────────────────────────────────────── */
+document.querySelectorAll('.nav-tab').forEach(tab => {
+  tab.addEventListener('click', function(){
+    document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+/* ─── INIT ──────────────────────────────────────────────────────────── */
+async function init(){
+  const keys  = Object.keys(PATHS);
+  const data  = await Promise.all(keys.map(k => parseCsv(PATHS[k])));
+  keys.forEach((k,i) => DB[k] = data[i]||[]);
+
+  const periods = collectPeriods();
+  state.periodo = periods[periods.length-1] || '2026-04';
+
+  buildMonthPills(periods);
+  setupEvents();
+  render();
+}
+
 init();
 </script>
 </body>
