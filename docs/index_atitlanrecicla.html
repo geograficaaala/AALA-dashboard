@@ -1840,6 +1840,7 @@
     </section>
     <section class="toolbar toolbar-compact">
       <select id="periodSelect" hidden></select>
+      <span id="latestPeriodPill" hidden></span>
       <div class="card filter"><label for="zoneSelect">Zona</label><select id="zoneSelect"></select></div>
     </section>
     <section class="section">
@@ -2131,7 +2132,8 @@ function bindControls(state){
   indicatorSelect.innerHTML = state.indicators.map(i=>`<option value="${escapeHtml(i.id)}">${escapeHtml(i.name)}</option>`).join("");
   if(state.selectedIndicatorId) indicatorSelect.value = state.selectedIndicatorId;
 
-  document.getElementById("latestPeriodPill").textContent = periodLabel(state.latestValid);
+  const latestPeriodPill=document.getElementById("latestPeriodPill");
+  if(latestPeriodPill) latestPeriodPill.textContent = periodLabel(state.latestValid);
   buildMonthPills(state);
 
   periodSelect.onchange = ()=>{
@@ -2338,7 +2340,8 @@ function renderTrend(state){
   const year=period?.anio;
   const metricId=state.selectedIndicatorId;
   const rows=getTrendRows(state, year, metricId);
-  document.getElementById("chartSubtitle").textContent = `${metricLabel(metricId)} · ${getZoneLabel(state.selectedZone)} · ${year||"—"}`;
+  const chartSubtitle=document.getElementById("chartSubtitle");
+  if(chartSubtitle) chartSubtitle.textContent = `${metricLabel(metricId)} · ${getZoneLabel(state.selectedZone)} · ${year||"—"}`;
 
   const panel=document.getElementById("trendChart");
   if(!rows.length){
@@ -2997,7 +3000,8 @@ function svgEl(tag,attrs){
 ═══════════════════════════════════════════════ */
 function openModal(title, renderFn){
   var m=document.getElementById('panelModal');
-  document.getElementById('modalTitle').textContent=title;
+  var modalTitle=document.getElementById('modalTitle');
+  if(modalTitle) modalTitle.textContent=title;
   var body=document.getElementById('modalBody');
   body.innerHTML='';
   renderFn(body);
@@ -4304,7 +4308,8 @@ function setupChartZoom(){
   });
 }
 function openChartZoom(title, html){
-  document.getElementById('chartZoomTitle').textContent = title;
+  const chartZoomTitle=document.getElementById('chartZoomTitle');
+  if(chartZoomTitle) chartZoomTitle.textContent = title;
   var body = document.getElementById('chartZoomBody');
   body.innerHTML = '<div style="width:100%">' + html + '</div>';
   body.querySelectorAll('svg').forEach(function(s){
