@@ -2205,8 +2205,54 @@ const META_DIARIA_LIDERESA  = 135;     // GTQ/día (meta mensual del CSV)
 
 async function loadAtitlan(cfg){
   const [totalRaw, indRaw] = await Promise.all([parseCsv(cfg.totalUrl), parseCsv(cfg.indUrl)]);
-  const total = sortByMonth(cast(totalRaw).filter(r => !r.zona || String(r.zona).toUpperCase() === 'TOTAL'));
-  const inds  = cast(indRaw);
+  const baseTotal = cast(totalRaw);
+  const baseInds  = cast(indRaw);
+
+  // Sincronizado con index_atitlanrecicla.html · abril 2026
+  const ABRIL_TOTAL_ATITLAN = {
+    programa:'atitlan_recicla', anio:2026, mes_num:4, mes:'ABR', zona:'TOTAL',
+    mujeres_activas:58, mujeres_actividades:42, mujeres_comercializacion:31,
+    mujeres_comercializacion_no_inscritas:2, ingreso_diario_lideresa:183.280424242,
+    mujeres_inscritas_total:64, mujeres_nuevas_inscritas:0,
+    materiales_lideresas_qq:1574.4, materiales_municipalidad_qq:46.41,
+    total_materiales_qq:1683.5,
+    ingreso_bruto_lideresas:30241.27, gasto_transporte:2300,
+    pago_coop_lideresas:130.5, ingreso_neto_lideresas:30110.77,
+    ingreso_bruto_municipalidad:2222.63, pago_coop_municipalidad:322.43,
+    ingreso_neto_municipalidad:1900.2, ingreso_bruto_total:32463.9,
+    ingreso_neto_total_territorio:32010.97, ingreso_neto_cooperativa:452.93,
+    horas_trabajadas_lideresas:2058.1, pet_qq:95.59,
+    vidrio_peso_qq:876.71, vidrio_total_qq:877.42,
+    ingreso_pet:3623.35, ingreso_vidrio_peso:16901.86,
+    ingreso_vidrio_gronn:0, ingreso_vidrio_surusic:142,
+    pct_participacion_actividades:0.724137931034,
+    pct_participacion_comercializacion:0.568965517241
+  };
+  const ABRIL_INDICADORES_ATITLAN = [
+    ['materiales_generales','Materiales reciclables recolectados',1683.5,1630,'qq'],
+    ['pet','PET recolectado',95.59,153,'qq'],
+    ['vidrio','Vidrio recolectado',877.42,1018,'qq'],
+    ['ingreso_bruto_total','Ingresos brutos totales',32463.9,40727,'GTQ'],
+    ['ingreso_bruto_mujeres','Ingresos brutos por mujeres',30241.27,36655,'GTQ'],
+    ['ingreso_bruto_municipalidades','Ingresos brutos por municipalidades',2222.63,4073,'GTQ'],
+    ['ingreso_diario_lideresa','Ingreso diario por lideresa',183.280424242,135,'GTQ/día'],
+    ['participacion_actividades','Participación activa en actividades',0.724137931034,0.75,'proporción'],
+    ['participacion_comercializacion','Participación en comercialización',0.568965517241,0.6,'proporción']
+  ].map(([indicador_id, indicador_nombre, valor, meta_mensual, unidad]) => ({
+    programa_id:'atitlan_recicla', programa_nombre:'Atitlán Recicla', anio:2026, mes_num:4, mes:'ABR',
+    nivel_agregacion:'programa', territorio:'TOTAL', indicador_id, indicador_nombre,
+    valor, meta_mensual, unidad, fuente:'CDM · abril 2026'
+  }));
+
+  const totalPatched = baseTotal
+    .filter(r => !(Number(r.mes_num) === 4 && String(r.zona || '').toUpperCase() === 'TOTAL'))
+    .concat([ABRIL_TOTAL_ATITLAN]);
+  const indsPatched = baseInds
+    .filter(r => !(Number(r.mes_num) === 4 && String(r.nivel_agregacion||'').toLowerCase() === 'programa'))
+    .concat(ABRIL_INDICADORES_ATITLAN);
+
+  const total = sortByMonth(totalPatched.filter(r => !r.zona || String(r.zona).toUpperCase() === 'TOTAL'));
+  const inds  = indsPatched;
 
   const withData = total.filter(r => Number(r.total_materiales_qq || 0) > 0);
   const latest   = withData[withData.length - 1] || {};
@@ -2241,7 +2287,7 @@ async function loadAtitlan(cfg){
       label: 'Colecta de materiales reciclables',
       acumDisplay: `${fmt(acumMateriales)} / ${fmt(META_ANUAL_MATERIALES)} qq`,
       pct: pctMateriales,
-      pctDisplay: `${fmtPct(pctMateriales)} de avance acumulado hasta el mes de marzo con respecto a meta anual`,
+      pctDisplay: `${fmtPct(pctMateriales)} de avance acumulado hasta el mes de abril con respecto a meta anual`,
       barPct: pctMateriales,
       temporality: 'Este indicador tiene por temporalidad desde enero a noviembre de 2026'
     },
@@ -2249,7 +2295,7 @@ async function loadAtitlan(cfg){
       label: 'Ingresos brutos por comercialización',
       acumDisplay: `${fmt(acumIngresos)} / ${fmt(META_ANUAL_INGRESOS)} GTQ`,
       pct: pctIngresos,
-      pctDisplay: `${fmtPct(pctIngresos)} de avance acumulado hasta el mes de marzo con respecto a meta anual`,
+      pctDisplay: `${fmtPct(pctIngresos)} de avance acumulado hasta el mes de abril con respecto a meta anual`,
       barPct: pctIngresos,
       temporality: 'Este indicador tiene por temporalidad desde enero a noviembre de 2026'
     },
@@ -2273,15 +2319,16 @@ async function loadAtitlan(cfg){
     score: score || 0,
     scoreLabel: 'Cumplimiento promedio vs metas mensuales',
     metrics: keyMetrics,
-    sourceSummary: 'Google Sheets'
+    sourceSummary: 'Google Sheets · abril 2026'
   };
 }
 
 async function loadConservando(cfg){
-  const aceiteAcum = 20470.828;
-  const aguaAcum = 20470828;
-  const jabonesProdAcum = 16980;
-  const jabonesVendAcum = 5080;
+  // Sincronizado con index_conservando_atitlan.html · abril 2026
+  const aceiteAcum = 27810.828;
+  const aguaAcum = 27810828;
+  const jabonesProdAcum = 26680;
+  const jabonesVendAcum = 7394;
 
   const metaAceite = 80000;
   const metaAgua = 80000000;
@@ -2293,7 +2340,7 @@ async function loadConservando(cfg){
   const pctJabonesProd = (jabonesProdAcum / metaJabonesProd) * 100;
   const pctJabonesVend = (jabonesVendAcum / metaJabonesVend) * 100;
 
-  const esperadoCorte = (3 / 12) * 100; // enero-marzo 2026
+  const esperadoCorte = (4 / 12) * 100; // enero-abril 2026
   const score = avg([
     (pctAceite / esperadoCorte) * 100,
     (pctAgua / esperadoCorte) * 100,
@@ -2306,7 +2353,7 @@ async function loadConservando(cfg){
       label:'Litros de aceite usado de cocina recolectados.',
       acumDisplay:`${fmt(aceiteAcum)} lt / ${fmt(metaAceite)} litros recolectados anualmente`,
       pct:pctAceite,
-      pctDisplay:`${fmtPct(pctAceite)} de avance acumulado hasta el mes de marzo con respecto a meta anual`,
+      pctDisplay:`${fmtPct(pctAceite)} de avance acumulado hasta el mes de abril con respecto a meta anual`,
       barPct:pctAceite,
       temporality: 'Este indicador tiene por temporalidad desde enero a diciembre de 2026'
     },
@@ -2314,7 +2361,7 @@ async function loadConservando(cfg){
       label:'Litros de agua protegidos.',
       acumDisplay:`${fmt(aguaAcum)} lt / ${fmt(metaAgua)} litros de agua protegidos`,
       pct:pctAgua,
-      pctDisplay:`${fmtPct(pctAgua)} de avance acumulado hasta el mes de marzo con respecto a meta anual`,
+      pctDisplay:`${fmtPct(pctAgua)} de avance acumulado hasta el mes de abril con respecto a meta anual`,
       barPct:pctAgua,
       temporality: 'Este indicador tiene por temporalidad desde enero a diciembre de 2026'
     },
@@ -2322,7 +2369,7 @@ async function loadConservando(cfg){
       label:'65,040 jabones producidos.',
       acumDisplay:`${fmt(jabonesProdAcum)} jabones producidos / ${fmt(metaJabonesProd)} jabones producidos anualmente`,
       pct:pctJabonesProd,
-      pctDisplay:`${fmtPct(pctJabonesProd)} de avance acumulado hasta el mes de marzo con respecto a meta anual`,
+      pctDisplay:`${fmtPct(pctJabonesProd)} de avance acumulado hasta el mes de abril con respecto a meta anual`,
       barPct:pctJabonesProd,
       temporality: 'Este indicador tiene por temporalidad desde enero a diciembre de 2026'
     },
@@ -2330,7 +2377,7 @@ async function loadConservando(cfg){
       label:'51,600 jabones vendidos anualmente.',
       acumDisplay:`${fmt(jabonesVendAcum)} vendidos / ${fmt(metaJabonesVend)} jabones anualmente`,
       pct:pctJabonesVend,
-      pctDisplay:`${fmtPct(pctJabonesVend)} de avance acumulado hasta el mes de marzo con respecto a meta anual`,
+      pctDisplay:`${fmtPct(pctJabonesVend)} de avance acumulado hasta el mes de abril con respecto a meta anual`,
       barPct:pctJabonesVend,
       temporality: 'Este indicador tiene por temporalidad desde enero a diciembre de 2026'
     }
@@ -2338,12 +2385,12 @@ async function loadConservando(cfg){
 
   return {
     ...cfg,
-    latestLabel:'Marzo 2026',
-    periodKey:'2026-03',
+    latestLabel:'Abril 2026',
+    periodKey:'2026-04',
     score:score || 0,
     scoreLabel:'Promedio vs esperado al presente mes',
     metrics:keyMetrics,
-    sourceSummary:'Valor fijo · marzo 2026'
+    sourceSummary:'Kobo · abril 2026'
   };
 }
 
@@ -2431,58 +2478,51 @@ async function loadFM(cfg){
 }
 
 async function loadEPC(cfg){
-  const docentesVisitasRealizadas = 1;
-  const docentesVisitasMeta = 7;
-  const docentesPorVisita = 121;
+  // Sincronizado con index_epc.html · abril 2026
+  const modulosDesarrollados = 2;
+  const modulosMeta = 7;
+  const pctDocentes = (modulosDesarrollados / modulosMeta) * 100;
+  const pctEstudiantes = (modulosDesarrollados / modulosMeta) * 100;
 
-  const estudiantesVisitasRealizadas = 1;
-  const estudiantesVisitasMeta = 7;
-  const estudiantesPorVisita = 3514;
+  const momentosDiplomadoDesarrollados = 3;
+  const momentosDiplomadoAnuales = 12; // dos cohortes de seis momentos formativos
+  const pctAvanceFormacion = (momentosDiplomadoDesarrollados / momentosDiplomadoAnuales) * 100;
 
-  const cohortesTotales = 2;
-  const estudiantesPorCohorte = 60;
-  const momentosPorCohorte = 6;
-  const momentosDesarrolladosCohorteUno = 2;
-  const pctAvanceFormacion = (momentosDesarrolladosCohorteUno / momentosPorCohorte) * (100 / cohortesTotales);
-
-  const actividadesVal = 11;
+  const actividadesVal = 24;
   const actividadesMeta = 128;
-
-  // Visita mensual: si se hizo = 100%, si no = 0% (meta es 1 visita por mes activo, 7 en el año)
-  const cumplioVisita  = docentesVisitasRealizadas >= 1 ? 100 : 0;
-  const pctDocentes    = (docentesVisitasRealizadas / docentesVisitasMeta) * 100;
-  const pctEstudiantes = (estudiantesVisitasRealizadas / estudiantesVisitasMeta) * 100;
+  const actividadesEsperadasAlCorte = 32;
   const pctActividades = (actividadesVal / actividadesMeta) * 100;
+  const pctActividadesVsEsperado = (actividadesVal / actividadesEsperadasAlCorte) * 100;
 
   const score = avg([
-    cumplioVisita,
-    cumplioVisita,
+    99.2, // docentes abril: 120 / 121
+    99.2, // estudiantes abril: 3,487 / 3,514
     pctAvanceFormacion,
-    (actividadesVal / 13) * 100
+    pctActividadesVsEsperado
   ]);
 
   const keyMetrics = [
     {
       label:'Capacidades pedagógicas instaladas de los 7 módulos del Material de Referencia Educando para Conservar en 121 docentes de los niveles ordinario, básico y diversificado de 50 centros educativos de 13 municipios de la cuenca del Lago de Atitlán.',
-      acumDisplay:'1/7 módulos desarrollados',
+      acumDisplay:`${modulosDesarrollados}/${modulosMeta} módulos desarrollados`,
       pct:pctDocentes,
-      pctDisplay:`${fmtPct(pctDocentes)} de avance acumulado hasta el mes de marzo con respecto a meta anual`,
+      pctDisplay:`${fmtPct(pctDocentes)} de avance acumulado hasta el mes de abril con respecto a meta anual`,
       barPct:pctDocentes,
       temporality: 'Este indicador tiene por temporalidad desde marzo a septiembre de 2026'
     },
     {
       label:'3,514 estudiantes de los niveles ordinario, básico y diversificado de 50 centros educativos de la Cuenca del Lago de Atitlán, capacitados en los 7 módulos del Material de Referencia Educando para Conservar.',
-      acumDisplay:'1/7 módulos desarrollados',
+      acumDisplay:`${modulosDesarrollados}/${modulosMeta} módulos desarrollados`,
       pct:pctEstudiantes,
-      pctDisplay:`${fmtPct(pctEstudiantes)} de avance acumulado hasta el mes de marzo con respecto a meta anual`,
+      pctDisplay:`${fmtPct(pctEstudiantes)} de avance acumulado hasta el mes de abril con respecto a meta anual`,
       barPct:pctEstudiantes,
       temporality: 'Este indicador tiene por temporalidad desde marzo a septiembre de 2026'
     },
     {
       label:'Participación de 120 jóvenes de 12 municipios de la cuenca del Lago de Atitlán en el \'Diplomado de Gestión Ambiental y Liderazgo Juvenil\', estructurado en dos cohortes anuales de 60 estudiantes cada una, cubriendo cinco módulos temáticos y el desarrollo y presentación de un proyecto con un sólido enfoque social y ambiental.',
-      acumDisplay:`1/7 módulos desarrollados`,
+      acumDisplay:`${momentosDiplomadoDesarrollados}/${momentosDiplomadoAnuales} momentos formativos desarrollados`,
       pct:pctAvanceFormacion,
-      pctDisplay:`${fmtPct(pctAvanceFormacion)} de avance acumulado hasta el mes de marzo con respecto a meta anual`,
+      pctDisplay:`${fmtPct(pctAvanceFormacion)} de avance acumulado hasta el mes de abril con respecto a meta anual`,
       barPct:pctAvanceFormacion,
       temporality: 'Este indicador tiene por temporalidad desde marzo a octubre de 2026'
     },
@@ -2490,7 +2530,7 @@ async function loadEPC(cfg){
       label:'Actividades en campo',
       acumDisplay:`${fmt(actividadesVal)} / ${fmt(actividadesMeta)} actividades`,
       pct:pctActividades,
-      pctDisplay:`${fmtPct(pctActividades)}`,
+      pctDisplay:`${fmtPct(pctActividades)} de avance acumulado hasta el mes de abril con respecto a meta anual · ${fmtPct(pctActividadesVsEsperado)} frente a lo esperado al corte`,
       barPct:pctActividades,
       temporality: 'Este indicador tiene por temporalidad desde enero a octubre de 2026'
     }
@@ -2498,12 +2538,12 @@ async function loadEPC(cfg){
 
   return {
     ...cfg,
-    latestLabel:'Marzo 2026',
-    periodKey:'2026-03',
+    latestLabel:'Abril 2026',
+    periodKey:'2026-04',
     score:score || 0,
     scoreLabel:'Promedio vs esperado al presente mes',
     metrics:keyMetrics,
-    sourceSummary:'Valor fijo · marzo 2026'
+    sourceSummary:'Kobo · abril 2026'
   };
 }
 
@@ -2824,8 +2864,8 @@ function programCard(p){
       <div class="metric-list">
         <div class="metric-header">
           <span>Indicador</span>
-          <span>Avance acumulado hasta el mes de marzo / Meta anual</span>
-          <span>% de avance acumulado hasta el mes de marzo con respecto a meta anual</span>
+          <span>Avance acumulado al período vigente / Meta anual</span>
+          <span>% de avance acumulado al período vigente con respecto a meta anual</span>
         </div>
         ${p.metrics.map((metric, index) => metricRow(metric, index)).join('')}
       </div>
