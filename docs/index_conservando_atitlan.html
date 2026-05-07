@@ -1,14 +1,4 @@
-<!doctype html>
-<html lang="es">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Conservando Atitlán · AALA</title>
-  <meta name="description" content="Tablero dinámico del programa Conservando Atitlán — Asociación Amigos del Lago de Atitlán.">
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
-  <style>
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Conservando Atitlán · AALA</title><meta name="description" content="Tablero dinámico del programa Conservando Atitlán — Asociación Amigos del Lago de Atitlán."><link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script><style>
     :root{
       --bg:#f4f8f7; --surface:#fff; --surface-2:#f1f6f5; --surface-3:#e7efec;
       --text:#17314f; --text-2:#35546d; --muted:#6d8294;
@@ -178,6 +168,12 @@
     @keyframes kpiReveal{to{opacity:1;transform:none}}
     @keyframes trackSweep{to{transform:translateX(120%)}}
 
+    /* Tarjetas simples para inmuebles: solo muestran conteo contra meta */
+    .kpi.kpi-simple{min-height:170px;display:flex;flex-direction:column;justify-content:center;gap:16px;padding:24px 24px}
+    .kpi.kpi-simple .kpi-label{max-width:none;min-height:auto;font-size:1.05rem;font-weight:800;color:var(--text);line-height:1.28}
+    .kpi-simple-value{font-family:var(--font-body);font-size:clamp(2.15rem,3vw,3.35rem);font-weight:800;line-height:1;color:#0e2f22;letter-spacing:-.055em}
+    .kpi-simple-value span{font-size:.58em;font-weight:700;color:#315b49;letter-spacing:-.03em}
+
     /* ── CHARTS ── */
     .chart-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px}
     .panel{padding:24px 24px 22px}
@@ -339,11 +335,11 @@
     .exec-diag p{color:var(--muted);margin-bottom:10px;text-align:justify}
     .exec-diag p:last-child{margin-bottom:0}
     .exec-diag strong{color:var(--forest)}
-    .alert-list{display:grid;gap:8px}
-    .alert{padding:10px 14px;border-radius:var(--radius-sm);border-left:4px solid;font-size:.84rem;line-height:1.55}
-    .alert.red{background:var(--danger-soft);border-color:var(--danger);color:#5c1212}
-    .alert.yellow{background:var(--sand-soft);border-color:var(--sand);color:#503900}
-    .alert.green{background:var(--forest-soft);border-color:var(--forest);color:var(--forest)}
+    .notice-list{display:grid;gap:8px}
+    .notice{padding:10px 14px;border-radius:var(--radius-sm);border-left:4px solid;font-size:.84rem;line-height:1.55}
+    .notice.red{background:var(--danger-soft);border-color:var(--danger);color:#5c1212}
+    .notice.yellow{background:var(--sand-soft);border-color:var(--sand);color:#503900}
+    .notice.green{background:var(--forest-soft);border-color:var(--forest);color:var(--forest)}
     .sparkline-wrap{width:100%;height:80px;overflow:visible}
 
     /* ── SECTION DIVIDER ── */
@@ -437,10 +433,10 @@
     .pres-note{padding:20px 22px;border-radius:22px;background:rgba(255,255,255,.84);border:1.5px solid rgba(200,220,240,.9);box-shadow:0 8px 28px rgba(23,50,58,.09);display:flex;flex-direction:column;gap:10px}
     .pres-note h3{font-family:var(--font-body);font-size:1.2rem;font-weight:800;margin-bottom:2px;letter-spacing:-.02em}
     .pres-note p{font-size:.88rem;line-height:1.78;color:var(--text-2);text-align:justify}
-    .pres-alert-box{padding:13px 16px;border-radius:16px;font-size:.85rem;line-height:1.6;border:1px solid transparent}
-    .pres-alert-box.red{background:var(--danger-soft);color:var(--danger);border-color:rgba(184,86,86,.15)}
-    .pres-alert-box.yellow{background:var(--sand-soft);color:var(--sand);border-color:rgba(198,152,63,.18)}
-    .pres-alert-box.green{background:var(--forest-pale);color:var(--forest);border-color:rgba(46,106,87,.15)}
+    .pres-notice-box{padding:13px 16px;border-radius:16px;font-size:.85rem;line-height:1.6;border:1px solid transparent}
+    .pres-notice-box.red{background:var(--danger-soft);color:var(--danger);border-color:rgba(184,86,86,.15)}
+    .pres-notice-box.yellow{background:var(--sand-soft);color:var(--sand);border-color:rgba(198,152,63,.18)}
+    .pres-notice-box.green{background:var(--forest-pale);color:var(--forest);border-color:rgba(46,106,87,.15)}
     .pres-footer-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 32px 16px;flex-shrink:0}
     .pres-dots{display:flex;gap:7px;align-items:center}
     .pres-dot{width:9px;height:9px;border-radius:50%;border:none;background:rgba(255,255,255,.28);cursor:pointer;transition:transform .2s ease,background .2s ease}
@@ -609,236 +605,24 @@
       .hero-logo-card img{max-height:190px}
     }
 
-  </style>
-</head>
-<body>
+  
 
-<header class="header">
-  <a class="header-brand" href="./index.html">
-    <img src="./aala_logo.png" alt="Logo AALA" class="header-logo-img">
-    <span class="brand-text">
-      <span class="brand-kicker">Asociación Amigos del Lago de Atitlán</span>
-      <span class="brand-title">Conservando Atitlán · Tablero de programa</span>
-    </span>
-  </a>
-  <div class="header-stack">
-    <nav class="nav-tabs" aria-label="Navegación">
-      <a class="nav-tab active" href="#resumen">Resumen</a>
-      <a class="nav-tab" href="#kpis-estrategicos">Indicadores</a>
-      <a class="nav-tab" href="#tendencias">Tendencias</a>
-      <a class="nav-tab" href="#diagnostico">Diagnóstico</a>
-    </nav>
-    <div class="header-utility">
-      <a class="back" href="./index.html"><span class="back-arrow">&#8592;</span>Volver al inicio</a>
-      <div class="view-switcher" role="group">
-        <button class="view-btn active" id="btnFull" type="button" onclick="switchView('full')">Tablero completo</button>
-        <button class="view-btn" id="btnExec" type="button" onclick="switchView('exec')">Resumen ejecutivo</button>
-      </div>
-      <button class="present-btn" type="button" id="btnPresentation">&#9654; Presentación</button>
-      <div class="period-rack">
-        <span class="period-rack-label">Mes</span>
-        <div class="month-pills" id="monthPills" role="group" aria-label="Seleccionar mes"></div>
-      </div>
-    </div>
-  </div>
-</header>
+    /* Sistema visual únicamente en verdes */
+    .kpi::before,
+    .kpi.tone-green::before,.kpi.tone-yellow::before,.kpi.tone-red::before,.kpi.tone-blue::before,.kpi.tone-gray::before,.kpi.tone-purple::before{background:linear-gradient(180deg,#9fd8b9 0%,#1f7b5a 100%)!important}
+    .kpi-pillar-fill,
+    .kpi.tone-green .kpi-pillar-fill,.kpi.tone-yellow .kpi-pillar-fill,.kpi.tone-red .kpi-pillar-fill,.kpi.tone-blue .kpi-pillar-fill,.kpi.tone-gray .kpi-pillar-fill,.kpi.tone-purple .kpi-pillar-fill{background:linear-gradient(180deg,#bfe8cf 0%,#2e8b5e 100%)!important}
+    .kpi-progress-line span,
+    .kpi.tone-green .kpi-progress-line span,.kpi.tone-yellow .kpi-progress-line span,.kpi.tone-red .kpi-progress-line span,.kpi.tone-blue .kpi-progress-line span,.kpi.tone-gray .kpi-progress-line span,.kpi.tone-purple .kpi-progress-line span{background:linear-gradient(90deg,#cdeed9 0%,#2e8b5e 100%)!important}
+    .progress-goal-fill,
+    .progress-goal-fill.green,.progress-goal-fill.yellow,.progress-goal-fill.red,.progress-goal-fill.blue,.progress-goal-fill.gray,.progress-goal-fill.purple{background:linear-gradient(90deg,#d9f2e2 0%,#2e8b5e 100%)!important}
+    .progress-compare-badge.green,.progress-compare-badge.yellow,.progress-compare-badge.red,.progress-compare-badge.blue,.progress-compare-badge.gray,.progress-compare-badge.purple{background:#eefaf3!important;color:#1f7b5a!important;border-color:#cdeed9!important}
+    .month-bar-fill,.month-bar-fill.green,.month-bar-fill.yellow,.month-bar-fill.red,.month-bar-fill.gray{background:linear-gradient(90deg,#d9f2e2 0%,#2e8b5e 100%)!important}
+    .chip.green,.chip.yellow,.chip.red,.chip.blue,.chip.purple,.chip.gray{background:#eefaf3!important;color:#1f7b5a!important}
+    .pres-chip.green,.pres-chip.yellow,.pres-chip.red,.pres-chip.blue,.pres-chip.gray,.pres-chip.purple{background:#eefaf3!important;color:#1f7b5a!important}
+    .kpi-achieved{display:none!important}
 
-<div class="wrap">
-  <main>
-    <div id="resumen"></div>
-
-    <!-- EXECUTIVE VIEW -->
-    <div id="execView" style="display:none">
-      <!-- Status banner -->
-      <div class="exec-status-card" style="margin-bottom:18px">
-        <div class="es-label">Estado del programa</div>
-        <div class="es-title">Conservando Atitlán</div>
-        <div class="exec-status-badge" id="execStatusBadge">Cargando…</div>
-        <div style="font-size:.8rem;opacity:.7;margin-top:4px" id="execPeriodInfo">—</div>
-      </div>
-      <!-- Indicator strip: 6 cards styled like Atitlán Recicla -->
-      <div class="kpi-grid" id="execKpiGrid" style="margin-bottom:18px"></div>
-      <!-- Accumulated strip -->
-      <div class="exec-strip" id="execStrip" style="margin-bottom:18px"></div>
-      <!-- Chart + Alerts row -->
-      <div class="exec-row-2" style="margin-bottom:18px">
-        <article class="card panel">
-          <h3>Avance acumulado por objetivo</h3>
-          <p class="sub" id="execChartSub">Comparación clara entre avance acumulado, avance esperado a la fecha y meta anual.</p>
-          <div id="execProgressChart" style="overflow:visible;padding:4px 0"></div>
-        </article>
-        <article class="card panel">
-          <h3>Alertas operativas</h3>
-          <p class="sub">Indicadores bajo umbral en el mes.</p>
-          <div id="execAlertPanel"></div>
-        </article>
-      </div>
-      <article class="card exec-diag" id="execDiagPanel"></article>
-    </div>
-
-    <!-- FULL DASHBOARD -->
-    <div id="fullView">
-      <section class="hero hero-clean hero-with-logo" id="heroSection">
-        <article class="card hero-main">
-          <h1>Conservando Atitlán</h1>
-          <p class="hero-lead">Programa de la Asociación Amigos del Lago de Atitlán que recolecta aceite usado de cocina en la cuenca, lo procesa y transforma en jabón artesanal, contribuyendo directamente a proteger el agua del lago. Cada litro recolectado representa miles de litros de agua protegida de la contaminación.</p>
-        </article>
-        <aside class="card hero-logo-card" aria-label="Logo del programa">
-          <img id="programLogo" src="./Conservando%20Atitl%C3%A1n%20.png" alt="Logo Conservando Atitlán" onerror="this.onerror=null;this.src='./logosatitlan.png';">
-        </aside>
-      </section>
-
-      <section class="section section-full-only" id="kpis-estrategicos">
-        <div class="section-head section-head-simple">
-          <div>
-            <h2>Metas anuales y avance acumulado</h2>
-          </div>
-        </div>
-        <div class="kpi-grid" id="strategicGrid"></div>
-      </section>
-
-      <section class="section section-full-only" id="metas-mensuales">
-        <div class="section-head section-head-simple">
-          <div>
-            <h2 id="monthlyKpiTitle">Metas mensuales</h2>
-          </div>
-        </div>
-        <div class="kpi-grid" id="monthlyGrid"></div>
-      </section>
-
-      <div class="section-divider">Tendencias y lectura comparativa</div>
-
-      <section class="section section-full-only" id="tendencias">
-        <div class="chart-grid">
-          <article class="card panel">
-            <h3>Avance acumulado por objetivo</h3>
-            <p class="sub" id="progressChartSub">Muestra cuánto llevamos, cuánto se esperaba a la fecha y cuál es la meta anual.</p>
-            <div class="viz-wrap" id="progressChartHost"><canvas id="progressChart"></canvas></div>
-          </article>
-          <article class="card panel">
-            <div class="panel-top">
-              <div>
-                <h3>Tendencia mensual</h3>
-                <p class="sub" id="trendChartSub">Serie histórica del indicador seleccionado con su referencia de meta mensual cuando existe.</p>
-              </div>
-              <select class="indicator-select" id="trendIndicator"></select>
-            </div>
-            <div class="viz-wrap" id="trendChartHost"><canvas id="trendChart"></canvas></div>
-          </article>
-        </div>
-        <div class="chart-grid section" style="margin-top:18px">
-          <article class="card panel">
-            <h3>Cadena de valor del jabón</h3>
-            <p class="sub" id="soapChartSub">Jabones producidos y vendidos de hotel y de tocador en el mes, con tasa de conversión venta/producción.</p>
-            <div class="viz-wrap" id="soapChartHost"><canvas id="soapChart"></canvas></div>
-          </article>
-          <article class="card panel">
-            <h3>Resumen operativo del mes</h3>
-            <p class="sub" id="summarySubtitle">Datos de contexto para interpretar el movimiento operativo del mes y su acumulado anual.</p>
-            <div class="summary-grid" id="periodSummary"></div>
-          </article>
-        </div>
-      </section>
-
-      <div class="section-divider section-full-only">Diagnóstico narrativo</div>
-
-      <section class="section section-full-only" id="diagnostico">
-        <div class="section-head">
-          <div>
-            <div class="section-kicker">Lectura interpretativa</div>
-            <h2 id="diagTitle">Diagnóstico del mes seleccionado</h2>
-          </div>
-          <p>Síntesis narrativa del comportamiento del programa para que la persona visitante entienda con rapidez dónde se mantiene el ritmo y cuáles son las señales operativas más importantes.</p>
-        </div>
-        <div class="diagnostic-grid">
-          <article class="card panel">
-            <div class="prose" id="diagnosticProse"></div>
-          </article>
-          <article class="card panel">
-            <div class="diagnostic-list" id="diagnosticList"></div>
-          </article>
-        </div>
-      </section>
-
-      <section class="section hidden" id="loadingWrap">
-        <div class="loading-state" id="loadingState">Cargando información del programa…</div>
-      </section>
-      <section class="section hidden" id="errorWrap">
-        <div class="error-state" id="errorState">No se pudo cargar la información.</div>
-      </section>
-    </div><!-- /fullView -->
-  </main>
-</div>
-
-<footer class="site-footer">
-  <div class="footer-wrap">
-    <section class="footer-brand">
-      <div class="footer-brandline">
-        <div class="footer-title">Asociación Amigos del Lago de Atitlán</div>
-      </div>
-      <p class="footer-copy">La Asociación Amigos del Lago de Atitlán se enfoca en generar una cultura regenerativa en la cuenca Lago, para que los seres humanos podamos coexistir de forma sostenible y sana con el entorno natural. Hacemos educación ambiental, reforestación, reciclaje, empoderamiento económico de mujeres, asesoría municipal en agua y saneamiento.</p>
-    </section>
-    <section class="footer-col">
-      <h3>Contacto y sitio</h3>
-      <div class="footer-links">
-        <a href="https://amigosdeatitlan.org/" target="_blank" rel="noreferrer noopener">
-          <span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><path d="M12 3c2.7 2.8 4.1 5.8 4.1 9S14.7 18.2 12 21c-2.7-2.8-4.1-5.8-4.1-9S9.3 5.8 12 3z"></path></svg></span>
-          <span>Página web</span>
-        </a>
-        <a href="https://www.youtube.com/@asociacionamigosdellagodea2358" target="_blank" rel="noreferrer noopener">
-          <span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2a2.9 2.9 0 0 0-2-2C17.8 4.7 12 4.7 12 4.7s-5.8 0-7.6.5a2.9 2.9 0 0 0-2 2A29.6 29.6 0 0 0 2 12a29.6 29.6 0 0 0 .4 4.8 2.9 2.9 0 0 0 2 2c1.8.5 7.6.5 7.6.5s5.8 0 7.6-.5a2.9 2.9 0 0 0 2-2A29.6 29.6 0 0 0 22 12a29.6 29.6 0 0 0-.4-4.8ZM10 15.5v-7l6 3.5-6 3.5Z"></path></svg></span>
-          <span>YouTube</span>
-        </a>
-        <a href="https://www.facebook.com/AmigoAtitlan/?locale=es_LA" target="_blank" rel="noreferrer noopener">
-          <span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.7-1.6H17V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4V11H7.5v3h2.8v8h3.2Z"></path></svg></span>
-          <span>Facebook</span>
-        </a>
-      </div>
-    </section>
-    <section class="footer-col">
-      <h3>Redes sociales</h3>
-      <div class="footer-links">
-        <a href="https://www.instagram.com/amigoslagoatitlan/" target="_blank" rel="noreferrer noopener">
-          <span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg></span>
-          <span>Instagram</span>
-        </a>
-        <a href="https://www.linkedin.com/in/aala-atitl%C3%A1n-3653a0325/" target="_blank" rel="noreferrer noopener">
-          <span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.9 8.1a1.9 1.9 0 1 1 0-3.8 1.9 1.9 0 0 1 0 3.8ZM5.2 9.8h3.3V19H5.2V9.8Zm5.2 0h3.2v1.3h.1c.4-.8 1.5-1.6 3.1-1.6 3.3 0 3.9 2.1 3.9 4.9V19h-3.3v-4c0-.9 0-2.1-1.3-2.1s-1.5 1-1.5 2V19h-3.3V9.8Z"></path></svg></span>
-          <span>LinkedIn</span>
-        </a>
-      </div>
-    </section>
-    <section class="footer-mark" aria-label="Imagen institucional">
-      <img src="./chill_lago.png" alt="AALA — Cuenca del Lago de Atitlán">
-    </section>
-  </div>
-</footer>
-
-<!-- PRESENTATION OVERLAY -->
-<div class="presentation-overlay" id="presentationOverlay" aria-hidden="true">
-  <div class="presentation-chrome">
-    <div class="presentation-meta" id="presentationMeta">
-      <span>Modo presentación</span>
-    </div>
-    <div class="presentation-actions">
-      <button class="pres-btn" type="button" onclick="prevSlide()">&#8592; Anterior</button>
-      <button class="pres-btn" type="button" onclick="nextSlide()">Siguiente &#8594;</button>
-      <button class="pres-btn primary" type="button" onclick="closePresentation()">&#215; Cerrar</button>
-    </div>
-  </div>
-  <div class="presentation-stage-wrap">
-    <div class="presentation-stage">
-      <div class="presentation-track" id="presentationTrack"></div>
-    </div>
-  </div>
-  <div class="pres-footer-bar">
-    <div class="pres-dots" id="presDots"></div>
-    <div class="pres-counter" id="presCounter">1 / 1</div>
-  </div>
-</div>
-
-
-<script>
+  </style></head><body><header class="header"><a class="header-brand" href="./index.html"><img src="./aala_logo.png" alt="Logo AALA" class="header-logo-img"><span class="brand-text"><span class="brand-kicker">Asociación Amigos del Lago de Atitlán</span><span class="brand-title">Conservando Atitlán · Tablero de programa</span></span></a><div class="header-stack"><nav class="nav-tabs" aria-label="Navegación"><a class="nav-tab active" href="#resumen">Resumen</a><a class="nav-tab" href="#kpis-estrategicos">Indicadores</a><a class="nav-tab" href="#tendencias">Tendencias</a><a class="nav-tab" href="#diagnostico">Diagnóstico</a></nav><div class="header-utility"><a class="back" href="./index.html"><span class="back-arrow">&#8592;</span>Volver al inicio</a><div class="view-switcher" role="group"><button class="view-btn active" id="btnFull" type="button" onclick="switchView('full')">Tablero completo</button><button class="view-btn" id="btnExec" type="button" onclick="switchView('exec')">Resumen ejecutivo</button></div><button class="present-btn" type="button" id="btnPresentation">&#9654; Presentación</button><div class="period-rack"><span class="period-rack-label">Mes</span><div class="month-pills" id="monthPills" role="group" aria-label="Seleccionar mes"></div></div></div></div></header><div class="wrap"><main><div id="resumen"></div><!-- EXECUTIVE VIEW --><div id="execView" style="display:none"><!-- Status banner --><div class="exec-status-card" style="margin-bottom:18px"><div class="es-label">Resumen del programa</div><div class="es-title">Conservando Atitlán</div><div class="exec-status-badge" id="execStatusBadge">Cargando…</div><div style="font-size:.8rem;opacity:.7;margin-top:4px" id="execPeriodInfo">—</div></div><!-- Indicator strip: 6 cards styled like Atitlán Recicla --><div class="kpi-grid" id="execKpiGrid" style="margin-bottom:18px"></div><!-- Accumulated strip --><div class="exec-strip" id="execStrip" style="margin-bottom:18px"></div><!-- Chart + Notices row --><div class="exec-row-2" style="margin-bottom:18px"><article class="card panel"><h3>Avance acumulado</h3><p class="sub" id="execChartSub">Comparación clara entre avance acumulado, avance esperado a la fecha y meta anual.</p><div id="execProgressChart" style="overflow:visible;padding:4px 0"></div></article><article class="card panel"><h3>Lectura operativa</h3><p class="sub">Resumen de comportamiento del mes.</p><div id="execNoticePanel"></div></article></div><article class="card exec-diag" id="execDiagPanel"></article></div><!-- FULL DASHBOARD --><div id="fullView"><section class="hero hero-clean hero-with-logo" id="heroSection"><article class="card hero-main"><h1>Conservando Atitlán</h1><p class="hero-lead">Programa de la Asociación Amigos del Lago de Atitlán que recolecta aceite usado de cocina en la cuenca, lo procesa y transforma en jabón artesanal, contribuyendo directamente a proteger el agua del lago. Cada litro recolectado representa miles de litros de agua protegida de la contaminación.</p></article><aside class="card hero-logo-card" aria-label="Logo del programa"><img id="programLogo" src="./Conservando%20Atitl%C3%A1n%20.png" alt="Logo Conservando Atitlán" onerror="this.onerror=null;this.src='./logosatitlan.png';"></aside></section><section class="section section-full-only" id="kpis-estrategicos"><div class="section-head section-head-simple"><div><h2>Metas anuales y avance acumulado</h2></div></div><div class="kpi-grid" id="strategicGrid"></div></section><section class="section section-full-only" id="metas-mensuales"><div class="section-head section-head-simple"><div><h2 id="monthlyKpiTitle">Metas mensuales</h2></div></div><div class="kpi-grid" id="monthlyGrid"></div></section><div class="section-divider">Tendencias y lectura comparativa</div><section class="section section-full-only" id="tendencias"><div class="chart-grid" style="grid-template-columns:1fr"><article class="card panel"><div class="panel-top"><div><h3>Tendencia mensual</h3><p class="sub" id="trendChartSub">Serie histórica del indicador seleccionado con su referencia de meta mensual cuando existe.</p></div><select class="indicator-select" id="trendIndicator"></select></div><div class="viz-wrap" id="trendChartHost"><canvas id="trendChart"></canvas></div></article></div><div class="chart-grid section" style="margin-top:18px"><article class="card panel"><h3>Cadena de valor del jabón</h3><p class="sub" id="soapChartSub"></p><div class="viz-wrap" id="soapChartHost"><canvas id="soapChart"></canvas></div></article><article class="card panel"><h3>Resumen operativo del mes</h3><p class="sub" id="summarySubtitle"></p><div class="summary-grid" id="periodSummary"></div></article></div></section><div class="section-divider section-full-only">Análisis del mes</div><section class="section section-full-only" id="diagnostico"><div class="section-head section-head-simple"><div><h2 id="diagTitle">Análisis del mes</h2></div></div><div class="diagnostic-grid"><article class="card panel"><div class="prose" id="diagnosticProse"></div></article><article class="card panel"><div class="diagnostic-list" id="diagnosticList"></div></article></div></section><section class="section hidden" id="loadingWrap"><div class="loading-state" id="loadingState">Cargando información del programa…</div></section><section class="section hidden" id="errorWrap"><div class="error-state" id="errorState">No se pudo cargar la información.</div></section></div><!-- /fullView --></main></div><footer class="site-footer"><div class="footer-wrap"><section class="footer-brand"><div class="footer-brandline"><div class="footer-title">Asociación Amigos del Lago de Atitlán</div></div><p class="footer-copy">La Asociación Amigos del Lago de Atitlán se enfoca en generar una cultura regenerativa en la cuenca Lago, para que los seres humanos podamos coexistir de forma sostenible y sana con el entorno natural. Hacemos educación ambiental, reforestación, reciclaje, empoderamiento económico de mujeres, asesoría municipal en agua y saneamiento.</p></section><section class="footer-col"><h3>Contacto y sitio</h3><div class="footer-links"><a href="https://amigosdeatitlan.org/" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><path d="M12 3c2.7 2.8 4.1 5.8 4.1 9S14.7 18.2 12 21c-2.7-2.8-4.1-5.8-4.1-9S9.3 5.8 12 3z"></path></svg></span><span>Página web</span></a><a href="https://www.youtube.com/@asociacionamigosdellagodea2358" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2a2.9 2.9 0 0 0-2-2C17.8 4.7 12 4.7 12 4.7s-5.8 0-7.6.5a2.9 2.9 0 0 0-2 2A29.6 29.6 0 0 0 2 12a29.6 29.6 0 0 0 .4 4.8 2.9 2.9 0 0 0 2 2c1.8.5 7.6.5 7.6.5s5.8 0 7.6-.5a2.9 2.9 0 0 0 2-2A29.6 29.6 0 0 0 22 12a29.6 29.6 0 0 0-.4-4.8ZM10 15.5v-7l6 3.5-6 3.5Z"></path></svg></span><span>YouTube</span></a><a href="https://www.facebook.com/AmigoAtitlan/?locale=es_LA" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.7-1.6H17V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4V11H7.5v3h2.8v8h3.2Z"></path></svg></span><span>Facebook</span></a></div></section><section class="footer-col"><h3>Redes sociales</h3><div class="footer-links"><a href="https://www.instagram.com/amigoslagoatitlan/" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg></span><span>Instagram</span></a><a href="https://www.linkedin.com/in/aala-atitl%C3%A1n-3653a0325/" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.9 8.1a1.9 1.9 0 1 1 0-3.8 1.9 1.9 0 0 1 0 3.8ZM5.2 9.8h3.3V19H5.2V9.8Zm5.2 0h3.2v1.3h.1c.4-.8 1.5-1.6 3.1-1.6 3.3 0 3.9 2.1 3.9 4.9V19h-3.3v-4c0-.9 0-2.1-1.3-2.1s-1.5 1-1.5 2V19h-3.3V9.8Z"></path></svg></span><span>LinkedIn</span></a></div></section><section class="footer-mark" aria-label="Imagen institucional"><img src="./chill_lago.png" alt="AALA — Cuenca del Lago de Atitlán"></section></div></footer><!-- PRESENTATION OVERLAY --><div class="presentation-overlay" id="presentationOverlay" aria-hidden="true"><div class="presentation-chrome"><div class="presentation-meta" id="presentationMeta"><span>Modo presentación</span></div><div class="presentation-actions"><button class="pres-btn" type="button" onclick="prevSlide()">&#8592; Anterior</button><button class="pres-btn" type="button" onclick="nextSlide()">Siguiente &#8594;</button><button class="pres-btn primary" type="button" onclick="closePresentation()">&#215; Cerrar</button></div></div><div class="presentation-stage-wrap"><div class="presentation-stage"><div class="presentation-track" id="presentationTrack"></div></div></div><div class="pres-footer-bar"><div class="pres-dots" id="presDots"></div><div class="pres-counter" id="presCounter">1 / 1</div></div></div><script>
 const PATHS = {
   total: './data/conservando_atitlan/total_mes.csv',
   indicadores: './data/conservando_atitlan/institucional_indicadores.csv',
@@ -863,7 +647,7 @@ const GOALS = {
   jabonesVendidosAnual:51600, jabonesVendidosMensual:4300,
   jabonesHotelVendidosMensual:4000, jabonesTocadorVendidosMensual:300,
   inmueblesMensual:150, municipiosJornadasAnual:7,
-  municipiosMetaMes:7, pruebasAnual:3, pruebasMeses:[3,4,5], velasAnual:480, velasProducidas:50, velasVendidasMes:50
+  municipiosMetaMes:7, pruebasAnual:3, pruebasMeses:[3,4,5], velasAnual:360, velasProducidas:50, velasVendidasMes:50, ventasJabonesAnual:138000
 };
 const JORNADA_RECOLECCION_FIELD = 'jornadas_recoleccion_ci'+'clo_mes';
 let state = { total:[], indicadores:[], metadata:{}, periods:[], period:'', charts:{}, slideIndex:0, view:'full' };
@@ -986,11 +770,11 @@ function statusFromRatio(ratio,hasGoal=true){
   if(ratio>=.8) return 'yellow';
   return 'red';
 }
-function labelFromStatus(s){ return({green:'Al día',yellow:'En seguimiento',red:'En alerta',blue:'Informativo',gray:'Programado',purple:'Comercial'})[s]||'Programado'; }
-function chipTextFromStatus(s){ return({green:'Al día',yellow:'En seguimiento',red:'En alerta',blue:'Informativo',gray:'Sin exigibilidad todavía',purple:'Comercial'})[s]||'Sin exigibilidad'; }
+function labelFromStatus(s){ return ''; }
+function chipTextFromStatus(s){ return 'Resumen'; }
 function expectedPruebasAtCut(m){ return GOALS.pruebasMeses.filter(x=>x<=m).length; }
 function escapeHtml(str){ return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
-function chipHtml(status,text){ return `<span class="pres-chip ${status}">${escapeHtml(text)}</span>`; }
+function chipHtml(status,text){ return ''; }
 
 function splitDisplayValue(display){
   const raw=String(display==null?'—':display).trim();
@@ -1039,50 +823,43 @@ function computeStrategicMetrics(){
   const aguaProgress=clamp((aguaAccum/GOALS.aguaAnual)*100,0,100);
   const jabProdProgress=clamp((jabProdAccum/GOALS.jabonesProducidosAnual)*100,0,100);
   const jabVendProgress=clamp((jabVendAccum/GOALS.jabonesVendidosAnual)*100,0,100);
+  const ventasProgress=clamp((ventasAccum/GOALS.ventasJabonesAnual)*100,0,100);
   const pruebasProgress=clamp((pruebasAccum/GOALS.pruebasAnual)*100,0,100);
   const velasProgress=clamp((velasProdAccum/GOALS.velasAnual)*100,0,100);
 
   return[
     {id:'colectas',title:'Jornadas de recolección',
       value:`${colectaAccum} / ${GOALS.colectasAnual}`,unit:'jornadas de recolección',
-      status:statusFromRatio(months?colectaAccum/months:NaN,true),
-      expectedText:annualPctText(colectaProgress),line1:'',line2:'',
+      status:'green', expectedText:annualPctText(colectaProgress),line1:'',line2:'',
       progress:colectaProgress,ratioVsExpected:months?colectaAccum/months:NaN,goalType:'annual'},
     {id:'aceite',title:'Aceite usado recolectado',
-      value:fmtN(aceiteAccum,2),unit:'litros',
-      status:statusFromRatio(aceiteAccum/(oilMonthlyGoal*months),true),
-      expectedText:annualPctText(aceiteProgress),line1:'',line2:'',
+      value:`${fmtN(aceiteAccum,2)} / ${fmtN(GOALS.aceiteAnual,2)}`,unit:'litros',
+      status:'green', expectedText:annualPctText(aceiteProgress),line1:'',line2:'',
       progress:aceiteProgress,ratioVsExpected:aceiteAccum/(oilMonthlyGoal*months),goalType:'annual'},
     {id:'agua',title:'Agua protegida acumulada',
-      value:fmtI(aguaAccum),unit:'litros',
-      status:statusFromRatio(aguaAccum/(waterMonthlyGoal*months),true),
-      expectedText:annualPctText(aguaProgress),line1:'',line2:'',
+      value:`${fmtI(aguaAccum)} / ${fmtI(GOALS.aguaAnual)}`,unit:'litros',
+      status:'green', expectedText:annualPctText(aguaProgress),line1:'',line2:'',
       progress:aguaProgress,ratioVsExpected:aguaAccum/(waterMonthlyGoal*months),goalType:'annual'},
     {id:'jabones-prod',title:'Jabones producidos',
-      value:fmtI(jabProdAccum),unit:'jabones',
-      status:statusFromRatio(jabProdAccum/(GOALS.jabonesProducidosMensual*months),true),
-      expectedText:annualPctText(jabProdProgress),line1:'',line2:'',
+      value:`${fmtI(jabProdAccum)} / ${fmtI(GOALS.jabonesProducidosAnual)}`,unit:'jabones',
+      status:'green', expectedText:annualPctText(jabProdProgress),line1:'',line2:'',
       progress:jabProdProgress,ratioVsExpected:jabProdAccum/(GOALS.jabonesProducidosMensual*months),goalType:'annual'},
     {id:'jabones-vend',title:'Jabones vendidos',
-      value:fmtI(jabVendAccum),unit:'jabones',
-      status:statusFromRatio(jabVendAccum/((GOALS.jabonesVendidosAnual/12)*months),true),
-      expectedText:annualPctText(jabVendProgress),line1:'',line2:'',
+      value:`${fmtI(jabVendAccum)} / ${fmtI(GOALS.jabonesVendidosAnual)}`,unit:'jabones',
+      status:'green', expectedText:annualPctText(jabVendProgress),line1:'',line2:'',
       progress:jabVendProgress,ratioVsExpected:jabVendAccum/((GOALS.jabonesVendidosAnual/12)*months),goalType:'annual'},
-    {id:'velas-prod',title:'Producción de velas',
-      value:fmtI(velasProdAccum),unit:'velas',
-      status:statusFromRatio(velasProdAccum/GOALS.velasAnual,true),
-      expectedText:annualPctText(velasProgress),line1:'',line2:'',
-      progress:velasProgress,ratioVsExpected:velasProdAccum/GOALS.velasAnual,goalType:'annual'},
+    {id:'ventas',title:'Ventas acumuladas de Jabones',
+      value:`${fmtQ(ventasAccum)} / ${fmtQ(GOALS.ventasJabonesAnual)}`,unit:'',
+      status:'green', expectedText:annualPctText(ventasProgress),line1:'',line2:'',
+      progress:ventasProgress,ratioVsExpected:NaN,goalType:'annual'},
     {id:'pruebas',title:'Pruebas de jabón líquido',
       value:`${pruebasAccum} / ${GOALS.pruebasAnual}`,unit:'pruebas',
-      status:pruebasExpected===0?'gray':statusFromRatio(pruebasAccum/pruebasExpected,true),
-      expectedText:annualPctText(pruebasProgress),line1:'',line2:'',
+      status:'green', expectedText:annualPctText(pruebasProgress),line1:'',line2:'',
       progress:pruebasProgress,ratioVsExpected:pruebasExpected===0?NaN:pruebasAccum/pruebasExpected,goalType:'annual'},
-    {id:'ventas',title:'Ventas acumuladas',
-      value:fmtQ(ventasAccum),unit:'',
-      status:'purple',expectedText:'Acumulado anual',line1:'',line2:'',
-      progress:clamp((toNum(row?.ingresos_ventas_q_mes)/Math.max(ventasAccum,1))*100,0,100),
-      ratioVsExpected:NaN,goalType:'none'}
+    {id:'velas-prod',title:'Producción de velas',
+      value:`${fmtI(velasProdAccum)} / ${fmtI(GOALS.velasAnual)}`,unit:'velas',
+      status:'green', expectedText:annualPctText(velasProgress),line1:'',line2:'',
+      progress:velasProgress,ratioVsExpected:velasProdAccum/GOALS.velasAnual,goalType:'annual'}
   ];
 }
 
@@ -1142,21 +919,21 @@ function computeMonthlyMetrics(){
       progress:clamp((soldTotal/GOALS.jabonesVendidosMensual)*100,0,100),
       periodRatio:soldTotal/GOALS.jabonesVendidosMensual,goalType:'monthly'},
     {id:'inmuebles-entregaron',title:'Inmuebles que entregaron aceite',
-      value:fmtI(inmueblesMes),unit:'inmuebles',
-      status:statusFromRatio(inmueblesMes/inmueblesGoal,true),
-      expectedText:`Meta mensual: ${fmtI(inmueblesGoal)} inmuebles`,
-      line1:`Cumplimiento: <strong>${fmtPct(inmueblesMes/inmueblesGoal)}</strong>`,
+      value:`${fmtI(inmueblesMes)} / ${fmtI(inmueblesGoal)}`,unit:'inmuebles',
+      status:'green',
+      expectedText:'',
+      line1:'',
       line2:'',
       progress:clamp((inmueblesMes/inmueblesGoal)*100,0,100),
-      periodRatio:inmueblesMes/inmueblesGoal,goalType:'monthly'},
+      periodRatio:inmueblesMes/inmueblesGoal,goalType:'monthly',simpleCard:true},
     {id:'inmuebles-atendidos-meta',title:'Inmuebles atendidos',
-      value:fmtI(inmueblesGoal),unit:'inmuebles',
-      status:statusFromRatio(inmueblesMes/inmueblesGoal,true),
-      expectedText:`Meta mensual: ${fmtI(inmueblesGoal)} inmuebles`,
-      line1:`Cumplimiento: <strong>${fmtPct(inmueblesMes/inmueblesGoal)}</strong>`,
+      value:`${fmtI(inmueblesGoal)} / ${fmtI(inmueblesGoal)}`,unit:'inmuebles',
+      status:'green',
+      expectedText:'',
+      line1:'',
       line2:'',
-      progress:clamp((inmueblesMes/inmueblesGoal)*100,0,100),
-      periodRatio:inmueblesMes/inmueblesGoal,goalType:'monthly'},
+      progress:100,
+      periodRatio:1,goalType:'monthly',simpleCard:true},
     {id:'velas-vendidas-mes',title:'Velas vendidas',
       value:fmtI(velasVendidas),unit:'velas',
       status:'green',
@@ -1195,11 +972,10 @@ function updateSectionSubtitles(){
   const lbl=periodLabel(state.period);
   const el=id=>document.getElementById(id);
   if(el('monthlyKpiTitle')) el('monthlyKpiTitle').textContent='Metas mensuales';
-  if(el('diagTitle')) el('diagTitle').textContent='Diagnóstico de '+lbl;
-  if(el('summarySubtitle')) el('summarySubtitle').textContent=`Datos operativos de ${lbl} y acumulado del año.`;
-  if(el('progressChartSub')) el('progressChartSub').textContent=`Lectura directa: llevamos, esperado a la fecha y meta anual — ${lbl}.`;
+  if(el('diagTitle')) el('diagTitle').textContent='Análisis del mes';
+  if(el('summarySubtitle')) el('summarySubtitle').textContent='';
   if(el('trendChartSub')) el('trendChartSub').textContent=`Barras mensuales con referencia de meta cuando existe. Mes activo: ${lbl}.`;
-  if(el('soapChartSub')) el('soapChartSub').textContent=`Jabones producidos y vendidos en ${lbl}, separados por tipo y con lectura de conversión.`;
+  if(el('soapChartSub')) el('soapChartSub').textContent='';
 }
 
 function renderDiagnostic(strategic,monthly){
@@ -1216,15 +992,7 @@ function renderDiagnostic(strategic,monthly){
 
   const prose=document.getElementById('diagnosticProse');
   if(prose) prose.innerHTML=`
-    <p>En <strong>${lbl}</strong>, Conservando Atitlán mantiene <strong>${sOk}</strong> indicador${sOk!==1?'es estratégicos':' estratégico'} dentro del ritmo esperado${sRisk>0?`, `:''}.</p>
-    <p>La cadena de aceite y agua muestra un acumulado de <strong>${fmtN(aceiteAccum,2)}</strong> litros de aceite recolectados, lo que representa la protección de <strong>${fmtI(aguaAccum)}</strong> litros de agua de la cuenca del lago. En <strong>${lbl}</strong>, la recolección alcanzó el <strong>${fmtPct(aceiteRatio)}</strong> de la meta mensual de ${fmtN(oilMonthlyGoal,2)} litros.</p>
-    <p>La producción acumulada suma <strong>${fmtI(jabProd)}</strong> jabones y la comercialización ha registrado <strong>${fmtI(jabVend)}</strong> unidades vendidas y <strong>${fmtQ(ventasAccum)}</strong> en ventas acumuladas. ${mRisk>0?'El mes muestra indicadores operativos que requieren seguimiento, especialmente en comercialización.':'El mes sostiene un comportamiento operativo equilibrado en toda la cadena de producción y venta.'}</p>
-    <div class="diag-grid">
-      <div class="diag-block"><strong> Cadena aceite-agua</strong><p>Aceite: <strong>${fmtN(aceiteAccum,2)} litros</strong><br>Agua protegida: <strong>${fmtI(aguaAccum)} litros</strong></p></div>
-      <div class="diag-block"><strong> Cadena jabones</strong><p>Producidos: <strong>${fmtI(jabProd)}</strong><br>Vendidos: <strong>${fmtI(jabVend)}</strong></p></div>
-      <div class="diag-block"><strong> Mes activo</strong><p>${lbl}<br>Municipios: <strong>${fmtI(toNum(row?.municipios_visitados_mes))}</strong></p></div>
-      <div class="diag-block"><strong> Ventas</strong><p>Del mes: <strong>${fmtQ(toNum(row?.ingresos_ventas_q_mes))}</strong><br>Acumulado: <strong>${fmtQ(ventasAccum)}</strong></p></div>
-    </div>`;
+    <p>En <strong>${lbl}</strong>, Conservando Atitlán mantiene <strong>${sOk}</strong> indicador${sOk!==1?'es estratégicos':' estratégico'} con avance registrado${sRisk>0?`, `:''}.</p><p>La cadena de aceite y agua muestra un acumulado de <strong>${fmtN(aceiteAccum,2)}</strong> litros de aceite recolectados, lo que representa la protección de <strong>${fmtI(aguaAccum)}</strong> litros de agua de la cuenca del lago. En <strong>${lbl}</strong>, la recolección alcanzó el <strong>${fmtPct(aceiteRatio)}</strong> de la meta mensual de ${fmtN(oilMonthlyGoal,2)} litros.</p><p>La producción acumulada suma <strong>${fmtI(jabProd)}</strong> jabones y la comercialización ha registrado <strong>${fmtI(jabVend)}</strong> unidades vendidas y <strong>${fmtQ(ventasAccum)}</strong> en ventas acumuladas. ${mRisk>0?'El mes muestra indicadores operativos que necesitan revisión operativa, especialmente en comercialización.':'El mes sostiene un comportamiento operativo equilibrado en toda la cadena de producción y venta.'}</p><div class="diag-grid"><div class="diag-block"><strong> Cadena aceite-agua</strong><p>Aceite: <strong>${fmtN(aceiteAccum,2)} litros</strong><br>Agua protegida: <strong>${fmtI(aguaAccum)} litros</strong></p></div><div class="diag-block"><strong> Cadena jabones</strong><p>Producidos: <strong>${fmtI(jabProd)}</strong><br>Vendidos: <strong>${fmtI(jabVend)}</strong></p></div><div class="diag-block"><strong> Mes activo</strong><p>${lbl}<br>Municipios: <strong>${fmtI(toNum(row?.municipios_visitados_mes))}</strong></p></div><div class="diag-block"><strong> Ventas</strong><p>Del mes: <strong>${fmtQ(toNum(row?.ingresos_ventas_q_mes))}</strong><br>Acumulado: <strong>${fmtQ(ventasAccum)}</strong></p></div></div>`;
 
   const list=document.getElementById('diagnosticList');
   if(list) list.innerHTML=[
@@ -1259,22 +1027,16 @@ function renderKpiGrid(id,metrics){
     const progressWidth=Math.max(0,Math.min(Number(metric.progress||0),100));
     const pillarHeight=Math.max(8,Math.min(progressWidth,100));
     const detailRows=[metric.line1,metric.line2].filter(v=>String(v||'').trim());
+    const simpleCard=!!metric.simpleCard;
     const card=document.createElement('article');
-    card.className=`card kpi tone-${tone}`;
+    card.className=`card kpi tone-${tone}${simpleCard?' kpi-simple':''}`;
     card.style.setProperty('--delay',`${idx*80}ms`);
-    card.innerHTML=`
-      <div class="kpi-top"><div class="kpi-label">${escapeHtml(metric.title)}</div></div>
-      <div class="kpi-figure">
-        <div class="kpi-pillar" aria-hidden="true">
-          <span class="kpi-pillar-track"></span>
-          <span class="kpi-pillar-fill" data-height="${pillarHeight}%"></span>
-        </div>
-        <div class="kpi-reading">
-          <div class="kpi-value" data-value="${parts.number!=null?parts.number:''}" data-prefix="${escapeHtml(parts.prefix)}" data-suffix="${escapeHtml(parts.suffix)}" data-decimals="${parts.decimals}">${escapeHtml(parts.text)}</div>
-          <div class="kpi-achieved">${escapeHtml(labelFromStatus(tone))}</div>
+    card.innerHTML=simpleCard?`
+      <div class="kpi-top"><div class="kpi-label">${escapeHtml(metric.title)}</div></div><div class="kpi-simple-value">${escapeHtml([metric.value,metric.unit].filter(Boolean).join(' ')).replace(' / ',' <span>de</span> ')}</div>
+    `:`
+      <div class="kpi-top"><div class="kpi-label">${escapeHtml(metric.title)}</div></div><div class="kpi-figure"><div class="kpi-pillar" aria-hidden="true"><span class="kpi-pillar-track"></span><span class="kpi-pillar-fill" data-height="${pillarHeight}%"></span></div><div class="kpi-reading"><div class="kpi-value" data-value="${parts.number!=null?parts.number:''}" data-prefix="${escapeHtml(parts.prefix)}" data-suffix="${escapeHtml(parts.suffix)}" data-decimals="${parts.decimals}">${escapeHtml(parts.text)}</div>
           ${metric.expectedText?`<div class="kpi-reference">${escapeHtml(metric.expectedText)}</div>`:''}
-        </div>
-      </div>
+        </div></div>
       ${detailRows.length?`<div class="kpi-readings">${detailRows.map(row=>`<div class="kpi-meta">${row}</div>`).join('')}</div>`:''}
       <div class="kpi-progress-line"><span data-width="${progressWidth}"></span></div>`;
     host.appendChild(card);
@@ -1453,13 +1215,7 @@ function progressMetricValueText(value, unit){
   if(unit==='velas') return fmtI(value)+' velas';
   return fmtN(value,2);
 }
-function progressTempoStatus(actualPct, expectedPct, expectedValue){
-  if(!Number.isFinite(expectedValue) || expectedValue<=0) return {tone:'gray', label:'Programado'};
-  const delta = actualPct - expectedPct;
-  if(delta >= 3) return {tone:'green', label:'Por encima del ritmo'};
-  if(delta >= -3) return {tone:'yellow', label:'En el ritmo esperado'};
-  return {tone:'red', label:'Por debajo del ritmo'};
-}
+function progressTempoStatus(actualPct, expectedPct, expectedValue){ return {tone:'green', label:''}; }
 function buildProgressComparisonData(strategic, months){
   return strategic.filter(m=>m.goalType!=='none').map(m=>{
     const base = progressMetricAbsolute(m.id, months);
@@ -1484,22 +1240,7 @@ function progressComparisonHtml(strategic, months, variant='full'){
   const rows = buildProgressComparisonData(strategic, months);
   const extraClass = variant==='compact' ? ' compact' : variant==='presentation' ? ' presentation' : '';
   return `<div class="progress-compare${extraClass}">${rows.map(r=>`
-    <div class="progress-compare-row">
-      <div class="progress-compare-top">
-        <div class="progress-compare-name">${escapeHtml(r.title)}</div>
-        <span class="progress-compare-badge ${r.tone}">${escapeHtml(r.statusLabel)}</span>
-      </div>
-      <div class="progress-compare-numbers">
-        <div class="progress-number-card"><small>Llevamos</small><strong>${escapeHtml(r.actualText)}</strong></div>
-        <div class="progress-number-card"><small>Esperado hoy</small><strong>${escapeHtml(r.expectedText)}</strong></div>
-        <div class="progress-number-card"><small>Meta anual</small><strong>${escapeHtml(r.targetText)}</strong></div>
-      </div>
-      <div class="progress-goal-meter" aria-label="Avance de ${escapeHtml(r.title)}">
-        <div class="progress-goal-fill ${r.tone}" style="width:${r.actualPct.toFixed(1)}%"></div>
-      </div>
-      <div class="progress-goal-caption"><strong>${fmtN(r.actualPct,1)}%</strong> de la meta anual · faltan <strong>${escapeHtml(r.remainingText)}</strong>.</div>
-      <div class="progress-compare-foot">${r.note}</div>
-    </div>`).join('')}</div>`;
+    <div class="progress-compare-row"><div class="progress-compare-top"><div class="progress-compare-name">${escapeHtml(r.title)}</div></div><div class="progress-compare-numbers"><div class="progress-number-card"><small>Llevamos</small><strong>${escapeHtml(r.actualText)}</strong></div><div class="progress-number-card"><small>Esperado hoy</small><strong>${escapeHtml(r.expectedText)}</strong></div><div class="progress-number-card"><small>Meta anual</small><strong>${escapeHtml(r.targetText)}</strong></div></div><div class="progress-goal-meter" aria-label="Avance de ${escapeHtml(r.title)}"><div class="progress-goal-fill ${r.tone}" style="width:${r.actualPct.toFixed(1)}%"></div></div><div class="progress-goal-caption"><strong>${fmtN(r.actualPct,1)}%</strong> de la meta anual · faltan <strong>${escapeHtml(r.remainingText)}</strong>.</div><div class="progress-compare-foot">${r.note}</div></div>`).join('')}</div>`;
 }
 function renderProgressChart(){
   const strategic = computeStrategicMetrics();
@@ -1530,10 +1271,7 @@ function monthlyBarsHtml(indicatorId, variant='full'){
     const pct = clamp(v/maxV*100,0,100);
     const targetText = target!=null ? `<span class="month-target-tag">Meta: ${escapeHtml(formatTrendValue(target,option.unit))}</span>` : '';
     const status = target!=null ? statusFromRatio(v/(target||1), true) : (i===activeIdx?'blue':'gray');
-    return `<div class="month-bar-row ${i===activeIdx?'active':''}">
-      <div class="month-bar-label">${escapeHtml(labels[i])}</div>
-      <div class="month-bar-track"><div class="month-bar-fill ${status}" style="width:${pct.toFixed(1)}%"></div></div>
-      <div class="month-bar-value">${escapeHtml(formatTrendValue(v,option.unit))}</div>
+    return `<div class="month-bar-row ${i===activeIdx?'active':''}"><div class="month-bar-label">${escapeHtml(labels[i])}</div><div class="month-bar-track"><div class="month-bar-fill ${status}" style="width:${pct.toFixed(1)}%"></div></div><div class="month-bar-value">${escapeHtml(formatTrendValue(v,option.unit))}</div>
       ${targetText}
     </div>`;
   }).join('');
@@ -1558,8 +1296,8 @@ function soapTypeData(){
   const hotelProd=toNum(row?.jabones_hotel_producidos_mes), tocProd=toNum(row?.jabones_tocador_producidos_mes);
   const hotelSold=toNum(row?.jabones_hotel_vendidos_mes), tocSold=toNum(row?.jabones_tocador_vendidos_mes);
   return [
-    {key:'hotel', label:'Jabón de hotel', produced:hotelProd, sold:hotelSold, targetSold:GOALS.jabonesHotelVendidosMensual},
-    {key:'tocador', label:'Jabón de tocador', produced:tocProd, sold:tocSold, targetSold:GOALS.jabonesTocadorVendidosMensual}
+    {key:'hotel', label:'Hotel', produced:hotelProd, sold:hotelSold, targetSold:GOALS.jabonesHotelVendidosMensual},
+    {key:'tocador', label:'Tocador', produced:tocProd, sold:tocSold, targetSold:GOALS.jabonesTocadorVendidosMensual}
   ];
 }
 function soapDetailHtml(variant='full'){
@@ -1570,20 +1308,9 @@ function soapDetailHtml(variant='full'){
   return `<div class="soap-detail ${variant==='presentation'?'presentation':''}">
     ${rows.map(r=>{
       const conv=r.produced? r.sold/r.produced : 0;
-      return `<div class="soap-row">
-        <div class="soap-row-top"><div class="soap-row-title">${escapeHtml(r.label)}</div><div class="soap-row-value">${fmtPct(conv)} conversión</div></div>
-        <div class="soap-bars">
-          <div class="soap-bar-line"><span class="soap-label">Producido</span><div class="soap-track"><div class="soap-fill" style="width:${clamp(r.produced/maxV*100,0,100).toFixed(1)}%"></div></div><span class="soap-value">${fmtI(r.produced)}</span></div>
-          <div class="soap-bar-line"><span class="soap-label">Vendido</span><div class="soap-track"><div class="soap-fill sold" style="width:${clamp(r.sold/maxV*100,0,100).toFixed(1)}%"></div></div><span class="soap-value">${fmtI(r.sold)}</span></div>
-        </div>
-      </div>`;
+      return `<div class="soap-row"><div class="soap-row-top"><div class="soap-row-title">${escapeHtml(r.label)}</div><div class="soap-row-value">${fmtPct(conv)} conversión</div></div><div class="soap-bars"><div class="soap-bar-line"><span class="soap-label">Producido</span><div class="soap-track"><div class="soap-fill" style="width:${clamp(r.produced/maxV*100,0,100).toFixed(1)}%"></div></div><span class="soap-value">${fmtI(r.produced)}</span></div><div class="soap-bar-line"><span class="soap-label">Vendido</span><div class="soap-track"><div class="soap-fill sold" style="width:${clamp(r.sold/maxV*100,0,100).toFixed(1)}%"></div></div><span class="soap-value">${fmtI(r.sold)}</span></div></div></div>`;
     }).join('')}
-    <div class="soap-total-strip">
-      <div class="soap-total-card"><small>Total producido</small><strong>${fmtI(totalProd)}</strong></div>
-      <div class="soap-total-card"><small>Total vendido</small><strong>${fmtI(totalSold)}</strong></div>
-      <div class="soap-total-card"><small>Meta venta mensual</small><strong>${fmtI(totalTarget)}</strong></div>
-    </div>
-  </div>`;
+    <div class="soap-total-strip"><div class="soap-total-card"><small>Total producido</small><strong>${fmtI(totalProd)}</strong></div><div class="soap-total-card"><small>Total vendido</small><strong>${fmtI(totalSold)}</strong></div><div class="soap-total-card"><small>Meta venta mensual</small><strong>${fmtI(totalTarget)}</strong></div></div></div>`;
 }
 function renderSoapChart(){
   const container=document.getElementById('soapChartHost');
@@ -1637,11 +1364,9 @@ function renderExecSparkline(indicatorId){
   rawData.forEach((_,i)=>{if(i%step!==0&&i!==n-1) return;xLabels+=`<text x="${X(i)}" y="${H-4}" text-anchor="middle" fill="#8aa0ad" font-size="8">${labels[i]}</text>`;});
   let activeDot='';
   if(activeIdx>=0){const cx=X(activeIdx),cy=Y(rawData[activeIdx]);activeDot=`<circle cx="${cx}" cy="${cy}" r="4.5" fill="#173e63" stroke="#fff" stroke-width="2"/>`;}
-  return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" font-family="Sora,sans-serif">
-    <defs><linearGradient id="spk_${indicatorId}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1c6084" stop-opacity=".20"/><stop offset="100%" stop-color="#1c6084" stop-opacity="0"/></linearGradient></defs>
+  return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" font-family="Sora,sans-serif"><defs><linearGradient id="spk_${indicatorId}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1c6084" stop-opacity=".20"/><stop offset="100%" stop-color="#1c6084" stop-opacity="0"/></linearGradient></defs>
     ${refPts?`<polyline fill="none" stroke="#c6983f" stroke-width="1.4" stroke-dasharray="4 3" points="${refPts}"/>`:''}
-    <polygon points="${areaPts}" fill="url(#spk_${indicatorId})"/>
-    <polyline fill="none" stroke="#1c6084" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="${linePts}"/>
+    <polygon points="${areaPts}" fill="url(#spk_${indicatorId})"/><polyline fill="none" stroke="#1c6084" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="${linePts}"/>
     ${activeDot}
     ${xLabels}
   </svg>`;
@@ -1682,22 +1407,7 @@ function renderExec(strategic,monthly){
       const displayVal=k.unit==='GTQ'?fmtQ(k.val):k.unit==='litros'?fmtN(k.val,2)+' litros':fmtI(k.val)+(k.unit&&k.unit!=='GTQ'?' '+k.unit:'');
       const metaText=k.meta!=null?(k.unit==='GTQ'?`Meta mensual: ${fmtQ(k.meta)}`:`Meta mensual: ${k.unit==='litros'?fmtN(k.meta,2):fmtI(k.meta)} ${k.unit}`):'Lectura informativa';
       const spark=renderExecSparkline(k.sparkId);
-      return `<article class="card kpi tone-${tone}" style="animation-delay:${idx*80}ms;opacity:0;animation:kpiReveal .58s cubic-bezier(.2,.7,.2,1) ${idx*80}ms forwards">
-        <div class="kpi-top"><div class="kpi-label">${escapeHtml(k.label)}</div></div>
-        <div class="kpi-figure">
-          <div class="kpi-pillar" aria-hidden="true">
-            <span class="kpi-pillar-track"></span>
-            <span class="kpi-pillar-fill" style="height:${pillar}%" data-height="${pillar}%"></span>
-          </div>
-          <div class="kpi-reading">
-            <div class="kpi-value">${escapeHtml(displayVal)}</div>
-            <div class="kpi-achieved">${escapeHtml(labelFromStatus(tone))}</div>
-            <div class="kpi-reference">${escapeHtml(metaText)}</div>
-          </div>
-        </div>
-        <div style="margin:4px 0 2px">${spark}</div>
-        <div class="kpi-progress-line"><span style="width:${bw}%" data-width="${bw}"></span></div>
-      </article>`;
+      return `<article class="card kpi tone-${tone}" style="animation-delay:${idx*80}ms;opacity:0;animation:kpiReveal .58s cubic-bezier(.2,.7,.2,1) ${idx*80}ms forwards"><div class="kpi-top"><div class="kpi-label">${escapeHtml(k.label)}</div></div><div class="kpi-figure"><div class="kpi-pillar" aria-hidden="true"><span class="kpi-pillar-track"></span><span class="kpi-pillar-fill" style="height:${pillar}%" data-height="${pillar}%"></span></div><div class="kpi-reading"><div class="kpi-value">${escapeHtml(displayVal)}</div><div class="kpi-achieved">${escapeHtml(labelFromStatus(tone))}</div><div class="kpi-reference">${escapeHtml(metaText)}</div></div></div><div style="margin:4px 0 2px">${spark}</div><div class="kpi-progress-line"><span style="width:${bw}%" data-width="${bw}"></span></div></article>`;
     }).join('');
     // Animate bars
     requestAnimationFrame(()=>{
@@ -1713,21 +1423,11 @@ function renderExec(strategic,monthly){
       {label:'Aceite acumulado '+lbl.split(' de ')[1],value:fmtN(aceiteAccum,2)+' litros',pct:aceiteAccum/GOALS.aceiteAnual,status:statusFromRatio(aceiteAccum/(oilMonthlyGoal*months),true)},
       {label:'Agua protegida '+lbl.split(' de ')[1],value:fmtI(aguaAccum)+' litros',pct:aguaAccum/GOALS.aguaAnual,status:statusFromRatio(aguaAccum/(waterMonthlyGoal*months),true)},
       {label:'Jabones producidos',value:fmtI(jabProd),pct:jabProd/GOALS.jabonesProducidosAnual,status:statusFromRatio(jabProd/(GOALS.jabonesProducidosMensual*months),true)},
-      {label:'Ventas acumuladas',value:fmtQ(ventasAccum),pct:null,status:'blue'},
+      {label:'Ventas acumuladas de Jabones',value:fmtQ(ventasAccum),pct:ventasAccum/GOALS.ventasJabonesAnual,status:'green'},
     ];
     strip.innerHTML=stripItems.map(s=>`
-      <div class="exec-strip-card">
-        <small>${escapeHtml(s.label)}</small>
-        <strong>${escapeHtml(s.value)}</strong>
-        ${s.pct!=null?`<div style="margin-top:8px">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
-            <span style="font-size:.7rem;color:var(--muted)">del objetivo anual</span>
-            <span class="exec-strip-card chip ${s.status}" style="padding:3px 8px;font-size:.7rem">${fmtPct(s.pct)}</span>
-          </div>
-          <div style="height:4px;border-radius:999px;background:var(--line-soft);overflow:hidden">
-            <div style="height:100%;width:${Math.max(0,Math.min(s.pct*100,100)).toFixed(1)}%;border-radius:999px;background:linear-gradient(90deg,var(--lake-light),var(--lake))"></div>
-          </div>
-        </div>`:`<div style="margin-top:8px"><span class="chip blue" style="font-size:.7rem;padding:3px 8px">Informativo</span></div>`}
+      <div class="exec-strip-card"><small>${escapeHtml(s.label)}</small><strong>${escapeHtml(s.value)}</strong>
+        ${s.pct!=null?`<div style="margin-top:8px"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px"><span style="font-size:.7rem;color:var(--muted)">del objetivo anual</span><span class="exec-strip-card chip ${s.status}" style="padding:3px 8px;font-size:.7rem">${fmtPct(s.pct)}</span></div><div style="height:4px;border-radius:999px;background:var(--line-soft);overflow:hidden"><div style="height:100%;width:${Math.max(0,Math.min(s.pct*100,100)).toFixed(1)}%;border-radius:999px;background:linear-gradient(90deg,var(--lake-light),var(--lake))"></div></div></div>`:`<div style="margin-top:8px"><span class="chip blue" style="font-size:.7rem;padding:3px 8px">Informativo</span></div>`}
       </div>`).join('');
   }
 
@@ -1737,9 +1437,9 @@ function renderExec(strategic,monthly){
     progressEl.innerHTML=progressComparisonHtml(strategic, months, 'compact');
   }
 
-  // Panel de alertas deshabilitado (sin alertas operativas en índice)
-  const eAlerts=document.getElementById('execAlertPanel');
-  if(eAlerts) eAlerts.innerHTML='';
+  // Panel operativo sin mensajes automáticos
+  const eNotices=document.getElementById('execNoticePanel');
+  if(eNotices) eNotices.innerHTML='';
 
   // Rich diagnostic panel
   const ediag=document.getElementById('execDiagPanel');
@@ -1747,16 +1447,7 @@ function renderExec(strategic,monthly){
     const sOk=strategic.filter(m=>m.goalType!=='none'&&(m.status==='green'||m.status==='yellow')).length;
     const sRisk=strategic.filter(m=>m.status==='red');
     const aceiteRatio=toNum(row?.litros_aceite_recolectados_mes)/oilMonthlyGoal;
-    ediag.innerHTML=`<h3>Resumen ejecutivo · ${escapeHtml(lbl)}</h3>
-      <p>En <strong>${lbl}</strong>, Conservando Atitlán mantiene <strong>${sOk}</strong> indicador${sOk!==1?'es estratégicos':' estratégico'} dentro del ritmo esperado${sRisk.length>0?`</strong> requieren atención prioritaria`:''}.</p>
-      <p>La cadena de aceite y agua acumula <strong>${fmtN(aceiteAccum,2)}</strong> litros de aceite (<strong>${fmtPct(aceiteAccum/GOALS.aceiteAnual)}</strong> del objetivo anual) y protege <strong>${fmtI(aguaAccum)}</strong> litros de agua. En <strong>${lbl}</strong> se recolectaron <strong>${fmtN(toNum(row?.litros_aceite_recolectados_mes),2)}</strong> litros, alcanzando el <strong>${fmtPct(aceiteRatio)}</strong> de la meta mensual de ${fmtN(oilMonthlyGoal,2)} litros.</p>
-      <p>Se produjeron <strong>${fmtI(toNum(row?.jabones_producidos_mes))}</strong> jabones y se vendieron <strong>${fmtI(toNum(row?.jabones_vendidos_mes))}</strong> unidades, generando <strong>${fmtQ(toNum(row?.ingresos_ventas_q_mes))}</strong> en ventas del mes. El acumulado de jabones producidos llega a <strong>${fmtI(jabProd)}</strong> con ventas totales de <strong>${fmtQ(ventasAccum)}</strong>.</p>
-      <div class="diag-grid">
-        <div class="diag-block"><strong> Aceite acumulado</strong><p>${fmtN(aceiteAccum,2)} litros · <strong>${fmtPct(aceiteAccum/GOALS.aceiteAnual)}</strong> del año</p></div>
-        <div class="diag-block"><strong> Agua protegida</strong><p>${fmtI(aguaAccum)} litros · <strong>${fmtPct(aguaAccum/GOALS.aguaAnual)}</strong> del año</p></div>
-        <div class="diag-block"><strong> Cadena jabones</strong><p>Prod.: <strong>${fmtI(jabProd)}</strong> · Vend.: <strong>${fmtI(jabVend)}</strong></p></div>
-        <div class="diag-block"><strong> Ventas acumuladas</strong><p><strong>${fmtQ(ventasAccum)}</strong> · Mes: ${fmtQ(toNum(row?.ingresos_ventas_q_mes))}</p></div>
-      </div>`;
+    ediag.innerHTML=`<h3>Resumen ejecutivo · ${escapeHtml(lbl)}</h3><p>En <strong>${lbl}</strong>, Conservando Atitlán mantiene <strong>${sOk}</strong> indicador${sOk!==1?'es estratégicos':' estratégico'} con avance registrado.</p><p>La cadena de aceite y agua acumula <strong>${fmtN(aceiteAccum,2)}</strong> litros de aceite (<strong>${fmtPct(aceiteAccum/GOALS.aceiteAnual)}</strong> del objetivo anual) y protege <strong>${fmtI(aguaAccum)}</strong> litros de agua. En <strong>${lbl}</strong> se recolectaron <strong>${fmtN(toNum(row?.litros_aceite_recolectados_mes),2)}</strong> litros, alcanzando el <strong>${fmtPct(aceiteRatio)}</strong> de la meta mensual de ${fmtN(oilMonthlyGoal,2)} litros.</p><p>Se produjeron <strong>${fmtI(toNum(row?.jabones_producidos_mes))}</strong> jabones y se vendieron <strong>${fmtI(toNum(row?.jabones_vendidos_mes))}</strong> unidades, generando <strong>${fmtQ(toNum(row?.ingresos_ventas_q_mes))}</strong> en ventas del mes. El acumulado de jabones producidos llega a <strong>${fmtI(jabProd)}</strong> con ventas totales de <strong>${fmtQ(ventasAccum)}</strong>.</p><div class="diag-grid"><div class="diag-block"><strong> Aceite acumulado</strong><p>${fmtN(aceiteAccum,2)} litros · <strong>${fmtPct(aceiteAccum/GOALS.aceiteAnual)}</strong> del año</p></div><div class="diag-block"><strong> Agua protegida</strong><p>${fmtI(aguaAccum)} litros · <strong>${fmtPct(aguaAccum/GOALS.aguaAnual)}</strong> del año</p></div><div class="diag-block"><strong> Cadena jabones</strong><p>Prod.: <strong>${fmtI(jabProd)}</strong> · Vend.: <strong>${fmtI(jabVend)}</strong></p></div><div class="diag-block"><strong> Ventas acumuladas</strong><p><strong>${fmtQ(ventasAccum)}</strong> · Mes: ${fmtQ(toNum(row?.ingresos_ventas_q_mes))}</p></div></div>`;
   }
 }
 
@@ -1812,13 +1503,7 @@ function buildPresDots(n){
 function presKpiCard(m){
   const cls=m.status||'gray';
   const bw=Math.max(0,Math.min((m.ratioVsExpected||0)*100,100)).toFixed(1);
-  return `<div class="pres-kpi-pair">
-    <div class="pres-kpi-label">${escapeHtml(m.title)}</div>
-    <div class="pres-kpi-value">${escapeHtml([m.value,m.unit].filter(Boolean).join(' '))}</div>
-    <div class="pres-kpi-meta">${escapeHtml(m.expectedText)}</div>
-    <div class="pres-bar-wrap"><div class="pres-bar ${cls}" style="width:${bw}%"></div></div>
-    <div style="margin-top:6px">${chipHtml(cls,labelFromStatus(cls))}</div>
-  </div>`;
+  return `<div class="pres-kpi-pair"><div class="pres-kpi-label">${escapeHtml(m.title)}</div><div class="pres-kpi-value">${escapeHtml([m.value,m.unit].filter(Boolean).join(' '))}</div><div class="pres-kpi-meta">${escapeHtml(m.expectedText)}</div><div class="pres-bar-wrap"><div class="pres-bar ${cls}" style="width:${bw}%"></div></div><div style="margin-top:6px">${chipHtml(cls,labelFromStatus(cls))}</div></div>`;
 }
 
 function buildPresentation(strategic,monthly){
@@ -1846,105 +1531,43 @@ function buildPresentation(strategic,monthly){
   const slides=[];
 
   // SLIDE 1 – Portada ejecutiva
-  slides.push(`<div class="pres-slide"><div class="pres-inner">
-    <div class="pres-kicker">Reporte · ${escapeHtml(lbl)}</div>
-    <div class="pres-title-row">
-      <div><h2>Conservando Atitlán</h2><p>Programa de recolección de aceite usado, producción de jabón artesanal y protección del agua de la cuenca del Lago de Atitlán. Asociación Amigos del Lago de Atitlán.</p></div>
-      <div class="pres-brand-badge"><img src="./Conservando%20Atitl%C3%A1n%20.png" alt="Conservando Atitlán" onerror="this.onerror=null;this.src='./logosatitlan.png'"></div>
-    </div>
-    <div class="pres-card-grid pres-card-grid-4">
-      <div class="pres-card"><small>Aceite acumulado</small><strong>${escapeHtml(fmtN(aceiteAccum,2))}</strong><p>litros · ${escapeHtml(fmtPct(aceiteAccum/GOALS.aceiteAnual))} del año</p>${chipHtml(statusFromRatio(aceiteAccum/(GOALS.aceiteAnual/12*months),true),fmtPct(aceiteAccum/(GOALS.aceiteAnual/12*months))+' del esperado')}</div>
-      <div class="pres-card"><small>Agua protegida</small><strong>${escapeHtml(fmtI(aguaAccum))}</strong><p>litros acumulados</p>${chipHtml(statusFromRatio(aguaAccum/(GOALS.aguaAnual/12*months),true),fmtPct(aguaAccum/(GOALS.aguaAnual/12*months))+' del esperado')}</div>
-      <div class="pres-card"><small>Jabones producidos</small><strong>${escapeHtml(fmtI(jabProd))}</strong><p>${escapeHtml(fmtPct(jabProd/GOALS.jabonesProducidosAnual))} del objetivo anual</p>${chipHtml(statusFromRatio(jabProd/(GOALS.jabonesProducidosMensual*months),true),labelFromStatus(statusFromRatio(jabProd/(GOALS.jabonesProducidosMensual*months),true)))}</div>
-      <div class="pres-card"><small>Ventas acumuladas</small><strong>${escapeHtml(fmtQ(ventasAccum))}</strong><p>Mes: ${escapeHtml(fmtQ(toNum(row?.ingresos_ventas_q_mes)))}</p>${chipHtml('blue','Informativo')}</div>
-    </div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px">
-      <span style="display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.72);border:1px solid var(--line-soft);font-size:.81rem;font-weight:700;color:var(--text-2)"> ${escapeHtml(fmtN(toNum(row?.litros_aceite_recolectados_mes),2))} L aceite en el mes</span>
-      <span style="display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.72);border:1px solid var(--line-soft);font-size:.81rem;font-weight:700;color:var(--text-2)"> ${escapeHtml(fmtI(toNum(row?.jabones_producidos_mes)))} jabones producidos</span>
-      <span style="display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.72);border:1px solid var(--line-soft);font-size:.81rem;font-weight:700;color:var(--text-2)"> ${escapeHtml(fmtI(toNum(row?.municipios_visitados_mes)))} municipios</span>
-      <span style="display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;background:${sStatus==='green'?'rgba(46,139,94,.12)':sStatus==='yellow'?'rgba(198,152,63,.12)':'rgba(192,80,80,.12)'};border:1px solid rgba(0,0,0,.08);font-size:.81rem;font-weight:800;color:${sStatus==='green'?'#2e7d52':sStatus==='yellow'?'#a17820':'#c05050'}"> ${escapeHtml(chipTextFromStatus(sStatus))}</span>
-    </div>
-  </div></div>`);
-
-  // SLIDE 2 – Análisis de avance con gráfico claro
-  slides.push(`<div class="pres-slide"><div class="pres-inner">
-    <div class="pres-kicker">Análisis de avance · ${escapeHtml(lbl)}</div>
-    <div class="pres-title-row"><div><h2>Avance acumulado por objetivo</h2><p>Lectura simple: cuánto llevamos, cuánto se esperaba a la fecha y cuál es la meta anual de cada objetivo priorizado.</p></div></div>
-    <div style="flex:1;overflow:auto;background:rgba(255,255,255,.7);border-radius:18px;border:1px solid var(--line-soft);padding:12px 10px">
-      ${progSvg}
-    </div>
-  </div></div>`);
+  slides.push(`<div class="pres-slide"><div class="pres-inner"><div class="pres-kicker">Reporte · ${escapeHtml(lbl)}</div><div class="pres-title-row"><div><h2>Conservando Atitlán</h2><p>Programa de recolección de aceite usado, producción de jabón artesanal y protección del agua de la cuenca del Lago de Atitlán. Asociación Amigos del Lago de Atitlán.</p></div><div class="pres-brand-badge"><img src="./Conservando%20Atitl%C3%A1n%20.png" alt="Conservando Atitlán" onerror="this.onerror=null;this.src='./logosatitlan.png'"></div></div><div class="pres-card-grid pres-card-grid-4"><div class="pres-card"><small>Aceite acumulado</small><strong>${escapeHtml(fmtN(aceiteAccum,2))}</strong><p>litros · ${escapeHtml(fmtPct(aceiteAccum/GOALS.aceiteAnual))} del año</p>${chipHtml(statusFromRatio(aceiteAccum/(GOALS.aceiteAnual/12*months),true),fmtPct(aceiteAccum/(GOALS.aceiteAnual/12*months))+' del esperado')}</div><div class="pres-card"><small>Agua protegida</small><strong>${escapeHtml(fmtI(aguaAccum))}</strong><p>litros acumulados</p>${chipHtml(statusFromRatio(aguaAccum/(GOALS.aguaAnual/12*months),true),fmtPct(aguaAccum/(GOALS.aguaAnual/12*months))+' del esperado')}</div><div class="pres-card"><small>Jabones producidos</small><strong>${escapeHtml(fmtI(jabProd))}</strong><p>${escapeHtml(fmtPct(jabProd/GOALS.jabonesProducidosAnual))} del objetivo anual</p>${chipHtml(statusFromRatio(jabProd/(GOALS.jabonesProducidosMensual*months),true),labelFromStatus(statusFromRatio(jabProd/(GOALS.jabonesProducidosMensual*months),true)))}</div><div class="pres-card"><small>Ventas acumuladas de Jabones</small><strong>${escapeHtml(fmtQ(ventasAccum))}</strong><p>Mes: ${escapeHtml(fmtQ(toNum(row?.ingresos_ventas_q_mes)))}</p>${chipHtml('blue','Informativo')}</div></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px"><span style="display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.72);border:1px solid var(--line-soft);font-size:.81rem;font-weight:700;color:var(--text-2)"> ${escapeHtml(fmtN(toNum(row?.litros_aceite_recolectados_mes),2))} L aceite en el mes</span><span style="display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.72);border:1px solid var(--line-soft);font-size:.81rem;font-weight:700;color:var(--text-2)"> ${escapeHtml(fmtI(toNum(row?.jabones_producidos_mes)))} jabones producidos</span><span style="display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.72);border:1px solid var(--line-soft);font-size:.81rem;font-weight:700;color:var(--text-2)"> ${escapeHtml(fmtI(toNum(row?.municipios_visitados_mes)))} municipios</span><span style="display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;background:${sStatus==='green'?'rgba(46,139,94,.12)':sStatus==='yellow'?'rgba(198,152,63,.12)':'rgba(192,80,80,.12)'};border:1px solid rgba(0,0,0,.08);font-size:.81rem;font-weight:800;color:${sStatus==='green'?'#2e7d52':sStatus==='yellow'?'#a17820':'#c05050'}"> ${escapeHtml(chipTextFromStatus(sStatus))}</span></div></div></div>`);
 
   // SLIDE 3 – Indicadores estratégicos detalle
-  slides.push(`<div class="pres-slide"><div class="pres-inner">
-    <div class="pres-kicker">Indicadores estratégicos · ${escapeHtml(lbl)}</div>
-    <div class="pres-title-row"><div><h2>Metas anuales y avance acumulado</h2><p>Lectura sencilla de las metas anuales del programa, con estado por indicador.</p></div></div>
-    <div class="pres-card-grid pres-card-grid-4" style="flex:1;align-content:start">
+  slides.push(`<div class="pres-slide"><div class="pres-inner"><div class="pres-kicker">Indicadores estratégicos · ${escapeHtml(lbl)}</div><div class="pres-title-row"><div><h2>Metas anuales y avance acumulado</h2><p>Lectura sencilla de las metas anuales del programa, con avance por indicador.</p></div></div><div class="pres-card-grid pres-card-grid-4" style="flex:1;align-content:start">
       ${strategic.slice(0,4).map(m=>presKpiCard(m)).join('')}
-    </div>
-    <div class="pres-card-grid pres-card-grid-3" style="margin-top:10px">
+    </div><div class="pres-card-grid pres-card-grid-3" style="margin-top:10px">
       ${strategic.slice(4).map(m=>presKpiCard(m)).join('')}
-    </div>
-  </div></div>`);
+    </div></div></div>`);
 
   // SLIDE 4 – Indicadores mensuales
-  slides.push(`<div class="pres-slide"><div class="pres-inner">
-    <div class="pres-kicker">Indicadores del mes · ${escapeHtml(lbl)}</div>
-    <div class="pres-title-row"><div><h2>Comportamiento operativo del mes</h2><p>Indicadores con meta explícita o lectura operativa: jornadas de recolección, aceite, agua, producción, ventas e inmuebles del mes seleccionado.</p></div></div>
-    <div class="pres-card-grid pres-card-grid-3" style="flex:1;align-content:start">
+  slides.push(`<div class="pres-slide"><div class="pres-inner"><div class="pres-kicker">Indicadores del mes · ${escapeHtml(lbl)}</div><div class="pres-title-row"><div><h2>Comportamiento operativo del mes</h2><p>Indicadores con meta explícita o lectura operativa: jornadas de recolección, aceite, agua, producción, ventas e inmuebles del mes seleccionado.</p></div></div><div class="pres-card-grid pres-card-grid-3" style="flex:1;align-content:start">
       ${monthly.map(m=>{const cls=m.status||'gray';const bw=Math.max(0,Math.min((m.periodRatio||0)*100,100)).toFixed(1);return`<div class="pres-kpi-pair"><div class="pres-kpi-label">${escapeHtml(m.title)}</div><div class="pres-kpi-value">${escapeHtml([m.value,m.unit].filter(Boolean).join(' '))}</div><div class="pres-kpi-meta">${escapeHtml(m.expectedText)}</div><div class="pres-bar-wrap"><div class="pres-bar ${cls}" style="width:${bw}%"></div></div><div style="margin-top:6px">${chipHtml(cls,labelFromStatus(cls))}</div></div>`;}).join('')}
-    </div>
-  </div></div>`);
+    </div></div></div>`);
 
   // SLIDE 5 – Tendencia mensual simple
-  slides.push(`<div class="pres-slide"><div class="pres-inner">
-    <div class="pres-kicker">Tendencia histórica · ${escapeHtml(lbl)}</div>
-    <div class="pres-title-row"><div><h2>Aceite recolectado por mes</h2><p>Serie histórica mensual con referencia de meta. El mes destacado (azul oscuro) corresponde a ${escapeHtml(lbl)}. </p></div></div>
-    <div style="flex:1;background:rgba(255,255,255,.72);border-radius:18px;border:1px solid var(--line-soft);padding:14px 10px;overflow:hidden">
+  slides.push(`<div class="pres-slide"><div class="pres-inner"><div class="pres-kicker">Tendencia histórica · ${escapeHtml(lbl)}</div><div class="pres-title-row"><div><h2>Aceite recolectado por mes</h2><p>Serie histórica mensual con referencia de meta. El mes destacado (azul oscuro) corresponde a ${escapeHtml(lbl)}. </p></div></div><div style="flex:1;background:rgba(255,255,255,.72);border-radius:18px;border:1px solid var(--line-soft);padding:14px 10px;overflow:hidden">
       ${trendSvg}
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;flex-shrink:0">
-      <div class="pres-card"><small>Aceite del mes</small><strong>${escapeHtml(fmtN(toNum(row?.litros_aceite_recolectados_mes),2))}</strong><p>litros recolectados</p></div>
-      <div class="pres-card"><small>Meta mensual</small><strong>${escapeHtml(fmtN(GOALS.aceiteAnual/12,2))}</strong><p>litros de referencia</p></div>
-      <div class="pres-card"><small>Acumulado anual</small><strong>${escapeHtml(fmtN(aceiteAccum,2))}</strong><p>litros · ${escapeHtml(fmtPct(aceiteAccum/GOALS.aceiteAnual))} del año</p></div>
-    </div>
-  </div></div>`);
+    </div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;flex-shrink:0"><div class="pres-card"><small>Aceite del mes</small><strong>${escapeHtml(fmtN(toNum(row?.litros_aceite_recolectados_mes),2))}</strong><p>litros recolectados</p></div><div class="pres-card"><small>Meta mensual</small><strong>${escapeHtml(fmtN(GOALS.aceiteAnual/12,2))}</strong><p>litros de referencia</p></div><div class="pres-card"><small>Acumulado anual</small><strong>${escapeHtml(fmtN(aceiteAccum,2))}</strong><p>litros · ${escapeHtml(fmtPct(aceiteAccum/GOALS.aceiteAnual))} del año</p></div></div></div></div>`);
 
   // SLIDE 6 – Cadena de valor del jabón simple
-  slides.push(`<div class="pres-slide"><div class="pres-inner">
-    <div class="pres-kicker">Cadena de valor · ${escapeHtml(lbl)}</div>
-    <div class="pres-title-row"><div><h2>Jabones producidos y vendidos</h2><p>Lectura directa por tipo de jabón: cuánto se produjo, cuánto se vendió y cuál fue la conversión.</p></div></div>
-    <div style="flex:1;background:rgba(255,255,255,.72);border-radius:18px;border:1px solid var(--line-soft);padding:14px 10px;overflow:hidden">
+  slides.push(`<div class="pres-slide"><div class="pres-inner"><div class="pres-kicker">Cadena de valor · ${escapeHtml(lbl)}</div><div class="pres-title-row"><div><h2>Jabones producidos y vendidos</h2><p>Lectura directa por tipo de jabón: cuánto se produjo, cuánto se vendió y cuál fue la conversión.</p></div></div><div style="flex:1;background:rgba(255,255,255,.72);border-radius:18px;border:1px solid var(--line-soft);padding:14px 10px;overflow:hidden">
       ${soapSvg}
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;flex-shrink:0">
+    </div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;flex-shrink:0">
       ${[
         {label:'Jabones producidos',val:fmtI(toNum(row?.jabones_hotel_producidos_mes)+toNum(row?.jabones_tocador_producidos_mes))},
         {label:'Jabones vendidos',val:fmtI(toNum(row?.jabones_hotel_vendidos_mes)+toNum(row?.jabones_tocador_vendidos_mes))},
         {label:'Ventas del mes',val:fmtQ(toNum(row?.ingresos_ventas_q_mes))},
         {label:'Conv. global',val:fmtN(((toNum(row?.jabones_hotel_vendidos_mes)+toNum(row?.jabones_tocador_vendidos_mes))/(toNum(row?.jabones_hotel_producidos_mes)+toNum(row?.jabones_tocador_producidos_mes)||1))*100,1)+'%'}
       ].map(c=>`<div class="pres-card"><small>${c.label}</small><strong>${escapeHtml(c.val)}</strong></div>`).join('')}
-    </div>
-  </div></div>`);
+    </div></div></div>`);
 
   // SLIDE 7 – Diagnóstico y cierre
-  slides.push(`<div class="pres-slide"><div class="pres-inner">
-    <div class="pres-kicker">Diagnóstico · ${escapeHtml(lbl)}</div>
-    <div class="pres-title-row"><div><h2>Lectura interpretativa y mensaje de cierre</h2><p>Síntesis del comportamiento del programa para orientar la conversación institucional y las decisiones operativas del equipo.</p></div></div>
-    <div class="pres-columns" style="flex:1">
-      <div class="pres-note">
-        <h3>Diagnóstico de ${escapeHtml(lbl)}</h3>
-        <p>El programa recolectó <strong>${fmtN(toNum(row?.litros_aceite_recolectados_mes),2)} litros</strong> de aceite y protegió <strong>${fmtI(toNum(row?.litros_agua_protegidos_mes))} litros</strong> de agua en el mes. El acumulado del año alcanza <strong>${fmtN(aceiteAccum,2)} litros</strong> de aceite (${fmtPct(aceiteAccum/GOALS.aceiteAnual)} del objetivo anual) y <strong>${fmtI(aguaAccum)} litros</strong> de agua protegida.</p>
-        <p>La producción acumulada llega a <strong>${fmtI(jabProd)}</strong> jabones y la comercialización registra <strong>${fmtI(jabVend)}</strong> unidades vendidas con <strong>${fmtQ(ventasAccum)}</strong> en ventas. El programa opera dentro del ritmo esperado en el mes.</p>
-        <p style="margin-top:auto;padding-top:12px;border-top:1px dashed var(--line-soft);font-size:.76rem;color:var(--muted)">Conservando Atitlán · AALA · ${escapeHtml(lbl)}</p>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:8px;overflow:auto">
-        ${sGood.slice(0,4).map(m=>`<div class="pres-alert-box green"> <strong>${escapeHtml(m.title)}</strong><br><span style="font-size:.8rem;opacity:.85">${escapeHtml(fmtPct(m.ratioVsExpected))} del esperado · ${escapeHtml(labelFromStatus(m.status))}</span></div>`).join('')}
-        ${sRisk.map(m=>`<div class="pres-alert-box red"> <strong>${escapeHtml(m.title)}</strong><br><span style="font-size:.8rem;opacity:.85">${escapeHtml(fmtPct(m.ratioVsExpected))} del esperado · requiere atención</span></div>`).join('')}
-        ${!sRisk.length&&!sGood.length?`<div class="pres-alert-box blue"> Sin datos suficientes para clasificar indicadores.</div>`:''}
-      </div>
-    </div>
-  </div></div>`);
+  slides.push(`<div class="pres-slide"><div class="pres-inner"><div class="pres-kicker">Diagnóstico · ${escapeHtml(lbl)}</div><div class="pres-title-row"><div><h2>Análisis del mes</h2></div></div><div class="pres-columns" style="flex:1"><div class="pres-note"><h3>Diagnóstico de ${escapeHtml(lbl)}</h3><p>El programa recolectó <strong>${fmtN(toNum(row?.litros_aceite_recolectados_mes),2)} litros</strong> de aceite y protegió <strong>${fmtI(toNum(row?.litros_agua_protegidos_mes))} litros</strong> de agua en el mes. El acumulado del año alcanza <strong>${fmtN(aceiteAccum,2)} litros</strong> de aceite (${fmtPct(aceiteAccum/GOALS.aceiteAnual)} del objetivo anual) y <strong>${fmtI(aguaAccum)} litros</strong> de agua protegida.</p><p>La producción acumulada llega a <strong>${fmtI(jabProd)}</strong> jabones y la comercialización registra <strong>${fmtI(jabVend)}</strong> unidades vendidas con <strong>${fmtQ(ventasAccum)}</strong> en ventas. El programa opera con avance registrado en el mes.</p><p style="margin-top:auto;padding-top:12px;border-top:1px dashed var(--line-soft);font-size:.76rem;color:var(--muted)">Conservando Atitlán · AALA · ${escapeHtml(lbl)}</p></div><div style="display:flex;flex-direction:column;gap:8px;overflow:auto">
+        ${sGood.slice(0,4).map(m=>`<div class="pres-notice-box green"><strong>${escapeHtml(m.title)}</strong><br><span style="font-size:.8rem;opacity:.85">${escapeHtml(fmtPct(m.ratioVsExpected))} del esperado · ${escapeHtml(labelFromStatus(m.status))}</span></div>`).join('')}
+        ${sRisk.map(m=>`<div class="pres-notice-box red"><strong>${escapeHtml(m.title)}</strong><br><span style="font-size:.8rem;opacity:.85">${escapeHtml(fmtPct(m.ratioVsExpected))} del esperado · requiere atención</span></div>`).join('')}
+        ${!sRisk.length&&!sGood.length?`<div class="pres-notice-box blue"> Sin datos suficientes para clasificar indicadores.</div>`:''}
+      </div></div></div></div>`);
 
   track.innerHTML=slides.join('');
   buildPresDots(slides.length);
@@ -1955,6 +1578,4 @@ function buildPresentation(strategic,monthly){
 document.getElementById('presentationOverlay').addEventListener('click',e=>{if(e.target===document.getElementById('presentationOverlay'))closePresentation();});
 
 document.getElementById('presentationOverlay').addEventListener('click',e=>{if(e.target===document.getElementById('presentationOverlay'))closePresentation();});
-</script>
-</body>
-</html>
+</script></body></html>
