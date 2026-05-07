@@ -189,6 +189,70 @@
       border:1px solid rgba(23,49,79,.06);box-shadow:inset 0 1px 0 rgba(255,255,255,.85);
       overflow:hidden}
     .viz-wrap canvas{position:relative;z-index:1;max-width:100%}
+
+
+    /* ── GRÁFICOS CLAROS CONSERVANDO ATITLÁN ── */
+    .progress-compare{display:grid;gap:12px}
+    .progress-compare-row{padding:16px 18px;border-radius:18px;border:1px solid var(--line-soft);background:rgba(255,255,255,.82);box-shadow:0 6px 18px rgba(18,42,66,.04)}
+    .progress-compare-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
+    .progress-compare-name{font-size:1rem;font-weight:800;letter-spacing:-.02em;color:var(--text);line-height:1.25}
+    .progress-compare-meta{display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:5px;color:var(--text-2);font-size:.79rem;line-height:1.5}
+    .progress-compare-meta strong{color:var(--text)}
+    .progress-compare-badge{display:inline-flex;align-items:center;justify-content:center;padding:7px 12px;border-radius:999px;font-size:.72rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;border:1px solid transparent}
+    .progress-compare-badge.green{background:var(--forest-soft);color:var(--forest);border-color:rgba(46,106,87,.15)}
+    .progress-compare-badge.yellow{background:var(--sand-soft);color:var(--sand);border-color:rgba(198,152,63,.18)}
+    .progress-compare-badge.red{background:var(--danger-soft);color:var(--danger);border-color:rgba(184,86,86,.14)}
+    .progress-compare-badge.blue{background:var(--lake-soft);color:var(--lake);border-color:rgba(28,96,132,.16)}
+    .progress-compare-badge.gray{background:#eef3f6;color:#607285;border-color:rgba(96,114,133,.15)}
+    .progress-compare-badge.purple{background:rgba(123,79,196,.12);color:#7b4fc4;border-color:rgba(123,79,196,.18)}
+    .progress-compare-bars{display:grid;gap:8px}
+    .progress-compare-bar-line{display:grid;grid-template-columns:112px 1fr 70px;gap:10px;align-items:center}
+    .progress-compare-bar-label{font-size:.76rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+    .progress-compare-track{position:relative;height:12px;border-radius:999px;background:linear-gradient(180deg,#edf3f6 0%,#e4ecef 100%);overflow:hidden}
+    .progress-compare-fill{height:100%;border-radius:999px;min-width:2px}
+    .progress-compare-fill.expected{background:linear-gradient(90deg,#edd39b 0%,#c6983f 100%)}
+    .progress-compare-fill.green{background:linear-gradient(90deg,#57bf84 0%,#2e8b5e 100%)}
+    .progress-compare-fill.yellow{background:linear-gradient(90deg,#e3ba45 0%,#c6983f 100%)}
+    .progress-compare-fill.red{background:linear-gradient(90deg,#df8c8c 0%,#c05050 100%)}
+    .progress-compare-fill.blue{background:linear-gradient(90deg,#83d0e0 0%,#1c6084 100%)}
+    .progress-compare-fill.gray{background:linear-gradient(90deg,#b5c3cf 0%,#7b8fa0 100%)}
+    .progress-compare-fill.purple{background:linear-gradient(90deg,#c4a0e8 0%,#7b4fc4 100%)}
+    .progress-compare-bar-value{text-align:right;font-size:.8rem;font-weight:800;color:var(--text)}
+    .progress-compare-foot{margin-top:9px;font-size:.79rem;line-height:1.6;color:var(--text-2)}
+    .progress-compare-foot strong{color:var(--text)}
+    .progress-compare.compact{gap:10px}
+    .progress-compare.compact .progress-compare-row{padding:13px 14px;border-radius:16px}
+    .progress-compare.compact .progress-compare-name{font-size:.92rem}
+    .progress-compare.compact .progress-compare-meta{font-size:.73rem;gap:6px 10px}
+    .progress-compare.compact .progress-compare-badge{padding:6px 10px;font-size:.66rem}
+    .progress-compare.compact .progress-compare-bar-line{grid-template-columns:92px 1fr 58px;gap:8px}
+    .progress-compare.compact .progress-compare-bar-label{font-size:.68rem}
+    .progress-compare.compact .progress-compare-bar-value,.progress-compare.compact .progress-compare-foot{font-size:.72rem}
+    .progress-compare.presentation{gap:10px}
+    .progress-compare.presentation .progress-compare-row{padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.9)}
+    .progress-compare.presentation .progress-compare-name{font-size:.88rem}
+    .progress-compare.presentation .progress-compare-meta{font-size:.69rem;gap:5px 8px;margin-top:4px}
+    .progress-compare.presentation .progress-compare-badge{padding:5px 9px;font-size:.62rem}
+    .progress-compare.presentation .progress-compare-bar-line{grid-template-columns:86px 1fr 54px;gap:7px}
+    .progress-compare.presentation .progress-compare-bar-label{font-size:.64rem}
+    .progress-compare.presentation .progress-compare-bar-value,.progress-compare.presentation .progress-compare-foot{font-size:.68rem;line-height:1.45}
+    .simple-chart-note{font-size:.78rem;color:var(--muted);line-height:1.55;margin-top:8px;text-align:justify}
+    .soap-detail{display:grid;gap:14px}
+    .soap-row{padding:16px;border-radius:18px;border:1px solid var(--line-soft);background:rgba(255,255,255,.84);box-shadow:0 6px 18px rgba(18,42,66,.04)}
+    .soap-row-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:10px}
+    .soap-row-title{font-weight:800;color:var(--text);letter-spacing:-.02em}
+    .soap-row-value{font-family:var(--font-mono);font-size:1rem;font-weight:700;color:var(--forest);white-space:nowrap}
+    .soap-bars{display:grid;gap:8px}
+    .soap-bar-line{display:grid;grid-template-columns:96px 1fr 70px;gap:10px;align-items:center}
+    .soap-label{font-size:.73rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+    .soap-track{height:11px;border-radius:999px;background:#e8eff1;overflow:hidden}
+    .soap-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--lake-light),var(--lake))}
+    .soap-fill.sold{background:linear-gradient(90deg,#54b97e,var(--forest))}
+    .soap-value{text-align:right;font-size:.78rem;font-weight:800;color:var(--text)}
+    .soap-total-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:2px}
+    .soap-total-card{padding:13px 14px;border-radius:16px;background:var(--surface-2);border:1px solid var(--line-soft)}
+    .soap-total-card small{display:block;color:var(--muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;font-weight:800;margin-bottom:3px}
+    .soap-total-card strong{display:block;color:var(--text);font-family:var(--font-mono);font-size:1rem}
     .indicator-select{padding:9px 14px;border-radius:14px;border:1px solid var(--line);background:#fff;color:var(--text);font-family:var(--font-body);font-weight:700;font-size:.84rem;min-width:240px;outline:none}
     .indicator-select:focus{border-color:var(--lake);box-shadow:0 0 0 3px rgba(28,96,132,.1)}
 
@@ -443,8 +507,8 @@
       <!-- Chart + Alerts row -->
       <div class="exec-row-2" style="margin-bottom:18px">
         <article class="card panel">
-          <h3>Avance acumulado vs esperado</h3>
-          <p class="sub" id="execChartSub">Progreso real vs esperado por indicador estratégico al período.</p>
+          <h3>Avance acumulado por objetivo</h3>
+          <p class="sub" id="execChartSub">Comparación clara entre avance real, avance esperado a la fecha y meta anual.</p>
           <div id="execProgressChart" style="overflow:visible;padding:4px 0"></div>
         </article>
         <article class="card panel">
@@ -503,7 +567,7 @@
         <div class="section-head">
           <div>
             <div class="section-kicker">KPIs operativos del período</div>
-            <h2 id="monthlyKpiTitle">Comportamiento del período seleccionado</h2>
+            <h2 id="monthlyKpiTitle">Indicadores mensuales</h2>
           </div>
           <p id="monthlyKpiDesc">Indicadores que admiten una meta mensual clara y datos operativos complementarios para interpretar la actividad del período.</p>
         </div>
@@ -515,8 +579,8 @@
       <section class="section section-full-only" id="tendencias">
         <div class="chart-grid">
           <article class="card panel">
-            <h3>Avance acumulado vs esperado</h3>
-            <p class="sub" id="progressChartSub">Compara el avance real acumulado de cada indicador estratégico contra lo esperado al período seleccionado.</p>
+            <h3>Avance acumulado por objetivo</h3>
+            <p class="sub" id="progressChartSub">Compara el avance real acumulado contra lo esperado a la fecha y la meta anual.</p>
             <div class="viz-wrap" id="progressChartHost"><canvas id="progressChart"></canvas></div>
           </article>
           <article class="card panel">
@@ -656,16 +720,17 @@ const TREND_OPTIONS = [
   { id:'litros_agua_protegidos_mes', label:'Agua protegida', unit:'litros' },
   { id:'jabones_producidos_mes', label:'Jabones producidos', unit:'jabones' },
   { id:'jabones_vendidos_mes', label:'Jabones vendidos', unit:'jabones' },
-  { id:'jornadas_recoleccion_ciclo_mes', label:'Colectas mensuales cubiertas', unit:'ciclos' },
+  { id:'inmuebles_atendidos_mes', label:'Inmuebles atendidos', unit:'inmuebles' },
   { id:'ingresos_ventas_q_mes', label:'Ventas registradas', unit:'GTQ' },
   { id:'municipios_visitados_mes', label:'Municipios visitados', unit:'municipios' },
-  { id:'inmuebles_atendidos_mes', label:'Inmuebles atendidos', unit:'inmuebles' },
   { id:'pruebas_jabon_liquido_mes', label:'Pruebas de jabón líquido', unit:'hitos' }
 ];
 const GOALS = {
   colectasAnual:12, aceiteAnual:80000, aguaAnual:80000000,
   jabonesProducidosAnual:65040, jabonesProducidosMensual:5420,
-  jabonesVendidosAnual:51600, municipiosCiclosAnual:7,
+  jabonesVendidosAnual:51600, jabonesVendidosMensual:4300,
+  jabonesHotelVendidosMensual:4000, jabonesTocadorVendidosMensual:300,
+  inmueblesMensual:150, municipiosCiclosAnual:7,
   municipiosMetaMes:7, pruebasAnual:3, pruebasMeses:[3,4,5]
 };
 let state = { total:[], indicadores:[], metadata:{}, periods:[], period:'', charts:{}, slideIndex:0, view:'full' };
@@ -894,26 +959,21 @@ function computeStrategicMetrics(){
 function computeMonthlyMetrics(){
   const row=selectedRow(), months=monthsElapsed();
   const oilMonthlyGoal=GOALS.aceiteAnual/12, waterMonthlyGoal=GOALS.aguaAnual/12;
-  const munCycles=countMonthsWith(r=>toNum(r.municipios_visitados_mes)>=GOALS.municipiosMetaMes);
-  const munExpected=Math.min(months,GOALS.municipiosCiclosAnual);
   const periodVentas=toNum(row?.ingresos_ventas_q_mes);
+  const inmueblesGoal=GOALS.inmueblesMensual||150;
+  const jornadasRegistradas=toNum(row?.jornadas_codigos_unicos_mes||row?.filas_recoleccion_validas_mes);
+  const jornadasCiclo=toNum(row?.jornadas_recoleccion_ciclo_mes)>0?1:0;
+  const colectaAccum=countMonthsWith(r=>toNum(r.jornadas_recoleccion_ciclo_mes)>0);
+  const soldHotel=toNum(row?.jabones_hotel_vendidos_mes), soldTocador=toNum(row?.jabones_tocador_vendidos_mes), soldTotal=toNum(row?.jabones_vendidos_mes);
   return[
-    {id:'municipios',title:'Cobertura de municipios',
-      value:`${munCycles} / ${GOALS.municipiosCiclosAnual}`,unit:'ciclos',
-      status:statusFromRatio(munExpected?munCycles/munExpected:NaN,true),
-      expectedText:`${GOALS.municipiosMetaMes} municipios por ciclo completo`,
-      line1:`Avance anual: <strong>${munCycles} / ${GOALS.municipiosCiclosAnual}</strong> ciclos completos · <strong>${fmtPct(munCycles/GOALS.municipiosCiclosAnual)}</strong>`,
-      line2:`${periodLabel(state.period)}: <strong>${fmtI(toNum(row?.municipios_visitados_mes))}</strong> municipios · ${toNum(row?.municipios_visitados_mes)>=GOALS.municipiosMetaMes?'<strong>ciclo cumplido</strong>':'<strong>ciclo incompleto</strong>'}`,
-      progress:clamp((munCycles/GOALS.municipiosCiclosAnual)*100,0,100),
-      periodRatio:toNum(row?.municipios_visitados_mes)/GOALS.municipiosMetaMes,goalType:'monthly'},
-    {id:'inmuebles',title:'Inmuebles atendidos',
-      value:fmtI(toNum(row?.inmuebles_atendidos_mes)),unit:'inmuebles',
-      status:'blue',
-      expectedText:'Dato operativo del período',
-      line1:`${periodLabel(state.period)}: <strong>${fmtI(toNum(row?.inmuebles_atendidos_mes))}</strong> inmuebles atendidos`,
-      line2:`Acumulado: <strong>${fmtI(sumMonths('inmuebles_atendidos_mes'))}</strong> inmuebles`,
-      progress:clamp((toNum(row?.inmuebles_atendidos_mes)/Math.max(sumMonths('inmuebles_atendidos_mes'),1))*100,0,100),
-      periodRatio:NaN,goalType:'none'},
+    {id:'jornadas-recoleccion',title:'Jornadas de recolección',
+      value:`${colectaAccum} / ${GOALS.colectasAnual}`,unit:'jornadas',
+      status:statusFromRatio(months?colectaAccum/months:NaN,true),
+      expectedText:`Meta anual: ${GOALS.colectasAnual} jornadas de recolección`,
+      line1:`Avance anual: <strong>${colectaAccum} / ${GOALS.colectasAnual}</strong> jornadas de recolección · <strong>${fmtPct(colectaAccum/GOALS.colectasAnual)}</strong> del objetivo anual`,
+      line2:`${periodLabel(state.period)}: <strong>${fmtI(jornadasRegistradas)}</strong> jornadas registradas · ciclo del mes: <strong>${jornadasCiclo? 'cumplido' : 'pendiente'}</strong>`,
+      progress:clamp((colectaAccum/GOALS.colectasAnual)*100,0,100),
+      periodRatio:months?colectaAccum/months:NaN,goalType:'monthly'},
     {id:'aceite-mes',title:'Aceite recolectado en el período',
       value:fmtN(toNum(row?.litros_aceite_recolectados_mes),2),unit:'litros',
       status:statusFromRatio(toNum(row?.litros_aceite_recolectados_mes)/oilMonthlyGoal,true),
@@ -935,15 +995,31 @@ function computeMonthlyMetrics(){
       status:statusFromRatio(toNum(row?.jabones_producidos_mes)/GOALS.jabonesProducidosMensual,true),
       expectedText:`Meta mensual: ${fmtI(GOALS.jabonesProducidosMensual)} jabones`,
       line1:`${periodLabel(state.period)}: <strong>${fmtI(toNum(row?.jabones_producidos_mes))}</strong> jabones producidos`,
-      line2:`Meta mensual: <strong>${fmtI(GOALS.jabonesProducidosMensual)}</strong> jabones · cumplimiento: <strong>${fmtPct(toNum(row?.jabones_producidos_mes)/GOALS.jabonesProducidosMensual)}</strong>`,
+      line2:`Hotel: <strong>${fmtI(toNum(row?.jabones_hotel_producidos_mes))}</strong> · Tocador: <strong>${fmtI(toNum(row?.jabones_tocador_producidos_mes))}</strong> · cumplimiento total: <strong>${fmtPct(toNum(row?.jabones_producidos_mes)/GOALS.jabonesProducidosMensual)}</strong>`,
       progress:clamp((toNum(row?.jabones_producidos_mes)/GOALS.jabonesProducidosMensual)*100,0,100),
       periodRatio:toNum(row?.jabones_producidos_mes)/GOALS.jabonesProducidosMensual,goalType:'monthly'},
+    {id:'jabones-vendidos-mes',title:'Jabones vendidos en el período',
+      value:fmtI(soldTotal),unit:'jabones',
+      status:statusFromRatio(soldTotal/GOALS.jabonesVendidosMensual,true),
+      expectedText:`Meta mensual: ${fmtI(GOALS.jabonesVendidosMensual)} jabones`,
+      line1:`${periodLabel(state.period)}: <strong>${fmtI(soldTotal)}</strong> jabones vendidos`,
+      line2:`Hotel: <strong>${fmtI(soldHotel)}</strong> / ${fmtI(GOALS.jabonesHotelVendidosMensual)} · Tocador: <strong>${fmtI(soldTocador)}</strong> / ${fmtI(GOALS.jabonesTocadorVendidosMensual)} · cumplimiento total: <strong>${fmtPct(soldTotal/GOALS.jabonesVendidosMensual)}</strong>`,
+      progress:clamp((soldTotal/GOALS.jabonesVendidosMensual)*100,0,100),
+      periodRatio:soldTotal/GOALS.jabonesVendidosMensual,goalType:'monthly'},
+    {id:'inmuebles',title:'Inmuebles atendidos',
+      value:fmtI(toNum(row?.inmuebles_atendidos_mes)),unit:'inmuebles',
+      status:statusFromRatio(toNum(row?.inmuebles_atendidos_mes)/inmueblesGoal,true),
+      expectedText:`Meta mensual: ${fmtI(inmueblesGoal)} inmuebles`,
+      line1:`${periodLabel(state.period)}: <strong>${fmtI(toNum(row?.inmuebles_atendidos_mes))}</strong> inmuebles atendidos`,
+      line2:`Meta mensual: <strong>${fmtI(inmueblesGoal)}</strong> inmuebles · cumplimiento: <strong>${fmtPct(toNum(row?.inmuebles_atendidos_mes)/inmueblesGoal)}</strong> · acumulado: <strong>${fmtI(sumMonths('inmuebles_atendidos_mes'))}</strong>`,
+      progress:clamp((toNum(row?.inmuebles_atendidos_mes)/inmueblesGoal)*100,0,100),
+      periodRatio:toNum(row?.inmuebles_atendidos_mes)/inmueblesGoal,goalType:'monthly'},
     {id:'ventas-mes',title:'Ventas registradas en el período',
       value:fmtQ(periodVentas),unit:'',
       status:'purple',
       expectedText:'Lectura informativa del período',
       line1:`${periodLabel(state.period)}: <strong>${fmtQ(periodVentas)}</strong> en ventas`,
-      line2:`Acumulado: <strong>${fmtQ(sumMonths('ingresos_ventas_q_mes'))}</strong> · sin meta mensual fija`,
+      line2:`Acumulado: <strong>${fmtQ(sumMonths('ingresos_ventas_q_mes'))}</strong> · asociado a <strong>${fmtI(soldTotal)}</strong> jabones vendidos en el período`,
       progress:clamp((periodVentas/Math.max(sumMonths('ingresos_ventas_q_mes'),1))*100,0,100),
       periodRatio:NaN,goalType:'none'}
   ];
@@ -967,13 +1043,13 @@ function render(){
 function updateSectionSubtitles(){
   const lbl=periodLabel(state.period);
   const el=id=>document.getElementById(id);
-  if(el('monthlyKpiTitle')) el('monthlyKpiTitle').textContent='Comportamiento de '+lbl;
-  if(el('monthlyKpiDesc')) el('monthlyKpiDesc').textContent=`Indicadores operativos del período ${lbl} con su meta mensual y avance del programa.`;
+  if(el('monthlyKpiTitle')) el('monthlyKpiTitle').textContent='Indicadores mensuales';
+  if(el('monthlyKpiDesc')) el('monthlyKpiDesc').textContent=`Indicadores mensuales de ${lbl}, ordenados según los objetivos priorizados del programa: jornadas de recolección, aceite, agua protegida, producción, venta de jabones e inmuebles atendidos.`;
   if(el('diagTitle')) el('diagTitle').textContent='Diagnóstico de '+lbl;
   if(el('summarySubtitle')) el('summarySubtitle').textContent=`Datos operativos de ${lbl} y su acumulado en el año.`;
-  if(el('progressChartSub')) el('progressChartSub').textContent=`Progreso real vs esperado por indicador estratégico — ${lbl}.`;
-  if(el('trendChartSub')) el('trendChartSub').textContent=`Serie histórica con línea de meta mensual cuando existe. Período activo: ${lbl}.`;
-  if(el('soapChartSub')) el('soapChartSub').textContent=`Producción y venta de jabón en ${lbl}, con tasa de conversión.`;
+  if(el('progressChartSub')) el('progressChartSub').textContent=`Lectura directa entre avance real acumulado, avance esperado y meta anual — ${lbl}.`;
+  if(el('trendChartSub')) el('trendChartSub').textContent=`Barras mensuales con referencia de meta cuando existe. Período activo: ${lbl}.`;
+  if(el('soapChartSub')) el('soapChartSub').textContent=`Producción y venta de jabón en ${lbl}, separado por tipo y con lectura de conversión.`;
 }
 
 function renderDiagnostic(strategic,monthly){
@@ -1122,9 +1198,14 @@ function buildMonthPills(){
 }
 
 function goalSeriesForIndicator(id){
-  const map={litros_aceite_recolectados_mes:GOALS.aceiteAnual/12,litros_agua_protegidos_mes:GOALS.aguaAnual/12,
-    jabones_producidos_mes:GOALS.jabonesProducidosMensual,municipios_visitados_mes:GOALS.municipiosMetaMes};
-  if(id==='jornadas_recoleccion_ciclo_mes') return state.total.map(()=>1);
+  const map={
+    litros_aceite_recolectados_mes:GOALS.aceiteAnual/12,
+    litros_agua_protegidos_mes:GOALS.aguaAnual/12,
+    jabones_producidos_mes:GOALS.jabonesProducidosMensual,
+    jabones_vendidos_mes:GOALS.jabonesVendidosMensual,
+    inmuebles_atendidos_mes:GOALS.inmueblesMensual,
+    municipios_visitados_mes:GOALS.municipiosMetaMes
+  };
   if(id==='pruebas_jabon_liquido_mes') return state.total.map(r=>GOALS.pruebasMeses.includes(monthNumber(r.periodo_clave))?1:0);
   if(map[id]) return state.total.map(()=>map[id]);
   return null;
@@ -1203,123 +1284,82 @@ function fmtCompact(v){
   return fmtN(v,1);
 }
 
-/* ── Chart 1: BULLET + DIVERGENCE CHART (Progress) ── */
-function renderProgressChart(){
-  const metrics = computeStrategicMetrics().filter(m=>m.goalType!=='none');
-  const months  = monthsElapsed();
-  const expected = metrics.map(m=>{
-    if(m.id==='colectas') return (months/GOALS.colectasAnual)*100;
-    if(m.id==='pruebas')  return (expectedPruebasAtCut(months)/GOALS.pruebasAnual)*100;
-    return (months/12)*100;
+/* ── Chart 1: COMPARACIÓN CLARA DE AVANCE ── */
+function progressMetricAbsolute(metricId, months){
+  if(metricId==='colectas') return {actual:countMonthsWith(r=>toNum(r.jornadas_recoleccion_ciclo_mes)>0), expected:months, target:GOALS.colectasAnual, unit:'ciclos'};
+  if(metricId==='aceite') return {actual:sumMonths('litros_aceite_recolectados_mes'), expected:(GOALS.aceiteAnual/12)*months, target:GOALS.aceiteAnual, unit:'litros'};
+  if(metricId==='agua') return {actual:sumMonths('litros_agua_protegidos_mes'), expected:(GOALS.aguaAnual/12)*months, target:GOALS.aguaAnual, unit:'litros_int'};
+  if(metricId==='jabones-prod') return {actual:sumMonths('jabones_producidos_mes'), expected:GOALS.jabonesProducidosMensual*months, target:GOALS.jabonesProducidosAnual, unit:'jabones'};
+  if(metricId==='jabones-vend') return {actual:sumMonths('jabones_vendidos_mes'), expected:GOALS.jabonesVendidosMensual*months, target:GOALS.jabonesVendidosAnual, unit:'jabones'};
+  if(metricId==='pruebas') return {actual:countMonthsWith(r=>GOALS.pruebasMeses.includes(toNum(r.mes_num))&&toNum(r.pruebas_jabon_liquido_mes)>0), expected:expectedPruebasAtCut(months), target:GOALS.pruebasAnual, unit:'hitos'};
+  return {actual:0, expected:0, target:100, unit:''};
+}
+function progressMetricValueText(value, unit){
+  if(unit==='litros') return fmtN(value,2)+' litros';
+  if(unit==='litros_int') return fmtI(value)+' litros';
+  if(unit==='jabones') return fmtI(value)+' jabones';
+  if(unit==='ciclos') return fmtI(value)+' ciclos';
+  if(unit==='hitos') return fmtI(value)+' hitos';
+  return fmtN(value,2);
+}
+function progressTempoStatus(actualPct, expectedPct, expectedValue){
+  if(!Number.isFinite(expectedValue) || expectedValue<=0) return {tone:'gray', label:'Programado'};
+  const delta = actualPct - expectedPct;
+  if(delta >= 3) return {tone:'green', label:'Por encima del ritmo'};
+  if(delta >= -3) return {tone:'yellow', label:'En el ritmo esperado'};
+  return {tone:'red', label:'Por debajo del ritmo'};
+}
+function buildProgressComparisonData(strategic, months){
+  return strategic.filter(m=>m.goalType!=='none').map(m=>{
+    const base = progressMetricAbsolute(m.id, months);
+    const target = Math.max(base.target||0, 1);
+    const actualPct = clamp((base.actual/target)*100,0,100);
+    const expectedPct = clamp((base.expected/target)*100,0,100);
+    const tempo = progressTempoStatus(actualPct, expectedPct, base.expected);
+    const note = (!Number.isFinite(base.expected) || base.expected<=0)
+      ? 'Este indicador todavía no tiene exigencia activa en el período.'
+      : `Real acumulado: <strong>${escapeHtml(progressMetricValueText(base.actual, base.unit))}</strong> · Esperado a la fecha: <strong>${escapeHtml(progressMetricValueText(base.expected, base.unit))}</strong>.`;
+    return {
+      id:m.id, title:m.title, tone:tempo.tone, statusLabel:tempo.label,
+      actualPct, expectedPct,
+      actualText:progressMetricValueText(base.actual, base.unit),
+      expectedText:progressMetricValueText(base.expected, base.unit),
+      targetText:progressMetricValueText(base.target, base.unit), note
+    };
   });
-
+}
+function progressComparisonHtml(strategic, months, variant='full'){
+  const rows = buildProgressComparisonData(strategic, months);
+  const extraClass = variant==='compact' ? ' compact' : variant==='presentation' ? ' presentation' : '';
+  return `<div class="progress-compare${extraClass}">${rows.map(r=>`
+    <div class="progress-compare-row">
+      <div class="progress-compare-top">
+        <div>
+          <div class="progress-compare-name">${escapeHtml(r.title)}</div>
+          <div class="progress-compare-meta">
+            <span><strong>Real:</strong> ${escapeHtml(r.actualText)}</span>
+            <span><strong>Esperado hoy:</strong> ${escapeHtml(r.expectedText)}</span>
+            <span><strong>Meta anual:</strong> ${escapeHtml(r.targetText)}</span>
+          </div>
+        </div>
+        <span class="progress-compare-badge ${r.tone}">${escapeHtml(r.statusLabel)}</span>
+      </div>
+      <div class="progress-compare-bars">
+        <div class="progress-compare-bar-line"><span class="progress-compare-bar-label">Real</span><div class="progress-compare-track"><div class="progress-compare-fill ${r.tone}" style="width:${r.actualPct.toFixed(1)}%"></div></div><span class="progress-compare-bar-value">${fmtN(r.actualPct,1)}%</span></div>
+        <div class="progress-compare-bar-line"><span class="progress-compare-bar-label">Esperado</span><div class="progress-compare-track"><div class="progress-compare-fill expected" style="width:${r.expectedPct.toFixed(1)}%"></div></div><span class="progress-compare-bar-value">${fmtN(r.expectedPct,1)}%</span></div>
+      </div>
+      <div class="progress-compare-foot">${r.note}</div>
+    </div>`).join('')}</div>`;
+}
+function renderProgressChart(){
+  const strategic = computeStrategicMetrics();
+  const months = monthsElapsed();
   const container = document.getElementById('progressChartHost');
   if(!container) return;
-  container.innerHTML = '';
-  container.style.minHeight='auto';container.style.height='auto';
-
-  const W=900, ROW_H=54, PAD_L=196, PAD_R=70, PAD_T=28, PAD_B=44;
-  const H = PAD_T + metrics.length*ROW_H + PAD_B;
-  const plotW = W-PAD_L-PAD_R;
-
-  const svg = svgNS('svg', {viewBox:`0 0 ${W} ${H}`, style:'width:100%;height:auto;display:block;overflow:visible', 'font-family':'Sora,sans-serif'});
-  const defs = svgNS('defs');
-
-  // Gradients
-  const colors = metrics.map(m => m.status==='green'?['#2e8b5e','#54c988']:m.status==='yellow'?['#c6983f','#e8bf60']:m.status==='red'?['#c05050','#e88080']:['#1c6084','#4ca5bf']);
-  metrics.forEach((m,i)=>{
-    const [c1,c2]=colors[i];
-    const g=svgNS('linearGradient',{id:`pg${i}`,x1:'0',y1:'0',x2:'1',y2:'0'});
-    g.appendChild(svgNS('stop',{offset:'0%','stop-color':c1}));
-    g.appendChild(svgNS('stop',{offset:'100%','stop-color':c2}));
-    defs.appendChild(g);
-  });
-  svg.appendChild(defs);
-
-  // Column header
-  svg.appendChild(svgText(PAD_L, PAD_T-8, '% acumulado real', {'text-anchor':'start',fill:'#8aa0ad','font-size':'10','font-weight':'700','letter-spacing':'0.08em','text-transform':'uppercase'}));
-  svg.appendChild(svgText(W-PAD_R, PAD_T-8, '100%', {'text-anchor':'end',fill:'#8aa0ad','font-size':'10'}));
-
-  // Grid lines at 25/50/75/100
-  [0,25,50,75,100].forEach(v=>{
-    const x = PAD_L + (v/100)*plotW;
-    svg.appendChild(svgLine(x,PAD_T-4,x,H-PAD_B+4, {stroke: v===0?'#c5d5dc':'rgba(23,49,79,.07)', 'stroke-width': v===0?'1.5':'1', 'stroke-dasharray': v===0?'':'4 3'}));
-    if(v>0) svg.appendChild(svgText(x, H-PAD_B+16, v+'%', {'text-anchor':'middle',fill:'#8aa0ad','font-size':'10.5'}));
-  });
-
-  metrics.forEach((m,i)=>{
-    const y0 = PAD_T + i*ROW_H;
-    const cx = PAD_L + (m.progress/100)*plotW;
-    const ex = PAD_L + (expected[i]/100)*plotW;
-    const [c1]=colors[i];
-    const gap = m.progress - expected[i];
-
-    // Row background alternating
-    if(i%2===0) svg.appendChild(svgRect(0, y0-2, W, ROW_H, {fill:'rgba(23,49,79,.022)', rx:'4'}));
-
-    // Indicator label (truncated)
-    const labelEl = svgText(PAD_L-12, y0+ROW_H/2+4, m.title.length>28?m.title.slice(0,27)+'…':m.title,
-      {'text-anchor':'end',fill:'#17314f','font-size':'11.5','font-weight':'600'});
-    svg.appendChild(labelEl);
-
-    // Background track
-    svg.appendChild(svgRect(PAD_L, y0+ROW_H/2-9, plotW, 18, {fill:'rgba(23,49,79,.05)', rx:'9'}));
-
-    // Progress bar (animated)
-    const bar = svgRect(PAD_L, y0+ROW_H/2-9, 0, 18, {fill:`url(#pg${i})`, rx:'9', style:'transition:width .9s cubic-bezier(.22,1,.36,1)'});
-    svg.appendChild(bar);
-    setTimeout(()=>bar.setAttribute('width', Math.max(4,(m.progress/100)*plotW).toFixed(1)), 80+i*70);
-
-    // Expected marker (vertical line + triangle)
-    const expGroup = svgNS('g');
-    expGroup.appendChild(svgLine(ex, y0+ROW_H/2-12, ex, y0+ROW_H/2+12, {stroke:'#c6983f','stroke-width':'2','stroke-dasharray':'3 2'}));
-    expGroup.appendChild(svgNS('polygon',{points:`${ex-5},${y0+ROW_H/2-14} ${ex+5},${y0+ROW_H/2-14} ${ex},${y0+ROW_H/2-8}`, fill:'#c6983f', opacity:'.9'}));
-    svg.appendChild(expGroup);
-
-    // Gap annotation right side
-    const gapX = Math.max(cx, ex) + 10;
-    const gapColor = gap>=0 ? '#2e8b5e' : '#c05050';
-    const gapText = (gap>=0?'+':'')+fmtN(gap,1)+'pp';
-    const pill = svgNS('g', {style:'cursor:default'});
-    pill.appendChild(svgRect(W-PAD_R+4, y0+ROW_H/2-9, PAD_R-8, 18, {fill:gap>=0?'rgba(46,139,94,.12)':'rgba(192,80,80,.12)', rx:'9', stroke:gap>=0?'rgba(46,139,94,.25)':'rgba(192,80,80,.25)','stroke-width':'1'}));
-    pill.appendChild(svgText(W-PAD_R/2, y0+ROW_H/2+5, gapText, {'text-anchor':'middle',fill:gapColor,'font-size':'10.5','font-weight':'800'}));
-    svg.appendChild(pill);
-
-    // % label on bar end
-    if(m.progress>8){
-      const labelInside = m.progress>30;
-      const lx = labelInside ? PAD_L + (m.progress/100)*plotW - 8 : PAD_L + (m.progress/100)*plotW + 8;
-      svg.appendChild(svgText(lx, y0+ROW_H/2+4.5, fmtN(m.progress,1)+'%',
-        {'text-anchor':labelInside?'end':'start', fill:labelInside?'rgba(255,255,255,.95)':'#17314f', 'font-size':'10', 'font-weight':'800'}));
-    }
-
-    // Hover zone
-    const hitZone = svgRect(0, y0, W, ROW_H, {fill:'transparent', style:'cursor:pointer'});
-    const tipHtml = `<strong style="font-size:13px">${m.title}</strong><br> Real: <strong>${fmtN(m.progress,1)}%</strong> acumulado<br> Esperado: <strong>${fmtN(expected[i],1)}%</strong> al período<br> Brecha: <strong style="color:${gap>=0?'#6ed89a':'#f08080'}">${gap>=0?'+':''}${fmtN(gap,1)} pp</strong><br>
-      <span style="opacity:.75;font-size:11px">${m.line1.replace(/<[^>]+>/g,'')}</span>`;
-    hitZone.addEventListener('mousemove', e=>showTip(e, tipHtml));
-    hitZone.addEventListener('mouseleave', hideTip);
-    svg.appendChild(hitZone);
-  });
-
-  // Legend
-  const legendY = H-16;
-  [[`url(#pg0)`, 'Avance real acumulado'], ['#c6983f', 'Esperado al período ▲'], ['#2e8b5e', 'Brecha positiva (+pp)'], ['#c05050','Brecha negativa (−pp)']].forEach(([col,label],i)=>{
-    const lx = 40 + i*200;
-    const isGrad = col.startsWith('url');
-    if(!isGrad){
-      const r = svgRect(lx, legendY-7, 14, 10, {fill:col, rx:'5', opacity:'.85'});
-      svg.appendChild(r);
-    } else {
-      const r = svgRect(lx, legendY-7, 14, 10, {fill:'url(#pg0)', rx:'5'});
-      svg.appendChild(r);
-    }
-    svg.appendChild(svgText(lx+18, legendY+3, label, {fill:'#6d8294','font-size':'10.5','font-weight':'600'}));
-  });
-
-  container.appendChild(svg);
-  container.style.minHeight='';
-  container.style.padding='14px 10px 8px';
+  container.innerHTML = progressComparisonHtml(strategic, months, 'full');
+  container.style.minHeight = 'auto';
+  container.style.height = 'auto';
+  container.style.padding = '14px 10px 8px';
 }
 
 /* ── Chart 2: ADVANCED TIME SERIES with annotations ── */
@@ -1328,410 +1368,119 @@ function renderTrendChart(){
   if(!sel) return;
   const indicatorId = sel.value;
   const option = TREND_OPTIONS.find(o=>o.id===indicatorId)||TREND_OPTIONS[0];
-
   const activeFullIdx = state.periods.indexOf(String(state.period));
   const visibleRows = activeFullIdx>=0 ? state.total.slice(0,activeFullIdx+1) : state.total.slice();
   const rawData = visibleRows.map(r=>toNum(r[indicatorId]));
-  const labels  = visibleRows.map(r=>monthShortLabel(r.periodo_clave));
-  const fullRefSeries = goalSeriesForIndicator(indicatorId);
-  const refSeries = fullRefSeries ? fullRefSeries.slice(0,visibleRows.length) : null;
+  const labels = visibleRows.map(r=>monthShortLabel(r.periodo_clave));
+  const refSeries = goalSeriesForIndicator(indicatorId);
+  const ref = refSeries ? refSeries.slice(0,visibleRows.length) : null;
   const activeIdx = visibleRows.length ? visibleRows.length-1 : -1;
-
   const container = document.getElementById('trendChartHost');
   if(!container) return;
-  container.innerHTML = '';
-  container.style.minHeight='auto';
-
+  container.innerHTML=''; container.style.minHeight='auto';
   const hasData = rawData.some(v=>v>0);
   if(!rawData.length || !hasData){
-    container.innerHTML=`<div style="display:flex;align-items:center;justify-content:center;min-height:200px;flex-direction:column;gap:10px;color:var(--muted)"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3l18 18M9 9v6m6-9v3"/></svg><p style="font-size:.88rem">Sin datos registrados para este indicador en el período disponible.</p></div>`;
+    container.innerHTML=`<div class="empty">Sin datos registrados para ${escapeHtml(option.label)} en el período disponible.</div>`;
     return;
   }
-
-  const W=880, H=320, PAD_L=68, PAD_R=24, PAD_T=28, PAD_B=52;
-  const plotW=W-PAD_L-PAD_R, plotH=H-PAD_T-PAD_B;
-  const allVals=[...rawData,...(refSeries||[])].filter(v=>Number.isFinite(v)&&v>=0);
-  if(!allVals.length){ container.innerHTML='<p style="color:var(--muted);padding:20px;text-align:center">Sin datos numéricos disponibles para este indicador.</p>'; return; }
-
-  const spread = Math.max(...allVals)-Math.min(...allVals);
-  const minV = Math.max(0, Math.min(...allVals) - Math.max(spread*0.12, Math.max(...allVals)*0.04, 1));
-  const maxV = Math.max(...allVals) + Math.max(spread*0.16, Math.max(...allVals)*0.06, 1);
-  const scale=niceScale(minV, maxV, 5);
+  const W=880,H=330,PL=76,PR=28,PT=32,PB=62,plotW=W-PL-PR,plotH=H-PT-PB;
+  const allVals=[...rawData,...(ref||[])].filter(v=>Number.isFinite(v)&&v>=0);
+  const scale=niceScale(0, Math.max(...allVals,1)*1.12, 5);
   const n=rawData.length;
-
-  const X=i=>PAD_L+i*(plotW/Math.max(n-1,1));
-  const Y=v=>PAD_T+plotH-((v-scale.min)/(scale.max-scale.min||1))*plotH;
-
+  const gap=22;
+  const barW=Math.min(70,(plotW-gap*Math.max(n-1,0))/Math.max(n,1));
+  const step=plotW/Math.max(n,1);
+  const X=i=>PL+i*step+(step-barW)/2;
+  const XC=i=>X(i)+barW/2;
+  const Y=v=>PT+plotH-((v-scale.min)/(scale.max-scale.min||1))*plotH;
   const svg=svgNS('svg',{viewBox:`0 0 ${W} ${H}`,style:'width:100%;height:auto;display:block;overflow:visible','font-family':'Sora,sans-serif'});
-  const defs=svgNS('defs');
-
-  const areaGrad=svgNS('linearGradient',{id:'trendArea',x1:'0',y1:'0',x2:'0',y2:'1'});
-  areaGrad.appendChild(svgNS('stop',{offset:'0%','stop-color':'#1c6084','stop-opacity':'0.22'}));
-  areaGrad.appendChild(svgNS('stop',{offset:'100%','stop-color':'#1c6084','stop-opacity':'0.01'}));
-  defs.appendChild(areaGrad);
-
-  const glowFilter=svgNS('filter',{id:'glow',x:'-60%',y:'-60%',width:'220%',height:'220%'});
-  const fe=svgNS('feGaussianBlur',{stdDeviation:'3','result':'blur'});
-  const feMerge=svgNS('feMerge');
-  feMerge.appendChild(svgNS('feMergeNode',{in:'blur'}));
-  feMerge.appendChild(svgNS('feMergeNode',{in:'SourceGraphic'}));
-  glowFilter.appendChild(fe); glowFilter.appendChild(feMerge);
-  defs.appendChild(glowFilter);
-  svg.appendChild(defs);
-
-  const occupied = [];
-  function overlaps(box){
-    return occupied.some(o => !(box.x+box.w<o.x || o.x+o.w<box.x || box.y+box.h<o.y || o.y+o.h<box.y));
-  }
-  function reserve(box){ occupied.push(box); return box; }
-
-  function placeBadge(cx, cy, text, styles={}, preferred='top'){
-    const width = Math.max(34, text.length*7.2 + 16);
-    const height = 16;
-    const candidates = {
-      top:    {x:cx-width/2, y:cy-26},
-      bottom: {x:cx-width/2, y:cy+10},
-      right:  {x:cx+10,      y:cy-8},
-      left:   {x:cx-width-10,y:cy-8}
-    };
-    const order = [preferred,'right','left','bottom','top'].filter((v,i,a)=>a.indexOf(v)===i);
-    let picked = candidates[order[0]];
-    for(const key of order){
-      const candidate = {...candidates[key]};
-      candidate.x = clamp(candidate.x, PAD_L+2, W-PAD_R-width-2);
-      candidate.y = clamp(candidate.y, 4, H-PAD_B-height-4);
-      candidate.w = width; candidate.h = height;
-      if(!overlaps(candidate)){ picked = candidate; break; }
-      picked = candidate;
-    }
-    reserve(picked);
-    svg.appendChild(svgRect(picked.x,picked.y,width,height,{fill:styles.fill||'rgba(23,49,79,.1)',rx:'8',stroke:styles.stroke||'rgba(23,49,79,.18)','stroke-width':'1'}));
-    svg.appendChild(svgText(picked.x+width/2,picked.y+11,text,{'text-anchor':'middle',fill:styles.text||'#17314f','font-size':'9.5','font-weight':'800'}));
-  }
-
-  // Grid + Y axis ticks
   scale.ticks.forEach(v=>{
-    const y=Y(v);
-    if(y<PAD_T-4||y>PAD_T+plotH+4) return;
-    svg.appendChild(svgLine(PAD_L-6,y,W-PAD_R,y,{stroke:'rgba(23,49,79,.08)','stroke-width':'1'}));
-    svg.appendChild(svgText(PAD_L-10,y+4,fmtAxis(v,option.unit),{'text-anchor':'end',fill:'#8aa0ad','font-size':'10.5'}));
+    const y=Y(v); if(y<PT-5||y>PT+plotH+5) return;
+    svg.appendChild(svgLine(PL,y,W-PR,y,{stroke:'rgba(23,49,79,.08)','stroke-width':'1'}));
+    svg.appendChild(svgText(PL-8,y+4,fmtAxis(v,option.unit),{'text-anchor':'end',fill:'#8aa0ad','font-size':'10'}));
   });
-
-  // Reference band (if exists)
-  if(refSeries && refSeries.length===rawData.length){
-    const bandPts = rawData.map((v,i)=>`${X(i)},${Y(Math.max(v,refSeries[i]))}`).join(' ');
-    const bandPts2 = rawData.map((v,i)=>`${X(i)},${Y(Math.min(v,refSeries[i]))}`).reverse().join(' ');
-    svg.appendChild(svgNS('polygon',{points:`${bandPts} ${bandPts2}`,fill:'rgba(198,152,63,.08)',stroke:'none'}));
-
-    const refPts=refSeries.map((v,i)=>`${X(i)},${Y(v)}`).join(' ');
-    svg.appendChild(svgNS('polyline',{fill:'none',stroke:'#c6983f','stroke-width':'1.8','stroke-dasharray':'7 5','stroke-linecap':'round',points:refPts}));
-
-    const refAnchorX = n===1 ? X(0) : X(n-1);
-    const refAnchorY = Y(refSeries.at(-1));
-    placeBadge(refAnchorX, refAnchorY, 'Meta', {
-      fill:'rgba(198,152,63,.12)',
-      stroke:'rgba(198,152,63,.3)',
-      text:'#a17820'
-    }, refAnchorY < PAD_T+plotH*0.35 ? 'bottom' : 'top');
-  }
-
-  // Active period vertical band
-  if(activeIdx>=0){
-    svg.appendChild(svgRect(X(activeIdx)-16,PAD_T,32,plotH,{fill:'rgba(28,96,132,.06)',rx:'8'}));
-  }
-
-  const areaPts = n===1
-    ? `${X(0)-1},${PAD_T+plotH} ${X(0)},${Y(rawData[0])} ${X(0)+1},${PAD_T+plotH}`
-    : [`${X(0)},${PAD_T+plotH}`,...rawData.map((v,i)=>`${X(i)},${Y(v)}`),`${X(n-1)},${PAD_T+plotH}`].join(' ');
-  svg.appendChild(svgNS('polygon',{points:areaPts,fill:'url(#trendArea)'}));
-
-  const linePts = n===1
-    ? `${X(0)-0.1},${Y(rawData[0])} ${X(0)+0.1},${Y(rawData[0])}`
-    : rawData.map((v,i)=>`${X(i)},${Y(v)}`).join(' ');
-  svg.appendChild(svgNS('polyline',{fill:'none',stroke:'#1c6084','stroke-width':'2.5','stroke-linecap':'round','stroke-linejoin':'round',points:linePts}));
-
-  const maxVal = Math.max(...rawData);
-  const minVal = Math.min(...rawData);
-  const maxIdx = rawData.indexOf(maxVal);
-  const minIdx = rawData.indexOf(minVal);
-
-  if(maxIdx>=0 && n>1){
-    svg.appendChild(svgCircle(X(maxIdx),Y(rawData[maxIdx]),5,{fill:'#fff',stroke:'#2e8b5e','stroke-width':'2.5'}));
-    placeBadge(X(maxIdx), Y(rawData[maxIdx]), 'Máx', {
-      fill:'rgba(46,139,94,.12)',
-      stroke:'rgba(46,139,94,.25)',
-      text:'#2e8b5e'
-    }, 'top');
-  }
-  if(minIdx>=0 && n>1 && minIdx!==maxIdx){
-    svg.appendChild(svgCircle(X(minIdx),Y(rawData[minIdx]),5,{fill:'#fff',stroke:'#c05050','stroke-width':'2.5'}));
-    placeBadge(X(minIdx), Y(rawData[minIdx]), 'Mín', {
-      fill:'rgba(192,80,80,.10)',
-      stroke:'rgba(192,80,80,.22)',
-      text:'#c05050'
-    }, 'bottom');
-  }
-
-  rawData.forEach((v,i)=>{
-    const isActive=i===activeIdx;
-    const cx=X(i), cy=Y(v);
-    if(isActive){
-      svg.appendChild(svgCircle(cx,cy,14,{fill:'rgba(28,96,132,.08)',stroke:'none'}));
-      svg.appendChild(svgCircle(cx,cy,8,{fill:'#173e63',stroke:'#fff','stroke-width':'3',filter:'url(#glow)'}));
-
-      const calloutText = formatTrendValue(v,option.unit);
-      const bw = Math.max(84, Math.min(136, calloutText.length*7.1 + 22));
-      const bh = 26;
-      const preferLeft = cx > W - PAD_R - (bw/2 + 14);
-      const bxRaw = preferLeft ? cx-bw-12 : cx+12;
-      const bx = clamp(bxRaw, PAD_L+4, W-PAD_R-bw-2);
-      const by = clamp(cy-13, 4, PAD_T+plotH-bh-2);
-
-      svg.appendChild(svgLine(cx,cy,bx+(preferLeft?bw:0),by+bh/2,{stroke:'rgba(23,62,99,.28)','stroke-width':'1.4'}));
-      svg.appendChild(svgRect(bx,by,bw,bh,{fill:'#173e63',rx:'8',stroke:'rgba(255,255,255,.12)','stroke-width':'1'}));
-      svg.appendChild(svgText(bx+bw/2,by+17,calloutText.slice(0,22),{'text-anchor':'middle',fill:'#fff','font-size':'10.5','font-weight':'700'}));
-
-      reserve({x:bx,y:by,w:bw,h:bh});
-    } else {
-      const dot=svgCircle(cx,cy,4.5,{fill:'#fff',stroke:'#1c6084','stroke-width':'2',style:'cursor:pointer'});
-      const tipHtml=`<strong>${labels[i]}</strong><br>${option.label}: <strong>${formatTrendValue(v,option.unit)}</strong>${refSeries?`<br>Referencia: <strong>${formatTrendValue(refSeries[i],option.unit)}</strong>`:''}`;
-      dot.addEventListener('mousemove',e=>showTip(e,tipHtml));
-      dot.addEventListener('mouseleave',hideTip);
-      svg.appendChild(dot);
-    }
-  });
-
-  const step=Math.max(1,Math.ceil(n/8));
-  rawData.forEach((_,i)=>{
-    if(i%step!==0&&i!==n-1&&i!==activeIdx) return;
-    const x=X(i), y=H-PAD_B+18;
-    const isActive=i===activeIdx;
-    if(isActive){
-      svg.appendChild(svgRect(x-26,y-1,52,16,{fill:'rgba(23,62,99,.1)',rx:'8'}));
-      svg.appendChild(svgText(x,y+11,labels[i],{'text-anchor':'middle',fill:'#17314f','font-size':'10.5','font-weight':'800'}));
-    } else {
-      svg.appendChild(svgText(x,y+11,labels[i],{'text-anchor':'middle',fill:'#8aa0ad','font-size':'10'}));
-    }
-  });
-
-  const yLabelEl=svgNS('text',{x:'12',y:PAD_T+plotH/2,'text-anchor':'middle',fill:'#8aa0ad','font-size':'10','transform':`rotate(-90,12,${PAD_T+plotH/2})`});
-  yLabelEl.textContent=option.unit;
-  svg.appendChild(yLabelEl);
-
-  let lx=PAD_L;
-  [[null,'━','#1c6084','Valor real'],[null,'┅','#c6983f','Referencia mensual'],...(activeIdx>=0?[[null,'●','#173e63','Período activo']]:[])]
-    .filter((_,i)=>i===0||(refSeries&&i===1)||(activeIdx>=0&&i===2))
-    .forEach(([_,sym,color,label])=>{
-      svg.appendChild(svgText(lx,H-6,sym,{fill:color,'font-size':'12','font-weight':'900'}));
-      svg.appendChild(svgText(lx+14,H-5,label,{fill:'#6d8294','font-size':'10.5','font-weight':'600'}));
-      lx+=label.length*7+28;
+  svg.appendChild(svgLine(PL,PT+plotH,W-PR,PT+plotH,{stroke:'rgba(23,49,79,.16)','stroke-width':'1.4'}));
+  if(ref){
+    ref.forEach((v,i)=>{
+      const y=Y(v);
+      svg.appendChild(svgLine(X(i),y,X(i)+barW,y,{stroke:'#c6983f','stroke-width':'3','stroke-linecap':'round'}));
     });
-
+  }
+  rawData.forEach((v,i)=>{
+    const x=X(i), y=Y(v), h=PT+plotH-y;
+    const isA=i===activeIdx;
+    svg.appendChild(svgRect(x,y,barW,Math.max(2,h),{fill:isA?'#1c6084':'rgba(76,165,191,.55)',rx:'8'}));
+    svg.appendChild(svgText(XC(i),y-7,fmtAxis(v,option.unit),{'text-anchor':'middle',fill:isA?'#17314f':'#557083','font-size':'10','font-weight':isA?'800':'700'}));
+    svg.appendChild(svgText(XC(i),H-PB+20,labels[i],{'text-anchor':'middle',fill:isA?'#17314f':'#8aa0ad','font-size':'10','font-weight':isA?'800':'600'}));
+  });
+  const legendY=H-18;
+  svg.appendChild(svgRect(PL,legendY-8,16,10,{fill:'#1c6084',rx:'5'}));
+  svg.appendChild(svgText(PL+22,legendY+1,'Resultado mensual',{fill:'#6d8294','font-size':'10.5','font-weight':'700'}));
+  if(ref){
+    svg.appendChild(svgLine(PL+145,legendY-3,PL+167,legendY-3,{stroke:'#c6983f','stroke-width':'3','stroke-linecap':'round'}));
+    svg.appendChild(svgText(PL+174,legendY+1,'Meta mensual / referencia',{fill:'#6d8294','font-size':'10.5','font-weight':'700'}));
+  }
+  const activeVal = activeIdx>=0 ? rawData[activeIdx] : 0;
+  const activeRef = ref&&activeIdx>=0 ? ref[activeIdx] : null;
+  const note = activeRef ? `${option.label} en ${periodLabel(state.period)}: ${formatTrendValue(activeVal,option.unit)} frente a una referencia de ${formatTrendValue(activeRef,option.unit)}.` : `${option.label} en ${periodLabel(state.period)}: ${formatTrendValue(activeVal,option.unit)}.`;
   container.appendChild(svg);
-  container.style.minHeight='';
-  container.style.padding='14px 10px 8px';
+  const p=document.createElement('p'); p.className='simple-chart-note'; p.innerHTML=escapeHtml(note);
+  container.appendChild(p);
+  container.style.padding='14px 14px 10px';
 }
 
-/* ── Chart 3: WATERFALL / SANKEY-STYLE soap chain ── */
+/* ── Chart 3: CADENA DE JABÓN CLARA ── */
+function soapTypeData(){
+  const row=selectedRow();
+  const hotelProd=toNum(row?.jabones_hotel_producidos_mes), tocProd=toNum(row?.jabones_tocador_producidos_mes);
+  const hotelSold=toNum(row?.jabones_hotel_vendidos_mes), tocSold=toNum(row?.jabones_tocador_vendidos_mes);
+  return [
+    {key:'hotel', label:'Jabón de hotel', produced:hotelProd, sold:hotelSold, targetSold:GOALS.jabonesHotelVendidosMensual},
+    {key:'tocador', label:'Jabón de tocador', produced:tocProd, sold:tocSold, targetSold:GOALS.jabonesTocadorVendidosMensual}
+  ];
+}
+function soapDetailHtml(variant='full'){
+  const rows=soapTypeData();
+  const totalProd=rows.reduce((a,r)=>a+r.produced,0), totalSold=rows.reduce((a,r)=>a+r.sold,0);
+  const maxV=Math.max(1,...rows.flatMap(r=>[r.produced,r.sold]),totalProd,totalSold);
+  const totalTarget=GOALS.jabonesVendidosMensual||4300;
+  return `<div class="soap-detail ${variant==='presentation'?'presentation':''}">
+    ${rows.map(r=>{
+      const conv=r.produced? r.sold/r.produced : 0;
+      return `<div class="soap-row">
+        <div class="soap-row-top"><div class="soap-row-title">${escapeHtml(r.label)}</div><div class="soap-row-value">${fmtPct(conv)} conversión</div></div>
+        <div class="soap-bars">
+          <div class="soap-bar-line"><span class="soap-label">Producido</span><div class="soap-track"><div class="soap-fill" style="width:${clamp(r.produced/maxV*100,0,100).toFixed(1)}%"></div></div><span class="soap-value">${fmtI(r.produced)}</span></div>
+          <div class="soap-bar-line"><span class="soap-label">Vendido</span><div class="soap-track"><div class="soap-fill sold" style="width:${clamp(r.sold/maxV*100,0,100).toFixed(1)}%"></div></div><span class="soap-value">${fmtI(r.sold)}</span></div>
+        </div>
+      </div>`;
+    }).join('')}
+    <div class="soap-total-strip">
+      <div class="soap-total-card"><small>Total producido</small><strong>${fmtI(totalProd)}</strong></div>
+      <div class="soap-total-card"><small>Total vendido</small><strong>${fmtI(totalSold)}</strong></div>
+      <div class="soap-total-card"><small>Meta venta mensual</small><strong>${fmtI(totalTarget)}</strong></div>
+    </div>
+  </div>`;
+}
 function renderSoapChart(){
-  const row=selectedRow(), lbl=periodLabel(state.period);
-  const pH=toNum(row?.jabones_hotel_producidos_mes), pT=toNum(row?.jabones_tocador_producidos_mes);
-  const sH=toNum(row?.jabones_hotel_vendidos_mes), sT=toNum(row?.jabones_tocador_vendidos_mes);
-  const total_prod=pH+pT, total_vend=sH+sT;
-  const conv_H=pH?sH/pH:0, conv_T=pT?sT/pT:0;
-
   const container=document.getElementById('soapChartHost');
   if(!container) return;
-  container.innerHTML='';
-  container.style.minHeight='auto';container.style.height='auto';
-
-  const W=860, H=340, PAD_L=50, PAD_R=44, PAD_T=36, PAD_B=52;
-  const plotW=W-PAD_L-PAD_R, plotH=H-PAD_T-PAD_B;
-
-  const bars=[
-    {label:'Hotel\nproducido',  val:pH,  color:'#1e6fa4', light:'#5bbad5'},
-    {label:'Hotel\nvendido',    val:sH,  color:'#2e7d52', light:'#6eca8a'},
-    {label:'Tocador\nproducido',val:pT,  color:'#1e6fa4', light:'#5bbad5'},
-    {label:'Tocador\nvendido',  val:sT,  color:'#2e7d52', light:'#6eca8a'},
-  ];
-  const maxVal=Math.max(...bars.map(b=>b.val),1);
-  const scale=niceScale(0,maxVal*1.08,5);
-  const BW=56, GAP=30;
-  const totalBarsW=(bars.length*BW+(bars.length-1)*GAP);
-  const startX=PAD_L+(plotW-totalBarsW)/2;
-
-  const svg=svgNS('svg',{viewBox:`0 0 ${W} ${H}`,style:'width:100%;height:auto;display:block;overflow:visible','font-family':'Sora,sans-serif'});
-  const defs=svgNS('defs');
-  bars.forEach((b,i)=>{
-    const g=svgNS('linearGradient',{id:`sb${i}`,x1:'0',y1:'0',x2:'0',y2:'1'});
-    g.appendChild(svgNS('stop',{offset:'0%','stop-color':b.light}));
-    g.appendChild(svgNS('stop',{offset:'100%','stop-color':b.color}));
-    defs.appendChild(g);
-  });
-  // Conversion line gradient
-  const convGrad=svgNS('linearGradient',{id:'convGrad',x1:'0',y1:'0',x2:'1',y2:'0'});
-  convGrad.appendChild(svgNS('stop',{offset:'0%','stop-color':'#c6983f'}));
-  convGrad.appendChild(svgNS('stop',{offset:'100%','stop-color':'#e8bf60'}));
-  defs.appendChild(convGrad); svg.appendChild(defs);
-
-  // Grid + Y axis (left: jabones)
-  const barY=v=>PAD_T+plotH-((v-scale.min)/(scale.max-scale.min))*plotH;
-  scale.ticks.forEach(v=>{
-    const y=barY(v);
-    if(y<PAD_T-4||y>PAD_T+plotH+4) return;
-    svg.appendChild(svgLine(PAD_L,y,W-PAD_R,y,{stroke:'rgba(23,49,79,.07)','stroke-width':'1'}));
-    svg.appendChild(svgText(PAD_L-8,y+4,fmtAxis(v,'jabones'),{'text-anchor':'end',fill:'#8aa0ad','font-size':'10.5'}));
-  });
-
-  // Section separator lines (Hotel | Tocador)
-  const sepX=startX+BW*2+GAP*1.5;
-  svg.appendChild(svgLine(sepX,PAD_T-8,sepX,PAD_T+plotH,{stroke:'rgba(23,49,79,.06)','stroke-width':'1.5','stroke-dasharray':'4 3'}));
-  svg.appendChild(svgText(startX+BW+GAP/2-10,PAD_T-14,'Jabón Hotel',{'text-anchor':'middle',fill:'#8aa0ad','font-size':'11','font-weight':'700','letter-spacing':'.06em'}));
-  svg.appendChild(svgText(startX+BW*3+GAP*2.5-10,PAD_T-14,'Jabón Tocador',{'text-anchor':'middle',fill:'#8aa0ad','font-size':'11','font-weight':'700','letter-spacing':'.06em'}));
-
-  const barX=i=>startX+i*(BW+GAP);
-  const barCenters=[];
-  bars.forEach((b,i)=>{
-    const x=barX(i), bh=((b.val-scale.min)/(scale.max-scale.min))*plotH;
-    const y=PAD_T+plotH-bh;
-    barCenters.push({x:x+BW/2,y:y,conv:i===1?conv_H:i===3?conv_T:null});
-
-    // Shadow
-    svg.appendChild(svgRect(x+4,y+4,BW,bh,{fill:'rgba(0,0,0,.06)',rx:'8'}));
-    // Bar
-    const barEl=svgRect(x,PAD_T+plotH,BW,0,{fill:`url(#sb${i})`,rx:'8',style:'transition:all .85s cubic-bezier(.22,1,.36,1)'});
-    svg.appendChild(barEl);
-    setTimeout(()=>{barEl.setAttribute('y',y);barEl.setAttribute('height',bh);},80+i*100);
-
-    // Value label above bar
-    const vLabel=svgText(x+BW/2,y-8,fmtI(b.val),{'text-anchor':'middle',fill:b.color,'font-size':'12','font-weight':'800'});
-    svg.appendChild(vLabel);
-
-    // Label below
-    b.label.split('\n').forEach((line,li)=>{
-      svg.appendChild(svgText(x+BW/2,PAD_T+plotH+16+li*13,line,{'text-anchor':'middle',fill:'#35546d','font-size':'11','font-weight':'600'}));
-    });
-
-    // Hover
-    const hit=svgRect(x,PAD_T,BW,plotH,{fill:'transparent',style:'cursor:pointer'});
-    const tipHtml=`<strong>${b.label.replace('\n',' ')}</strong><br>Valor: <strong>${fmtI(b.val)} jabones</strong>${i===1?`<br>Conversión H/P: <strong>${fmtN(conv_H*100,1)}%</strong>`:i===3?`<br>Conversión T/P: <strong>${fmtN(conv_T*100,1)}%</strong>`:''}`;
-    hit.addEventListener('mousemove',e=>showTip(e,tipHtml));
-    hit.addEventListener('mouseleave',hideTip);
-    svg.appendChild(hit);
-  });
-
-  // Conversion rate connectors (flow lines between produced→sold)
-  [[0,1,conv_H],[2,3,conv_T]].forEach(([pi,si,conv])=>{
-    const x1=barX(pi)+BW, y1c=barY(bars[pi].val/2+scale.min/2);
-    const x2=barX(si), y2c=barY(bars[si].val/2+scale.min/2);
-    const mid=(x1+x2)/2;
-    svg.appendChild(svgNS('path',{d:`M ${x1} ${barCenters[pi].y+14} C ${mid} ${barCenters[pi].y+14}, ${mid} ${barCenters[si].y+14}, ${x2} ${barCenters[si].y+14}`,
-      fill:'none',stroke:'rgba(198,152,63,.35)','stroke-width':'1.5','stroke-dasharray':'3 2'}));
-    // Conv label
-    const convX=(x1+x2)/2, convY=Math.min(barCenters[pi].y,barCenters[si].y)+14;
-    svg.appendChild(svgRect(convX-22,convY-9,44,16,{fill:'rgba(198,152,63,.12)',rx:'8',stroke:'rgba(198,152,63,.3)','stroke-width':'1'}));
-    svg.appendChild(svgText(convX,convY+4,fmtN(conv*100,1)+'%',{'text-anchor':'middle',fill:'#a17820','font-size':'10','font-weight':'800'}));
-  });
-
-  // Right: conversion rate Y axis label
-  svg.appendChild(svgText(W-10,PAD_T+plotH/2,'Conversión %',{'text-anchor':'middle',fill:'#a17820','font-size':'10','font-weight':'700','writing-mode':'vertical-rl','transform':`rotate(90,${W-10},${PAD_T+plotH/2})`}));
-
-  // Summary footer
-  const totY=H-6;
-  svg.appendChild(svgText(PAD_L,totY,`Total producido: ${fmtI(total_prod)} jabones`,{fill:'#6d8294','font-size':'10.5','font-weight':'600'}));
-  svg.appendChild(svgText(W/2,totY,`Total vendido: ${fmtI(total_vend)} jabones`,{'text-anchor':'middle',fill:'#6d8294','font-size':'10.5','font-weight':'600'}));
-  svg.appendChild(svgText(W-PAD_R,totY,`Conversión global: ${total_prod?fmtN(total_vend/total_prod*100,1)+'%':'—'}`,{'text-anchor':'end',fill:'#a17820','font-size':'10.5','font-weight':'700'}));
-
-  container.appendChild(svg);
-  container.style.minHeight='';
-  container.style.padding='14px 10px 8px';
+  container.innerHTML=soapDetailHtml('full');
+  container.style.minHeight='auto';
+  container.style.padding='14px 14px 10px';
 }
 
-/* ── Exec Progress Chart (same style as renderProgressChart) ── */
+/* ── Exec Progress Chart ── */
 function renderExecProgressChart(strategic, months){
-  const metrics=strategic.filter(m=>m.goalType!=='none');
-  const expected=metrics.map(m=>{
-    if(m.id==='colectas') return(months/GOALS.colectasAnual)*100;
-    if(m.id==='pruebas')  return(expectedPruebasAtCut(months)/GOALS.pruebasAnual)*100;
-    return(months/12)*100;
-  });
-
   const container=document.getElementById('execProgressChart');
   if(!container) return;
-  container.innerHTML='';
-  container.style.cssText='width:100%;overflow:visible';
-
-  const W=800, ROW_H=46, PAD_L=182, PAD_R=64, PAD_T=22, PAD_B=36;
-  const H=PAD_T+metrics.length*ROW_H+PAD_B, plotW=W-PAD_L-PAD_R;
-  const colors=metrics.map(m=>m.status==='green'?['#2e8b5e','#54c988']:m.status==='yellow'?['#c6983f','#e8bf60']:m.status==='red'?['#c05050','#e88080']:['#1c6084','#4ca5bf']);
-
-  const svg=svgNS('svg',{viewBox:`0 0 ${W} ${H}`,style:'width:100%;height:auto;display:block;overflow:visible','font-family':'Sora,sans-serif'});
-  const defs=svgNS('defs');
-  metrics.forEach((m,i)=>{
-    const[c1,c2]=colors[i], g=svgNS('linearGradient',{id:`epg${i}`,x1:'0',y1:'0',x2:'1',y2:'0'});
-    g.appendChild(svgNS('stop',{offset:'0%','stop-color':c1}));
-    g.appendChild(svgNS('stop',{offset:'100%','stop-color':c2}));
-    defs.appendChild(g);
-  });
-  svg.appendChild(defs);
-  [0,25,50,75,100].forEach(v=>{
-    const x=PAD_L+(v/100)*plotW;
-    svg.appendChild(svgLine(x,PAD_T-2,x,H-PAD_B+2,{stroke:v===0?'#c5d5dc':'rgba(23,49,79,.07)','stroke-width':v===0?'1.5':'1','stroke-dasharray':v===0?'':'4 3'}));
-    if(v>0) svg.appendChild(svgText(x,H-PAD_B+14,v+'%',{'text-anchor':'middle',fill:'#8aa0ad','font-size':'9.5'}));
-  });
-  metrics.forEach((m,i)=>{
-    const y0=PAD_T+i*ROW_H;
-    const cx=PAD_L+(m.progress/100)*plotW, ex=PAD_L+(expected[i]/100)*plotW;
-    const gap=m.progress-expected[i];
-    if(i%2===0) svg.appendChild(svgRect(0,y0-2,W,ROW_H,{fill:'rgba(23,49,79,.02)',rx:'4'}));
-    svg.appendChild(svgText(PAD_L-10,y0+ROW_H/2+4,m.title.length>26?m.title.slice(0,25)+'…':m.title,{'text-anchor':'end',fill:'#17314f','font-size':'10.5','font-weight':'600'}));
-    svg.appendChild(svgRect(PAD_L,y0+ROW_H/2-8,plotW,16,{fill:'rgba(23,49,79,.05)',rx:'8'}));
-    const bar=svgRect(PAD_L,y0+ROW_H/2-8,0,16,{fill:`url(#epg${i})`,rx:'8',style:'transition:width .85s cubic-bezier(.22,1,.36,1)'});
-    svg.appendChild(bar);
-    setTimeout(()=>bar.setAttribute('width',Math.max(4,(m.progress/100)*plotW).toFixed(1)),80+i*70);
-    svg.appendChild(svgLine(ex,y0+ROW_H/2-11,ex,y0+ROW_H/2+11,{stroke:'#c6983f','stroke-width':'2','stroke-dasharray':'3 2'}));
-    svg.appendChild(svgNS('polygon',{points:`${ex-4},${y0+ROW_H/2-13} ${ex+4},${y0+ROW_H/2-13} ${ex},${y0+ROW_H/2-8}`,fill:'#c6983f',opacity:'.9'}));
-    if(m.progress>6) svg.appendChild(svgText(PAD_L+(m.progress/100)*plotW+(m.progress>30?-7:7),y0+ROW_H/2+4.5,fmtN(m.progress,1)+'%',{'text-anchor':m.progress>30?'end':'start',fill:m.progress>30?'rgba(255,255,255,.95)':'#17314f','font-size':'9.5','font-weight':'800'}));
-    const gapX=W-PAD_R+2, gc=gap>=0?'#2e8b5e':'#c05050';
-    svg.appendChild(svgRect(gapX,y0+ROW_H/2-8,PAD_R-4,16,{fill:gap>=0?'rgba(46,139,94,.12)':'rgba(192,80,80,.12)',rx:'8',stroke:gap>=0?'rgba(46,139,94,.25)':'rgba(192,80,80,.25)','stroke-width':'1'}));
-    svg.appendChild(svgText(gapX+PAD_R/2-2,y0+ROW_H/2+4.5,(gap>=0?'+':'')+fmtN(gap,1)+'pp',{'text-anchor':'middle',fill:gc,'font-size':'9','font-weight':'800'}));
-  });
-  // Append to canvas parent or replace canvas
-  const canvas=document.getElementById('execProgressChart');
-  if(canvas&&canvas.parentElement){
-    canvas.parentElement.innerHTML='';
-    canvas.parentElement.appendChild(svg);
-    canvas.parentElement.style.cssText='overflow:visible';
-  }
+  container.innerHTML=progressComparisonHtml(strategic, months, 'compact');
 }
 
-/* ── Presentation SVG charts (inline, no canvas) ── */
-function buildPresProgressSvg(strategic, months){
-  const metrics=strategic.filter(m=>m.goalType!=='none');
-  const expected=metrics.map(m=>{
-    if(m.id==='colectas') return(months/GOALS.colectasAnual)*100;
-    if(m.id==='pruebas')  return(expectedPruebasAtCut(months)/GOALS.pruebasAnual)*100;
-    return(months/12)*100;
-  });
-  const W=580, ROW_H=44, PAD_L=160, PAD_R=56, PAD_T=18, PAD_B=28;
-  const H=PAD_T+metrics.length*ROW_H+PAD_B, plotW=W-PAD_L-PAD_R;
-  const colors=metrics.map(m=>m.status==='green'?['#2e8b5e','#54c988']:m.status==='yellow'?['#c6983f','#e8bf60']:m.status==='red'?['#c05050','#e88080']:['#1c6084','#4ca5bf']);
-  let s=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" font-family="Sora,sans-serif">
-  <defs>${metrics.map((_,i)=>`<linearGradient id="ppg${i}" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="${colors[i][0]}"/><stop offset="100%" stop-color="${colors[i][1]}"/></linearGradient>`).join('')}</defs>`;
-  [0,25,50,75,100].forEach(v=>{const x=PAD_L+(v/100)*plotW;s+=`<line x1="${x}" y1="${PAD_T}" x2="${x}" y2="${H-PAD_B}" stroke="rgba(23,49,79,.07)" stroke-width="1" stroke-dasharray="${v?'4 3':''}"/><text x="${x}" y="${H-PAD_B+12}" text-anchor="middle" fill="#8aa0ad" font-size="9">${v}%</text>`;});
-  metrics.forEach((m,i)=>{
-    const y0=PAD_T+i*ROW_H, cx=PAD_L+(m.progress/100)*plotW, ex=PAD_L+(expected[i]/100)*plotW, gap=m.progress-expected[i];
-    s+=`<rect x="0" y="${y0}" width="${W}" height="${ROW_H}" fill="${i%2===0?'rgba(23,49,79,.018)':'none'}" rx="3"/>`;
-    s+=`<text x="${PAD_L-8}" y="${y0+ROW_H/2+4}" text-anchor="end" fill="#17314f" font-size="10" font-weight="600">${m.title.slice(0,22)+(m.title.length>22?'…':'')}</text>`;
-    s+=`<rect x="${PAD_L}" y="${y0+ROW_H/2-7}" width="${plotW}" height="14" fill="rgba(23,49,79,.05)" rx="7"/>`;
-    s+=`<rect x="${PAD_L}" y="${y0+ROW_H/2-7}" width="0" height="14" fill="url(#ppg${i})" rx="7"><animate attributeName="width" from="0" to="${Math.max(3,(m.progress/100)*plotW).toFixed(1)}" dur="0.9s" begin="${i*0.1}s" fill="freeze" calcMode="spline" keySplines="0.22 1 0.36 1"/></rect>`;
-    s+=`<line x1="${ex}" y1="${y0+ROW_H/2-10}" x2="${ex}" y2="${y0+ROW_H/2+10}" stroke="#c6983f" stroke-width="1.8" stroke-dasharray="3 2"/>`;
-    if(m.progress>8) s+=`<text x="${cx+(m.progress>30?-6:6)}" y="${y0+ROW_H/2+4}" text-anchor="${m.progress>30?'end':'start'}" fill="${m.progress>30?'rgba(255,255,255,.9)':'#17314f'}" font-size="9" font-weight="800">${fmtN(m.progress,1)}%</text>`;
-    const gc=gap>=0?'#2e8b5e':'#c05050';
-    s+=`<rect x="${W-PAD_R+2}" y="${y0+ROW_H/2-7}" width="${PAD_R-4}" height="14" fill="${gap>=0?'rgba(46,139,94,.12)':'rgba(192,80,80,.12)'}" rx="7"/><text x="${W-PAD_R/2}" y="${y0+ROW_H/2+4}" text-anchor="middle" fill="${gc}" font-size="8.5" font-weight="800">${gap>=0?'+':''}${fmtN(gap,1)}pp</text>`;
-  });
-  s+=`</svg>`;
-  return s;
+/* ── Presentation charts (inline HTML/SVG) ── */
+
+function buildPresProgressHtml(strategic, months){
+  return progressComparisonHtml(strategic, months, 'presentation');
 }
 
 function buildPresTrendSvg(indicatorId){
@@ -1764,31 +1513,8 @@ function buildPresTrendSvg(indicatorId){
   return s;
 }
 
-function buildPresSoapSvg(){
-  const row=selectedRow();
-  const pH=toNum(row?.jabones_hotel_producidos_mes), pT=toNum(row?.jabones_tocador_producidos_mes);
-  const sH=toNum(row?.jabones_hotel_vendidos_mes), sT=toNum(row?.jabones_tocador_vendidos_mes);
-  const bars=[{val:pH,color:'#1e6fa4',light:'#5bbad5',label:'Hotel Prod.'},{val:sH,color:'#2e7d52',light:'#6eca8a',label:'Hotel Vend.'},{val:pT,color:'#1e6fa4',light:'#5bbad5',label:'Toc. Prod.'},{val:sT,color:'#2e7d52',light:'#6eca8a',label:'Toc. Vend.'}];
-  const maxV=Math.max(...bars.map(b=>b.val),1);
-  const W=540,H=230,PL=48,PR=16,PT=20,PB=40,plotH=H-PT-PB;
-  const BW=58,GAP=24,startX=PL+(W-PL-PR-bars.length*BW-(bars.length-1)*GAP)/2;
-  let s=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" font-family="Sora,sans-serif"><defs>${bars.map((b,i)=>`<linearGradient id="psb${i}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${b.light}"/><stop offset="100%" stop-color="${b.color}"/></linearGradient>`).join('')}</defs>`;
-  [0,25,50,75,100].forEach(pct=>{const y=PT+plotH*(1-pct/100);s+=`<line x1="${PL}" y1="${y}" x2="${W-PR}" y2="${y}" stroke="rgba(23,49,79,.07)" stroke-width="1"/><text x="${PL-6}" y="${y+3.5}" text-anchor="end" fill="#8aa0ad" font-size="9">${fmtI(maxV*pct/100)}</text>`;});
-  bars.forEach((b,i)=>{
-    const x=startX+i*(BW+GAP), bh=(b.val/maxV)*plotH, y=PT+plotH-bh;
-    s+=`<rect x="${x}" y="${PT+plotH}" width="${BW}" height="0" fill="url(#psb${i})" rx="6"><animate attributeName="height" from="0" to="${bh.toFixed(1)}" dur="0.85s" begin="${i*0.12}s" fill="freeze" calcMode="spline" keySplines="0.22 1 0.36 1"/><animate attributeName="y" from="${PT+plotH}" to="${y.toFixed(1)}" dur="0.85s" begin="${i*0.12}s" fill="freeze" calcMode="spline" keySplines="0.22 1 0.36 1"/></rect>`;
-    s+=`<text x="${x+BW/2}" y="${y-5}" text-anchor="middle" fill="${b.color}" font-size="10" font-weight="800">${fmtI(b.val)}</text>`;
-    s+=`<text x="${x+BW/2}" y="${H-PB+12}" text-anchor="middle" fill="#35546d" font-size="10" font-weight="600">${b.label}</text>`;
-  });
-  // Conv lines
-  [[0,1,pH?sH/pH:0],[2,3,pT?sT/pT:0]].forEach(([pi,si,conv])=>{
-    const x1=startX+pi*(BW+GAP)+BW, x2=startX+si*(BW+GAP), mx=(x1+x2)/2;
-    const y1=PT+plotH*(1-bars[pi].val/maxV/2), y2=PT+plotH*(1-bars[si].val/maxV/2);
-    s+=`<path d="M ${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}" fill="none" stroke="rgba(198,152,63,.5)" stroke-width="1.5" stroke-dasharray="3 2"/>`;
-    s+=`<rect x="${mx-18}" y="${(y1+y2)/2-8}" width="36" height="14" fill="rgba(198,152,63,.15)" rx="7"/><text x="${mx}" y="${(y1+y2)/2+4}" text-anchor="middle" fill="#a17820" font-size="9" font-weight="800">${fmtN(conv*100,1)}%</text>`;
-  });
-  s+=`</svg>`;
-  return s;
+function buildPresSoapHtml(){
+  return soapDetailHtml('presentation');
 }
 
 
@@ -1908,49 +1634,10 @@ function renderExec(strategic,monthly){
       </div>`).join('');
   }
 
-  // SVG progress chart
+  // Gráfico ejecutivo claro: real vs esperado
   const progressEl=document.getElementById('execProgressChart');
   if(progressEl){
-    progressEl.innerHTML='';
-    const metrics=strategic.filter(m=>m.goalType!=='none');
-    const expected=metrics.map(m=>{
-      if(m.id==='colectas') return(months/GOALS.colectasAnual)*100;
-      if(m.id==='pruebas')  return(expectedPruebasAtCut(months)/GOALS.pruebasAnual)*100;
-      return(months/12)*100;
-    });
-    const colors=metrics.map(m=>m.status==='green'?['#2e8b5e','#54c988']:m.status==='yellow'?['#c6983f','#e8bf60']:m.status==='red'?['#c05050','#e88080']:['#1c6084','#4ca5bf']);
-    const W=780,ROW_H=44,PAD_L=178,PAD_R=58,PAD_T=20,PAD_B=28;
-    const H=PAD_T+metrics.length*ROW_H+PAD_B, plotW=W-PAD_L-PAD_R;
-    const svg=svgNS('svg',{viewBox:`0 0 ${W} ${H}`,style:'width:100%;height:auto;display:block;overflow:visible','font-family':'Sora,sans-serif'});
-    const defs=svgNS('defs');
-    metrics.forEach((_,i)=>{
-      const[c1,c2]=colors[i],g=svgNS('linearGradient',{id:`epg_ca${i}`,x1:'0',y1:'0',x2:'1',y2:'0'});
-      g.appendChild(svgNS('stop',{offset:'0%','stop-color':c1}));
-      g.appendChild(svgNS('stop',{offset:'100%','stop-color':c2}));
-      defs.appendChild(g);
-    });
-    svg.appendChild(defs);
-    [0,25,50,75,100].forEach(v=>{
-      const x=PAD_L+(v/100)*plotW;
-      svg.appendChild(svgLine(x,PAD_T-2,x,H-PAD_B+2,{stroke:v===0?'#c5d5dc':'rgba(23,49,79,.07)','stroke-width':v===0?'1.5':'1','stroke-dasharray':v===0?'':'4 3'}));
-      if(v>0) svg.appendChild(svgText(x,H-PAD_B+14,v+'%',{'text-anchor':'middle',fill:'#8aa0ad','font-size':'9.5'}));
-    });
-    metrics.forEach((m,i)=>{
-      const y0=PAD_T+i*ROW_H, ex=PAD_L+(expected[i]/100)*plotW, gap=m.progress-expected[i];
-      if(i%2===0) svg.appendChild(svgRect(0,y0-2,W,ROW_H,{fill:'rgba(23,49,79,.02)',rx:'4'}));
-      svg.appendChild(svgText(PAD_L-10,y0+ROW_H/2+4,m.title.length>25?m.title.slice(0,24)+'…':m.title,{'text-anchor':'end',fill:'#17314f','font-size':'10.5','font-weight':'600'}));
-      svg.appendChild(svgRect(PAD_L,y0+ROW_H/2-7,plotW,14,{fill:'rgba(23,49,79,.05)',rx:'7'}));
-      const bar=svgRect(PAD_L,y0+ROW_H/2-7,0,14,{fill:`url(#epg_ca${i})`,rx:'7',style:'transition:width .85s cubic-bezier(.22,1,.36,1)'});
-      svg.appendChild(bar);
-      setTimeout(()=>bar.setAttribute('width',Math.max(4,(m.progress/100)*plotW).toFixed(1)),80+i*70);
-      svg.appendChild(svgLine(ex,y0+ROW_H/2-11,ex,y0+ROW_H/2+11,{stroke:'#c6983f','stroke-width':'2','stroke-dasharray':'3 2'}));
-      svg.appendChild(svgNS('polygon',{points:`${ex-4},${y0+ROW_H/2-13} ${ex+4},${y0+ROW_H/2-13} ${ex},${y0+ROW_H/2-8}`,fill:'#c6983f',opacity:'.9'}));
-      if(m.progress>6){const lx=PAD_L+(m.progress/100)*plotW+(m.progress>30?-6:6);svg.appendChild(svgText(lx,y0+ROW_H/2+3.5,fmtN(m.progress,1)+'%',{'text-anchor':m.progress>30?'end':'start',fill:m.progress>30?'rgba(255,255,255,.95)':'#17314f','font-size':'9','font-weight':'800'}));}
-      const gc=gap>=0?'#2e8b5e':'#c05050';
-      svg.appendChild(svgRect(W-PAD_R+2,y0+ROW_H/2-7,PAD_R-4,14,{fill:gap>=0?'rgba(46,139,94,.12)':'rgba(192,80,80,.12)',rx:'7',stroke:gap>=0?'rgba(46,139,94,.25)':'rgba(192,80,80,.25)','stroke-width':'1'}));
-      svg.appendChild(svgText(W-PAD_R/2,y0+ROW_H/2+3.5,(gap>=0?'+':'')+fmtN(gap,1)+'pp',{'text-anchor':'middle',fill:gc,'font-size':'8.5','font-weight':'800'}));
-    });
-    progressEl.appendChild(svg);
+    progressEl.innerHTML=progressComparisonHtml(strategic, months, 'compact');
   }
 
   // Panel de alertas deshabilitado (sin alertas operativas en índice)
@@ -2055,9 +1742,9 @@ function buildPresentation(strategic,monthly){
   metaEl.innerHTML=`<span> Presentación</span><span> ${escapeHtml(lbl)}</span><span>${chipTextFromStatus(sStatus)}</span>`;
 
   // Build SVG charts for presentation
-  const progSvg  = buildPresProgressSvg(strategic, months);
+  const progSvg  = buildPresProgressHtml(strategic, months);
   const trendSvg = buildPresTrendSvg('litros_aceite_recolectados_mes');
-  const soapSvg  = buildPresSoapSvg();
+  const soapSvg  = buildPresSoapHtml();
 
   const slides=[];
 
@@ -2085,7 +1772,7 @@ function buildPresentation(strategic,monthly){
   // SLIDE 2 – Análisis de avance con gráfica SVG
   slides.push(`<div class="pres-slide"><div class="pres-inner">
     <div class="pres-kicker">Análisis de avance · ${escapeHtml(lbl)}</div>
-    <div class="pres-title-row"><div><h2>Avance real vs esperado</h2><p>Cada barra muestra el avance real acumulado (azul/verde) contra el ritmo esperado al período (marcador dorado ▲). La diferencia en puntos porcentuales (pp) aparece a la derecha.</p></div></div>
+    <div class="pres-title-row"><div><h2>Avance acumulado por objetivo</h2><p>Comparación directa entre avance real acumulado, avance esperado a la fecha y meta anual de cada objetivo priorizado.</p></div></div>
     <div style="flex:1;overflow:auto;background:rgba(255,255,255,.7);border-radius:18px;border:1px solid var(--line-soft);padding:12px 10px">
       ${progSvg}
     </div>
@@ -2106,7 +1793,7 @@ function buildPresentation(strategic,monthly){
   // SLIDE 4 – KPIs mensuales
   slides.push(`<div class="pres-slide"><div class="pres-inner">
     <div class="pres-kicker">Indicadores del período · ${escapeHtml(lbl)}</div>
-    <div class="pres-title-row"><div><h2>Comportamiento operativo del período</h2><p>Indicadores con meta mensual explícita: cobertura, aceite, agua, producción y ventas en el período seleccionado.</p></div></div>
+    <div class="pres-title-row"><div><h2>Comportamiento operativo del período</h2><p>Indicadores con meta explícita o lectura operativa: jornadas de recolección, aceite, agua, producción, ventas e inmuebles del período seleccionado.</p></div></div>
     <div class="pres-card-grid pres-card-grid-3" style="flex:1;align-content:start">
       ${monthly.map(m=>{const cls=m.status||'gray';const bw=Math.max(0,Math.min((m.periodRatio||0)*100,100)).toFixed(1);return`<div class="pres-kpi-pair"><div class="pres-kpi-label">${escapeHtml(m.title)}</div><div class="pres-kpi-value">${escapeHtml([m.value,m.unit].filter(Boolean).join(' '))}</div><div class="pres-kpi-meta">${escapeHtml(m.expectedText)}</div><div class="pres-bar-wrap"><div class="pres-bar ${cls}" style="width:${bw}%"></div></div><div style="margin-top:6px">${chipHtml(cls,labelFromStatus(cls))}</div></div>`;}).join('')}
     </div>
