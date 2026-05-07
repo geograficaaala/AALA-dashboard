@@ -486,7 +486,7 @@
 
 
     /* ── AJUSTES SOLICITADOS: HERO LIMPIO Y LECTURA MÁS LEGIBLE ── */
-    .hero.hero-clean{display:block;margin-bottom:28px}
+    .hero.hero-clean{display:block;margin-bottom:28px}.hero.hero-clean.hero-with-logo{display:grid}
     .hero.hero-clean .hero-main{
       background:#fff!important;color:#111!important;border:1px solid var(--line-soft)!important;
       padding:36px 40px 34px;box-shadow:var(--shadow-sm);overflow:hidden;
@@ -517,8 +517,10 @@
 
     /* ── AJUSTE SOLICITADO: hero con logo y sistema visual en verdes ── */
     .hero.hero-clean.hero-with-logo{
-      grid-template-columns:minmax(0,1.5fr) 360px;
+      display:grid !important;
+      grid-template-columns:minmax(0,1.65fr) 340px;
       align-items:stretch;
+      gap:18px;
     }
     .hero-logo-card{
       display:grid;
@@ -527,7 +529,8 @@
       background:#fff!important;
       border:1px solid var(--line-soft);
       box-shadow:var(--shadow-sm);
-      min-height:260px;
+      min-height:unset;
+      align-self:stretch;
     }
     .hero-logo-card img{
       width:min(100%,280px);
@@ -622,7 +625,7 @@
     .pres-chip.green,.pres-chip.yellow,.pres-chip.red,.pres-chip.blue,.pres-chip.gray,.pres-chip.purple{background:#eefaf3!important;color:#1f7b5a!important}
     .kpi-achieved{display:none!important}
 
-  </style></head><body><header class="header"><a class="header-brand" href="./index.html"><img src="./aala_logo.png" alt="Logo AALA" class="header-logo-img"><span class="brand-text"><span class="brand-kicker">Asociación Amigos del Lago de Atitlán</span><span class="brand-title">Conservando Atitlán · Tablero de programa</span></span></a><div class="header-stack"><nav class="nav-tabs" aria-label="Navegación"><a class="nav-tab active" href="#resumen">Resumen</a><a class="nav-tab" href="#kpis-estrategicos">Indicadores</a><a class="nav-tab" href="#tendencias">Tendencias</a><a class="nav-tab" href="#diagnostico">Diagnóstico</a></nav><div class="header-utility"><a class="back" href="./index.html"><span class="back-arrow">&#8592;</span>Volver al inicio</a><div class="view-switcher" role="group"><button class="view-btn active" id="btnFull" type="button" onclick="switchView('full')">Tablero completo</button><button class="view-btn" id="btnExec" type="button" onclick="switchView('exec')">Resumen ejecutivo</button></div><button class="present-btn" type="button" id="btnPresentation">&#9654; Presentación</button><div class="period-rack"><span class="period-rack-label">Mes</span><div class="month-pills" id="monthPills" role="group" aria-label="Seleccionar mes"></div></div></div></div></header><div class="wrap"><main><div id="resumen"></div><!-- EXECUTIVE VIEW --><div id="execView" style="display:none"><!-- Status banner --><div class="exec-status-card" style="margin-bottom:18px"><div class="es-label">Resumen del programa</div><div class="es-title">Conservando Atitlán</div><div class="exec-status-badge" id="execStatusBadge">Cargando…</div><div style="font-size:.8rem;opacity:.7;margin-top:4px" id="execPeriodInfo">—</div></div><!-- Indicator strip: 6 cards styled like Atitlán Recicla --><div class="kpi-grid" id="execKpiGrid" style="margin-bottom:18px"></div><!-- Accumulated strip --><div class="exec-strip" id="execStrip" style="margin-bottom:18px"></div><!-- Chart + Notices row --><div class="exec-row-2" style="margin-bottom:18px"><article class="card panel"><h3>Avance acumulado</h3><p class="sub" id="execChartSub">Comparación clara entre avance acumulado, avance esperado a la fecha y meta anual.</p><div id="execProgressChart" style="overflow:visible;padding:4px 0"></div></article><article class="card panel"><h3>Lectura operativa</h3><p class="sub">Resumen de comportamiento del mes.</p><div id="execNoticePanel"></div></article></div><article class="card exec-diag" id="execDiagPanel"></article></div><!-- FULL DASHBOARD --><div id="fullView"><section class="hero hero-clean hero-with-logo" id="heroSection"><article class="card hero-main"><h1>Conservando Atitlán</h1><p class="hero-lead">Conservando Atitlán es un programa cuya misión evita la contaminación del lago de Atitlán por aceites usados de cocina, este objetivo se logra al recuperar dicho residuo generado en 150 negocios entre hoteles, restaurantes y comedores en la cuenca del lago de Atitlán. Este programa tiene un impacto ambiental importante, ya que, por cada litro de aceite usado de cocina recuperado, se protegen mil (1,000) litros de agua. Actualmente el programa Conservando Atitlán impulsa la producción de jabones y velas artesanales de alta calidad a través de la marca ATI’T, generando un impacto social a través de dar empleo a jóvenes y señoritas apoyando a su economía familiar.</p></article><aside class="card hero-logo-card" aria-label="Logo del programa"><img id="programLogo" src="./Conservando%20Atitl%C3%A1n%20.png" alt="Logo Conservando Atitlán" onerror="this.onerror=null;this.src='./logosatitlan.png';"></aside></section><section class="section section-full-only" id="kpis-estrategicos"><div class="section-head section-head-simple"><div><h2>Metas anuales y avance acumulado</h2></div></div><div class="kpi-grid" id="strategicGrid"></div></section><section class="section section-full-only" id="metas-mensuales"><div class="section-head section-head-simple"><div><h2 id="monthlyKpiTitle">Metas mensuales</h2></div></div><div class="kpi-grid" id="monthlyGrid"></div></section><div class="section-divider">Tendencias y lectura comparativa</div><section class="section section-full-only" id="tendencias"><div class="chart-grid" style="grid-template-columns:1fr"><article class="card panel"><div class="panel-top"><div><h3>Tendencia mensual</h3><p class="sub" id="trendChartSub">Serie histórica del indicador seleccionado con su referencia de meta mensual cuando existe.</p></div><select class="indicator-select" id="trendIndicator"></select></div><div class="viz-wrap" id="trendChartHost"><canvas id="trendChart"></canvas></div></article></div><div class="chart-grid section" style="margin-top:18px"><article class="card panel"><h3>Cadena de valor del jabón</h3><p class="sub" id="soapChartSub"></p><div class="viz-wrap" id="soapChartHost"><canvas id="soapChart"></canvas></div></article><article class="card panel"><h3>Resumen operativo del mes</h3><p class="sub" id="summarySubtitle"></p><div class="summary-grid" id="periodSummary"></div></article></div></section><div class="section-divider section-full-only">Análisis del mes</div><section class="section section-full-only" id="diagnostico"><div class="section-head section-head-simple"><div><h2 id="diagTitle">Análisis del mes</h2></div></div><div class="diagnostic-grid"><article class="card panel"><div class="prose" id="diagnosticProse"></div></article><article class="card panel"><div class="diagnostic-list" id="diagnosticList"></div></article></div></section><section class="section hidden" id="loadingWrap"><div class="loading-state" id="loadingState">Cargando información del programa…</div></section><section class="section hidden" id="errorWrap"><div class="error-state" id="errorState">No se pudo cargar la información.</div></section></div><!-- /fullView --></main></div><footer class="site-footer"><div class="footer-wrap"><section class="footer-brand"><div class="footer-brandline"><div class="footer-title">Asociación Amigos del Lago de Atitlán</div></div><p class="footer-copy">La Asociación Amigos del Lago de Atitlán se enfoca en generar una cultura regenerativa en la cuenca Lago, para que los seres humanos podamos coexistir de forma sostenible y sana con el entorno natural. Hacemos educación ambiental, reforestación, reciclaje, empoderamiento económico de mujeres, asesoría municipal en agua y saneamiento.</p></section><section class="footer-col"><h3>Contacto y sitio</h3><div class="footer-links"><a href="https://amigosdeatitlan.org/" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><path d="M12 3c2.7 2.8 4.1 5.8 4.1 9S14.7 18.2 12 21c-2.7-2.8-4.1-5.8-4.1-9S9.3 5.8 12 3z"></path></svg></span><span>Página web</span></a><a href="https://www.youtube.com/@asociacionamigosdellagodea2358" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2a2.9 2.9 0 0 0-2-2C17.8 4.7 12 4.7 12 4.7s-5.8 0-7.6.5a2.9 2.9 0 0 0-2 2A29.6 29.6 0 0 0 2 12a29.6 29.6 0 0 0 .4 4.8 2.9 2.9 0 0 0 2 2c1.8.5 7.6.5 7.6.5s5.8 0 7.6-.5a2.9 2.9 0 0 0 2-2A29.6 29.6 0 0 0 22 12a29.6 29.6 0 0 0-.4-4.8ZM10 15.5v-7l6 3.5-6 3.5Z"></path></svg></span><span>YouTube</span></a><a href="https://www.facebook.com/AmigoAtitlan/?locale=es_LA" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.7-1.6H17V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4V11H7.5v3h2.8v8h3.2Z"></path></svg></span><span>Facebook</span></a></div></section><section class="footer-col"><h3>Redes sociales</h3><div class="footer-links"><a href="https://www.instagram.com/amigoslagoatitlan/" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg></span><span>Instagram</span></a><a href="https://www.linkedin.com/in/aala-atitl%C3%A1n-3653a0325/" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.9 8.1a1.9 1.9 0 1 1 0-3.8 1.9 1.9 0 0 1 0 3.8ZM5.2 9.8h3.3V19H5.2V9.8Zm5.2 0h3.2v1.3h.1c.4-.8 1.5-1.6 3.1-1.6 3.3 0 3.9 2.1 3.9 4.9V19h-3.3v-4c0-.9 0-2.1-1.3-2.1s-1.5 1-1.5 2V19h-3.3V9.8Z"></path></svg></span><span>LinkedIn</span></a></div></section><section class="footer-mark" aria-label="Imagen institucional"><img src="./chill_lago.png" alt="AALA — Cuenca del Lago de Atitlán"></section></div></footer><!-- PRESENTATION OVERLAY --><div class="presentation-overlay" id="presentationOverlay" aria-hidden="true"><div class="presentation-chrome"><div class="presentation-meta" id="presentationMeta"><span>Modo presentación</span></div><div class="presentation-actions"><button class="pres-btn" type="button" onclick="prevSlide()">&#8592; Anterior</button><button class="pres-btn" type="button" onclick="nextSlide()">Siguiente &#8594;</button><button class="pres-btn primary" type="button" onclick="closePresentation()">&#215; Cerrar</button></div></div><div class="presentation-stage-wrap"><div class="presentation-stage"><div class="presentation-track" id="presentationTrack"></div></div></div><div class="pres-footer-bar"><div class="pres-dots" id="presDots"></div><div class="pres-counter" id="presCounter">1 / 1</div></div></div><script>
+  </style></head><body><header class="header"><a class="header-brand" href="./index.html"><img src="./aala_logo.png" alt="Logo AALA" class="header-logo-img"><span class="brand-text"><span class="brand-kicker">Asociación Amigos del Lago de Atitlán</span><span class="brand-title">Conservando Atitlán · Tablero de programa</span></span></a><div class="header-stack"><nav class="nav-tabs" aria-label="Navegación"><a class="nav-tab active" href="#resumen">Resumen</a><a class="nav-tab" href="#kpis-estrategicos">Indicadores</a><a class="nav-tab" href="#tendencias">Tendencias</a><a class="nav-tab" href="#diagnostico">Diagnóstico</a></nav><div class="header-utility"><a class="back" href="./index.html"><span class="back-arrow">&#8592;</span>Volver al inicio</a><div class="view-switcher" role="group"><button class="view-btn active" id="btnFull" type="button" onclick="switchView('full')">Tablero completo</button><button class="view-btn" id="btnExec" type="button" onclick="switchView('exec')">Resumen ejecutivo</button></div><button class="present-btn" type="button" id="btnPresentation">&#9654; Presentación</button><div class="period-rack"><span class="period-rack-label">Mes</span><div class="month-pills" id="monthPills" role="group" aria-label="Seleccionar mes"></div></div></div></div></header><div class="wrap"><main><div id="resumen"></div><!-- EXECUTIVE VIEW --><div id="execView" style="display:none"><!-- Status banner --><div class="exec-status-card" style="margin-bottom:18px"><div class="es-label">Resumen del programa</div><div class="es-title">Conservando Atitlán</div><div class="exec-status-badge" id="execStatusBadge">Cargando…</div><div style="font-size:.8rem;opacity:.7;margin-top:4px" id="execPeriodInfo">—</div></div><!-- Indicator strip: 6 cards styled like Atitlán Recicla --><div class="kpi-grid" id="execKpiGrid" style="margin-bottom:18px"></div><!-- Accumulated strip --><div class="exec-strip" id="execStrip" style="margin-bottom:18px"></div><!-- Chart + Notices row --><div class="exec-row-2" style="margin-bottom:18px"><article class="card panel"><h3>Avance acumulado</h3><p class="sub" id="execChartSub">Comparación clara entre avance acumulado, avance esperado a la fecha y meta anual.</p><div id="execProgressChart" style="overflow:visible;padding:4px 0"></div></article><article class="card panel"><h3>Lectura operativa</h3><p class="sub">Resumen de comportamiento del mes.</p><div id="execNoticePanel"></div></article></div><article class="card exec-diag" id="execDiagPanel"></article></div><!-- FULL DASHBOARD --><div id="fullView"><section class="hero hero-clean hero-with-logo" id="heroSection"><article class="card hero-main"><h1>Conservando Atitlán</h1><p class="hero-lead">Conservando Atitlán es un programa cuya misión evita la contaminación del lago de Atitlán por aceites usados de cocina, este objetivo se logra al recuperar dicho residuo generado en 150 negocios entre hoteles, restaurantes y comedores en la cuenca del lago de Atitlán. Este programa tiene un impacto ambiental importante, ya que, por cada litro de aceite usado de cocina recuperado, se protegen mil (1,000) litros de agua. Actualmente el programa Conservando Atitlán impulsa la producción de jabones y velas artesanales de alta calidad a través de la marca ATI’T, generando un impacto social a través de dar empleo a jóvenes y señoritas apoyando a su economía familiar.</p></article><aside class="card hero-logo-card" aria-label="Logo del programa"><img id="programLogo" src="./Conservando%20Atitl%C3%A1n%20.png" alt="Logo Conservando Atitlán" onerror="this.onerror=null;this.src='./logosatitlan.png';"></aside></section><section class="section section-full-only" id="kpis-estrategicos"><div class="section-head section-head-simple"><div><h2>Metas anuales y avance acumulado</h2></div></div><div class="kpi-grid" id="strategicGrid"></div></section><section class="section section-full-only" id="metas-mensuales"><div class="section-head section-head-simple"><div><h2 id="monthlyKpiTitle">Metas mensuales</h2></div></div><div class="kpi-grid" id="monthlyGrid"></div></section><div class="section-divider">Tendencias y lectura comparativa</div><section class="section section-full-only" id="tendencias"><div class="chart-grid" style="grid-template-columns:1fr"><article class="card panel"><div class="panel-top"><div><h3>Tendencia mensual</h3><p class="sub" id="trendChartSub">Serie histórica del indicador seleccionado con su referencia de meta mensual cuando existe.</p></div><select class="indicator-select" id="trendIndicator"></select></div><div class="viz-wrap" id="trendChartHost"><canvas id="trendChart"></canvas></div></article></div><div class="chart-grid section" style="margin-top:18px"><article class="card panel"><h3>Cadena de valor del jabón</h3><p class="sub" id="soapChartSub"></p><div class="viz-wrap" id="soapChartHost"><canvas id="soapChart"></canvas></div></article></div></section><div class="section-divider section-full-only">Análisis del mes</div><section class="section section-full-only" id="diagnostico"><div class="section-head section-head-simple"><div><h2 id="diagTitle">Análisis del mes</h2></div></div><div class="diagnostic-grid"><article class="card panel"><div class="prose" id="diagnosticProse"></div></article><article class="card panel"><div class="diagnostic-list" id="diagnosticList"></div></article></div></section><section class="section hidden" id="loadingWrap"><div class="loading-state" id="loadingState">Cargando información del programa…</div></section><section class="section hidden" id="errorWrap"><div class="error-state" id="errorState">No se pudo cargar la información.</div></section></div><!-- /fullView --></main></div><footer class="site-footer"><div class="footer-wrap"><section class="footer-brand"><div class="footer-brandline"><div class="footer-title">Asociación Amigos del Lago de Atitlán</div></div><p class="footer-copy">La Asociación Amigos del Lago de Atitlán se enfoca en generar una cultura regenerativa en la cuenca Lago, para que los seres humanos podamos coexistir de forma sostenible y sana con el entorno natural. Hacemos educación ambiental, reforestación, reciclaje, empoderamiento económico de mujeres, asesoría municipal en agua y saneamiento.</p></section><section class="footer-col"><h3>Contacto y sitio</h3><div class="footer-links"><a href="https://amigosdeatitlan.org/" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><path d="M12 3c2.7 2.8 4.1 5.8 4.1 9S14.7 18.2 12 21c-2.7-2.8-4.1-5.8-4.1-9S9.3 5.8 12 3z"></path></svg></span><span>Página web</span></a><a href="https://www.youtube.com/@asociacionamigosdellagodea2358" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2a2.9 2.9 0 0 0-2-2C17.8 4.7 12 4.7 12 4.7s-5.8 0-7.6.5a2.9 2.9 0 0 0-2 2A29.6 29.6 0 0 0 2 12a29.6 29.6 0 0 0 .4 4.8 2.9 2.9 0 0 0 2 2c1.8.5 7.6.5 7.6.5s5.8 0 7.6-.5a2.9 2.9 0 0 0 2-2A29.6 29.6 0 0 0 22 12a29.6 29.6 0 0 0-.4-4.8ZM10 15.5v-7l6 3.5-6 3.5Z"></path></svg></span><span>YouTube</span></a><a href="https://www.facebook.com/AmigoAtitlan/?locale=es_LA" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.7-1.6H17V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4V11H7.5v3h2.8v8h3.2Z"></path></svg></span><span>Facebook</span></a></div></section><section class="footer-col"><h3>Redes sociales</h3><div class="footer-links"><a href="https://www.instagram.com/amigoslagoatitlan/" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg></span><span>Instagram</span></a><a href="https://www.linkedin.com/in/aala-atitl%C3%A1n-3653a0325/" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.9 8.1a1.9 1.9 0 1 1 0-3.8 1.9 1.9 0 0 1 0 3.8ZM5.2 9.8h3.3V19H5.2V9.8Zm5.2 0h3.2v1.3h.1c.4-.8 1.5-1.6 3.1-1.6 3.3 0 3.9 2.1 3.9 4.9V19h-3.3v-4c0-.9 0-2.1-1.3-2.1s-1.5 1-1.5 2V19h-3.3V9.8Z"></path></svg></span><span>LinkedIn</span></a></div></section><section class="footer-mark" aria-label="Imagen institucional"><img src="./chill_lago.png" alt="AALA — Cuenca del Lago de Atitlán"></section></div></footer><!-- PRESENTATION OVERLAY --><div class="presentation-overlay" id="presentationOverlay" aria-hidden="true"><div class="presentation-chrome"><div class="presentation-meta" id="presentationMeta"><span>Modo presentación</span></div><div class="presentation-actions"><button class="pres-btn" type="button" onclick="prevSlide()">&#8592; Anterior</button><button class="pres-btn" type="button" onclick="nextSlide()">Siguiente &#8594;</button><button class="pres-btn primary" type="button" onclick="closePresentation()">&#215; Cerrar</button></div></div><div class="presentation-stage-wrap"><div class="presentation-stage"><div class="presentation-track" id="presentationTrack"></div></div></div><div class="pres-footer-bar"><div class="pres-dots" id="presDots"></div><div class="pres-counter" id="presCounter">1 / 1</div></div></div><script>
 const PATHS = {
   total: './data/conservando_atitlan/total_mes.csv',
   indicadores: './data/conservando_atitlan/institucional_indicadores.csv',
@@ -636,9 +639,8 @@ const TREND_OPTIONS = [
   { id:'litros_agua_protegidos_mes', label:'Agua protegida', unit:'litros' },
   { id:'jabones_producidos_mes', label:'Jabones producidos', unit:'jabones' },
   { id:'jabones_vendidos_mes', label:'Jabones vendidos', unit:'jabones' },
-  { id:'inmuebles_atendidos_mes', label:'Inmuebles atendidos', unit:'inmuebles' },
+  { id:'inmuebles_atendidos_mes', label:'Inmuebles que entregaron aceite', unit:'inmuebles' },
   { id:'ingresos_ventas_q_mes', label:'Ventas registradas', unit:'GTQ' },
-  { id:'municipios_visitados_mes', label:'Municipios visitados', unit:'municipios' },
   { id:'pruebas_jabon_liquido_mes', label:'Pruebas de jabón líquido', unit:'pruebas' }
 ];
 const GOALS = {
@@ -647,7 +649,7 @@ const GOALS = {
   jabonesVendidosAnual:51600, jabonesVendidosMensual:4300,
   jabonesHotelVendidosMensual:4000, jabonesTocadorVendidosMensual:300,
   inmueblesMensual:150, municipiosJornadasAnual:7,
-  municipiosMetaMes:7, pruebasAnual:3, pruebasMeses:[3,4,5], velasAnual:360, velasProducidas:50, velasVendidasMes:50, ventasJabonesAnual:138000
+  municipiosMetaMes:7, pruebasAnual:3, pruebasMeses:[3,4,5], velasAnual:360, velasProducidas:50, velasVendidasMes:50, ventasJabonesAnual:106800
 };
 const JORNADA_RECOLECCION_FIELD = 'jornadas_recoleccion_ci'+'clo_mes';
 let state = { total:[], indicadores:[], metadata:{}, periods:[], period:'', charts:{}, slideIndex:0, view:'full' };
@@ -829,36 +831,36 @@ function computeStrategicMetrics(){
 
   return[
     {id:'colectas',title:'Jornadas de recolección',
-      value:`${colectaAccum} / ${GOALS.colectasAnual}`,unit:'jornadas de recolección',
-      status:'green', expectedText:annualPctText(colectaProgress),line1:'',line2:'',
+      value:`${colectaAccum}`,unit:'jornadas de recolección',
+      status:'green', expectedText:`meta anual: ${GOALS.colectasAnual} jornadas`,line1:annualPctText(colectaProgress),line2:'',
       progress:colectaProgress,ratioVsExpected:months?colectaAccum/months:NaN,goalType:'annual'},
     {id:'aceite',title:'Aceite usado recolectado',
-      value:`${fmtN(aceiteAccum,2)} / ${fmtN(GOALS.aceiteAnual,2)}`,unit:'litros',
-      status:'green', expectedText:annualPctText(aceiteProgress),line1:'',line2:'',
+      value:`${fmtN(aceiteAccum,2)}`,unit:'litros',
+      status:'green', expectedText:`meta anual: ${fmtN(GOALS.aceiteAnual,2)} litros`,line1:annualPctText(aceiteProgress),line2:'',
       progress:aceiteProgress,ratioVsExpected:aceiteAccum/(oilMonthlyGoal*months),goalType:'annual'},
     {id:'agua',title:'Agua protegida acumulada',
-      value:`${fmtI(aguaAccum)} / ${fmtI(GOALS.aguaAnual)}`,unit:'litros',
-      status:'green', expectedText:annualPctText(aguaProgress),line1:'',line2:'',
+      value:`${fmtI(aguaAccum)}`,unit:'litros',
+      status:'green', expectedText:`meta anual: ${fmtI(GOALS.aguaAnual)} litros`,line1:annualPctText(aguaProgress),line2:'',
       progress:aguaProgress,ratioVsExpected:aguaAccum/(waterMonthlyGoal*months),goalType:'annual'},
     {id:'jabones-prod',title:'Jabones producidos',
-      value:`${fmtI(jabProdAccum)} / ${fmtI(GOALS.jabonesProducidosAnual)}`,unit:'jabones',
-      status:'green', expectedText:annualPctText(jabProdProgress),line1:'',line2:'',
+      value:`${fmtI(jabProdAccum)}`,unit:'jabones',
+      status:'green', expectedText:`meta anual: ${fmtI(GOALS.jabonesProducidosAnual)} jabones`,line1:annualPctText(jabProdProgress),line2:'',
       progress:jabProdProgress,ratioVsExpected:jabProdAccum/(GOALS.jabonesProducidosMensual*months),goalType:'annual'},
     {id:'jabones-vend',title:'Jabones vendidos',
-      value:`${fmtI(jabVendAccum)} / ${fmtI(GOALS.jabonesVendidosAnual)}`,unit:'jabones',
-      status:'green', expectedText:annualPctText(jabVendProgress),line1:'',line2:'',
+      value:`${fmtI(jabVendAccum)}`,unit:'jabones',
+      status:'green', expectedText:`meta anual: ${fmtI(GOALS.jabonesVendidosAnual)} jabones`,line1:annualPctText(jabVendProgress),line2:'',
       progress:jabVendProgress,ratioVsExpected:jabVendAccum/((GOALS.jabonesVendidosAnual/12)*months),goalType:'annual'},
     {id:'ventas',title:'Ventas acumuladas de Jabones',
-      value:`${fmtQ(ventasAccum)} / ${fmtQ(GOALS.ventasJabonesAnual)}`,unit:'',
-      status:'green', expectedText:annualPctText(ventasProgress),line1:'',line2:'',
+      value:`${fmtQ(ventasAccum)}`,unit:'',
+      status:'green', expectedText:`meta anual: ${fmtQ(GOALS.ventasJabonesAnual)}`,line1:annualPctText(ventasProgress),line2:'',
       progress:ventasProgress,ratioVsExpected:NaN,goalType:'annual'},
     {id:'pruebas',title:'Pruebas de jabón líquido',
-      value:`${pruebasAccum} / ${GOALS.pruebasAnual}`,unit:'pruebas',
-      status:'green', expectedText:annualPctText(pruebasProgress),line1:'',line2:'',
+      value:`${pruebasAccum}`,unit:'pruebas',
+      status:'green', expectedText:`meta anual: ${GOALS.pruebasAnual} pruebas`,line1:annualPctText(pruebasProgress),line2:'',
       progress:pruebasProgress,ratioVsExpected:pruebasExpected===0?NaN:pruebasAccum/pruebasExpected,goalType:'annual'},
     {id:'velas-prod',title:'Producción de velas',
-      value:`${fmtI(velasProdAccum)} / ${fmtI(GOALS.velasAnual)}`,unit:'velas',
-      status:'green', expectedText:annualPctText(velasProgress),line1:'',line2:'',
+      value:`${fmtI(velasProdAccum)}`,unit:'velas',
+      status:'green', expectedText:`meta anual: ${fmtI(GOALS.velasAnual)} velas`,line1:annualPctText(velasProgress),line2:'',
       progress:velasProgress,ratioVsExpected:velasProdAccum/GOALS.velasAnual,goalType:'annual'}
   ];
 }
@@ -926,14 +928,6 @@ function computeMonthlyMetrics(){
       line2:`Asociado a <strong>${fmtI(soldTotal)}</strong> jabones vendidos en el mes`,
       progress:clamp((ventasMes/Math.max(sumMonths('ingresos_ventas_q_mes'),1))*100,0,100),
       periodRatio:NaN,goalType:'none'},
-    {id:'inmuebles-entregaron',title:'Inmuebles que entregaron aceite',
-      value:`${fmtI(inmueblesMes)} / ${fmtI(inmueblesGoal)}`,unit:'inmuebles',
-      status:'green',
-      expectedText:'',
-      line1:'',
-      line2:'',
-      progress:clamp((inmueblesMes/inmueblesGoal)*100,0,100),
-      periodRatio:inmueblesMes/inmueblesGoal,goalType:'monthly',simpleCard:true},
     {id:'inmuebles-atendidos-meta',title:'Inmuebles atendidos',
       value:`${fmtI(inmueblesGoal)} / ${fmtI(inmueblesGoal)}`,unit:'inmuebles',
       status:'green',
@@ -942,14 +936,22 @@ function computeMonthlyMetrics(){
       line2:'',
       progress:100,
       periodRatio:1,goalType:'monthly',simpleCard:true},
+    {id:'inmuebles-entregaron',title:'Inmuebles que entregaron aceite',
+      value:`${fmtI(inmueblesMes)} / ${fmtI(inmueblesGoal)}`,unit:'inmuebles',
+      status:'green',
+      expectedText:'',
+      line1:'',
+      line2:'',
+      progress:clamp((inmueblesMes/inmueblesGoal)*100,0,100),
+      periodRatio:inmueblesMes/inmueblesGoal,goalType:'monthly',simpleCard:true},
     {id:'velas-vendidas-mes',title:'Velas vendidas',
       value:fmtI(velasVendidas),unit:'velas',
-      status:'green',
-      expectedText:'Sin meta mensual fija',
-      line1:`<strong>${fmtI(velasVendidas)}</strong> velas vendidas`,
+      status:statusFromRatio(velasVendidas/40,true),
+      expectedText:'Meta mensual: 40 velas',
+      line1:`Cumplimiento: <strong>${fmtPct(velasVendidas/40)}</strong>`,
       line2:'',
-      progress:100,
-      periodRatio:NaN,goalType:'none'},
+      progress:clamp((velasVendidas/40)*100,0,100),
+      periodRatio:velasVendidas/40,goalType:'monthly'},
     
   ];
 }
@@ -1270,7 +1272,7 @@ function monthlyBarsHtml(indicatorId, variant='full'){
   const rows = rawData.map((v,i)=>{
     const target = ref ? ref[i] : null;
     const pct = clamp(v/maxV*100,0,100);
-    const targetText = target!=null ? `<span class="month-target-tag">Meta: ${escapeHtml(formatTrendValue(target,option.unit))}</span>` : '';
+    const targetText = target!=null ? `<span class="month-target-tag">${option.id==='inmuebles_atendidos_mes'?'de '+escapeHtml(formatTrendValue(target,option.unit))+' atendidos':'Meta: '+escapeHtml(formatTrendValue(target,option.unit))}</span>` : '';
     const status = target!=null ? statusFromRatio(v/(target||1), true) : (i===activeIdx?'blue':'gray');
     return `<div class="month-bar-row ${i===activeIdx?'active':''}"><div class="month-bar-label">${escapeHtml(labels[i])}</div><div class="month-bar-track"><div class="month-bar-fill ${status}" style="width:${pct.toFixed(1)}%"></div></div><div class="month-bar-value">${escapeHtml(formatTrendValue(v,option.unit))}</div>
       ${targetText}
