@@ -1035,7 +1035,7 @@ function renderKpiGrid(id,metrics){
     card.className=`card kpi tone-${tone}${simpleCard?' kpi-simple':''}`;
     card.style.setProperty('--delay',`${idx*80}ms`);
     card.innerHTML=simpleCard?`
-      <div class="kpi-top"><div class="kpi-label">${escapeHtml(metric.title)}</div></div><div class="kpi-simple-value">${escapeHtml([metric.value,metric.unit].filter(Boolean).join(' ')).replace(' / ',' <span>de</span> ')}</div>
+      <div class="kpi-top"><div class="kpi-label">${escapeHtml(metric.title)}</div></div><div class="kpi-simple-value">${escapeHtml([metric.value,metric.unit].filter(Boolean).join(' ')).replace(' / ',' <span>de</span> ')}</div>${metric.expectedText?`<div class="kpi-reference" style="margin-top:6px">${escapeHtml(metric.expectedText)}</div>`:''}
     `:`
       <div class="kpi-top"><div class="kpi-label">${escapeHtml(metric.title)}</div></div><div class="kpi-figure"><div class="kpi-pillar" aria-hidden="true"><span class="kpi-pillar-track"></span><span class="kpi-pillar-fill" data-height="${pillarHeight}%"></span></div><div class="kpi-reading"><div class="kpi-value" data-value="${parts.number!=null?parts.number:''}" data-prefix="${escapeHtml(parts.prefix)}" data-suffix="${escapeHtml(parts.suffix)}" data-decimals="${parts.decimals}">${escapeHtml(parts.text)}</div>
           ${metric.expectedText?`<div class="kpi-reference">${escapeHtml(metric.expectedText)}</div>`:''}
