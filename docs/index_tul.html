@@ -1188,14 +1188,7 @@
             <p class="hero-lead">
               Las siembras y podas estratégicas del programa están focalizadas en zonas degradadas o en sitios donde la permanencia de las masas tulares naturalmente establecidas ha sido comprometida. Estas acciones buscan recuperar cobertura vegetal, fortalecer la resiliencia ambiental de la orilla y conservar funciones ecológicas clave para el Lago de Atitlán.
             </p>
-
-            <div class="chip-row">
-              <span class="stat-chip">Período activo: febrero–abril 2026</span>
-              <span class="stat-chip">Meta anual: 2,300 metros lineales</span>
-              <span class="stat-chip">Meta anual: 1,350 macollas</span>
-              <span class="stat-chip">Programación anual: 21 jornadas</span>
-            </div>
-          </div>
+</div>
         </div>
 
         <aside class="card hero-side" aria-label="Identidad visual del programa">
@@ -1209,16 +1202,7 @@
           </div>
         </aside>
       </section>
-
-      <section class="card period-card" aria-live="polite">
-        <div>
-          <strong id="periodTitle">Avance acumulado al presente mes</strong><br>
-          <span id="periodSubtitle">El programa inicia su lectura anual en febrero de 2026.</span>
-        </div>
-        <span class="tag" id="periodTag">Al presente mes</span>
-      </section>
-
-      <section class="section" id="objetivos">
+<section class="section" id="objetivos">
         <article class="objectives-panel">
           <div class="section-kicker">Objetivos del programa</div>
 
@@ -1279,7 +1263,7 @@
           <div class="annual-goals-grid">
             <div class="goal-card">
               <small>Siembra anual</small>
-              <strong>2,300 metros lineales sembrados</strong>
+              <strong>1,300 metros lineales sembrados</strong>
               <div class="goal-meta">10 puntos de siembra</div>
               <div class="goal-progress">Cobertura lineal a lo largo del litoral del Lago de Atitlán.</div>
             </div>
@@ -1467,7 +1451,7 @@
 
     const ANNUAL_GOALS = {
       jornadas: 21,
-      metros: 2300,
+      metros: 1300,
       macollas: 1350,
       mantenimiento: 10,
       mapas: 11,
@@ -1853,14 +1837,23 @@
 
       const d = MONTHLY_DATA[month];
 
-      document.getElementById('periodTitle').textContent =
-        `Avance acumulado a ${monthName(month)} ${ACTIVE_YEAR}`;
+      const periodTitle = document.getElementById('periodTitle');
+      const periodSubtitle = document.getElementById('periodSubtitle');
+      const periodTag = document.getElementById('periodTag');
 
-      document.getElementById('periodSubtitle').textContent =
-        `Lectura del programa desde febrero hasta ${monthName(month).toLowerCase()}, con ${d.annual.jornadas} jornadas realizadas de ${ANNUAL_GOALS.jornadas} programadas.`;
+      if (periodTitle) {
+        periodTitle.textContent = `Avance acumulado a ${monthName(month)} ${ACTIVE_YEAR}`;
+      }
 
-      document.getElementById('periodTag').textContent =
-        month === DEFAULT_MONTH ? 'Al presente mes' : `Mes seleccionado: ${monthName(month)}`;
+      if (periodSubtitle) {
+        periodSubtitle.textContent =
+          `Lectura del programa desde febrero hasta ${monthName(month).toLowerCase()}, con ${d.annual.jornadas} jornadas realizadas de ${ANNUAL_GOALS.jornadas} programadas.`;
+      }
+
+      if (periodTag) {
+        periodTag.textContent =
+          month === DEFAULT_MONTH ? 'Al presente mes' : `Mes seleccionado: ${monthName(month)}`;
+      }
 
       renderMonthlyKpis(month);
       renderAnnualKpis(month);
