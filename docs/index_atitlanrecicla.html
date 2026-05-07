@@ -4367,6 +4367,11 @@ document.body.classList.add('view-full');
 #incomeSection .kpi-copy{min-height:72px}
 #incomeSection .tbl-wrap table td:first-child{font-weight:700;color:#17314f}
 #incomeSection .panel{min-height:100%}
+#incomeSection .income-subtitle{margin:8px 0 10px;font-size:.74rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--blue-mid);display:flex;align-items:center;gap:10px}
+#incomeSection .income-subtitle::before{content:'';width:22px;height:2px;border-radius:999px;background:linear-gradient(90deg,var(--green),var(--blue-mid))}
+#incomeSection .income-material-kpis{margin-top:6px;margin-bottom:20px}
+#incomeSection .income-material-kpis .kpi{border-top-color:var(--green-soft)}
+#incomeSection .income-material-kpis .kpi:hover{border-top-color:var(--green)}
 .goal-card.kpi{min-height:unset!important}
 .goal-card .kpi-copy{min-height:50px}
 .goal-note{display:none}
@@ -4459,9 +4464,9 @@ document.body.classList.add('view-full');
     const existing=q('#incomeSection');
     if(kpiSection && !existing){
       kpiSection.insertAdjacentHTML('afterend', `
-        <div class="section-divider">Ingresos y contribución a metas</div>
+        <div class="section-divider">Ingresos, materiales y contribución a metas</div>
         <section class="section" id="incomeSection">
-          <div class="section-head"><div><h2>Indicadores de ingresos y aporte a metas</h2><p id="incomeSubtitle">Lectura filtrable del ingreso con detalle por territorio, material, municipio y recolector. Todos los filtros del bloque afectan tarjetas, gráfico y tabla.</p></div></div>
+          <div class="section-head"><div><h2>Indicadores de ingresos, materiales y aporte a metas</h2><p id="incomeSubtitle">Lectura filtrable de ingresos y materiales recolectados con detalle por territorio, material, municipio y recolector. Los filtros del bloque afectan las tarjetas, el gráfico y la tabla.</p></div></div>
           <section class="toolbar toolbar-compact income-toolbar">
             <div class="card filter"><label for="incomeSubjectSelect">Línea de ingreso</label><select id="incomeSubjectSelect"></select></div>
             <div class="card filter"><label for="incomeTerritorySelect">Territorio</label><select id="incomeTerritorySelect"></select></div>
@@ -4471,6 +4476,8 @@ document.body.classList.add('view-full');
             <div class="card filter"><label for="incomeBreakdownSelect">Desglose principal</label><select id="incomeBreakdownSelect"></select></div>
           </section>
           <div class="kpis income-kpis" id="incomeKpiGrid"></div>
+          <div class="income-subtitle">Materiales recolectados filtrados</div>
+          <div class="kpis income-kpis income-material-kpis" id="incomeMaterialKpiGrid"></div>
           <section class="section grid-2 income-grid">
             <article class="card panel panel-accent">
               <div class="trend-panel-head">
@@ -4763,6 +4770,212 @@ document.body.classList.add('view-full');
     </article>`;
   }
 
+  const SURUSIC_XLSX_DATA=[
+    {anio:2026,mes_num:1,zona:'Kaqchiquel',cerveza:0,vino:0,sky:0,montecarlo:0,ingreso:0},
+    {anio:2026,mes_num:1,zona:'Las Lagunas',cerveza:0,vino:0,sky:0,montecarlo:0,ingreso:0},
+    {anio:2026,mes_num:1,zona:'Tzolojya',cerveza:0,vino:0,sky:0,montecarlo:0,ingreso:0},
+    {anio:2026,mes_num:1,zona:'Zona Sur',cerveza:0,vino:0,sky:0,montecarlo:0,ingreso:0},
+    {anio:2026,mes_num:2,zona:'Kaqchiquel',cerveza:0,vino:0,sky:0,montecarlo:0,ingreso:0},
+    {anio:2026,mes_num:2,zona:'Las Lagunas',cerveza:0,vino:0,sky:0,montecarlo:0,ingreso:0},
+    {anio:2026,mes_num:2,zona:'Tzolojya',cerveza:0,vino:0,sky:0,montecarlo:0,ingreso:0},
+    {anio:2026,mes_num:2,zona:'Zona Sur',cerveza:0,vino:0,sky:0,montecarlo:0,ingreso:0},
+    {anio:2026,mes_num:3,zona:'Kaqchiquel',cerveza:0,vino:0,sky:0,montecarlo:0,ingreso:0},
+    {anio:2026,mes_num:3,zona:'Las Lagunas',cerveza:0,vino:0,sky:0,montecarlo:0,ingreso:0},
+    {anio:2026,mes_num:3,zona:'Tzolojya',cerveza:0,vino:0,sky:0,montecarlo:0,ingreso:0},
+    {anio:2026,mes_num:3,zona:'Zona Sur',cerveza:0,vino:0,sky:0,montecarlo:0,ingreso:0},
+    {anio:2026,mes_num:4,zona:'Kaqchiquel',cerveza:0,vino:0,sky:0,montecarlo:100,ingreso:100},
+    {anio:2026,mes_num:4,zona:'Las Lagunas',cerveza:0,vino:0,sky:0,montecarlo:0,ingreso:0},
+    {anio:2026,mes_num:4,zona:'Tzolojya',cerveza:0,vino:0,sky:9,montecarlo:24,ingreso:42},
+    {anio:2026,mes_num:4,zona:'Zona Sur',cerveza:0,vino:0,sky:0,montecarlo:0,ingreso:0}
+  ];
+
+  function materialFilterKind(state){
+    const raw=String(state.incomeMaterial||'__all__').toLowerCase();
+    if(raw==='__all__') return 'all';
+    if(raw.includes('pet')) return 'pet';
+    if(raw.includes('vidrio') || raw.includes('surusic') || raw.includes('azul') || raw.includes('montecarlo') || raw.includes('sky')) return 'vidrio';
+    return 'other';
+  }
+  function materialFilterAppliesToSurusic(state){
+    const kind=materialFilterKind(state);
+    return kind==='all' || kind==='vidrio';
+  }
+  function summaryRowsForMaterialScope(state, period, accumulated){
+    if(!currentData || !period) return [];
+    const sameCut = r => Number(r.anio)===Number(period.anio) && (accumulated ? Number(r.mes_num)<=Number(period.mes_num) : Number(r.mes_num)===Number(period.mes_num));
+    let rows=[];
+    if(state.incomeTerritory!=='__all__' || state.incomeMunicipio!=='__all__'){
+      rows=(currentData.territorioMes||[]).filter(r=>sameCut(r));
+      if(state.selectedZone!=='__all__') rows=rows.filter(r=>sameZone(r,state.selectedZone));
+      if(state.incomeTerritory!=='__all__') rows=rows.filter(r=>String(r.territorio||'')===state.incomeTerritory || rowMatchesIncomeTerritory(r,state.incomeTerritory));
+      if(state.incomeMunicipio!=='__all__') rows=rows.filter(r=>String(r.territorio||'')===state.incomeMunicipio || rowMatchesIncomeTerritory(r,state.incomeMunicipio));
+    }else if(state.selectedZone!=='__all__'){
+      rows=(currentData.zonaMes||[]).filter(r=>sameCut(r) && sameZone(r,state.selectedZone));
+    }else{
+      rows=(currentData.totalMes||[]).filter(r=>sameCut(r));
+    }
+    return rows;
+  }
+  function summaryMaterialTotal(row, state){
+    const recolector=String(state.incomeRecolector||'__all__').toLowerCase();
+    if(recolector.includes('lideresa')) return safeNumber(row?.materiales_lideresas_qq);
+    if(recolector.includes('municipal')) return safeNumber(row?.materiales_municipalidad_qq);
+    return safeNumber(row?.total_materiales_qq);
+  }
+  function sumSummaryMaterial(rows, state, kind){
+    if(kind==='pet') return rows.reduce((acc,r)=>acc+safeNumber(r?.pet_qq),0);
+    if(kind==='vidrio') return rows.reduce((acc,r)=>acc+safeNumber(r?.vidrio_total_qq || r?.vidrio_peso_qq),0);
+    if(kind==='other') return 0;
+    return rows.reduce((acc,r)=>acc+summaryMaterialTotal(r,state),0);
+  }
+  function sumRawMaterial(rows, kind){
+    const selected=kind||'all';
+    return (rows||[]).reduce((acc,r)=>{
+      const mat=String(r.material||'').toLowerCase();
+      const qty=safeNumber(r.cantidad);
+      if(selected==='pet' && !mat.includes('pet')) return acc;
+      if(selected==='vidrio' && !mat.includes('vidrio')) return acc;
+      if(selected==='other') return acc;
+      return acc+qty;
+    },0);
+  }
+  function topMaterialFromRows(rows){
+    const grouped=new Map();
+    (rows||[]).forEach(r=>{
+      const label=String(r.material||'Sin material').trim()||'Sin material';
+      grouped.set(label,(grouped.get(label)||0)+safeNumber(r.cantidad));
+    });
+    const sorted=Array.from(grouped.entries()).map(([label,value])=>({label,value})).sort((a,b)=>b.value-a.value);
+    return sorted[0] || {label:'Sin detalle',value:0};
+  }
+  function topMaterialFromSummary(total, pet, vidrio){
+    const otros=Math.max(0, safeNumber(total)-safeNumber(pet)-safeNumber(vidrio));
+    return [
+      {label:'Vidrio',value:vidrio},
+      {label:'PET',value:pet},
+      {label:'Otros materiales',value:otros}
+    ].sort((a,b)=>b.value-a.value)[0] || {label:'Sin detalle',value:0};
+  }
+  function inferIncomeZoneForSurusic(state, period){
+    if(state.selectedZone && state.selectedZone!=='__all__') return state.selectedZone;
+    if(!currentData || !period) return '__all__';
+    const key=state.incomeTerritory!=='__all__' ? state.incomeTerritory : (state.incomeMunicipio!=='__all__' ? state.incomeMunicipio : '__all__');
+    if(key==='__all__') return '__all__';
+    const row=(currentData.territorioMes||[]).find(r=>Number(r.anio)===Number(period.anio) && Number(r.mes_num)===Number(period.mes_num) && rowMatchesIncomeTerritory(r,key));
+    return row?.zona || '__all__';
+  }
+  function getSurusicScopeRows(state, period, accumulated){
+    if(!period || !materialFilterAppliesToSurusic(state)) return [];
+    const zone=inferIncomeZoneForSurusic(state, period);
+    return SURUSIC_XLSX_DATA.filter(r=>Number(r.anio)===Number(period.anio) && (accumulated ? Number(r.mes_num)<=Number(period.mes_num) : Number(r.mes_num)===Number(period.mes_num)) && (zone==='__all__' || sameZone({zona:r.zona}, zone)));
+  }
+  function summarizeSurusic(rows){
+    return (rows||[]).reduce((acc,r)=>{
+      acc.cerveza += safeNumber(r.cerveza);
+      acc.vino += safeNumber(r.vino);
+      acc.sky += safeNumber(r.sky);
+      acc.montecarlo += safeNumber(r.montecarlo);
+      acc.ingreso += safeNumber(r.ingreso);
+      return acc;
+    },{cerveza:0,vino:0,sky:0,montecarlo:0,ingreso:0});
+  }
+  function buildMaterialContext(state, period){
+    const kind=materialFilterKind(state);
+    const rawRows=getIncomeDetailRows(state, period);
+    const rawAccum=getIncomeDetailSeriesRows(state, period);
+    const canUseRaw=rawRows.length>0;
+    const summaryRows=summaryRowsForMaterialScope(state, period, false);
+    const summaryAccum=summaryRowsForMaterialScope(state, period, true);
+    const total = canUseRaw ? sumRawMaterial(rawRows, kind) : sumSummaryMaterial(summaryRows, state, kind);
+    const totalAll = canUseRaw ? sumRawMaterial(rawRows, 'all') : sumSummaryMaterial(summaryRows, state, 'all');
+    const pet = canUseRaw ? sumRawMaterial(rawRows, 'pet') : sumSummaryMaterial(summaryRows, state, 'pet');
+    const vidrio = canUseRaw ? sumRawMaterial(rawRows, 'vidrio') : sumSummaryMaterial(summaryRows, state, 'vidrio');
+    const accumulated = rawAccum.length && canUseRaw ? sumRawMaterial(rawAccum, kind) : sumSummaryMaterial(summaryAccum, state, kind);
+    const top = canUseRaw ? topMaterialFromRows(rawRows) : topMaterialFromSummary(totalAll, pet, vidrio);
+    const programRows=summaryRowsForMaterialScope({...state,selectedZone:'__all__',incomeTerritory:'__all__',incomeMunicipio:'__all__',incomeRecolector:'__all__'}, period, false);
+    const programTotal=sumSummaryMaterial(programRows, {...state,incomeRecolector:'__all__'}, 'all');
+    const surusic=summarizeSurusic(getSurusicScopeRows(state, period, false));
+    const surusicAccum=summarizeSurusic(getSurusicScopeRows(state, period, true));
+    surusic.unidades=surusic.cerveza+surusic.vino+surusic.sky+surusic.montecarlo;
+    surusicAccum.unidades=surusicAccum.cerveza+surusicAccum.vino+surusicAccum.sky+surusicAccum.montecarlo;
+    return {kind,total,totalAll,pet,vidrio,accumulated,top,programTotal,surusic,surusicAccum,source:canUseRaw?'detalle':'agregado'};
+  }
+  function renderIncomeMaterialCards(state, ctx){
+    const grid=q('#incomeMaterialKpiGrid');
+    if(!grid) return;
+    const period=ctx.period;
+    const mat=buildMaterialContext(state, period);
+    const scopeLabel=buildIncomeScopeLabel(state);
+    const totalShare=mat.programTotal>0 ? mat.total/mat.programTotal : null;
+    const petShare=mat.totalAll>0 ? mat.pet/mat.totalAll : null;
+    const vidrioShare=mat.totalAll>0 ? mat.vidrio/mat.totalAll : null;
+    const surusicActive=mat.surusic.unidades>0 || mat.surusic.ingreso>0;
+    const cards=[
+      {
+        label:'Materiales recolectados',
+        valueText:formatByUnit(mat.total,'qq'),
+        metaTitle:'Volumen físico dentro del filtro seleccionado',
+        refText:`Fuente: <strong>${mat.source==='detalle'?'detalle por material':'agregado disponible'}</strong>`,
+        chipClass:incomeChipClass(totalShare),
+        chipText:totalShare!=null ? `${formatPercent(totalShare)} del programa` : 'Sin referencia',
+        progressPct:totalShare||0,
+        copy:`Suma de materiales recolectados para <strong>${escapeHtml(scopeLabel)}</strong> en <strong>${escapeHtml(labelLong(period))}</strong>.`
+      },
+      {
+        label:'PET recolectado',
+        valueText:formatByUnit(mat.pet,'qq'),
+        metaTitle:'PET dentro del volumen filtrado',
+        refText:`Participación PET: <strong>${escapeHtml(formatPercent(petShare||0))}</strong>`,
+        chipClass:incomeChipClass(petShare),
+        chipText:petShare!=null ? `${formatPercent(petShare)} del filtro` : 'Sin dato',
+        progressPct:petShare||0,
+        copy:'Muestra cuánto PET aporta la selección actual dentro del total de materiales del filtro.'
+      },
+      {
+        label:'Vidrio recolectado',
+        valueText:formatByUnit(mat.vidrio,'qq'),
+        metaTitle:'Vidrio dentro del volumen filtrado',
+        refText:`Participación vidrio: <strong>${escapeHtml(formatPercent(vidrioShare||0))}</strong>`,
+        chipClass:incomeChipClass(vidrioShare),
+        chipText:vidrioShare!=null ? `${formatPercent(vidrioShare)} del filtro` : 'Sin dato',
+        progressPct:vidrioShare||0,
+        copy:'Muestra el peso del vidrio dentro de la selección actual; incluye el vidrio vendido por peso.'
+      },
+      {
+        label:'SURUSIC',
+        valueText:`${formatNumber(mat.surusic.unidades)} unidades`,
+        metaTitle:'Vidrio SURUSIC en la selección disponible',
+        refText:`Ingreso asociado: <strong>${escapeHtml(formatByUnit(mat.surusic.ingreso,'GTQ'))}</strong>`,
+        chipClass:surusicActive?'green':'muted',
+        chipText:surusicActive?'Con registro':'Sin registro',
+        progressPct:surusicActive?1:0,
+        copy:`Detalle: Sky <strong>${escapeHtml(formatNumber(mat.surusic.sky))}</strong> · Montecarlo <strong>${escapeHtml(formatNumber(mat.surusic.montecarlo))}</strong> · cerveza/vino <strong>${escapeHtml(formatNumber(mat.surusic.cerveza+mat.surusic.vino))}</strong>.`
+      },
+      {
+        label:'Material principal',
+        valueText:mat.top.label,
+        metaTitle:`Volumen principal: ${escapeHtml(formatByUnit(mat.top.value,'qq'))}`,
+        refText:`Peso dentro del filtro: <strong>${escapeHtml(formatPercent(mat.totalAll>0?mat.top.value/mat.totalAll:0))}</strong>`,
+        chipClass:mat.top.value>0?'blue':'muted',
+        chipText:mat.top.value>0?'Mayor aporte':'Sin detalle',
+        progressPct:mat.totalAll>0?mat.top.value/mat.totalAll:0,
+        copy:'Identifica el material que más pesa en la selección actual para explicar rápidamente la composición.'
+      },
+      {
+        label:'Acumulado materiales',
+        valueText:formatByUnit(mat.accumulated,'qq'),
+        metaTitle:'Suma acumulada de enero al período seleccionado',
+        refText:`SURUSIC acumulado: <strong>${escapeHtml(formatNumber(mat.surusicAccum.unidades))} unidades</strong> · <strong>${escapeHtml(formatByUnit(mat.surusicAccum.ingreso,'GTQ'))}</strong>`,
+        chipClass:mat.accumulated>0?'green':'muted',
+        chipText:mat.accumulated>0?'Con avance':'Sin actividad',
+        progressPct:mat.programTotal>0?Math.min(mat.accumulated/(mat.programTotal*Number(period.mes_num||1)),1):0,
+        copy:'Permite ver la acumulación física del filtro en el año, además del registro acumulado de SURUSIC.'
+      }
+    ];
+    grid.innerHTML=cards.map(renderIncomeKpiCard).join('');
+    qa('.kpi-value', grid).forEach(animateMetricValue);
+  }
+
   function renderIncomeSection(state){
     const grid=q('#incomeKpiGrid');
     if(!grid) return;
@@ -4834,10 +5047,11 @@ document.body.classList.add('view-full');
 
     grid.innerHTML=cards.map(renderIncomeKpiCard).join('');
     qa('.kpi-value', grid).forEach(animateMetricValue);
+    renderIncomeMaterialCards(state, ctx);
 
     const subtitle=q('#incomeSubtitle');
     if(subtitle){
-      subtitle.textContent = ctx.note;
+      subtitle.textContent = ctx.note || `Filtros activos: ${buildIncomeScopeLabel(state)} · período ${labelLong(ctx.period)}. Las tarjetas superiores muestran ingresos; las tarjetas inferiores muestran materiales recolectados y SURUSIC.`;
     }
     const breakSubtitle=q('#incomeBreakdownSubtitle');
     if(breakSubtitle){
