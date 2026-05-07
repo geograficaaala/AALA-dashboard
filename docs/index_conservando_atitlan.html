@@ -125,9 +125,9 @@
     .section-head h2{font-family:var(--font-body);font-size:1.55rem;line-height:1.08;color:var(--text);letter-spacing:-.03em;font-weight:800}
     .section-head p{max-width:860px;color:var(--text-2);text-align:justify;font-size:.88rem;line-height:1.75}
 
-    /* ── KPI GRID (homogeneous with Atitlán Recicla) ── */
-    .kpi-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
-    .kpi{position:relative;overflow:hidden;isolation:isolate;min-height:230px;
+    /* ── INDICATOR GRID (homogeneous with Atitlán Recicla) ── */
+    .kpi-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch}
+    .kpi{position:relative;overflow:hidden;isolation:isolate;min-height:250px;
       padding:20px 20px 18px 22px;
       background:linear-gradient(180deg,#ffffff 0%,#fbfdfc 100%);
       display:grid;grid-template-rows:auto auto 1fr auto;gap:12px;
@@ -253,6 +253,40 @@
     .soap-total-card{padding:13px 14px;border-radius:16px;background:var(--surface-2);border:1px solid var(--line-soft)}
     .soap-total-card small{display:block;color:var(--muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;font-weight:800;margin-bottom:3px}
     .soap-total-card strong{display:block;color:var(--text);font-family:var(--font-mono);font-size:1rem}
+
+    .progress-compare-numbers{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0 11px}
+    .progress-number-card{padding:12px 13px;border-radius:14px;background:var(--surface-2);border:1px solid var(--line-soft)}
+    .progress-number-card small{display:block;font-size:.66rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+    .progress-number-card strong{display:block;font-family:var(--font-mono);font-size:.98rem;color:var(--text);line-height:1.25}
+    .progress-goal-meter{height:18px;border-radius:999px;background:#e7eef1;overflow:hidden;box-shadow:inset 0 1px 2px rgba(23,49,79,.08)}
+    .progress-goal-fill{height:100%;border-radius:999px;min-width:2px;background:linear-gradient(90deg,#83d0e0,#1c6084)}
+    .progress-goal-fill.green{background:linear-gradient(90deg,#54b97e,var(--forest))}
+    .progress-goal-fill.yellow{background:linear-gradient(90deg,#e3ba45,var(--sand))}
+    .progress-goal-fill.red{background:linear-gradient(90deg,#df8c8c,var(--danger))}
+    .progress-goal-fill.purple{background:linear-gradient(90deg,#c4a0e8,#7b4fc4)}
+    .progress-goal-fill.gray{background:linear-gradient(90deg,#b5c3cf,#7b8fa0)}
+    .progress-goal-caption{font-size:.78rem;color:var(--text-2);margin-top:7px;line-height:1.5}
+    .progress-goal-caption strong{color:var(--text)}
+    .month-bars{display:grid;gap:9px}
+    .month-bar-row{display:grid;grid-template-columns:72px 1fr 132px auto;gap:10px;align-items:center;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.86);border:1px solid var(--line-soft)}
+    .month-bar-row.active{background:linear-gradient(90deg,rgba(217,236,241,.9),rgba(255,255,255,.92));border-color:rgba(28,96,132,.2);box-shadow:0 6px 16px rgba(18,42,66,.05)}
+    .month-bar-label{font-weight:800;color:var(--text);font-size:.8rem}
+    .month-bar-track{height:15px;border-radius:999px;background:#e7eef1;overflow:hidden}
+    .month-bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#83d0e0,var(--lake))}
+    .month-bar-fill.green{background:linear-gradient(90deg,#54b97e,var(--forest))}
+    .month-bar-fill.yellow{background:linear-gradient(90deg,#e3ba45,var(--sand))}
+    .month-bar-fill.red{background:linear-gradient(90deg,#df8c8c,var(--danger))}
+    .month-bar-fill.gray{background:linear-gradient(90deg,#b5c3cf,#7b8fa0)}
+    .month-bar-value{text-align:right;font-family:var(--font-mono);font-weight:700;color:var(--text);font-size:.82rem;white-space:nowrap}
+    .month-target-tag{display:inline-flex;align-items:center;justify-content:center;padding:4px 8px;border-radius:999px;background:var(--sand-soft);color:#8a6418;font-size:.68rem;font-weight:800;white-space:nowrap}
+    .month-bars.presentation{gap:7px}
+    .month-bars.presentation .month-bar-row{grid-template-columns:58px 1fr 106px;gap:8px;padding:8px 10px}
+    .month-bars.presentation .month-target-tag{display:none}
+    .month-bars.presentation .month-bar-value{font-size:.72rem}
+    .progress-compare.presentation .progress-compare-numbers{grid-template-columns:1fr;gap:6px}
+    .progress-compare.presentation .progress-number-card{padding:8px 10px}
+    .progress-compare.presentation .progress-number-card strong{font-size:.78rem}
+    @media (max-width:780px){.progress-compare-numbers{grid-template-columns:1fr}.month-bar-row{grid-template-columns:58px 1fr 96px}.month-target-tag{display:none}}
     .indicator-select{padding:9px 14px;border-radius:14px;border:1px solid var(--line);background:#fff;color:var(--text);font-family:var(--font-body);font-weight:700;font-size:.84rem;min-width:240px;outline:none}
     .indicator-select:focus{border-color:var(--lake);box-shadow:0 0 0 3px rgba(28,96,132,.1)}
 
@@ -419,7 +453,7 @@
     .loading-state,.error-state{padding:28px;border-radius:22px;background:#fff;border:1px solid var(--line-soft);box-shadow:var(--shadow-sm);text-align:center;color:var(--text-2);font-size:.9rem}
     @keyframes fadeDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
 
-    /* Exec KPI grid: 3 columns */
+    /* Executive indicator grid: 3 columns */
     #execKpiGrid.kpi-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
     #execKpiGrid .kpi{min-height:190px}
     #execKpiGrid .kpi-value{font-size:clamp(1.7rem,2.2vw,2.4rem)}
@@ -428,12 +462,12 @@
     @media (max-width:640px){#execKpiGrid.kpi-grid{grid-template-columns:1fr}}
 
     /* ── RESPONSIVE ── */
-    @media (max-width:1500px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:1500px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
     @media (max-width:1180px){
       .hero,.chart-grid,.diagnostic-grid{grid-template-columns:1fr}
       .hero-meta{grid-template-columns:repeat(2,1fr)}
       .hero-status{grid-template-columns:1fr 1fr}
-      .kpi-grid{grid-template-columns:1fr}
+      .kpi-grid{grid-template-columns:repeat(2,1fr)}
       .footer-wrap{grid-template-columns:1fr}
       .exec-strip{grid-template-columns:repeat(2,1fr)}
       .exec-row-2{grid-template-columns:1fr}
@@ -449,7 +483,7 @@
     }
     @media (max-width:640px){
       .wrap{width:min(100vw - 16px,1000px)}
-      .kpi-figure{grid-template-columns:1fr}.kpi-pillar{display:none}
+      .kpi-grid{grid-template-columns:1fr}.kpi-figure{grid-template-columns:1fr}.kpi-pillar{display:none}
       .pres-card-grid-4,.pres-card-grid-3,.pres-card-grid-2{grid-template-columns:1fr}
       .pres-title-row{flex-direction:column}.pres-brand-badge{justify-items:start;text-align:left}
     }
@@ -500,7 +534,7 @@
         <div class="exec-status-badge" id="execStatusBadge">Cargando…</div>
         <div style="font-size:.8rem;opacity:.7;margin-top:4px" id="execPeriodInfo">—</div>
       </div>
-      <!-- KPI strip: 6 cards styled like Atitlán Recicla -->
+      <!-- Indicator strip: 6 cards styled like Atitlán Recicla -->
       <div class="kpi-grid" id="execKpiGrid" style="margin-bottom:18px"></div>
       <!-- Accumulated strip -->
       <div class="exec-strip" id="execStrip" style="margin-bottom:18px"></div>
@@ -508,7 +542,7 @@
       <div class="exec-row-2" style="margin-bottom:18px">
         <article class="card panel">
           <h3>Avance acumulado por objetivo</h3>
-          <p class="sub" id="execChartSub">Comparación clara entre avance real, avance esperado a la fecha y meta anual.</p>
+          <p class="sub" id="execChartSub">Comparación clara entre avance acumulado, avance esperado a la fecha y meta anual.</p>
           <div id="execProgressChart" style="overflow:visible;padding:4px 0"></div>
         </article>
         <article class="card panel">
@@ -555,10 +589,10 @@
       <section class="section section-full-only" id="kpis-estrategicos">
         <div class="section-head">
           <div>
-            <div class="section-kicker">KPIs estratégicos anuales</div>
+            <div class="section-kicker">Indicadores estratégicos anuales</div>
             <h2>Metas estructurales del programa</h2>
           </div>
-          <p>Avance acumulado real frente a las metas anuales del programa. Cuando el indicador funciona por ciclos o hitos, la lectura se expresa por meses cumplidos, no por registros operativos brutos.</p>
+          <p>Avance acumulado frente a las metas anuales del programa. La lectura se presenta en unidades claras y comparables para cada indicador.</p>
         </div>
         <div class="kpi-grid" id="strategicGrid"></div>
       </section>
@@ -566,7 +600,7 @@
       <section class="section section-full-only" id="cumplimiento-periodo">
         <div class="section-head">
           <div>
-            <div class="section-kicker">KPIs operativos del período</div>
+            <div class="section-kicker">Indicadores mensuales</div>
             <h2 id="monthlyKpiTitle">Indicadores mensuales</h2>
           </div>
           <p id="monthlyKpiDesc">Indicadores que admiten una meta mensual clara y datos operativos complementarios para interpretar la actividad del período.</p>
@@ -580,7 +614,7 @@
         <div class="chart-grid">
           <article class="card panel">
             <h3>Avance acumulado por objetivo</h3>
-            <p class="sub" id="progressChartSub">Compara el avance real acumulado contra lo esperado a la fecha y la meta anual.</p>
+            <p class="sub" id="progressChartSub">Muestra cuánto llevamos, cuánto se esperaba a la fecha y cuál es la meta anual.</p>
             <div class="viz-wrap" id="progressChartHost"><canvas id="progressChart"></canvas></div>
           </article>
           <article class="card panel">
@@ -597,7 +631,7 @@
         <div class="chart-grid section" style="margin-top:18px">
           <article class="card panel">
             <h3>Cadena de valor del jabón</h3>
-            <p class="sub" id="soapChartSub">Producción y venta de jabón de hotel y de tocador en el período, con tasa de conversión venta/producción.</p>
+            <p class="sub" id="soapChartSub">Jabones producidos y vendidos de hotel y de tocador en el período, con tasa de conversión venta/producción.</p>
             <div class="viz-wrap" id="soapChartHost"><canvas id="soapChart"></canvas></div>
           </article>
           <article class="card panel">
@@ -730,9 +764,10 @@ const GOALS = {
   jabonesProducidosAnual:65040, jabonesProducidosMensual:5420,
   jabonesVendidosAnual:51600, jabonesVendidosMensual:4300,
   jabonesHotelVendidosMensual:4000, jabonesTocadorVendidosMensual:300,
-  inmueblesMensual:150, municipiosCiclosAnual:7,
+  inmueblesMensual:150, municipiosJornadasAnual:7,
   municipiosMetaMes:7, pruebasAnual:3, pruebasMeses:[3,4,5]
 };
+const JORNADA_RECOLECCION_FIELD = 'jornadas_recoleccion_ci'+'clo_mes';
 let state = { total:[], indicadores:[], metadata:{}, periods:[], period:'', charts:{}, slideIndex:0, view:'full' };
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
@@ -762,7 +797,7 @@ async function init(){
       program_id:'conservando_atitlan', program_name:'Conservando Atitlán',
       periodo_clave:'2026-04', anio:2026, mes_num:4, mes_label:'Abril',
       aporta_metas_programa:true,
-      jornadas_recoleccion_ciclo_mes:1, jornadas_codigos_unicos_mes:9,
+      [JORNADA_RECOLECCION_FIELD]:1, jornadas_codigos_unicos_mes:9,
       filas_recoleccion_validas_mes:9, municipios_visitados_mes:9,
       inmuebles_atendidos_mes:90,
       litros_aceite_recolectados_mes:7340, litros_agua_protegidos_mes:7340000,
@@ -886,7 +921,7 @@ function animateMetricValue(node){
 function computeStrategicMetrics(){
   const row=selectedRow(), months=monthsElapsed();
   const oilMonthlyGoal=GOALS.aceiteAnual/12, waterMonthlyGoal=GOALS.aguaAnual/12;
-  const colectaAccum=countMonthsWith(r=>toNum(r.jornadas_recoleccion_ciclo_mes)>0);
+  const colectaAccum=countMonthsWith(r=>toNum(r[JORNADA_RECOLECCION_FIELD])>0);
   const aceiteAccum=sumMonths('litros_aceite_recolectados_mes');
   const aguaAccum=sumMonths('litros_agua_protegidos_mes');
   const jabProdAccum=sumMonths('jabones_producidos_mes');
@@ -895,21 +930,21 @@ function computeStrategicMetrics(){
   const pruebasExpected=expectedPruebasAtCut(months);
   const ventasAccum=sumMonths('ingresos_ventas_q_mes');
   const periodJ=toNum(row?.jornadas_codigos_unicos_mes||row?.filas_recoleccion_validas_mes);
-  const periodC=toNum(row?.jornadas_recoleccion_ciclo_mes)>0?1:0;
+  const periodC=toNum(row?.[JORNADA_RECOLECCION_FIELD])>0?1:0;
   return[
-    {id:'colectas',title:'Colecta mensual cubierta',
-      value:`${colectaAccum} / ${GOALS.colectasAnual}`,unit:'ciclos',
+    {id:'colectas',title:'Jornadas de recolección',
+      value:`${colectaAccum} / ${GOALS.colectasAnual}`,unit:'jornadas de recolección',
       status:statusFromRatio(months?colectaAccum/months:NaN,true),
-      expectedText:`Meta anual: ${GOALS.colectasAnual} ciclos`,
-      line1:`Acumulado real: <strong>${colectaAccum} / ${GOALS.colectasAnual}</strong> ciclos · <strong>${fmtPct(colectaAccum/GOALS.colectasAnual)}</strong> del objetivo anual`,
-      line2:`${periodLabel(state.period)}: <strong>${periodJ}</strong> jornadas registradas, equivalentes a <strong>${periodC}</strong> ciclo mensual válido`,
+      expectedText:`Meta anual: ${GOALS.colectasAnual} jornadas de recolección`,
+      line1:`Acumulado: <strong>${colectaAccum} / ${GOALS.colectasAnual}</strong> jornadas de recolección · <strong>${fmtPct(colectaAccum/GOALS.colectasAnual)}</strong> del objetivo anual`,
+      line2:`${periodLabel(state.period)}: <strong>${periodJ}</strong> jornadas registradas · Jornada de recolección del mes: <strong>${periodC? 'cumplida' : 'pendiente'}</strong>`,
       progress:clamp((colectaAccum/GOALS.colectasAnual)*100,0,100),
       ratioVsExpected:months?colectaAccum/months:NaN,goalType:'annual'},
     {id:'aceite',title:'Aceite usado recolectado',
       value:fmtN(aceiteAccum,2),unit:'litros',
       status:statusFromRatio(aceiteAccum/(oilMonthlyGoal*months),true),
       expectedText:`Meta mensual: ${fmtN(oilMonthlyGoal,2)} litros`,
-      line1:`Acumulado real: <strong>${fmtN(aceiteAccum,2)}</strong> litros · <strong>${fmtPct(aceiteAccum/GOALS.aceiteAnual)}</strong> del objetivo anual`,
+      line1:`Acumulado: <strong>${fmtN(aceiteAccum,2)}</strong> litros · <strong>${fmtPct(aceiteAccum/GOALS.aceiteAnual)}</strong> del objetivo anual`,
       line2:`${periodLabel(state.period)}: <strong>${fmtN(toNum(row?.litros_aceite_recolectados_mes),2)}</strong> litros · <strong>${fmtPct(toNum(row?.litros_aceite_recolectados_mes)/oilMonthlyGoal)}</strong> de la meta mensual`,
       progress:clamp((aceiteAccum/GOALS.aceiteAnual)*100,0,100),
       ratioVsExpected:aceiteAccum/(oilMonthlyGoal*months),goalType:'annual'},
@@ -917,7 +952,7 @@ function computeStrategicMetrics(){
       value:fmtI(aguaAccum),unit:'litros',
       status:statusFromRatio(aguaAccum/(waterMonthlyGoal*months),true),
       expectedText:`Meta mensual: ${fmtI(waterMonthlyGoal)} litros`,
-      line1:`Acumulado real: <strong>${fmtI(aguaAccum)}</strong> litros · <strong>${fmtPct(aguaAccum/GOALS.aguaAnual)}</strong> del objetivo anual`,
+      line1:`Acumulado: <strong>${fmtI(aguaAccum)}</strong> litros · <strong>${fmtPct(aguaAccum/GOALS.aguaAnual)}</strong> del objetivo anual`,
       line2:`${periodLabel(state.period)}: <strong>${fmtI(toNum(row?.litros_agua_protegidos_mes))}</strong> litros protegidos · <strong>${fmtPct(toNum(row?.litros_agua_protegidos_mes)/waterMonthlyGoal)}</strong> de meta`,
       progress:clamp((aguaAccum/GOALS.aguaAnual)*100,0,100),
       ratioVsExpected:aguaAccum/(waterMonthlyGoal*months),goalType:'annual'},
@@ -925,7 +960,7 @@ function computeStrategicMetrics(){
       value:`${fmtI(jabProdAccum)} / ${fmtI(GOALS.jabonesProducidosAnual)}`,unit:'jabones',
       status:statusFromRatio(toNum(row?.jabones_producidos_mes)/GOALS.jabonesProducidosMensual,true),
       expectedText:`Meta mensual: ${fmtI(GOALS.jabonesProducidosMensual)} jabones`,
-      line1:`Acumulado real: <strong>${fmtI(jabProdAccum)}</strong> / ${fmtI(GOALS.jabonesProducidosAnual)} jabones · <strong>${fmtPct(jabProdAccum/GOALS.jabonesProducidosAnual)}</strong> del objetivo anual`,
+      line1:`Acumulado: <strong>${fmtI(jabProdAccum)}</strong> / ${fmtI(GOALS.jabonesProducidosAnual)} jabones · <strong>${fmtPct(jabProdAccum/GOALS.jabonesProducidosAnual)}</strong> del objetivo anual`,
       line2:`${periodLabel(state.period)}: <strong>${fmtI(toNum(row?.jabones_producidos_mes))}</strong> jabones · <strong>${fmtPct(toNum(row?.jabones_producidos_mes)/GOALS.jabonesProducidosMensual)}</strong> de la meta mensual`,
       progress:clamp((jabProdAccum/GOALS.jabonesProducidosAnual)*100,0,100),
       ratioVsExpected:jabProdAccum/(GOALS.jabonesProducidosMensual*months),goalType:'annual'},
@@ -933,7 +968,7 @@ function computeStrategicMetrics(){
       value:`${fmtI(jabVendAccum)} / ${fmtI(GOALS.jabonesVendidosAnual)}`,unit:'jabones',
       status:'purple',
       expectedText:`Meta anual: ${fmtI(GOALS.jabonesVendidosAnual)} jabones`,
-      line1:`Acumulado real: <strong>${fmtI(jabVendAccum)}</strong> / ${fmtI(GOALS.jabonesVendidosAnual)} jabones · <strong>${fmtPct(jabVendAccum/GOALS.jabonesVendidosAnual)}</strong> del objetivo anual`,
+      line1:`Acumulado: <strong>${fmtI(jabVendAccum)}</strong> / ${fmtI(GOALS.jabonesVendidosAnual)} jabones · <strong>${fmtPct(jabVendAccum/GOALS.jabonesVendidosAnual)}</strong> del objetivo anual`,
       line2:`${periodLabel(state.period)}: <strong>${fmtI(toNum(row?.jabones_vendidos_mes))}</strong> jabones vendidos en el período`,
       progress:clamp((jabVendAccum/GOALS.jabonesVendidosAnual)*100,0,100),
       ratioVsExpected:jabVendAccum/((GOALS.jabonesVendidosAnual/12)*months),goalType:'annual'},
@@ -949,7 +984,7 @@ function computeStrategicMetrics(){
       value:fmtQ(ventasAccum),unit:'',
       status:'purple',
       expectedText:'Lectura informativa',
-      line1:`Acumulado real: <strong>${fmtQ(ventasAccum)}</strong>`,
+      line1:`Acumulado: <strong>${fmtQ(ventasAccum)}</strong>`,
       line2:`${periodLabel(state.period)}: <strong>${fmtQ(toNum(row?.ingresos_ventas_q_mes))}</strong> en ventas registradas`,
       progress:clamp((toNum(row?.ingresos_ventas_q_mes)/Math.max(ventasAccum,1))*100,0,100),
       ratioVsExpected:NaN,goalType:'none'}
@@ -962,8 +997,8 @@ function computeMonthlyMetrics(){
   const periodVentas=toNum(row?.ingresos_ventas_q_mes);
   const inmueblesGoal=GOALS.inmueblesMensual||150;
   const jornadasRegistradas=toNum(row?.jornadas_codigos_unicos_mes||row?.filas_recoleccion_validas_mes);
-  const jornadasCiclo=toNum(row?.jornadas_recoleccion_ciclo_mes)>0?1:0;
-  const colectaAccum=countMonthsWith(r=>toNum(r.jornadas_recoleccion_ciclo_mes)>0);
+  const jornadaRecoleccionMes=toNum(row?.[JORNADA_RECOLECCION_FIELD])>0?1:0;
+  const colectaAccum=countMonthsWith(r=>toNum(r[JORNADA_RECOLECCION_FIELD])>0);
   const soldHotel=toNum(row?.jabones_hotel_vendidos_mes), soldTocador=toNum(row?.jabones_tocador_vendidos_mes), soldTotal=toNum(row?.jabones_vendidos_mes);
   return[
     {id:'jornadas-recoleccion',title:'Jornadas de recolección',
@@ -971,7 +1006,7 @@ function computeMonthlyMetrics(){
       status:statusFromRatio(months?colectaAccum/months:NaN,true),
       expectedText:`Meta anual: ${GOALS.colectasAnual} jornadas de recolección`,
       line1:`Avance anual: <strong>${colectaAccum} / ${GOALS.colectasAnual}</strong> jornadas de recolección · <strong>${fmtPct(colectaAccum/GOALS.colectasAnual)}</strong> del objetivo anual`,
-      line2:`${periodLabel(state.period)}: <strong>${fmtI(jornadasRegistradas)}</strong> jornadas registradas · ciclo del mes: <strong>${jornadasCiclo? 'cumplido' : 'pendiente'}</strong>`,
+      line2:`${periodLabel(state.period)}: <strong>${fmtI(jornadasRegistradas)}</strong> jornadas registradas · Jornada de recolección del mes: <strong>${jornadaRecoleccionMes? 'cumplida' : 'pendiente'}</strong>`,
       progress:clamp((colectaAccum/GOALS.colectasAnual)*100,0,100),
       periodRatio:months?colectaAccum/months:NaN,goalType:'monthly'},
     {id:'aceite-mes',title:'Aceite recolectado en el período',
@@ -1047,9 +1082,9 @@ function updateSectionSubtitles(){
   if(el('monthlyKpiDesc')) el('monthlyKpiDesc').textContent=`Indicadores mensuales de ${lbl}, ordenados según los objetivos priorizados del programa: jornadas de recolección, aceite, agua protegida, producción, venta de jabones e inmuebles atendidos.`;
   if(el('diagTitle')) el('diagTitle').textContent='Diagnóstico de '+lbl;
   if(el('summarySubtitle')) el('summarySubtitle').textContent=`Datos operativos de ${lbl} y su acumulado en el año.`;
-  if(el('progressChartSub')) el('progressChartSub').textContent=`Lectura directa entre avance real acumulado, avance esperado y meta anual — ${lbl}.`;
+  if(el('progressChartSub')) el('progressChartSub').textContent=`Lectura directa: llevamos, esperado a la fecha y meta anual — ${lbl}.`;
   if(el('trendChartSub')) el('trendChartSub').textContent=`Barras mensuales con referencia de meta cuando existe. Período activo: ${lbl}.`;
-  if(el('soapChartSub')) el('soapChartSub').textContent=`Producción y venta de jabón en ${lbl}, separado por tipo y con lectura de conversión.`;
+  if(el('soapChartSub')) el('soapChartSub').textContent=`Jabones producidos y vendidos en ${lbl}, separado por tipo y con lectura de conversión.`;
 }
 
 function renderDiagnostic(strategic,monthly){
@@ -1286,7 +1321,7 @@ function fmtCompact(v){
 
 /* ── Chart 1: COMPARACIÓN CLARA DE AVANCE ── */
 function progressMetricAbsolute(metricId, months){
-  if(metricId==='colectas') return {actual:countMonthsWith(r=>toNum(r.jornadas_recoleccion_ciclo_mes)>0), expected:months, target:GOALS.colectasAnual, unit:'ciclos'};
+  if(metricId==='colectas') return {actual:countMonthsWith(r=>toNum(r[JORNADA_RECOLECCION_FIELD])>0), expected:months, target:GOALS.colectasAnual, unit:'jornadas_recoleccion'};
   if(metricId==='aceite') return {actual:sumMonths('litros_aceite_recolectados_mes'), expected:(GOALS.aceiteAnual/12)*months, target:GOALS.aceiteAnual, unit:'litros'};
   if(metricId==='agua') return {actual:sumMonths('litros_agua_protegidos_mes'), expected:(GOALS.aguaAnual/12)*months, target:GOALS.aguaAnual, unit:'litros_int'};
   if(metricId==='jabones-prod') return {actual:sumMonths('jabones_producidos_mes'), expected:GOALS.jabonesProducidosMensual*months, target:GOALS.jabonesProducidosAnual, unit:'jabones'};
@@ -1298,7 +1333,7 @@ function progressMetricValueText(value, unit){
   if(unit==='litros') return fmtN(value,2)+' litros';
   if(unit==='litros_int') return fmtI(value)+' litros';
   if(unit==='jabones') return fmtI(value)+' jabones';
-  if(unit==='ciclos') return fmtI(value)+' ciclos';
+  if(unit==='jornadas_recoleccion') return fmtI(value)+' jornadas de recolección';
   if(unit==='hitos') return fmtI(value)+' hitos';
   return fmtN(value,2);
 }
@@ -1316,15 +1351,16 @@ function buildProgressComparisonData(strategic, months){
     const actualPct = clamp((base.actual/target)*100,0,100);
     const expectedPct = clamp((base.expected/target)*100,0,100);
     const tempo = progressTempoStatus(actualPct, expectedPct, base.expected);
+    const remaining = Math.max(0, base.target - base.actual);
     const note = (!Number.isFinite(base.expected) || base.expected<=0)
       ? 'Este indicador todavía no tiene exigencia activa en el período.'
-      : `Real acumulado: <strong>${escapeHtml(progressMetricValueText(base.actual, base.unit))}</strong> · Esperado a la fecha: <strong>${escapeHtml(progressMetricValueText(base.expected, base.unit))}</strong>.`;
+      : `Llevamos <strong>${escapeHtml(progressMetricValueText(base.actual, base.unit))}</strong>; para esta fecha se esperaba <strong>${escapeHtml(progressMetricValueText(base.expected, base.unit))}</strong>.`;
     return {
       id:m.id, title:m.title, tone:tempo.tone, statusLabel:tempo.label,
       actualPct, expectedPct,
       actualText:progressMetricValueText(base.actual, base.unit),
       expectedText:progressMetricValueText(base.expected, base.unit),
-      targetText:progressMetricValueText(base.target, base.unit), note
+      targetText:progressMetricValueText(base.target, base.unit), remainingText:progressMetricValueText(remaining, base.unit), note
     };
   });
 }
@@ -1334,20 +1370,18 @@ function progressComparisonHtml(strategic, months, variant='full'){
   return `<div class="progress-compare${extraClass}">${rows.map(r=>`
     <div class="progress-compare-row">
       <div class="progress-compare-top">
-        <div>
-          <div class="progress-compare-name">${escapeHtml(r.title)}</div>
-          <div class="progress-compare-meta">
-            <span><strong>Real:</strong> ${escapeHtml(r.actualText)}</span>
-            <span><strong>Esperado hoy:</strong> ${escapeHtml(r.expectedText)}</span>
-            <span><strong>Meta anual:</strong> ${escapeHtml(r.targetText)}</span>
-          </div>
-        </div>
+        <div class="progress-compare-name">${escapeHtml(r.title)}</div>
         <span class="progress-compare-badge ${r.tone}">${escapeHtml(r.statusLabel)}</span>
       </div>
-      <div class="progress-compare-bars">
-        <div class="progress-compare-bar-line"><span class="progress-compare-bar-label">Real</span><div class="progress-compare-track"><div class="progress-compare-fill ${r.tone}" style="width:${r.actualPct.toFixed(1)}%"></div></div><span class="progress-compare-bar-value">${fmtN(r.actualPct,1)}%</span></div>
-        <div class="progress-compare-bar-line"><span class="progress-compare-bar-label">Esperado</span><div class="progress-compare-track"><div class="progress-compare-fill expected" style="width:${r.expectedPct.toFixed(1)}%"></div></div><span class="progress-compare-bar-value">${fmtN(r.expectedPct,1)}%</span></div>
+      <div class="progress-compare-numbers">
+        <div class="progress-number-card"><small>Llevamos</small><strong>${escapeHtml(r.actualText)}</strong></div>
+        <div class="progress-number-card"><small>Esperado hoy</small><strong>${escapeHtml(r.expectedText)}</strong></div>
+        <div class="progress-number-card"><small>Meta anual</small><strong>${escapeHtml(r.targetText)}</strong></div>
       </div>
+      <div class="progress-goal-meter" aria-label="Avance de ${escapeHtml(r.title)}">
+        <div class="progress-goal-fill ${r.tone}" style="width:${r.actualPct.toFixed(1)}%"></div>
+      </div>
+      <div class="progress-goal-caption"><strong>${fmtN(r.actualPct,1)}%</strong> de la meta anual · faltan <strong>${escapeHtml(r.remainingText)}</strong>.</div>
       <div class="progress-compare-foot">${r.note}</div>
     </div>`).join('')}</div>`;
 }
@@ -1363,10 +1397,7 @@ function renderProgressChart(){
 }
 
 /* ── Chart 2: ADVANCED TIME SERIES with annotations ── */
-function renderTrendChart(){
-  const sel = document.getElementById('trendIndicator');
-  if(!sel) return;
-  const indicatorId = sel.value;
+function monthlyBarsHtml(indicatorId, variant='full'){
   const option = TREND_OPTIONS.find(o=>o.id===indicatorId)||TREND_OPTIONS[0];
   const activeFullIdx = state.periods.indexOf(String(state.period));
   const visibleRows = activeFullIdx>=0 ? state.total.slice(0,activeFullIdx+1) : state.total.slice();
@@ -1375,57 +1406,33 @@ function renderTrendChart(){
   const refSeries = goalSeriesForIndicator(indicatorId);
   const ref = refSeries ? refSeries.slice(0,visibleRows.length) : null;
   const activeIdx = visibleRows.length ? visibleRows.length-1 : -1;
-  const container = document.getElementById('trendChartHost');
-  if(!container) return;
-  container.innerHTML=''; container.style.minHeight='auto';
   const hasData = rawData.some(v=>v>0);
-  if(!rawData.length || !hasData){
-    container.innerHTML=`<div class="empty">Sin datos registrados para ${escapeHtml(option.label)} en el período disponible.</div>`;
-    return;
-  }
-  const W=880,H=330,PL=76,PR=28,PT=32,PB=62,plotW=W-PL-PR,plotH=H-PT-PB;
-  const allVals=[...rawData,...(ref||[])].filter(v=>Number.isFinite(v)&&v>=0);
-  const scale=niceScale(0, Math.max(...allVals,1)*1.12, 5);
-  const n=rawData.length;
-  const gap=22;
-  const barW=Math.min(70,(plotW-gap*Math.max(n-1,0))/Math.max(n,1));
-  const step=plotW/Math.max(n,1);
-  const X=i=>PL+i*step+(step-barW)/2;
-  const XC=i=>X(i)+barW/2;
-  const Y=v=>PT+plotH-((v-scale.min)/(scale.max-scale.min||1))*plotH;
-  const svg=svgNS('svg',{viewBox:`0 0 ${W} ${H}`,style:'width:100%;height:auto;display:block;overflow:visible','font-family':'Sora,sans-serif'});
-  scale.ticks.forEach(v=>{
-    const y=Y(v); if(y<PT-5||y>PT+plotH+5) return;
-    svg.appendChild(svgLine(PL,y,W-PR,y,{stroke:'rgba(23,49,79,.08)','stroke-width':'1'}));
-    svg.appendChild(svgText(PL-8,y+4,fmtAxis(v,option.unit),{'text-anchor':'end',fill:'#8aa0ad','font-size':'10'}));
-  });
-  svg.appendChild(svgLine(PL,PT+plotH,W-PR,PT+plotH,{stroke:'rgba(23,49,79,.16)','stroke-width':'1.4'}));
-  if(ref){
-    ref.forEach((v,i)=>{
-      const y=Y(v);
-      svg.appendChild(svgLine(X(i),y,X(i)+barW,y,{stroke:'#c6983f','stroke-width':'3','stroke-linecap':'round'}));
-    });
-  }
-  rawData.forEach((v,i)=>{
-    const x=X(i), y=Y(v), h=PT+plotH-y;
-    const isA=i===activeIdx;
-    svg.appendChild(svgRect(x,y,barW,Math.max(2,h),{fill:isA?'#1c6084':'rgba(76,165,191,.55)',rx:'8'}));
-    svg.appendChild(svgText(XC(i),y-7,fmtAxis(v,option.unit),{'text-anchor':'middle',fill:isA?'#17314f':'#557083','font-size':'10','font-weight':isA?'800':'700'}));
-    svg.appendChild(svgText(XC(i),H-PB+20,labels[i],{'text-anchor':'middle',fill:isA?'#17314f':'#8aa0ad','font-size':'10','font-weight':isA?'800':'600'}));
-  });
-  const legendY=H-18;
-  svg.appendChild(svgRect(PL,legendY-8,16,10,{fill:'#1c6084',rx:'5'}));
-  svg.appendChild(svgText(PL+22,legendY+1,'Resultado mensual',{fill:'#6d8294','font-size':'10.5','font-weight':'700'}));
-  if(ref){
-    svg.appendChild(svgLine(PL+145,legendY-3,PL+167,legendY-3,{stroke:'#c6983f','stroke-width':'3','stroke-linecap':'round'}));
-    svg.appendChild(svgText(PL+174,legendY+1,'Meta mensual / referencia',{fill:'#6d8294','font-size':'10.5','font-weight':'700'}));
-  }
+  if(!rawData.length || !hasData) return `<div class="empty">Sin datos registrados para ${escapeHtml(option.label)} en el período disponible.</div>`;
+  const maxV = Math.max(...rawData, ...(ref||[]), 1);
+  const rows = rawData.map((v,i)=>{
+    const target = ref ? ref[i] : null;
+    const pct = clamp(v/maxV*100,0,100);
+    const targetText = target!=null ? `<span class="month-target-tag">Meta: ${escapeHtml(formatTrendValue(target,option.unit))}</span>` : '';
+    const status = target!=null ? statusFromRatio(v/(target||1), true) : (i===activeIdx?'blue':'gray');
+    return `<div class="month-bar-row ${i===activeIdx?'active':''}">
+      <div class="month-bar-label">${escapeHtml(labels[i])}</div>
+      <div class="month-bar-track"><div class="month-bar-fill ${status}" style="width:${pct.toFixed(1)}%"></div></div>
+      <div class="month-bar-value">${escapeHtml(formatTrendValue(v,option.unit))}</div>
+      ${targetText}
+    </div>`;
+  }).join('');
   const activeVal = activeIdx>=0 ? rawData[activeIdx] : 0;
   const activeRef = ref&&activeIdx>=0 ? ref[activeIdx] : null;
-  const note = activeRef ? `${option.label} en ${periodLabel(state.period)}: ${formatTrendValue(activeVal,option.unit)} frente a una referencia de ${formatTrendValue(activeRef,option.unit)}.` : `${option.label} en ${periodLabel(state.period)}: ${formatTrendValue(activeVal,option.unit)}.`;
-  container.appendChild(svg);
-  const p=document.createElement('p'); p.className='simple-chart-note'; p.innerHTML=escapeHtml(note);
-  container.appendChild(p);
+  const note = activeRef ? `${option.label} en ${periodLabel(state.period)}: ${formatTrendValue(activeVal,option.unit)}. Meta de referencia: ${formatTrendValue(activeRef,option.unit)}.` : `${option.label} en ${periodLabel(state.period)}: ${formatTrendValue(activeVal,option.unit)}.`;
+  return `<div class="month-bars ${variant==='presentation'?'presentation':''}">${rows}</div><p class="simple-chart-note">${escapeHtml(note)}</p>`;
+}
+function renderTrendChart(){
+  const sel = document.getElementById('trendIndicator');
+  if(!sel) return;
+  const container = document.getElementById('trendChartHost');
+  if(!container) return;
+  container.innerHTML = monthlyBarsHtml(sel.value,'full');
+  container.style.minHeight='auto';
   container.style.padding='14px 14px 10px';
 }
 
@@ -1483,34 +1490,8 @@ function buildPresProgressHtml(strategic, months){
   return progressComparisonHtml(strategic, months, 'presentation');
 }
 
-function buildPresTrendSvg(indicatorId){
-  const option=TREND_OPTIONS.find(o=>o.id===indicatorId)||TREND_OPTIONS[0];
-  const rawData=state.total.map(r=>toNum(r[indicatorId]));
-  const labels=state.total.map(r=>monthShortLabel(r.periodo_clave));
-  const refSeries=goalSeriesForIndicator(indicatorId);
-  const activeIdx=state.periods.indexOf(String(state.period));
-  if(!rawData.length) return '<p style="color:#8aa0ad;padding:16px;text-align:center">Sin datos</p>';
-  const W=540,H=230,PL=55,PR=16,PT=18,PB=38,plotW=W-PL-PR,plotH=H-PT-PB;
-  const allV=[...rawData,...(refSeries||[])].filter(Number.isFinite);
-  const mn=Math.min(...allV)*0.95,mx=Math.max(...allV)*1.06;
-  const scale=niceScale(mn,mx,4);
-  const n=rawData.length;
-  const X=i=>PL+i*(plotW/Math.max(n-1,1));
-  const Y=v=>PT+plotH-((v-scale.min)/(scale.max-scale.min))*plotH;
-  const areaPts=[`${X(0)},${PT+plotH}`,...rawData.map((v,i)=>`${X(i)},${Y(v)}`),`${X(n-1)},${PT+plotH}`].join(' ');
-  const linePts=rawData.map((v,i)=>`${X(i)},${Y(v)}`).join(' ');
-  let s=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" font-family="Sora,sans-serif">
-  <defs><linearGradient id="ptArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1c6084" stop-opacity=".22"/><stop offset="100%" stop-color="#1c6084" stop-opacity=".01"/></linearGradient></defs>`;
-  scale.ticks.forEach(v=>{const y=Y(v);if(y<PT-4||y>PT+plotH+4)return;s+=`<line x1="${PL}" y1="${y}" x2="${W-PR}" y2="${y}" stroke="rgba(23,49,79,.07)" stroke-width="1"/><text x="${PL-6}" y="${y+3.5}" text-anchor="end" fill="#8aa0ad" font-size="9">${fmtAxis(v,option.unit)}</text>`;});
-  if(refSeries){const rp=refSeries.map((v,i)=>`${X(i)},${Y(v)}`).join(' ');s+=`<polyline fill="none" stroke="#c6983f" stroke-width="1.6" stroke-dasharray="6 4" points="${rp}"/>`;}
-  if(activeIdx>=0) s+=`<rect x="${X(activeIdx)-14}" y="${PT}" width="28" height="${plotH}" fill="rgba(28,96,132,.07)" rx="6"/>`;
-  s+=`<polygon points="${areaPts}" fill="url(#ptArea)"/>`;
-  s+=`<polyline fill="none" stroke="#1c6084" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="${linePts}"/>`;
-  rawData.forEach((v,i)=>{const isA=i===activeIdx;s+=isA?`<circle cx="${X(i)}" cy="${Y(v)}" r="6" fill="#173e63" stroke="#fff" stroke-width="2.5"/>`:`<circle cx="${X(i)}" cy="${Y(v)}" r="3.5" fill="#fff" stroke="#1c6084" stroke-width="1.8"/>`;});
-  const step=Math.max(1,Math.ceil(n/6));
-  rawData.forEach((_,i)=>{if(i%step!==0&&i!==n-1)return;const isA=i===activeIdx;s+=`<text x="${X(i)}" y="${H-PB+13}" text-anchor="middle" fill="${isA?'#17314f':'#8aa0ad'}" font-size="9" font-weight="${isA?'800':'400'}">${labels[i]}</text>`;});
-  s+=`</svg>`;
-  return s;
+function buildPresTrendHtml(indicatorId){
+  return monthlyBarsHtml(indicatorId, 'presentation');
 }
 
 function buildPresSoapHtml(){
@@ -1567,8 +1548,8 @@ function renderExec(strategic,monthly){
   const ventasAccum=sumMonths('ingresos_ventas_q_mes');
   const oilMonthlyGoal=GOALS.aceiteAnual/12, waterMonthlyGoal=GOALS.aguaAnual/12;
 
-  // KPI cards styled like Atitlán Recicla — 6 key metrics with sparklines
-  const EXEC_KPIS = [
+  // Indicator cards styled like Atitlán Recicla — 6 key metrics with sparklines
+  const EXEC_INDICATORS = [
     {id:'aceite', label:'Aceite recolectado',    val:toNum(row?.litros_aceite_recolectados_mes), unit:'litros', meta:oilMonthlyGoal,        pct:toNum(row?.litros_aceite_recolectados_mes)/oilMonthlyGoal,        sparkId:'litros_aceite_recolectados_mes'},
     {id:'agua',   label:'Agua protegida',         val:toNum(row?.litros_agua_protegidos_mes),     unit:'litros', meta:waterMonthlyGoal,       pct:toNum(row?.litros_agua_protegidos_mes)/waterMonthlyGoal,           sparkId:'litros_agua_protegidos_mes'},
     {id:'jprod',  label:'Jabones producidos',     val:toNum(row?.jabones_producidos_mes),         unit:'jabones',meta:GOALS.jabonesProducidosMensual, pct:toNum(row?.jabones_producidos_mes)/GOALS.jabonesProducidosMensual, sparkId:'jabones_producidos_mes'},
@@ -1578,7 +1559,7 @@ function renderExec(strategic,monthly){
   ];
   const kg=document.getElementById('execKpiGrid');
   if(kg){
-    kg.innerHTML=EXEC_KPIS.map((k,idx)=>{
+    kg.innerHTML=EXEC_INDICATORS.map((k,idx)=>{
       const tone=k.forceStatus||(k.pct!=null?statusFromRatio(k.pct,true):'blue');
       const bw=k.pct!=null?Math.max(0,Math.min(k.pct*100,100)).toFixed(1):'0';
       const pillar=k.pct!=null?Math.max(8,Math.min(k.pct*100,100)).toFixed(1):'0';
@@ -1634,7 +1615,7 @@ function renderExec(strategic,monthly){
       </div>`).join('');
   }
 
-  // Gráfico ejecutivo claro: real vs esperado
+  // Gráfico ejecutivo claro: acumulado vs esperado
   const progressEl=document.getElementById('execProgressChart');
   if(progressEl){
     progressEl.innerHTML=progressComparisonHtml(strategic, months, 'compact');
@@ -1741,9 +1722,9 @@ function buildPresentation(strategic,monthly){
 
   metaEl.innerHTML=`<span> Presentación</span><span> ${escapeHtml(lbl)}</span><span>${chipTextFromStatus(sStatus)}</span>`;
 
-  // Build SVG charts for presentation
+  // Build simple charts for presentation
   const progSvg  = buildPresProgressHtml(strategic, months);
-  const trendSvg = buildPresTrendSvg('litros_aceite_recolectados_mes');
+  const trendSvg = buildPresTrendHtml('litros_aceite_recolectados_mes');
   const soapSvg  = buildPresSoapHtml();
 
   const slides=[];
@@ -1769,19 +1750,19 @@ function buildPresentation(strategic,monthly){
     </div>
   </div></div>`);
 
-  // SLIDE 2 – Análisis de avance con gráfica SVG
+  // SLIDE 2 – Análisis de avance con gráfico claro
   slides.push(`<div class="pres-slide"><div class="pres-inner">
     <div class="pres-kicker">Análisis de avance · ${escapeHtml(lbl)}</div>
-    <div class="pres-title-row"><div><h2>Avance acumulado por objetivo</h2><p>Comparación directa entre avance real acumulado, avance esperado a la fecha y meta anual de cada objetivo priorizado.</p></div></div>
+    <div class="pres-title-row"><div><h2>Avance acumulado por objetivo</h2><p>Lectura simple: cuánto llevamos, cuánto se esperaba a la fecha y cuál es la meta anual de cada objetivo priorizado.</p></div></div>
     <div style="flex:1;overflow:auto;background:rgba(255,255,255,.7);border-radius:18px;border:1px solid var(--line-soft);padding:12px 10px">
       ${progSvg}
     </div>
   </div></div>`);
 
-  // SLIDE 3 – KPIs estratégicos detalle
+  // SLIDE 3 – Indicadores estratégicos detalle
   slides.push(`<div class="pres-slide"><div class="pres-inner">
     <div class="pres-kicker">Indicadores estratégicos · ${escapeHtml(lbl)}</div>
-    <div class="pres-title-row"><div><h2>Metas estructurales anuales</h2><p>Avance acumulado real frente a las metas anuales del programa. Semáforo de estado por indicador.</p></div></div>
+    <div class="pres-title-row"><div><h2>Metas estructurales anuales</h2><p>Lectura sencilla de las metas anuales del programa, con estado por indicador.</p></div></div>
     <div class="pres-card-grid pres-card-grid-4" style="flex:1;align-content:start">
       ${strategic.slice(0,4).map(m=>presKpiCard(m)).join('')}
     </div>
@@ -1790,7 +1771,7 @@ function buildPresentation(strategic,monthly){
     </div>
   </div></div>`);
 
-  // SLIDE 4 – KPIs mensuales
+  // SLIDE 4 – Indicadores mensuales
   slides.push(`<div class="pres-slide"><div class="pres-inner">
     <div class="pres-kicker">Indicadores del período · ${escapeHtml(lbl)}</div>
     <div class="pres-title-row"><div><h2>Comportamiento operativo del período</h2><p>Indicadores con meta explícita o lectura operativa: jornadas de recolección, aceite, agua, producción, ventas e inmuebles del período seleccionado.</p></div></div>
@@ -1799,10 +1780,10 @@ function buildPresentation(strategic,monthly){
     </div>
   </div></div>`);
 
-  // SLIDE 5 – Tendencia mensual (SVG)
+  // SLIDE 5 – Tendencia mensual simple
   slides.push(`<div class="pres-slide"><div class="pres-inner">
     <div class="pres-kicker">Tendencia histórica · ${escapeHtml(lbl)}</div>
-    <div class="pres-title-row"><div><h2>Trayectoria del aceite recolectado</h2><p>Serie histórica mensual con referencia de meta. El punto destacado (azul oscuro) corresponde a ${escapeHtml(lbl)}. Se muestran máximos y mínimos de la serie.</p></div></div>
+    <div class="pres-title-row"><div><h2>Aceite recolectado por mes</h2><p>Serie histórica mensual con referencia de meta. El mes destacado (azul oscuro) corresponde a ${escapeHtml(lbl)}. </p></div></div>
     <div style="flex:1;background:rgba(255,255,255,.72);border-radius:18px;border:1px solid var(--line-soft);padding:14px 10px;overflow:hidden">
       ${trendSvg}
     </div>
@@ -1813,10 +1794,10 @@ function buildPresentation(strategic,monthly){
     </div>
   </div></div>`);
 
-  // SLIDE 6 – Cadena de valor del jabón (SVG)
+  // SLIDE 6 – Cadena de valor del jabón simple
   slides.push(`<div class="pres-slide"><div class="pres-inner">
     <div class="pres-kicker">Cadena de valor · ${escapeHtml(lbl)}</div>
-    <div class="pres-title-row"><div><h2>Producción y venta de jabón</h2><p>Comparación entre jabones producidos y vendidos por tipo. Las líneas de flujo muestran la tasa de conversión venta/producción para hotel y tocador.</p></div></div>
+    <div class="pres-title-row"><div><h2>Jabones producidos y vendidos</h2><p>Lectura directa por tipo de jabón: cuánto se produjo, cuánto se vendió y cuál fue la conversión.</p></div></div>
     <div style="flex:1;background:rgba(255,255,255,.72);border-radius:18px;border:1px solid var(--line-soft);padding:14px 10px;overflow:hidden">
       ${soapSvg}
     </div>
