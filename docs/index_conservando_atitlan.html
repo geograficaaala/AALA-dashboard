@@ -486,66 +486,54 @@
 
 
     /* ── AJUSTES SOLICITADOS: HERO LIMPIO Y LECTURA MÁS LEGIBLE ── */
-    .hero.hero-clean,.hero.hero-clean.hero-with-logo{display:block;margin-bottom:28px}
+    .hero.hero-clean{display:block;margin-bottom:28px}
     .hero.hero-clean .hero-main{
-      background:linear-gradient(135deg,#173b61 0%,#1e5677 52%,#5caebe 100%)!important;
-      color:rgba(255,255,255,.92)!important;border:none!important;
-      padding:32px 34px 28px;box-shadow:var(--shadow);overflow:hidden;
+      background:#fff!important;color:#111!important;border:1px solid var(--line-soft)!important;
+      padding:36px 40px 34px;box-shadow:var(--shadow-sm);overflow:hidden;
     }
+    .hero.hero-clean .hero-main::before,.hero.hero-clean .hero-main::after{display:none!important}
     .hero.hero-clean h1{
       font-family:var(--font-body);font-size:clamp(2rem,3.2vw,3.6rem);font-weight:800;
-      color:#fff!important;background:none!important;-webkit-text-fill-color:#fff!important;
-      line-height:1.05;letter-spacing:-.04em;margin:0 0 16px;
+      color:#111!important;background:none!important;-webkit-text-fill-color:#111!important;
+      line-height:1.05;letter-spacing:-.04em;margin:0 0 18px;
     }
     .hero.hero-clean .hero-lead{
-      color:rgba(255,255,255,.90)!important;font-size:.94rem;line-height:1.82;text-align:justify;max-width:none;margin:0;
+      color:#111!important;font-size:1.02rem;line-height:1.9;text-align:justify;max-width:none;margin:0;
       letter-spacing:.005em;
     }
     .section-head-simple{display:block;align-items:initial;padding-bottom:12px;margin-bottom:18px}
     .section-head-simple h2{font-size:1.75rem;color:#111;letter-spacing:-.035em}
     .kpi-grid{align-items:stretch}
-    .kpi{min-height:220px;padding:20px 20px 18px 22px}
+    .kpi{min-height:220px;padding:22px 22px 20px}
     #strategicGrid .kpi{min-height:185px}
-    #monthlyGrid .kpi{min-height:220px}
-    .kpi-label{font-size:.72rem;letter-spacing:.12em;color:#6b7f90;line-height:1.45;font-weight:700;text-transform:uppercase;max-width:none;min-height:auto}
-    .kpi-value{font-size:clamp(1.9rem,2.2vw,2.55rem);color:#17314f;letter-spacing:-.05em;line-height:.98}
+    #monthlyGrid .kpi{min-height:230px}
+    .kpi-label{font-size:.72rem;letter-spacing:.12em;line-height:1.45;color:#6b7f90;font-weight:700;text-transform:uppercase;max-width:none;min-height:auto}
+    .kpi-value{font-size:clamp(1.9rem,2.2vw,2.55rem);line-height:.98;letter-spacing:-.05em;color:#17314f}
     .kpi-achieved{font-size:.84rem;line-height:1.5;font-weight:700}
     .kpi-reference{font-size:.84rem;line-height:1.62;color:#4c6478;font-weight:500}
     .kpi-meta{font-size:.84rem;line-height:1.62;color:#4c6478}
     .kpi-readings:empty{display:none}
     @media (max-width:780px){.hero.hero-clean .hero-main{padding:28px 22px}.hero.hero-clean .hero-lead{font-size:.98rem;line-height:1.8}}
 
-    /* ── AJUSTE SOLICITADO: hero con logo dentro del card (estilo Atitlán Recicla) ── */
+    /* ── AJUSTE SOLICITADO: hero con logo y sistema visual en verdes ── */
     .hero.hero-clean.hero-with-logo{
-      display:block;
+      grid-template-columns:minmax(0,1.5fr) 360px;
+      align-items:stretch;
     }
-    .hero-shell{
+    .hero-logo-card{
       display:grid;
-      grid-template-columns:minmax(0,1.35fr) minmax(220px,.72fr);
-      gap:22px;
-      align-items:start;
-      position:relative;
-      z-index:1;
+      place-items:center;
+      padding:28px;
+      background:#fff!important;
+      border:1px solid var(--line-soft);
+      box-shadow:var(--shadow-sm);
+      min-height:260px;
     }
-    .hero-copy{min-width:0}
-    .hero-brand{
-      padding:18px 16px 20px;
-      border-radius:18px;
-      background:rgba(255,255,255,.14);
-      border:1.5px solid rgba(255,255,255,.20);
-      box-shadow:0 8px 24px rgba(0,0,0,.10);
-      backdrop-filter:blur(8px);
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-    }
-    .hero-logo{
-      display:block;
-      width:100%;
-      max-width:240px;
-      height:auto;
-      margin:0 auto;
-      filter:drop-shadow(0 8px 22px rgba(23,50,58,.12));
+    .hero-logo-card img{
+      width:min(100%,280px);
+      max-height:260px;
+      object-fit:contain;
+      filter:drop-shadow(0 10px 22px rgba(23,50,58,.10));
     }
 
     /* Paleta: bajo avance = verde pálido; buen avance = verde fuerte */
@@ -602,18 +590,19 @@
       border-color:rgba(21,95,61,.24)!important;
     }
     body{
-      font-size:15px;
+      font-size:16px;
     }
-    .panel h3,.section-head h2{
-      letter-spacing:-.03em;
+    .kpi-label,.panel h3,.section-head h2{
+      letter-spacing:-.02em;
     }
     .kpi-meta,.kpi-reference,.panel .sub{
-      font-size:.84rem;
-      line-height:1.62;
+      font-size:.92rem;
+      line-height:1.7;
     }
     @media (max-width:1180px){
-      .hero-shell{grid-template-columns:1fr}
-      .hero-brand{max-width:280px;margin:0 auto}
+      .hero.hero-clean.hero-with-logo{grid-template-columns:1fr}
+      .hero-logo-card{min-height:200px}
+      .hero-logo-card img{max-height:190px}
     }
 
   
@@ -633,7 +622,7 @@
     .pres-chip.green,.pres-chip.yellow,.pres-chip.red,.pres-chip.blue,.pres-chip.gray,.pres-chip.purple{background:#eefaf3!important;color:#1f7b5a!important}
     .kpi-achieved{display:none!important}
 
-  </style></head><body><header class="header"><a class="header-brand" href="./index.html"><img src="./aala_logo.png" alt="Logo AALA" class="header-logo-img"><span class="brand-text"><span class="brand-kicker">Asociación Amigos del Lago de Atitlán</span><span class="brand-title">Conservando Atitlán · Tablero de programa</span></span></a><div class="header-stack"><nav class="nav-tabs" aria-label="Navegación"><a class="nav-tab active" href="#resumen">Resumen</a><a class="nav-tab" href="#kpis-estrategicos">Indicadores</a><a class="nav-tab" href="#tendencias">Tendencias</a><a class="nav-tab" href="#diagnostico">Diagnóstico</a></nav><div class="header-utility"><a class="back" href="./index.html"><span class="back-arrow">&#8592;</span>Volver al inicio</a><div class="view-switcher" role="group"><button class="view-btn active" id="btnFull" type="button" onclick="switchView('full')">Tablero completo</button><button class="view-btn" id="btnExec" type="button" onclick="switchView('exec')">Resumen ejecutivo</button></div><button class="present-btn" type="button" id="btnPresentation">&#9654; Presentación</button><div class="period-rack"><span class="period-rack-label">Mes</span><div class="month-pills" id="monthPills" role="group" aria-label="Seleccionar mes"></div></div></div></div></header><div class="wrap"><main><div id="resumen"></div><!-- EXECUTIVE VIEW --><div id="execView" style="display:none"><!-- Status banner --><div class="exec-status-card" style="margin-bottom:18px"><div class="es-label">Resumen del programa</div><div class="es-title">Conservando Atitlán</div><div class="exec-status-badge" id="execStatusBadge">Cargando…</div><div style="font-size:.8rem;opacity:.7;margin-top:4px" id="execPeriodInfo">—</div></div><!-- Indicator strip: 6 cards styled like Atitlán Recicla --><div class="kpi-grid" id="execKpiGrid" style="margin-bottom:18px"></div><!-- Accumulated strip --><div class="exec-strip" id="execStrip" style="margin-bottom:18px"></div><!-- Chart + Notices row --><div class="exec-row-2" style="margin-bottom:18px"><article class="card panel"><h3>Avance acumulado</h3><p class="sub" id="execChartSub">Comparación clara entre avance acumulado, avance esperado a la fecha y meta anual.</p><div id="execProgressChart" style="overflow:visible;padding:4px 0"></div></article><article class="card panel"><h3>Lectura operativa</h3><p class="sub">Resumen de comportamiento del mes.</p><div id="execNoticePanel"></div></article></div><article class="card exec-diag" id="execDiagPanel"></article></div><!-- FULL DASHBOARD --><div id="fullView"><section class="hero hero-clean hero-with-logo" id="heroSection"><article class="card hero-main"><div class="hero-shell"><div class="hero-copy"><h1>Conservando Atitlán</h1><p class="hero-lead">Conservando Atitlán es un programa cuya misión evita la contaminación del lago de Atitlán por aceites usados de cocina, este objetivo se logra al recuperar dicho residuo generado en 150 negocios entre hoteles, restaurantes y comedores en la cuenca del lago de Atitlán. Este programa tiene un impacto ambiental importante, ya que, por cada litro de aceite usado de cocina recuperado, se protegen mil (1,000) litros de agua. Actualmente el programa Conservando Atitlán impulsa la producción de jabones y velas artesanales de alta calidad a través de la marca ATI'T, generando un impacto social a través de dar empleo a jóvenes y señoritas apoyando a su economía familiar.</p><div class="hero-badges" style="margin-top:18px"><span id="heroPeriod">—</span><span>Jornadas: <strong id="heroJornadas">—</strong></span><span>Inmuebles: <strong id="heroInmuebles">—</strong></span><span>Municipios: <strong id="heroMunicipios">—</strong></span></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><span style="font-size:.79rem;font-weight:700;color:rgba(255,255,255,.75);letter-spacing:.05em;text-transform:uppercase">Estratégicos:</span><span id="heroStrategic" class="hero-badges">—</span><span style="font-size:.79rem;font-weight:700;color:rgba(255,255,255,.75);letter-spacing:.05em;text-transform:uppercase">Mensuales:</span><span id="heroMonthly" class="hero-badges">—</span></div></div><div class="hero-brand" aria-label="Logo del programa"><img id="programLogo" class="hero-logo" src="./Conservando%20Atitl%C3%A1n%20.png" alt="Logo Conservando Atitlán" onerror="this.onerror=null;this.src='./logosatitlan.png';"></div></div></article></section><section class="section section-full-only" id="kpis-estrategicos"><div class="section-head section-head-simple"><div><h2>Metas anuales y avance acumulado</h2></div></div><div class="kpi-grid" id="strategicGrid"></div></section><section class="section section-full-only" id="metas-mensuales"><div class="section-head section-head-simple"><div><h2 id="monthlyKpiTitle">Metas mensuales</h2></div></div><div class="kpi-grid" id="monthlyGrid"></div></section><div class="section-divider">Tendencias y lectura comparativa</div><section class="section section-full-only" id="tendencias"><div class="chart-grid" style="grid-template-columns:1fr"><article class="card panel"><div class="panel-top"><div><h3>Tendencia mensual</h3><p class="sub" id="trendChartSub">Serie histórica del indicador seleccionado con su referencia de meta mensual cuando existe.</p></div><select class="indicator-select" id="trendIndicator"></select></div><div class="viz-wrap" id="trendChartHost"><canvas id="trendChart"></canvas></div></article></div><div class="chart-grid section" style="margin-top:18px"><article class="card panel"><h3>Cadena de valor del jabón</h3><p class="sub" id="soapChartSub"></p><div class="viz-wrap" id="soapChartHost"><canvas id="soapChart"></canvas></div></article><article class="card panel"><h3>Resumen operativo del mes</h3><p class="sub" id="summarySubtitle"></p><div class="summary-grid" id="periodSummary"></div></article></div></section><div class="section-divider section-full-only">Análisis del mes</div><section class="section section-full-only" id="diagnostico"><div class="section-head section-head-simple"><div><h2 id="diagTitle">Análisis del mes</h2></div></div><div class="diagnostic-grid"><article class="card panel"><div class="prose" id="diagnosticProse"></div></article><article class="card panel"><div class="diagnostic-list" id="diagnosticList"></div></article></div></section><section class="section hidden" id="loadingWrap"><div class="loading-state" id="loadingState">Cargando información del programa…</div></section><section class="section hidden" id="errorWrap"><div class="error-state" id="errorState">No se pudo cargar la información.</div></section></div><!-- /fullView --></main></div><footer class="site-footer"><div class="footer-wrap"><section class="footer-brand"><div class="footer-brandline"><div class="footer-title">Asociación Amigos del Lago de Atitlán</div></div><p class="footer-copy">La Asociación Amigos del Lago de Atitlán se enfoca en generar una cultura regenerativa en la cuenca Lago, para que los seres humanos podamos coexistir de forma sostenible y sana con el entorno natural. Hacemos educación ambiental, reforestación, reciclaje, empoderamiento económico de mujeres, asesoría municipal en agua y saneamiento.</p></section><section class="footer-col"><h3>Contacto y sitio</h3><div class="footer-links"><a href="https://amigosdeatitlan.org/" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><path d="M12 3c2.7 2.8 4.1 5.8 4.1 9S14.7 18.2 12 21c-2.7-2.8-4.1-5.8-4.1-9S9.3 5.8 12 3z"></path></svg></span><span>Página web</span></a><a href="https://www.youtube.com/@asociacionamigosdellagodea2358" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2a2.9 2.9 0 0 0-2-2C17.8 4.7 12 4.7 12 4.7s-5.8 0-7.6.5a2.9 2.9 0 0 0-2 2A29.6 29.6 0 0 0 2 12a29.6 29.6 0 0 0 .4 4.8 2.9 2.9 0 0 0 2 2c1.8.5 7.6.5 7.6.5s5.8 0 7.6-.5a2.9 2.9 0 0 0 2-2A29.6 29.6 0 0 0 22 12a29.6 29.6 0 0 0-.4-4.8ZM10 15.5v-7l6 3.5-6 3.5Z"></path></svg></span><span>YouTube</span></a><a href="https://www.facebook.com/AmigoAtitlan/?locale=es_LA" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.7-1.6H17V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4V11H7.5v3h2.8v8h3.2Z"></path></svg></span><span>Facebook</span></a></div></section><section class="footer-col"><h3>Redes sociales</h3><div class="footer-links"><a href="https://www.instagram.com/amigoslagoatitlan/" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg></span><span>Instagram</span></a><a href="https://www.linkedin.com/in/aala-atitl%C3%A1n-3653a0325/" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.9 8.1a1.9 1.9 0 1 1 0-3.8 1.9 1.9 0 0 1 0 3.8ZM5.2 9.8h3.3V19H5.2V9.8Zm5.2 0h3.2v1.3h.1c.4-.8 1.5-1.6 3.1-1.6 3.3 0 3.9 2.1 3.9 4.9V19h-3.3v-4c0-.9 0-2.1-1.3-2.1s-1.5 1-1.5 2V19h-3.3V9.8Z"></path></svg></span><span>LinkedIn</span></a></div></section><section class="footer-mark" aria-label="Imagen institucional"><img src="./chill_lago.png" alt="AALA — Cuenca del Lago de Atitlán"></section></div></footer><!-- PRESENTATION OVERLAY --><div class="presentation-overlay" id="presentationOverlay" aria-hidden="true"><div class="presentation-chrome"><div class="presentation-meta" id="presentationMeta"><span>Modo presentación</span></div><div class="presentation-actions"><button class="pres-btn" type="button" onclick="prevSlide()">&#8592; Anterior</button><button class="pres-btn" type="button" onclick="nextSlide()">Siguiente &#8594;</button><button class="pres-btn primary" type="button" onclick="closePresentation()">&#215; Cerrar</button></div></div><div class="presentation-stage-wrap"><div class="presentation-stage"><div class="presentation-track" id="presentationTrack"></div></div></div><div class="pres-footer-bar"><div class="pres-dots" id="presDots"></div><div class="pres-counter" id="presCounter">1 / 1</div></div></div><script>
+  </style></head><body><header class="header"><a class="header-brand" href="./index.html"><img src="./aala_logo.png" alt="Logo AALA" class="header-logo-img"><span class="brand-text"><span class="brand-kicker">Asociación Amigos del Lago de Atitlán</span><span class="brand-title">Conservando Atitlán · Tablero de programa</span></span></a><div class="header-stack"><nav class="nav-tabs" aria-label="Navegación"><a class="nav-tab active" href="#resumen">Resumen</a><a class="nav-tab" href="#kpis-estrategicos">Indicadores</a><a class="nav-tab" href="#tendencias">Tendencias</a><a class="nav-tab" href="#diagnostico">Diagnóstico</a></nav><div class="header-utility"><a class="back" href="./index.html"><span class="back-arrow">&#8592;</span>Volver al inicio</a><div class="view-switcher" role="group"><button class="view-btn active" id="btnFull" type="button" onclick="switchView('full')">Tablero completo</button><button class="view-btn" id="btnExec" type="button" onclick="switchView('exec')">Resumen ejecutivo</button></div><button class="present-btn" type="button" id="btnPresentation">&#9654; Presentación</button><div class="period-rack"><span class="period-rack-label">Mes</span><div class="month-pills" id="monthPills" role="group" aria-label="Seleccionar mes"></div></div></div></div></header><div class="wrap"><main><div id="resumen"></div><!-- EXECUTIVE VIEW --><div id="execView" style="display:none"><!-- Status banner --><div class="exec-status-card" style="margin-bottom:18px"><div class="es-label">Resumen del programa</div><div class="es-title">Conservando Atitlán</div><div class="exec-status-badge" id="execStatusBadge">Cargando…</div><div style="font-size:.8rem;opacity:.7;margin-top:4px" id="execPeriodInfo">—</div></div><!-- Indicator strip: 6 cards styled like Atitlán Recicla --><div class="kpi-grid" id="execKpiGrid" style="margin-bottom:18px"></div><!-- Accumulated strip --><div class="exec-strip" id="execStrip" style="margin-bottom:18px"></div><!-- Chart + Notices row --><div class="exec-row-2" style="margin-bottom:18px"><article class="card panel"><h3>Avance acumulado</h3><p class="sub" id="execChartSub">Comparación clara entre avance acumulado, avance esperado a la fecha y meta anual.</p><div id="execProgressChart" style="overflow:visible;padding:4px 0"></div></article><article class="card panel"><h3>Lectura operativa</h3><p class="sub">Resumen de comportamiento del mes.</p><div id="execNoticePanel"></div></article></div><article class="card exec-diag" id="execDiagPanel"></article></div><!-- FULL DASHBOARD --><div id="fullView"><section class="hero hero-clean hero-with-logo" id="heroSection"><article class="card hero-main"><h1>Conservando Atitlán</h1><p class="hero-lead">Conservando Atitlán es un programa cuya misión evita la contaminación del lago de Atitlán por aceites usados de cocina, este objetivo se logra al recuperar dicho residuo generado en 150 negocios entre hoteles, restaurantes y comedores en la cuenca del lago de Atitlán. Este programa tiene un impacto ambiental importante, ya que, por cada litro de aceite usado de cocina recuperado, se protegen mil (1,000) litros de agua. Actualmente el programa Conservando Atitlán impulsa la producción de jabones y velas artesanales de alta calidad a través de la marca ATI’T, generando un impacto social a través de dar empleo a jóvenes y señoritas apoyando a su economía familiar.</p></article><aside class="card hero-logo-card" aria-label="Logo del programa"><img id="programLogo" src="./Conservando%20Atitl%C3%A1n%20.png" alt="Logo Conservando Atitlán" onerror="this.onerror=null;this.src='./logosatitlan.png';"></aside></section><section class="section section-full-only" id="kpis-estrategicos"><div class="section-head section-head-simple"><div><h2>Metas anuales y avance acumulado</h2></div></div><div class="kpi-grid" id="strategicGrid"></div></section><section class="section section-full-only" id="metas-mensuales"><div class="section-head section-head-simple"><div><h2 id="monthlyKpiTitle">Metas mensuales</h2></div></div><div class="kpi-grid" id="monthlyGrid"></div></section><div class="section-divider">Tendencias y lectura comparativa</div><section class="section section-full-only" id="tendencias"><div class="chart-grid" style="grid-template-columns:1fr"><article class="card panel"><div class="panel-top"><div><h3>Tendencia mensual</h3><p class="sub" id="trendChartSub">Serie histórica del indicador seleccionado con su referencia de meta mensual cuando existe.</p></div><select class="indicator-select" id="trendIndicator"></select></div><div class="viz-wrap" id="trendChartHost"><canvas id="trendChart"></canvas></div></article></div><div class="chart-grid section" style="margin-top:18px"><article class="card panel"><h3>Cadena de valor del jabón</h3><p class="sub" id="soapChartSub"></p><div class="viz-wrap" id="soapChartHost"><canvas id="soapChart"></canvas></div></article><article class="card panel"><h3>Resumen operativo del mes</h3><p class="sub" id="summarySubtitle"></p><div class="summary-grid" id="periodSummary"></div></article></div></section><div class="section-divider section-full-only">Análisis del mes</div><section class="section section-full-only" id="diagnostico"><div class="section-head section-head-simple"><div><h2 id="diagTitle">Análisis del mes</h2></div></div><div class="diagnostic-grid"><article class="card panel"><div class="prose" id="diagnosticProse"></div></article><article class="card panel"><div class="diagnostic-list" id="diagnosticList"></div></article></div></section><section class="section hidden" id="loadingWrap"><div class="loading-state" id="loadingState">Cargando información del programa…</div></section><section class="section hidden" id="errorWrap"><div class="error-state" id="errorState">No se pudo cargar la información.</div></section></div><!-- /fullView --></main></div><footer class="site-footer"><div class="footer-wrap"><section class="footer-brand"><div class="footer-brandline"><div class="footer-title">Asociación Amigos del Lago de Atitlán</div></div><p class="footer-copy">La Asociación Amigos del Lago de Atitlán se enfoca en generar una cultura regenerativa en la cuenca Lago, para que los seres humanos podamos coexistir de forma sostenible y sana con el entorno natural. Hacemos educación ambiental, reforestación, reciclaje, empoderamiento económico de mujeres, asesoría municipal en agua y saneamiento.</p></section><section class="footer-col"><h3>Contacto y sitio</h3><div class="footer-links"><a href="https://amigosdeatitlan.org/" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><path d="M12 3c2.7 2.8 4.1 5.8 4.1 9S14.7 18.2 12 21c-2.7-2.8-4.1-5.8-4.1-9S9.3 5.8 12 3z"></path></svg></span><span>Página web</span></a><a href="https://www.youtube.com/@asociacionamigosdellagodea2358" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2a2.9 2.9 0 0 0-2-2C17.8 4.7 12 4.7 12 4.7s-5.8 0-7.6.5a2.9 2.9 0 0 0-2 2A29.6 29.6 0 0 0 2 12a29.6 29.6 0 0 0 .4 4.8 2.9 2.9 0 0 0 2 2c1.8.5 7.6.5 7.6.5s5.8 0 7.6-.5a2.9 2.9 0 0 0 2-2A29.6 29.6 0 0 0 22 12a29.6 29.6 0 0 0-.4-4.8ZM10 15.5v-7l6 3.5-6 3.5Z"></path></svg></span><span>YouTube</span></a><a href="https://www.facebook.com/AmigoAtitlan/?locale=es_LA" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.7-1.6H17V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4V11H7.5v3h2.8v8h3.2Z"></path></svg></span><span>Facebook</span></a></div></section><section class="footer-col"><h3>Redes sociales</h3><div class="footer-links"><a href="https://www.instagram.com/amigoslagoatitlan/" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg></span><span>Instagram</span></a><a href="https://www.linkedin.com/in/aala-atitl%C3%A1n-3653a0325/" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.9 8.1a1.9 1.9 0 1 1 0-3.8 1.9 1.9 0 0 1 0 3.8ZM5.2 9.8h3.3V19H5.2V9.8Zm5.2 0h3.2v1.3h.1c.4-.8 1.5-1.6 3.1-1.6 3.3 0 3.9 2.1 3.9 4.9V19h-3.3v-4c0-.9 0-2.1-1.3-2.1s-1.5 1-1.5 2V19h-3.3V9.8Z"></path></svg></span><span>LinkedIn</span></a></div></section><section class="footer-mark" aria-label="Imagen institucional"><img src="./chill_lago.png" alt="AALA — Cuenca del Lago de Atitlán"></section></div></footer><!-- PRESENTATION OVERLAY --><div class="presentation-overlay" id="presentationOverlay" aria-hidden="true"><div class="presentation-chrome"><div class="presentation-meta" id="presentationMeta"><span>Modo presentación</span></div><div class="presentation-actions"><button class="pres-btn" type="button" onclick="prevSlide()">&#8592; Anterior</button><button class="pres-btn" type="button" onclick="nextSlide()">Siguiente &#8594;</button><button class="pres-btn primary" type="button" onclick="closePresentation()">&#215; Cerrar</button></div></div><div class="presentation-stage-wrap"><div class="presentation-stage"><div class="presentation-track" id="presentationTrack"></div></div></div><div class="pres-footer-bar"><div class="pres-dots" id="presDots"></div><div class="pres-counter" id="presCounter">1 / 1</div></div></div><script>
 const PATHS = {
   total: './data/conservando_atitlan/total_mes.csv',
   indicadores: './data/conservando_atitlan/institucional_indicadores.csv',
@@ -960,7 +949,8 @@ function computeMonthlyMetrics(){
       line1:`<strong>${fmtI(velasVendidas)}</strong> velas vendidas`,
       line2:'',
       progress:100,
-      periodRatio:NaN,goalType:'none'}
+      periodRatio:NaN,goalType:'none'},
+    
   ];
 }
 
