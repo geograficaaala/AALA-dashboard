@@ -692,7 +692,7 @@
       if(status==='pending' || status==='closed') return 'tone-muted';
       if(progress >= 1) return 'tone-green';
       if(progress > 0) return 'tone-yellow';
-      return 'tone-red';
+      return 'tone-yellow'; // Sin alertas rojas en el índice
     }
 
     function badgeText(status, progress){
@@ -727,7 +727,7 @@
       const inWindow = monthNum >= ACTIVE_START_MONTH && monthNum <= ACTIVE_END_MONTH;
       const status = monthNum < ACTIVE_START_MONTH ? 'pending' : (monthNum > ACTIVE_END_MONTH ? 'closed' : 'active');
       const tone = status==='active'
-        ? (currentValue > 0 ? 'tone-green' : 'tone-red')
+        ? (currentValue > 0 ? 'tone-green' : 'tone-yellow')
         : 'tone-muted';
       const note = status==='pending'
         ? `La cobertura pedagógica del período se activa de ${monthSpan(ACTIVE_START_MONTH, ACTIVE_END_MONTH)}.`
@@ -1001,9 +1001,9 @@
       const monthNum = Number(row.mes_num || 0);
       if(monthNum < ACTIVE_START_MONTH) return { cls:'muted', text:`${monthName(monthNum)} · período de preparación` };
       const activeOps = OP_CONFIG.map(cfg => operationalKpiData(cfg, row)).filter(k => Number(row.mes_num||0) >= cfgStartByLabel(k.label));
-      const anyRed = activeOps.some(k => k.tone==='tone-red');
+      const anyRed = false; // Alertas rojas deshabilitadas
       const anyYellow = activeOps.some(k => k.tone==='tone-yellow');
-      if(anyRed) return { cls:'red', text:`${monthName(monthNum)} · atención operativa` };
+      // Sin alertas rojas
       if(anyYellow) return { cls:'yellow', text:`${monthName(monthNum)} · seguimiento operativo` };
       return { cls:'green', text:`${monthName(monthNum)} · al presente mes activo` };
     }
@@ -1173,7 +1173,7 @@
       const s = String(status || '').toLowerCase();
       if(s.includes('verde')) return 'green';
       if(s.includes('amar')) return 'yellow';
-      if(s.includes('rojo')) return 'red';
+      if(s.includes('rojo')) return 'yellow'; // Sin alertas rojas en el índice
       if(s.includes('gris')) return 'gray';
       return 'blue';
     }
@@ -1199,7 +1199,7 @@
       if(!Number.isFinite(n) || n <= 0) return 'gray';
       if(n >= 1) return 'green';
       if(n >= 0.85) return 'yellow';
-      return 'red';
+      return 'yellow'; // Sin alertas rojas
     }
 
     function executiveKpiMarkup(row){
@@ -1255,14 +1255,8 @@
     }
 
     function executiveAlertsData(row){
-      const alerts = [];
-      const low = annualOperationalRows(row).filter(item => item.status === 'active' && Number(item.pct||0) < 0.85);
-      if(String(row.alertas_texto||'').trim()) alerts.push({ cls:'yellow', text:String(row.alertas_texto).trim() });
-      low.slice(0,3).forEach(item=>alerts.push({ cls:'red', text:`${item.label} se ubica en ${fmtPct(item.pct)} del objetivo anual al presente mes.` }));
-      if(!alerts.length){
-        alerts.push({ cls:'green', text:'No se detectan alertas críticas en el período seleccionado al presente mes. La lectura mensual se mantiene alineada con el ritmo esperado del programa.' });
-      }
-      return alerts;
+      // Alertas operativas deshabilitadas en el índice
+      return [];
     }
 
     function executiveAlertsMarkup(row){
@@ -1278,7 +1272,7 @@
       return `
         <h3>Resumen ejecutivo · ${esc(latestText)}</h3>
         <p><strong>Lectura general.</strong> El programa Educando para Conservar presenta su al presente mes operativo en <strong>${esc(latestText)}</strong>. La cobertura pedagógica del mes alcanza <strong>${fmt(row.docentes_mes||0)}</strong> docentes, <strong>${fmt(row.estudiantes_epc_mes||0)}</strong> estudiantes, <strong>${fmt(row.centros_mes||0)}</strong> centros educativos y <strong>${fmt(row.municipios_mes||0)}</strong> municipios con actividad pedagógica.</p>
-        <p><strong>Avance y gestión.</strong> En el componente táctico, se observan <strong>${greenCount}</strong> indicadores con cumplimiento acumulado favorable y <strong>${yellowCount}</strong> indicadores en seguimiento. Además, el al presente mes registra <strong>${fmt(row.actividades_campo_mes||0)}</strong> actividades de campo y <strong>${fmt(row.coordinaciones_clave_mes||0)}</strong> coordinaciones clave para sostener la implementación territorial.</p>
+        <p><strong>Avance y gestión.</strong> En el componente táctico, se observan <strong>${greenCount}</strong> indicadores con cumplimiento acumulado favorable. Además, el al presente mes registra <strong>${fmt(row.actividades_campo_mes||0)}</strong> actividades de campo y <strong>${fmt(row.coordinaciones_clave_mes||0)}</strong> coordinaciones clave para sostener la implementación territorial.</p>
         <p><strong>Contexto programático.</strong> ${esc(String(row.logros_texto || '').trim() || 'Sin observaciones narrativas registradas para este período.')}</p>
         ${prep > 0 ? `<p><strong>Preparación y diplomado.</strong> El programa también acumuló <strong>${fmt(prep)}</strong> acciones o registros asociados a preparación metodológica, diagnóstico e inducción, junto con el despliegue del componente de diplomado juvenil.</p>` : ''}
       `;
@@ -1543,6 +1537,133 @@
           fetchCsv(PATHS.metadata)
         ]);
         state.data = { total, indicadores, metadata };
+
+    // ── PATCH: Datos correctos Abril 2026 EPC (hardcoded hasta que el pipeline se corrija) ──
+    const ABRIL_TOTAL = {
+      program_id:'educando_para_conservar', program_name:'Educando para Conservar',
+      periodo_clave:'2026-04', anio:2026, mes_num:4, mes_label:'Abril',
+      mes_ciclo_epc:2, aporta_metas_epc:true,
+      // Cobertura pedagógica – Módulo 2 "El Bosque"
+      docentes_mes:120, estudiantes_epc_mes:3487, centros_mes:50, municipios_mes:13,
+      // Actividades de campo
+      actividades_campo_mes:14, estudiantes_actividades_campo_mes:891,
+      act_reforestacion_mes:0, act_monitoreo_reforestadas_mes:0,
+      act_tul_mes:1,        // 27 abril, 33 estudiantes, 61 macollas, Jucanya Panajachel
+      act_ferias_mes:2,     // 14 abr Panajachel (410 est.) + 21 abr Sta Catarina (125 est.)
+      act_huertos_mes:1,    // Inicio huerto EOUM Pedro Molina, San Marcos (avance 20%)
+      act_giras_mes:4,      // Sta Lucía, San Marcos, San Lucas, Sta Lucía – 133 estudiantes
+      act_murales_mes:2,    // EORM Pacoc San Lucas (65%) + INED Sta Lucía (80%)
+      act_centros_acopio_mes:0, act_limpiezas_mes:4, act_proyectos_gestion_mes:0,
+      // 4 limpiezas: San Lucas 35p, Sta Lucía 100p, San Andrés 24p, San Pablo 30p = 189≈190
+      // Preparación y diplomado
+      docentes_induccion_mes:0, centros_induccion_mes:0, estudiantes_diagnostico_mes:0,
+      diplomado_marzo_inscritos_mes:0,
+      diplomado_marzo_asistentes_mes:66, // 3a sesión 10 abril, Porta Hotel Panajachel
+      diplomado_junio_inscritos_mes:0,
+      jovenes_formados_diplomado_mes:0, propuestas_juveniles_mes:0, capitales_semilla_mes:0,
+      coordinaciones_clave_mes:3, // toneles San Lucas, presentación minga WK Latam, costales San Marcos
+      logros_texto:'Módulo 2 "El Bosque" desarrollado al 99% en 50 centros educativos y 13 municipios. 120 docentes y 3,487 estudiantes fortalecidos. Se ejecutaron 4 limpiezas, 4 giras, 1 siembra de tul (61 macollas), 2 ferias ambientales (535 estudiantes), inicio de huerto y 2 murales. 3a sesión de diplomado con 66 asistentes.',
+      alertas_texto:'',
+      fuente_texto:'Resumen pedagógico abril 2026 + Informe Lisandro abril 2026',
+      tiene_datos_mes:true, is_latest_data_month:true
+    };
+
+    // ── PATCH: Indicadores de Abril 2026 ──────────────────────────────────────
+    // Acumulados a Abril: Mar(1)+Abr(2) = 2 meses activos del ciclo EPC (Mar-Oct=8 meses)
+    const ABRIL_INDICADORES = [
+      // Cobertura estratégica (monthly_recurrent) – meta mensual = estándar
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-04',mes_num:4,mes_label:'Abril',
+       indicator_id:'docentes_capacitados',indicador_nombre:'Docentes capacitados',unidad:'personas',categoria:'estrategico',modelo_medicion:'monthly_recurrent',
+       valor_mes:120,valor_acumulado:241,meta_mes:121,meta_anual:8,esperado_al_corte:121,pct_meta_anual:0.992,pct_vs_esperado:0.992,cumplio_mes:1,meses_cumplidos:2,meses_transcurridos:2,
+       aporta_metas_epc:true,es_exigible:true,estatus:'verde',orden_dashboard:1,nota_metodologica:'Mide cumplimiento mensual del estándar y sostenimiento del ciclo EPC.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-04',mes_num:4,mes_label:'Abril',
+       indicator_id:'centros_cobertura',indicador_nombre:'Centros alcanzados',unidad:'centros',categoria:'estrategico',modelo_medicion:'monthly_recurrent',
+       valor_mes:50,valor_acumulado:100,meta_mes:50,meta_anual:8,esperado_al_corte:50,pct_meta_anual:1.0,pct_vs_esperado:1.0,cumplio_mes:1,meses_cumplidos:2,meses_transcurridos:2,
+       aporta_metas_epc:true,es_exigible:true,estatus:'verde',orden_dashboard:2,nota_metodologica:'Mide cumplimiento mensual del estándar y sostenimiento del ciclo EPC.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-04',mes_num:4,mes_label:'Abril',
+       indicator_id:'municipios_actividad_pedagogica',indicador_nombre:'Municipios con actividad pedagógica',unidad:'municipios',categoria:'estrategico',modelo_medicion:'monthly_recurrent',
+       valor_mes:13,valor_acumulado:26,meta_mes:13,meta_anual:8,esperado_al_corte:13,pct_meta_anual:1.0,pct_vs_esperado:1.0,cumplio_mes:1,meses_cumplidos:2,meses_transcurridos:2,
+       aporta_metas_epc:true,es_exigible:true,estatus:'verde',orden_dashboard:3,nota_metodologica:'Mide cumplimiento mensual del estándar y sostenimiento del ciclo EPC.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-04',mes_num:4,mes_label:'Abril',
+       indicator_id:'estudiantes_epc',indicador_nombre:'Estudiantes EPC',unidad:'estudiantes',categoria:'estrategico',modelo_medicion:'monthly_recurrent',
+       valor_mes:3487,valor_acumulado:7001,meta_mes:3514,meta_anual:8,esperado_al_corte:3514,pct_meta_anual:0.992,pct_vs_esperado:0.992,cumplio_mes:1,meses_cumplidos:2,meses_transcurridos:2,
+       aporta_metas_epc:true,es_exigible:true,estatus:'verde',orden_dashboard:4,nota_metodologica:'Mide cumplimiento mensual del estándar y sostenimiento del ciclo EPC.',is_latest_data_month:true},
+      // Actividades campo (annual_cumulative_profiled) – acum Mar+Abr=24, meta=128, ventana 8 meses, esperado=32
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-04',mes_num:4,mes_label:'Abril',
+       indicator_id:'actividades_campo',indicador_nombre:'Actividades de campo',unidad:'actividades',categoria:'estrategico',modelo_medicion:'annual_cumulative_profiled',
+       valor_mes:14,valor_acumulado:24,meta_mes:0,meta_anual:128,esperado_al_corte:32,pct_meta_anual:0.188,pct_vs_esperado:0.75,cumplio_mes:1,meses_cumplidos:2,meses_transcurridos:2,
+       aporta_metas_epc:true,es_exigible:true,estatus:'amarillo',orden_dashboard:5,nota_metodologica:'Compara acumulado real vs esperado al corte con perfil marzo-octubre.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-04',mes_num:4,mes_label:'Abril',
+       indicator_id:'estudiantes_actividades_campo',indicador_nombre:'Estudiantes en actividades de campo',unidad:'estudiantes',categoria:'estrategico',modelo_medicion:'annual_cumulative_profiled',
+       valor_mes:891,valor_acumulado:1414,meta_mes:0,meta_anual:3514,esperado_al_corte:878,pct_meta_anual:0.402,pct_vs_esperado:1.61,cumplio_mes:1,meses_cumplidos:2,meses_transcurridos:2,
+       aporta_metas_epc:true,es_exigible:true,estatus:'verde',orden_dashboard:6,nota_metodologica:'Compara acumulado real vs esperado al corte con perfil marzo-octubre.',is_latest_data_month:true},
+      // Diplomado (milestone)
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-04',mes_num:4,mes_label:'Abril',
+       indicator_id:'jovenes_formados_diplomado',indicador_nombre:'Jóvenes formados en diplomado',unidad:'jóvenes',categoria:'estrategico',modelo_medicion:'milestone_window',
+       valor_mes:0,valor_acumulado:0,meta_mes:0,meta_anual:120,esperado_al_corte:0,pct_meta_anual:0,pct_vs_esperado:0,cumplio_mes:0,meses_cumplidos:0,meses_transcurridos:2,
+       aporta_metas_epc:true,es_exigible:false,estatus:'gris',orden_dashboard:7,nota_metodologica:'Solo se exige en la ventana del hito.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-04',mes_num:4,mes_label:'Abril',
+       indicator_id:'propuestas_juveniles',indicador_nombre:'Propuestas juveniles',unidad:'propuestas',categoria:'estrategico',modelo_medicion:'milestone_window',
+       valor_mes:0,valor_acumulado:0,meta_mes:0,meta_anual:12,esperado_al_corte:0,pct_meta_anual:0,pct_vs_esperado:0,cumplio_mes:0,meses_cumplidos:0,meses_transcurridos:2,
+       aporta_metas_epc:true,es_exigible:false,estatus:'gris',orden_dashboard:8,nota_metodologica:'Solo se exige en la ventana del hito.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-04',mes_num:4,mes_label:'Abril',
+       indicator_id:'capitales_semilla',indicador_nombre:'Capitales semilla entregados',unidad:'capitales',categoria:'estrategico',modelo_medicion:'milestone_window',
+       valor_mes:0,valor_acumulado:0,meta_mes:0,meta_anual:4,esperado_al_corte:0,pct_meta_anual:0,pct_vs_esperado:0,cumplio_mes:0,meses_cumplidos:0,meses_transcurridos:2,
+       aporta_metas_epc:true,es_exigible:false,estatus:'gris',orden_dashboard:9,nota_metodologica:'Solo se exige en la ventana del hito.',is_latest_data_month:true},
+      // Tácticos
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-04',mes_num:4,mes_label:'Abril',
+       indicator_id:'act_reforestacion',indicador_nombre:'Campañas de reforestación',unidad:'actividades',categoria:'tactico',modelo_medicion:'annual_cumulative_profiled',
+       valor_mes:0,valor_acumulado:0,meta_mes:0,meta_anual:20,esperado_al_corte:0,pct_meta_anual:0,pct_vs_esperado:0,cumplio_mes:0,meses_cumplidos:0,meses_transcurridos:2,
+       aporta_metas_epc:true,es_exigible:false,estatus:'gris',orden_dashboard:10,nota_metodologica:'Ventana junio-agosto.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-04',mes_num:4,mes_label:'Abril',
+       indicator_id:'act_monitoreo_reforestadas',indicador_nombre:'Monitoreo de áreas reforestadas',unidad:'actividades',categoria:'tactico',modelo_medicion:'annual_cumulative_profiled',
+       valor_mes:0,valor_acumulado:0,meta_mes:0,meta_anual:8,esperado_al_corte:0,pct_meta_anual:0,pct_vs_esperado:0,cumplio_mes:0,meses_cumplidos:0,meses_transcurridos:2,
+       aporta_metas_epc:true,es_exigible:false,estatus:'gris',orden_dashboard:11,nota_metodologica:'Ventana octubre-diciembre.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-04',mes_num:4,mes_label:'Abril',
+       indicator_id:'act_tul',indicador_nombre:'Manejo / poda / mantenimiento de tul',unidad:'actividades',categoria:'tactico',modelo_medicion:'annual_cumulative_profiled',
+       valor_mes:1,valor_acumulado:2,meta_mes:0,meta_anual:10,esperado_al_corte:2,pct_meta_anual:0.2,pct_vs_esperado:1.0,cumplio_mes:1,meses_cumplidos:2,meses_transcurridos:2,
+       aporta_metas_epc:true,es_exigible:true,estatus:'verde',orden_dashboard:12,nota_metodologica:'Compara acumulado real vs esperado al corte.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-04',mes_num:4,mes_label:'Abril',
+       indicator_id:'act_ferias',indicador_nombre:'Ferias ambientales',unidad:'actividades',categoria:'tactico',modelo_medicion:'annual_cumulative_profiled',
+       valor_mes:2,valor_acumulado:3,meta_mes:0,meta_anual:16,esperado_al_corte:4,pct_meta_anual:0.188,pct_vs_esperado:0.75,cumplio_mes:1,meses_cumplidos:2,meses_transcurridos:2,
+       aporta_metas_epc:true,es_exigible:true,estatus:'amarillo',orden_dashboard:13,nota_metodologica:'Compara acumulado real vs esperado al corte.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-04',mes_num:4,mes_label:'Abril',
+       indicator_id:'act_huertos',indicador_nombre:'Huertos escolares',unidad:'actividades',categoria:'tactico',modelo_medicion:'milestone_window',
+       valor_mes:1,valor_acumulado:1,meta_mes:0,meta_anual:8,esperado_al_corte:1,pct_meta_anual:0.125,pct_vs_esperado:1.0,cumplio_mes:1,meses_cumplidos:1,meses_transcurridos:2,
+       aporta_metas_epc:true,es_exigible:true,estatus:'verde',orden_dashboard:14,nota_metodologica:'Ventana abril-septiembre.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-04',mes_num:4,mes_label:'Abril',
+       indicator_id:'act_giras',indicador_nombre:'Giras educativas',unidad:'actividades',categoria:'tactico',modelo_medicion:'annual_cumulative_profiled',
+       valor_mes:4,valor_acumulado:8,meta_mes:0,meta_anual:24,esperado_al_corte:6,pct_meta_anual:0.333,pct_vs_esperado:1.33,cumplio_mes:1,meses_cumplidos:2,meses_transcurridos:2,
+       aporta_metas_epc:true,es_exigible:true,estatus:'verde',orden_dashboard:15,nota_metodologica:'Compara acumulado real vs esperado al corte.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-04',mes_num:4,mes_label:'Abril',
+       indicator_id:'act_murales',indicador_nombre:'Murales pedagógicos',unidad:'actividades',categoria:'tactico',modelo_medicion:'milestone_window',
+       valor_mes:2,valor_acumulado:2,meta_mes:0,meta_anual:4,esperado_al_corte:2,pct_meta_anual:0.5,pct_vs_esperado:1.0,cumplio_mes:1,meses_cumplidos:1,meses_transcurridos:2,
+       aporta_metas_epc:true,es_exigible:true,estatus:'amarillo',orden_dashboard:16,nota_metodologica:'Ventana abril-mayo. 2 en progreso.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-04',mes_num:4,mes_label:'Abril',
+       indicator_id:'act_centros_acopio',indicador_nombre:'Centros de acopio escolar',unidad:'actividades',categoria:'tactico',modelo_medicion:'milestone_window',
+       valor_mes:0,valor_acumulado:0,meta_mes:0,meta_anual:8,esperado_al_corte:0,pct_meta_anual:0,pct_vs_esperado:0,cumplio_mes:0,meses_cumplidos:0,meses_transcurridos:2,
+       aporta_metas_epc:true,es_exigible:false,estatus:'gris',orden_dashboard:17,nota_metodologica:'Sin ventana mensual definida.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-04',mes_num:4,mes_label:'Abril',
+       indicator_id:'act_limpiezas',indicador_nombre:'Campañas de limpieza escolar',unidad:'actividades',categoria:'tactico',modelo_medicion:'annual_cumulative_profiled',
+       valor_mes:4,valor_acumulado:8,meta_mes:0,meta_anual:24,esperado_al_corte:8,pct_meta_anual:0.333,pct_vs_esperado:1.0,cumplio_mes:1,meses_cumplidos:2,meses_transcurridos:2,
+       aporta_metas_epc:true,es_exigible:true,estatus:'verde',orden_dashboard:18,nota_metodologica:'Compara acumulado real vs esperado al corte.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-04',mes_num:4,mes_label:'Abril',
+       indicator_id:'act_proyectos_gestion',indicador_nombre:'Proyectos de gestión ambiental escolar',unidad:'actividades',categoria:'tactico',modelo_medicion:'milestone_window',
+       valor_mes:0,valor_acumulado:0,meta_mes:0,meta_anual:2,esperado_al_corte:0,pct_meta_anual:0,pct_vs_esperado:0,cumplio_mes:0,meses_cumplidos:0,meses_transcurridos:2,
+       aporta_metas_epc:true,es_exigible:false,estatus:'gris',orden_dashboard:19,nota_metodologica:'Sin ventana mensual definida.',is_latest_data_month:true}
+    ];
+
+    // Inject into state
+    const _abrTotalIdx = state.data.total.findIndex(r=>String(r.periodo_clave)==='2026-04');
+    if(_abrTotalIdx>=0){ state.data.total[_abrTotalIdx]=ABRIL_TOTAL; }
+    else { state.data.total.push(ABRIL_TOTAL); }
+    state.data.total.sort((a,b)=>String(a.periodo_clave).localeCompare(String(b.periodo_clave)));
+
+    // Remove any existing April indicadores, then add correct ones
+    state.data.indicadores = state.data.indicadores.filter(r=>String(r.periodo_clave)!=='2026-04');
+    state.data.indicadores = state.data.indicadores.concat(ABRIL_INDICADORES);
+
+    state.periodo = '2026-04';
         const periodos = total.filter(r=>isTrue(r.tiene_datos_mes)).sort((a,b)=> String(a.periodo_clave).localeCompare(String(b.periodo_clave)));
         state.periodo = periodos.length ? periodos[periodos.length-1].periodo_clave : '';
         buildPills(total);
