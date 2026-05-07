@@ -567,7 +567,8 @@
       { id:'act_murales', key:'act_murales_mes', label:'Murales', start:4, end:5, target:2, window:'Abril a mayo' },
       { id:'act_limpiezas', key:'act_limpiezas_mes', label:'Jornadas de limpieza', start:2, end:10, target:3, window:'Febrero a octubre' },
       { id:'act_reforestacion', key:'act_reforestacion_mes', label:'Reforestaciones', start:6, end:8, target:7, window:'Junio a agosto' },
-      { id:'act_monitoreo_reforestadas', key:'act_monitoreo_reforestadas_mes', label:'Monitoreo', start:10, end:12, target:4, window:'Octubre a diciembre' }
+      { id:'act_monitoreo_reforestadas', key:'act_monitoreo_reforestadas_mes', label:'Monitoreo', start:10, end:12, target:4, window:'Octubre a diciembre' },
+      { id:'act_proyectos_gestion', key:'act_proyectos_gestion_mes', label:'Proyectos de Gestión Ambiental Escolar', start:null, end:null, target:2, window:'Programado' }
     ];
 
     const PREP_CONFIG = [
@@ -696,11 +697,9 @@
     }
 
     function badgeText(status, progress){
-      if(status==='pending') return 'Desactivado';
+      if(status==='pending') return 'Programado';
       if(status==='closed') return 'Ventana cerrada';
-      if(progress >= 1) return 'Al día';
-      if(progress > 0) return 'En seguimiento';
-      return 'Sin avance';
+      return '';
     }
 
     function periodRow(){
@@ -724,39 +723,23 @@
       const visits = activeCoverageVisitCount(cfg.valueKey, state.periodo);
       const pct = visits / ACTIVE_VISITS_TOTAL;
       const currentValue = Number(row[cfg.valueKey] || 0);
-      const inWindow = monthNum >= ACTIVE_START_MONTH && monthNum <= ACTIVE_END_MONTH;
       const status = monthNum < ACTIVE_START_MONTH ? 'pending' : (monthNum > ACTIVE_END_MONTH ? 'closed' : 'active');
       const tone = status==='active'
         ? (currentValue > 0 ? 'tone-green' : 'tone-yellow')
         : 'tone-muted';
-      const note = status==='pending'
-        ? `La cobertura pedagógica del período se activa de ${monthSpan(ACTIVE_START_MONTH, ACTIVE_END_MONTH)}.`
-        : status==='closed'
-          ? `La cobertura pedagógica para este ciclo se leyó de ${monthSpan(ACTIVE_START_MONTH, ACTIVE_END_MONTH)}.`
-          : `${fmtPct(pct)} de avance acumulado al presente mes con respecto a meta anual.`;
-      const detail = currentValue>0
-        ? cfg.narrative(visits, ACTIVE_VISITS_TOTAL, currentValue)
-        : (status==='active'
-            ? `Sin registro válido en ${monthName(monthNum)} para este indicador de cobertura.`
-            : `Este indicador se mantiene armado aunque el período pedagógico aún no esté activo en el período seleccionado al presente mes.`);
+      const modulesText = `${visits} de ${ACTIVE_VISITS_TOTAL} módulos desarrollados`;
+      const progressText = `${fmtPct(pct)} de avance acumulado al presente mes`;
 
       return {
         label: cfg.label,
-        window: monthSpan(ACTIVE_START_MONTH, ACTIVE_END_MONTH),
+        window: '',
+        hideWindow: true,
         tone,
-        chip: status==='active'
-          ? (cfg.id === 'docentes_capacitados' || cfg.id === 'estudiantes_epc'
-              ? `${visits} de ${ACTIVE_VISITS_TOTAL} módulos desarrollados`
-              : cfg.id === 'centros_cobertura'
-                ? `${fmt(currentValue)} centros educativos`
-                : cfg.id === 'municipios_actividad_pedagogica'
-                  ? `${fmt(currentValue)} municipios`
-                  : badgeText(status, pct))
-          : badgeText(status, 0),
+        chip: status==='active' ? modulesText : badgeText(status, 0),
         valueText: fmtPct(pct),
         reference: currentValue>0 ? `Cobertura al presente mes <strong>${fmt(currentValue)}</strong>` : 'Cobertura al presente mes <strong>sin registro</strong>',
-        line1: detail,
-        line2: note,
+        line1: progressText,
+        line2: '',
         progressWidth: pct*100,
         pillarHeight: Math.max(8, pct*100)
       };
@@ -765,28 +748,16 @@
     function operationalKpiData(cfg, row){
       const monthNum = Number(row.mes_num || 0);
       const actual = Number(row[cfg.key] || 0);
-      const status = monthNum < cfg.start ? 'pending' : (monthNum > cfg.end ? 'closed' : 'active');
+      const hasWindow = Number.isFinite(Number(cfg.start)) && Number.isFinite(Number(cfg.end));
+      const status = !hasWindow ? 'pending' : (monthNum < cfg.start ? 'pending' : (monthNum > cfg.end ? 'closed' : 'active'));
       const progress = cfg.target > 0 ? actual / cfg.target : 0;
       const tone = toneFromProgress(status, progress);
-      const periodText = cfg.window.toLowerCase();
-
-      let line1='';
-      let line2='';
-      let reference='';
-      let chip=badgeText(status, progress);
-      if(status==='pending'){
-        line1 = `Aún desactivado. El período de entradas válidas para este indicador es de ${periodText}.`;
-        line2 = `Meta mensual esperada cuando se active: ${fmt(cfg.target)}.`;
-        reference = `Ventana válida <strong>${esc(cfg.window)}</strong>`;
-      }else if(status==='closed'){
-        line1 = `Ventana cerrada. Este indicador solo registra entradas válidas de ${periodText}.`;
-        line2 = `Último resultado del período seleccionado al presente mes: ${fmt(actual)} actividades frente a una meta mensual de ${fmt(cfg.target)}.`;
-        reference = `Meta mensual <strong>${fmt(cfg.target)}</strong>`;
-      }else{
-        line1 = `${fmt(actual)} actividades registradas en ${monthName(monthNum)} frente a una meta mensual de ${fmt(cfg.target)}.`;
-        line2 = `${fmtPct(progress)} de cumplimiento mensual en el período operativo priorizado al presente mes.`;
-        reference = `Meta mensual <strong>${fmt(cfg.target)}</strong>`;
-      }
+      const chip = badgeText(status, progress);
+      const reference = status==='pending'
+        ? 'Estado <strong>Programado</strong>'
+        : status==='closed'
+          ? `Meta mensual <strong>${fmt(cfg.target)}</strong>`
+          : `Meta mensual <strong>${fmt(cfg.target)}</strong>`;
 
       return {
         label: cfg.label,
@@ -795,8 +766,8 @@
         chip,
         valueText: status==='pending' ? 'Programado' : fmtPct(progress),
         reference,
-        line1,
-        line2,
+        line1: '',
+        line2: '',
         progressWidth: Math.min(progress, 1) * 100,
         pillarHeight: Math.max(8, Math.min(progress, 1) * 100)
       };
@@ -804,11 +775,16 @@
 
     function renderKpiCard(data, index){
       const parts=splitDisplayValue(data.valueText);
+      const windowMarkup = data.hideWindow || !String(data.window || '').trim() ? '' : `<div class="kpi-window">${esc(data.window)}</div>`;
+      const chipMarkup = String(data.chip || '').trim() ? `<div class="kpi-achieved">${esc(data.chip)}</div>` : '';
+      const line1Markup = String(data.line1 || '').trim() ? `<div class="kpi-meta">${esc(data.line1)}</div>` : '';
+      const line2Markup = String(data.line2 || '').trim() ? `<div class="kpi-meta">${esc(data.line2)}</div>` : '';
+      const readingsMarkup = (line1Markup || line2Markup) ? `<div class="kpi-readings">${line1Markup}${line2Markup}</div>` : '';
       return `
         <article class="card kpi ${data.tone}" style="--delay:${index*80}ms">
           <div class="kpi-top">
             <div class="kpi-label">${esc(data.label)}</div>
-            <div class="kpi-window">${esc(data.window)}</div>
+            ${windowMarkup}
           </div>
           <div class="kpi-figure">
             <div class="kpi-pillar" aria-hidden="true">
@@ -817,14 +793,11 @@
             </div>
             <div class="kpi-reading">
               <div class="kpi-value" data-value="${parts.number!=null ? parts.number : ''}" data-prefix="${esc(parts.prefix)}" data-suffix="${esc(parts.suffix)}" data-decimals="${parts.decimals}">${esc(parts.text)}</div>
-              <div class="kpi-achieved">${esc(data.chip)}</div>
+              ${chipMarkup}
               <div class="kpi-reference">${data.reference}</div>
             </div>
           </div>
-          <div class="kpi-readings">
-            <div class="kpi-meta">${esc(data.line1)}</div>
-            <div class="kpi-meta">${esc(data.line2)}</div>
-          </div>
+          ${readingsMarkup}
           <div class="kpi-progress-line"><span data-width="${Math.max(0, Math.min(data.progressWidth, 100))}"></span></div>
         </article>`;
     }
@@ -836,9 +809,7 @@
       const totalRows = PREP_CONFIG.map(item => Number(row[item.key] || 0));
       const maxValue = Math.max(1, ...totalRows);
       const pct = Math.min(100, (value / maxValue) * 100);
-      const line2 = isTrue(row.aporta_metas_epc)
-        ? 'Este indicador complementa la lectura operativa del presente mes sin alterar la lógica de cobertura pedagógica.'
-        : 'Este indicador refleja trabajo efectivo del presente mes aun cuando el período pedagógico todavía no esté activo.';
+      const line2 = '';
       return {
         label: cfg.label,
         window: cfg.window,
@@ -864,7 +835,6 @@
             <div class="prep-value" data-value="${item.rawValue}" data-prefix="" data-suffix="" data-decimals="0">${esc(item.valueText)}</div>
             <div class="prep-copy">
               <div class="prep-line">${esc(item.line1)}</div>
-              <div class="prep-line">${esc(item.line2)}</div>
             </div>
             <div class="prep-progress"><span data-width="${item.progressWidth}"></span></div>
           </article>`)
@@ -877,7 +847,6 @@
             <div>
               <div class="section-title">Indicadores complementarios del presente mes</div>
             </div>
-            <div class="section-chip">Lectura de enero y febrero incluida</div>
           </div>
           <div class="prep-grid">${cards}</div>
         </section>`;
@@ -911,7 +880,7 @@
     function annualOperationalTooltip(item){
       const pctLabel = item.pct == null ? 'Pendiente de activación' : fmtPct(item.pct);
       const statusText = item.status==='pending'
-        ? `Aún desactivado. La ventana válida inicia en ${item.window.toLowerCase()}.`
+        ? `Programado. La ventana válida inicia en ${item.window.toLowerCase()}.`
         : item.status==='closed'
           ? `Ventana mensual cerrada para ${item.window.toLowerCase()}.`
           : `Lectura acumulada al presente mes dentro de la ventana ${item.window.toLowerCase()}.`;
@@ -951,7 +920,6 @@
             <div>
               <div class="section-title">Gráfica interactiva · avance acumulado al presente mes frente a meta anual</div>
             </div>
-            <div class="section-chip">Pasa el cursor para ver detalle</div>
           </div>
           <article class="card chart-card">
             <div class="chart-grid">
@@ -986,7 +954,7 @@
                   <div class="chart-track-wrap">
                     <div class="chart-track ${item.status}">
                       <span class="chart-fill" data-width="${item.visualPct * 100}"></span>
-                      ${item.status === 'pending' ? '<span class="chart-track-note">Aún no vigente para este mes</span>' : `<span class="chart-track-note">${fmt(item.actual)} de ${fmt(item.annualTarget)}</span><span class="chart-track-pct">${fmtPct(item.pct)}</span>`}
+                      ${item.status === 'pending' ? '<span class="chart-track-note">Programado</span>' : `<span class="chart-track-note">${fmt(item.actual)} de ${fmt(item.annualTarget)}</span><span class="chart-track-pct">${fmtPct(item.pct)}</span>`}
                     </div>
                   </div>
                   <div class="chart-tooltip">${annualOperationalTooltip(item)}</div>
@@ -1451,26 +1419,10 @@
         <div id="fullView">
           <section class="hero present-slide" id="resumen">
             <article class="card hero-main">
-              <div class="hero-eyebrow">Programa · educación ambiental</div>
               <h1>Educando para Conservar</h1>
-              <div class="hero-period-pill">${esc(monthName(row.mes_num))} ${esc(String(row.anio || '').trim())}</div>
               <div class="hero-lead">
-                <p>“Educando para Conservar” (EPC), es un programa que tiene por objetivo contribuir a la mejora de la calidad educativa medioambiental de los pobladores del departamento de Sololá, a través del fortalecimiento de las capacidades técnicas para el uso del material de referencia Educando para Conservar, para que en forma conjunta, planificada y ordenada, fomente y se practiquen las buenas prácticas ambientales, el manejo sustentable de los recursos naturales y la capacidad de gestión ambiental.</p>
-                <p>El “Diplomado juvenil de liderazgo y gestión ambiental en el Lago de Atitlán” tiene como objetivo fomentar en jóvenes estudiantes, docentes y líderes comunitarios, la adquisición de habilidades y conocimientos necesarios para que a futuro puedan incidir en espacios a nivel comunitario y analizar las necesidades socio ambientales propias de la comunidad. Además, se pretende orientarlos en el beneficio que conlleva analizar necesidades y construir de manera participativa propuestas de proyectos socio ambientales para la mejora social y ambiental de las comunidades del Lago Atitlán.</p>
-              </div>
-              <div class="hero-grid">
-                <div class="mini-item">
-                  <div class="mini-label">Período activo</div>
-                  <div class="mini-value">${esc(monthName(row.mes_num))}</div>
-                </div>
-                <div class="mini-item">
-                  <div class="mini-label">Último mes publicado</div>
-                  <div class="mini-value">${esc(latestText)}</div>
-                </div>
-                <div class="mini-item">
-                  <div class="mini-label">Ciclo pedagógico</div>
-                  <div class="mini-value">Mar–Sep</div>
-                </div>
+                <p>Educando para Conservar” (EPC), es un programa que tiene por objetivo contribuir a la mejora de la calidad educativa medioambiental de los pobladores del departamento de Sololá, a través del fortalecimiento de las capacidades técnicas para el uso del material de referencia Educando para Conservar, para que en forma conjunta, planificada y ordenada, fomente y se practiquen las buenas prácticas ambientales, el manejo sustentable de los recursos naturales y la capacidad de gestión ambiental.</p>
+                <p>El “Diplomado juvenil de liderazgo y gestión ambiental en el Lago de Atitlán” tiene como objetivo fomentar en jóvenes estudiantes, docentes y líderes comunitarios, la adquisición de habilidades y conocimientos necesarios para que a futuro puedan incidir en espacios a nivel comunitario y analizar las necesidades socio ambientales propias de la comunidad.,</p>
               </div>
             </article>
             <article class="card hero-side logo-only" aria-label="Identidad visual del programa">
@@ -1483,7 +1435,7 @@
           <section class="section present-slide" id="cobertura">
             <div class="section-head">
               <div>
-                <div class="section-title">Cobertura pedagógica del período (Desarrollo de módulos de material EPC)</div>
+                <div class="section-title">Metas anuales y avance acumulado</div>
               </div>
             </div>
             <div class="kpis" id="coverageGrid">${coverageCards || '<div class="empty">No hay indicadores de cobertura para este al presente mes.</div>'}</div>
@@ -1494,9 +1446,8 @@
           <section class="section present-slide" id="operativos">
             <div class="section-head">
               <div>
-                <div class="section-title">Avance en el cumplimiento de indicadores operativos priorizados sobre metas mensuales</div>
+                <div class="section-title">Metas mensuales</div>
               </div>
-              <div class="section-chip">Metas mensuales por actividad</div>
             </div>
             <div class="kpis" id="opsGrid">${opCards || '<div class="empty">No hay indicadores operativos para este al presente mes.</div>'}</div>
           </section>
@@ -1586,7 +1537,7 @@
        aporta_metas_epc:true,es_exigible:true,estatus:'verde',orden_dashboard:3,nota_metodologica:'Mide cumplimiento mensual del estándar y sostenimiento del ciclo EPC.',is_latest_data_month:true},
       {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-04',mes_num:4,mes_label:'Abril',
        indicator_id:'estudiantes_epc',indicador_nombre:'Estudiantes EPC',unidad:'estudiantes',categoria:'estrategico',modelo_medicion:'monthly_recurrent',
-       valor_mes:3487,valor_acumulado:7001,meta_mes:3514,meta_anual:8,esperado_al_corte:3514,pct_meta_anual:0.992,pct_vs_esperado:0.992,cumplio_mes:1,meses_cumplidos:2,meses_transcurridos:2,
+       valor_mes:3487,valor_acumulado:7001,meta_mes:3514,meta_anual:8,esperado_al_corte:3514,pct_meta_anual:0.9923,pct_vs_esperado:0.9923,cumplio_mes:1,meses_cumplidos:2,meses_transcurridos:2,
        aporta_metas_epc:true,es_exigible:true,estatus:'verde',orden_dashboard:4,nota_metodologica:'Mide cumplimiento mensual del estándar y sostenimiento del ciclo EPC.',is_latest_data_month:true},
       // Actividades campo (annual_cumulative_profiled) – acum Mar+Abr=24, meta=128, ventana 8 meses, esperado=32
       {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-04',mes_num:4,mes_label:'Abril',
@@ -1664,9 +1615,9 @@
     state.data.indicadores = state.data.indicadores.concat(ABRIL_INDICADORES);
 
     state.periodo = '2026-04';
-        const periodos = total.filter(r=>isTrue(r.tiene_datos_mes)).sort((a,b)=> String(a.periodo_clave).localeCompare(String(b.periodo_clave)));
+        const periodos = state.data.total.filter(r=>isTrue(r.tiene_datos_mes)).sort((a,b)=> String(a.periodo_clave).localeCompare(String(b.periodo_clave)));
         state.periodo = periodos.length ? periodos[periodos.length-1].periodo_clave : '';
-        buildPills(total);
+        buildPills(state.data.total);
         renderAll();
         bindGlobalControls();
         switchView(state.view || 'full');
