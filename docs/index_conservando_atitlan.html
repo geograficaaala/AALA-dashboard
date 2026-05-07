@@ -1064,6 +1064,7 @@ function renderKpiGrid(id,metrics){
 function renderPeriodSummary(){
   const row=selectedRow();
   const host=document.getElementById('periodSummary');
+  if(!host) return;
   const cells=[
     {label:'Aceite del mes',value:fmtN(toNum(row?.litros_aceite_recolectados_mes),2)+' litros',meta:'Acumulado: '+fmtN(sumMonths('litros_aceite_recolectados_mes'),2)+' litros'},
     {label:'Agua protegida',value:fmtI(toNum(row?.litros_agua_protegidos_mes))+' litros',meta:'Acumulado: '+fmtI(sumMonths('litros_agua_protegidos_mes'))+' litros'},
