@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-05-06T07:04:25.140703-06:00",
+  "generated_at": "2026-05-06T20:21:30.149870-06:00",
   "cutoff": {
     "institutional_cutoff_period": "2026-04",
     "timezone": "America/Guatemala",
@@ -1983,7 +1983,7 @@
         "eventos_capacitacion_mes": 2.0,
         "eventos_capacitacion_acum": 3.0,
         "municipios_capacitacion_nucleo_mes": 1.0,
-        "municipios_capacitacion_nucleo_acum": 1.0,
+        "municipios_capacitacion_nucleo_acum": 2.0,
         "personas_capacitadas_nucleo_mes": 6.0,
         "personas_capacitadas_nucleo_acum": 11.0,
         "personas_capacitadas_total_mes": 6.0,
@@ -1994,7 +1994,7 @@
         "operarios_capacitados_acum": 2.0,
         "otro_personal_capacitado_mes": 0.0,
         "otro_personal_capacitado_acum": 0.0,
-        "temas_nucleo_cubiertos_mes": 1.0,
+        "temas_nucleo_cubiertos_mes": 2.0,
         "asistencias_priorizadas_proxy_mes": 2.0,
         "asistencias_priorizadas_proxy_acum": 12.0,
         "asistencias_nuevas_total_mes": 2.0,
@@ -2003,8 +2003,8 @@
         "estudios_rs_comercial_mercados_acum": 1.0,
         "estudios_finalizados_total_mes": 1.0,
         "estudios_finalizados_total_acum": 5.0,
-        "pirdes_implementados_mes": 0.0,
-        "pirdes_implementados_acum": 2.0,
+        "pirdes_implementados_mes": 2.0,
+        "pirdes_implementados_acum": 4.0,
         "reuniones_codema_mes": 0.0,
         "reuniones_codema_acum": 3.0,
         "mesas_tecnicas_departamentales_mes": 0.0,
@@ -2029,14 +2029,14 @@
             "bucket": "alerta",
             "is_required": true,
             "value_month": 1.0,
-            "value_accumulated": 1.0,
+            "value_accumulated": 2.0,
             "target_month": 5.0,
             "target_year": 15.0,
             "expected_to_date": 5.0,
-            "pct_vs_expected": 0.2,
-            "pct_meta_year": 0.066667,
+            "pct_vs_expected": 0.4,
+            "pct_meta_year": 0.133333,
             "note": "",
-            "human_summary": "Municipios alcanzados por capacitaciones núcleo está por debajo del ritmo esperado: alcanza 20% del avance esperado al corte."
+            "human_summary": "Municipios alcanzados por capacitaciones núcleo está por debajo del ritmo esperado: alcanza 40% del avance esperado al corte."
           },
           {
             "indicator_id": "personas_capacitadas_nucleo",
@@ -2100,15 +2100,15 @@
             "status": "verde",
             "bucket": "positivo",
             "is_required": true,
-            "value_month": 0.0,
-            "value_accumulated": 2.0,
+            "value_month": 2.0,
+            "value_accumulated": 4.0,
             "target_month": 1.666667,
             "target_year": 5.0,
             "expected_to_date": 1.666667,
-            "pct_vs_expected": 1.2,
-            "pct_meta_year": 0.4,
+            "pct_vs_expected": 2.4,
+            "pct_meta_year": 0.8,
             "note": "",
-            "human_summary": "PIRDES implementados va bien: alcanza 120% del esperado al corte."
+            "human_summary": "PIRDES implementados va bien: alcanza 240% del esperado al corte."
           },
           {
             "indicator_id": "reuniones_codema",
@@ -2319,14 +2319,14 @@
             "bucket": "alerta",
             "is_required": true,
             "value_month": 1.0,
-            "value_accumulated": 1.0,
+            "value_accumulated": 2.0,
             "target_month": 5.0,
             "target_year": 15.0,
             "expected_to_date": 5.0,
-            "pct_vs_expected": 0.2,
-            "pct_meta_year": 0.066667,
+            "pct_vs_expected": 0.4,
+            "pct_meta_year": 0.133333,
             "note": "",
-            "human_summary": "Municipios alcanzados por capacitaciones núcleo está por debajo del ritmo esperado: alcanza 20% del avance esperado al corte."
+            "human_summary": "Municipios alcanzados por capacitaciones núcleo está por debajo del ritmo esperado: alcanza 40% del avance esperado al corte."
           },
           {
             "indicator_id": "personas_capacitadas_nucleo",
@@ -2410,15 +2410,15 @@
             "status": "verde",
             "bucket": "positivo",
             "is_required": true,
-            "value_month": 0.0,
-            "value_accumulated": 2.0,
+            "value_month": 2.0,
+            "value_accumulated": 4.0,
             "target_month": 1.666667,
             "target_year": 5.0,
             "expected_to_date": 1.666667,
-            "pct_vs_expected": 1.2,
-            "pct_meta_year": 0.4,
+            "pct_vs_expected": 2.4,
+            "pct_meta_year": 0.8,
             "note": "",
-            "human_summary": "PIRDES implementados va bien: alcanza 120% del esperado al corte."
+            "human_summary": "PIRDES implementados va bien: alcanza 240% del esperado al corte."
           }
         ],
         "neutral": [
@@ -2609,10 +2609,10 @@
         "what_is_going_well": [
           "Asistencias técnicas priorizadas de agua y saneamiento (proxy operativo) va bien: alcanza 1200% del esperado al corte.",
           "Estudios de residuos sólidos sector comercial / mercados finalizados va bien: alcanza 150% del esperado al corte.",
-          "PIRDES implementados va bien: alcanza 120% del esperado al corte."
+          "PIRDES implementados va bien: alcanza 240% del esperado al corte."
         ],
         "what_needs_attention": [
-          "Municipios alcanzados por capacitaciones núcleo está por debajo del ritmo esperado: alcanza 20% del avance esperado al corte.",
+          "Municipios alcanzados por capacitaciones núcleo está por debajo del ritmo esperado: alcanza 40% del avance esperado al corte.",
           "Personas capacitadas en temas núcleo está por debajo del ritmo esperado: alcanza 44% del avance esperado al corte.",
           "Reuniones del eje de agua y saneamiento / CODEMA está por debajo del ritmo esperado: alcanza 90% del avance esperado al corte."
         ],
