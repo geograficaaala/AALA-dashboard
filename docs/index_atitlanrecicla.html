@@ -1491,6 +1491,18 @@
   .hero-main{padding:26px 20px 24px !important;}
 }
 
+
+/* Graduated green tones for annual goals — no red/yellow */
+.chip.green-mid{background:#c8edd8;color:#1a6b40;border-color:#a8d9bc}
+.chip.green-light{background:#ddf3e7;color:#2a7d52;border-color:#b8e4cc}
+.chip.green-pale{background:#edf9f2;color:#3a8d62;border-color:#c5ebd5}
+.goal-tone-green-mid .progress span{background:linear-gradient(90deg,#2e8b5e,#52c288)}
+.goal-tone-green-light .progress span{background:linear-gradient(90deg,#52b87e,#7dd8a8)}
+.goal-tone-green-pale .progress span{background:linear-gradient(90deg,#7ecda0,#a8e8c0)}
+.goal-tone-green-mid{border-left:3px solid #2e8b5e}
+.goal-tone-green-light{border-left:3px solid #52b87e}
+.goal-tone-green-pale{border-left:3px solid #7ecda0}
+
 </style>
 
 <style id="at-layout-polish-v3">
@@ -1607,7 +1619,7 @@
       <div class="card panel panel-accent">
         <h3>Alertas operativas</h3>
         <p class="sub">Indicadores bajo umbral en el período.</p>
-        <div id="execAlertPanel"></div>
+        <div id="execAlertPanel" style="display:none"></div>
       </div>
     </div>
     <div class="section">
@@ -1619,20 +1631,21 @@
   <div class="full-only">
     <section class="hero">
       <div class="card hero-main">
-        <div class="hero-copy">
+        <div class="hero-copy" style="overflow-y:auto;max-height:480px;padding-right:8px">
           <div class="hero-eyebrow">Cooperativa · economía circular</div>
-          <h1>Cooperativa Atitlán Recicla</h1>
-          <div class="hero-period-pill" id="heroPeriodPill">—</div>
-          <div class="hero-tag-row">
-            <span class="hero-tag">13 municipios y 5 aldeas</span>
-            <span class="hero-tag">64 socias fundadoras</span>
+          <h1 style="margin-bottom:14px">Cooperativa Atitlán Recicla</h1>
+          <p><strong>Atitlán Recicla</strong> es una iniciativa de la Asociación Amigos del Lago de Atitlán, inició en agosto del año 2017 como proyecto con un enfoque social y ambiental, con el objetivo de fortalecer los procesos de manejo de residuos sólidos de tipo reciclable, en trece municipios y cinco aldeas del departamento de Sololá, contribuyendo a minimizar la contaminación del Lago de Atitlán, para mejorar la calidad de vida de los y las habitantes, en especial mujeres.</p>
+          <p style="margin-top:10px">Desde 2018 a la fecha ha brindado alternativas para fortalecer los planes integrales de residuos y desechos sólidos y ha implementado procesos adecuados para la gestión de residuos de tipo reciclable.</p>
+          <p style="margin-top:10px">Como parte del crecimiento de Atitlán Recicla, se vio la necesidad de crear una estructura más sostenible a la actividad del reciclaje y fue por ello que se creó en el año 2021, la <strong>Cooperativa Integral de Comercialización Atitlán Recicla R.L.</strong>, siendo la primera Cooperativa de mujeres recicladoras en todo Centro América.</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin:14px 0">
+            <span class="hero-tag">64 mujeres socias fundadoras</span>
             <span class="hero-tag">+900 mujeres indirectas</span>
+            <span class="hero-tag">9 centros gestionados por mujeres</span>
+            <span class="hero-tag">4 centros municipales vigentes</span>
           </div>
-          <div class="hero-grid" id="heroStats"></div>
-          <div class="hero-quick-row">
-            <div id="programStatus"></div>
-            <div id="programQuick"></div>
-          </div>
+          <p>Actualmente trabajamos con 64 mujeres líderes en su comunidad quienes son socias fundadoras de la cooperativa Atitlán Recicla y más de 900 mujeres indirectas, integradas en 4 zonas de gestión, dentro de las cuales existen 9 centros de acopio gestionados por mujeres y 4 gestionados por trabajadores municipales, los cuales se encuentran vigentes y operando.</p>
+          <p style="margin-top:10px">De 2018 a marzo 2026 se han recolectado 3,580 toneladas métricas de materiales reciclables, los cuales han sido clasificados, embalados y evacuados de la cuenca del Lago de Atitlán a empresas recicladoras para su manejo técnico y disposición final adecuada, aportando así a la economía circular.</p>
+          <p style="margin-top:10px">Atitlán Recicla es un referente dentro de la cuenca del Lago de Atitlán y a nivel nacional por sus buenas acciones y el trabajo tan loable que realizan las mujeres recicladoras y el equipo técnico en la gestión de los residuos de tipo reciclable.</p>
         </div>
       </div>
       <aside class="card hero-side" aria-label="Identidad visual del programa">
@@ -1641,36 +1654,7 @@
         </div>
       </aside>
     </section>
-    <section class="section story-section">
-      <article class="card panel intro-story">
-        <div class="section-kicker">Cooperativa Atitlán Recicla</div>
-        <h3>Cooperativa Atitlán Recicla</h3>
-        <p><strong>Atitlán Recicla</strong> es una iniciativa de la Asociación Amigos del Lago de Atitlán, inició en agosto del año 2017 como proyecto con un enfoque social y ambiental, con el objetivo de fortalecer los procesos de manejo de residuos sólidos de tipo reciclable, en trece municipios y cinco aldeas del departamento de Sololá, contribuyendo a minimizar la contaminación del Lago de Atitlán, para mejorar la calidad de vida de los y las habitantes, en especial mujeres.</p>
-        <p>Desde 2018 a la fecha ha brindado alternativas para fortalecer los planes integrales de residuos y desechos sólidos y ha implementado procesos adecuados para la gestión de residuos de tipo reciclable.</p>
-        <p>Como parte del crecimiento de Atitlán Recicla, se vio la necesidad de crear una estructura más sostenible a la actividad del reciclaje y fue por ello que se creó en el año 2021, la <strong>Cooperativa Integral de Comercialización Atitlán Recicla R.L.</strong>, siendo la primera Cooperativa de mujeres recicladoras en todo Centro América.</p>
-        <div class="chip-row">
-          <span class="stat-chip">64 mujeres socias fundadoras</span>
-          <span class="stat-chip">+900 mujeres indirectas</span>
-          <span class="stat-chip">9 centros gestionados por mujeres</span>
-          <span class="stat-chip">4 centros municipales vigentes</span>
-        </div>
-        <p>Actualmente trabajamos con 64 mujeres líderes en su comunidad quienes son socias fundadoras de la cooperativa Atitlán Recicla y más de 900 mujeres indirectas, integradas en 4 zonas de gestión, dentro de las cuales existen 9 centros de acopio gestionados por mujeres y 4 gestionados por trabajadores municipales, los cuales se encuentran vigentes y operando.</p>
-        <p>De 2018 a marzo 2026 se han recolectado 3,580 toneladas métricas de materiales reciclables, los cuales han sido clasificados, embalados y evacuados de la cuenca del Lago de Atitlán a empresas recicladoras para su manejo técnico y disposición final adecuada, aportando así a la economía circular.</p>
-        <p>Atitlán Recicla es un referente dentro de la cuenca del Lago de Atitlán y a nivel nacional por sus buenas acciones y el trabajo tan loable que realizan las mujeres recicladoras y el equipo técnico en la gestión de los residuos de tipo reciclable.</p>
-      </article>
-    </section>
-
-    <section class="section objectives-section">
-      <article class="card panel intro-focus">
-        <div class="section-kicker">Objetivos de la cooperativa</div>
-        <h3>Propósito social, ambiental y económico</h3>
-        <div class="objective-list">
-          <div class="objective-item"><div class="objective-n">01</div><div><strong>Reducir la contaminación</strong><span>Minimizar la contaminación del Lago de Atitlán mediante una gestión adecuada de residuos reciclables en la cuenca.</span></div></div>
-          <div class="objective-item"><div class="objective-n">02</div><div><strong>Generar ingresos para mujeres</strong><span>Fortalecer la economía de las mujeres de la cuenca del Lago de Atitlán involucradas en el proyecto.</span></div></div>
-          <div class="objective-item"><div class="objective-n">03</div><div><strong>Implementar un modelo verde e inclusivo</strong><span>Consolidar un emprendimiento sostenible que combine economía circular, liderazgo comunitario e inclusión.</span></div></div>
-        </div>
-      </article>
-    </section>
+    
 
     <section class="section annual-section">
       <article class="card panel annual-panel annual-panel-wide">
@@ -1684,7 +1668,7 @@
     <section class="toolbar toolbar-compact">
       <select id="periodSelect" hidden></select>
       <div class="card filter"><label for="zoneSelect">Zona</label><select id="zoneSelect"></select></div>
-      <div class="card filter"><label>Período seleccionado</label><div class="pill" id="latestPeriodPill">—</div></div>
+
     </section>
     <section class="section">
       <div class="section-head"><div><h2>Indicadores clave de desempeño</h2><p id="kpiSubtitle">Lectura del período seleccionado.</p></div></div>
@@ -1719,23 +1703,9 @@
         <div class="viz-wrap" id="zoneBarChart"></div>
         <div class="interp" id="zoneBarInterp"></div>
       </article>
-      <article class="card panel panel-accent chart-zoomable" id="donutPanel">
-        <h3>Composición de materiales</h3>
-        <p class="sub" id="donutSub">Distribución por tipo de material en el período.</p>
-        <div class="viz-wrap" id="donutChart"></div>
-        <div class="interp" id="donutInterp"></div>
-      </article>
     </section>
-    <div class="section-divider">Alertas y distribución territorial</div>
-    <section class="section grid-2">
-      <article class="card panel"><h3>Alertas operativas</h3><p class="sub">Señales rápidas para seguimiento interno.</p><div id="alertPanel"></div></article>
-      <article class="card panel"><h3 id="zonePanelTitle">Desempeño por zona</h3><p class="sub" id="zonePanelSubtitle">Período seleccionado.</p><div id="zonePanel"></div></article>
-    </section>
-    <div class="section-divider">Operación y territorios</div>
-    <section class="section grid-2">
-      <article class="card panel"><h3>Materiales del período</h3><p class="sub" id="materialsSubtitle">Resumen por cantidad y tipo.</p><div id="materialsPanel"></div></article>
-      <article class="card panel"><h3 id="territoryTitle">Detalle territorial</h3><p class="sub" id="territorySubtitle">Territorios con resultado reportado.</p><div id="territoryPanel"></div></article>
-    </section>
+    
+    
     <div class="section-divider">Diagnóstico narrativo</div>
     <section class="section"><article class="card diagnostic" id="diagnosticPanel"></article></section>
   </div>
@@ -2049,10 +2019,7 @@ function render(state){
   renderKpis(state);
   renderTrend(state);
   renderSemaforo(state);
-  renderAlerts(state);
   renderZones(state);
-  renderMaterials(state);
-  renderTerritory(state);
   renderDiagnostic(state);
   try{ renderNewCharts(state); }catch(e){ console.warn('renderNewCharts:',e); }
   updateEstadoGlobal(state);
@@ -2112,37 +2079,17 @@ function bindControls(state){
 }
 
 function renderHero(state){
-  const period=getSelectedPeriod(state);
-  const zoneLabel=getZoneLabel(state.selectedZone);
-  const metrics = getMetricsForSelection(state, period);
-  const zoneRows = getZonaRows(state, period);
-  const heroZoneCount = state.selectedZone==="__all__"
-    ? zoneRows.filter(r=>hasActivityAggregate(r)).length
-    : getTerritoryRows(state, period).filter(r=>sameZone(r, state.selectedZone) && hasActivityAggregate(r)).length;
-
-  const heroStatsEl = document.getElementById("heroStats");
-  if(heroStatsEl){
-    heroStatsEl.innerHTML = [
-      statCard("Período activo", periodLabel(period)),
-      statCard("Vista", zoneLabel),
-      statCard(state.selectedZone==="__all__"?"Zonas con reporte":"Territorios con reporte", String(heroZoneCount)),
-      statCard("Materiales del período", formatByUnit(metrics.materiales_generales?.valor, "qq"))
-    ].join("");
-  }
-
-  const heroPill = document.getElementById("heroPeriodPill");
-  if(heroPill) heroPill.textContent = periodLabel(period);
-
-  const status=buildProgramStatus(state, period);
-  const statusEl = document.getElementById("programStatus");
-  if(statusEl) statusEl.innerHTML=`<div class="status-badge ${status.className}">${status.label}</div>`;
-  const quickEl = document.getElementById("programQuick");
-  if(quickEl) quickEl.innerHTML=[
-    miniItem("PET del período", formatByUnit(metrics.pet?.valor,"qq")),
-    miniItem("Vidrio del período", formatByUnit(metrics.vidrio?.valor,"qq")),
-    miniItem("Ingreso bruto", formatByUnit(metrics.ingreso_bruto_total?.valor,"GTQ")),
-    miniItem(state.selectedZone==="__all__" ? "Avance acumulado materiales" : "Aporte zonal del mes", state.selectedZone==="__all__" ? formatPercent(metrics.materiales_generales?.annualPct) : formatPercent(metrics.materiales_generales?.sharePct))
-  ].join("");
+  // Hero es ahora contenido estático - no requiere actualización dinámica
+  const pill=document.getElementById("heroPeriodPill");
+  if(pill){ const p=getSelectedPeriod(state); if(p) pill.textContent=periodLabel(p); }
+  const gs=document.getElementById("heroStats");
+  if(gs){ const period=getSelectedPeriod(state); const metrics=getMetricsForSelection(state,period);
+    gs.innerHTML=[
+      statCard("Período activo",periodLabel(period)),
+      statCard("Materiales del período",formatByUnit(metrics.materiales_generales?.valor,"qq")),
+      statCard("Ingresos brutos",formatByUnit(metrics.ingresos?.valor,"GTQ")),
+      statCard("Mujeres activas",formatByUnit(metrics.mujeres_activas?.valor,"personas"))
+    ].join(""); }
 }
 
 
@@ -2700,8 +2647,7 @@ function sameZoneMaterial(row, zone){
 function shareClass(pct){
   if(pct>=0.25) return "green";
   if(pct>=0.10) return "yellow";
-  if(pct>0) return "red";
-  return "muted";
+  if(pct>0) return "green-pale"; return "muted";
 }
 function shareText(pct){
   if(pct>=0.25) return "Aporte alto";
@@ -2719,8 +2665,15 @@ function metricLabel(id){ return METRIC_CONFIG[id]?.label || id; }
 function statCard(label,value){ return `<div class="hero-stat"><small>${escapeHtml(label)}</small><strong>${escapeHtml(value)}</strong></div>`; }
 function miniItem(label,value){ return `<div class="mini-item"><span class="muted">${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></div>`; }
 
-function semaforoClassAnnual(pct){ if(pct>=1) return "green"; if(pct>=0.75) return "yellow"; if(pct>0) return "red"; return "muted"; }
-function semaforoClass(pct){ if(pct>=1) return "green"; if(pct>=0.85) return "yellow"; if(pct>0) return "red"; return "muted"; }
+function semaforoClassAnnual(pct){
+  // Solo verdes: cuanto más cerca de la meta, más oscuro
+  if(pct>=1)    return "green";
+  if(pct>=0.7)  return "green-mid";
+  if(pct>=0.4)  return "green-light";
+  if(pct>0)     return "green-pale";
+  return "muted";
+}
+function semaforoClass(pct){ if(pct>=1) return "green"; if(pct>=0.85) return "yellow"; if(pct>0) return "green-pale"; return "muted"; }
 function semaforoText(pct){ if(pct>=1) return "Verde"; if(pct>=0.85) return "Amarillo"; if(pct>0) return "Rojo"; return "Sin dato"; }
 
 function monthName(n){ return ({1:"ENE",2:"FEB",3:"MAR",4:"ABR",5:"MAY",6:"JUN",7:"JUL",8:"AGO",9:"SEP",10:"OCT",11:"NOV",12:"DIC"}[n] || "—"); }
@@ -4495,11 +4448,6 @@ document.body.classList.add('view-full');
           <div class="section-head"><div><h2>Indicadores de ingresos y aporte a metas</h2><p id="incomeSubtitle">Lectura filtrable del ingreso con detalle por territorio, material, municipio y recolector. Todos los filtros del bloque afectan tarjetas, gráfico y tabla.</p></div></div>
           <section class="toolbar toolbar-compact income-toolbar">
             <div class="card filter"><label for="incomeSubjectSelect">Línea de ingreso</label><select id="incomeSubjectSelect"></select></div>
-            <div class="card filter"><label for="incomeTerritorySelect">Territorio</label><select id="incomeTerritorySelect"></select></div>
-            <div class="card filter"><label for="incomeMaterialSelect">Material</label><select id="incomeMaterialSelect"></select></div>
-            <div class="card filter"><label for="incomeMunicipioSelect">Municipio origen</label><select id="incomeMunicipioSelect"></select></div>
-            <div class="card filter"><label for="incomeRecolectorSelect">Recolector</label><select id="incomeRecolectorSelect"></select></div>
-            <div class="card filter"><label for="incomeBreakdownSelect">Desglose principal</label><select id="incomeBreakdownSelect"></select></div>
           </section>
           <div class="kpis income-kpis" id="incomeKpiGrid"></div>
           <section class="section grid-2 income-grid">
