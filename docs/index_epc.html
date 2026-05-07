@@ -126,6 +126,7 @@
     .annual-kpi .kpi-module-lines{display:grid;gap:4px}
     .annual-kpi .kpi-custom-bold{font-weight:800;color:#0c1d3a}
     .annual-kpi .kpi-coverage-current{padding-top:2px;color:#2a4570}
+    .annual-kpi .kpi-status-line{font-size:.83rem;color:#607285;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
 
     .tone-green{--tone:#2e8f5e;--tone-soft:#d9f0e2}
     .tone-yellow{--tone:#c7982a;--tone-soft:#f4ead0}
@@ -430,7 +431,8 @@
       <a class="nav-tab active" href="#resumen">Resumen</a>
       <a class="nav-tab" href="#cobertura">Cobertura</a>
       <a class="nav-tab" href="#operativos">Operativos</a>
-      <a class="nav-tab" href="#grafica-operativos">Metas anuales</a>
+      <a class="nav-tab" href="#acumulado-operativos">Acumulado anual</a>
+      <a class="nav-tab" href="#grafica-operativos">Gráfica anual</a>
     </nav>
     <div class="header-utility">
       <a class="back" href="./index.html"><span class="back-arrow">&#8592;</span>Volver al inicio</a>
@@ -601,16 +603,16 @@
 ];
 
     const OP_ANNUAL_META = [
-      { key:'act_reforestacion_mes', label:'Campaña de reforestación', annualTarget:20, window:'Junio a agosto', start:6, end:8 },
-      { key:'act_monitoreo_reforestadas_mes', label:'Monitoreo de áreas reforestadas', annualTarget:8, window:'Octubre a diciembre', start:10, end:12 },
-      { key:'act_tul_mes', label:'Manejo/poda/mantenimiento de tul', annualTarget:10, window:'Marzo a diciembre', start:3, end:12 },
-      { key:'act_ferias_mes', label:'Feria ambiental escolar/comunitaria', annualTarget:16, window:'Febrero a diciembre', start:2, end:12 },
-      { key:'act_huertos_mes', label:'Huerto escolar', annualTarget:8, window:'Abril a septiembre', start:4, end:9 },
-      { key:'act_giras_mes', label:'Gira educativa', annualTarget:24, window:'Marzo a septiembre', start:3, end:9 },
-      { key:'act_murales_mes', label:'Mural pedagógico', annualTarget:4, window:'Abril a mayo', start:4, end:5 },
-      { key:'act_centros_acopio_mes', label:'Centro de acopio escolar', annualTarget:8, window:'Sin ventana mensual definida', start:null, end:null },
-      { key:'act_limpiezas_mes', label:'Campaña de limpieza escolar', annualTarget:24, window:'Febrero a octubre', start:2, end:10 },
-      { key:'act_proyectos_gestion_mes', label:'Proyecto de gestión ambiental escolar', annualTarget:2, window:'Sin ventana mensual definida', start:null, end:null }
+      { key:'act_tul_mes', label:'Siembra y poda', annualTarget:10, window:'Marzo a diciembre', start:3, end:12 },
+      { key:'act_giras_mes', label:'Giras educativas', annualTarget:24, window:'Marzo a septiembre', start:3, end:9 },
+      { key:'act_ferias_mes', label:'Ferias ambientales', annualTarget:16, window:'Febrero a diciembre', start:2, end:12 },
+      { key:'act_huertos_mes', label:'Huertos', annualTarget:8, window:'Abril a septiembre', start:4, end:9 },
+      { key:'act_murales_mes', label:'Murales', annualTarget:4, window:'Abril a mayo', start:4, end:5 },
+      { key:'act_limpiezas_mes', label:'Jornadas de limpieza', annualTarget:24, window:'Febrero a octubre', start:2, end:10 },
+      { key:'act_reforestacion_mes', label:'Reforestaciones', annualTarget:20, window:'Junio a agosto', start:6, end:8 },
+      { key:'act_monitoreo_reforestadas_mes', label:'Monitoreo', annualTarget:8, window:'Octubre a diciembre', start:10, end:12 },
+      { key:'act_centros_acopio_mes', label:'Centros de acopio escolar', annualTarget:8, window:'Programado', start:null, end:null },
+      { key:'act_proyectos_gestion_mes', label:'Proyectos de Gestión Ambiental Escolar', annualTarget:2, window:'Programado', start:null, end:null }
     ];
 
     const PEDAGOGICAL_MODULES = [
@@ -747,24 +749,15 @@
 
     function coverageKpiData(cfg, row){
       const monthNum = Number(row.mes_num || 0);
-      const modules = PEDAGOGICAL_MODULES
-        .filter(m => String(m.periodo_clave) <= String(state.periodo))
-        .filter(m => Number(m[cfg.moduleKey] || 0) > 0);
-      const visits = Math.min(modules.length, ACTIVE_VISITS_TOTAL);
+      const visits = activeCoverageVisitCount(cfg.valueKey, state.periodo);
       const pct = visits / ACTIVE_VISITS_TOTAL;
-      const currentValue = Number(row[cfg.valueKey] || modules.at(-1)?.[cfg.moduleKey] || 0);
-      const currentCoverageText = currentValue > 0
-        ? `${fmt(currentValue)} (${fmt((currentValue / cfg.target) * 100, 2)}%)`
-        : 'sin registro';
+      const currentValue = Number(row[cfg.valueKey] || 0);
       const status = monthNum < ACTIVE_START_MONTH ? 'pending' : (monthNum > ACTIVE_END_MONTH ? 'closed' : 'active');
       const tone = status==='active'
         ? (currentValue > 0 ? 'tone-green' : 'tone-yellow')
         : 'tone-muted';
-      const modulesText = `${visits} de ${ACTIVE_VISITS_TOTAL} módulos.`;
-      const moduleLines = modules.length
-        ? modules.map(m => `Módulo ${m.number} “${esc(m.name)}” – ${fmt(m[cfg.moduleKey])} mes de ${esc(m.month)}`).join('<br>')
-        : 'Sin módulos desarrollados al presente mes.';
-      const pctText = `${fmt(pct * 100, 2)}% de avance acumulado sobre módulos.`;
+      const modulesText = `${visits} de ${ACTIVE_VISITS_TOTAL} módulos desarrollados`;
+      const progressText = `${fmtPct(pct)} de avance acumulado al presente mes`;
 
       return {
         label: cfg.label,
@@ -773,21 +766,11 @@
         tone,
         chip: status==='active' ? modulesText : badgeText(status, 0),
         valueText: fmtPct(pct),
-        reference: `Cobertura ${esc(cfg.coverageLabel)} al presente mes: <strong>${currentCoverageText}</strong>`,
-        line1: pctText,
+        reference: currentValue>0 ? `Cobertura al presente mes <strong>${fmt(currentValue)}</strong>` : 'Cobertura al presente mes <strong>sin registro</strong>',
+        line1: progressText,
         line2: '',
         progressWidth: pct*100,
-        pillarHeight: Math.max(8, pct*100),
-        customHtml: `
-          <p class="kpi-custom-title">Meta por módulo a nivel de ${esc(cfg.targetLabel)}: <strong>${fmt(cfg.target)}</strong></p>
-          <div class="kpi-custom-section">
-            <div class="kpi-custom-section-title">Resultado alcanzado:</div>
-            <div>${esc(modulesText)}</div>
-          </div>
-          <div class="kpi-module-lines">${moduleLines}</div>
-          <p class="kpi-custom-bold">${esc(pctText)}</p>
-          <p class="kpi-coverage-current">Cobertura ${esc(cfg.coverageLabel)} al presente mes: <strong>${currentCoverageText}</strong></p>
-        `
+        pillarHeight: Math.max(8, pct*100)
       };
     }
 
@@ -912,8 +895,9 @@
 
     function annualOperationalStatus(cfg, row){
       const monthNum = Number(row.mes_num || 0);
-      if(Number.isFinite(cfg.start) && cfg.start !== null && monthNum < cfg.start) return 'pending';
-      if(Number.isFinite(cfg.end) && cfg.end !== null && monthNum > cfg.end) return 'closed';
+      if(cfg.start == null || cfg.end == null) return 'pending';
+      if(monthNum < Number(cfg.start)) return 'pending';
+      if(monthNum > Number(cfg.end)) return 'closed';
       return 'active';
     }
 
@@ -961,6 +945,76 @@
         value: fmtPct(item.pct),
         detail: `${fmt(item.actual)} de ${fmt(item.annualTarget)} registrados al presente mes.`
       };
+    }
+
+    function operationalMonthlyRowsForPeriod(key, period){
+      return (state.data.total || [])
+        .filter(r => isTrue(r.tiene_datos_mes))
+        .filter(r => String(r.periodo_clave) <= String(period))
+        .sort((a,b)=>String(a.periodo_clave).localeCompare(String(b.periodo_clave)))
+        .map(r => ({
+          periodo: String(r.periodo_clave || ''),
+          month: monthName(r.mes_num),
+          value: Number(r[key] || 0)
+        }));
+    }
+
+    function operationalAnnualKpiData(cfg, row){
+      const monthRows = operationalMonthlyRowsForPeriod(cfg.key, state.periodo);
+      const actual = monthRows.reduce((acc, item) => acc + Number(item.value || 0), 0);
+      const pct = cfg.annualTarget > 0 ? actual / cfg.annualTarget : 0;
+      const status = annualOperationalStatus(cfg, row);
+      const currentMonth = monthName(row.mes_num);
+      const currentValue = Number(row[cfg.key] || 0);
+      const tone = status === 'pending'
+        ? 'tone-muted'
+        : (actual > 0 ? 'tone-green' : 'tone-yellow');
+      const monthlyLines = monthRows.length
+        ? monthRows.map(item => `${esc(item.month)}: ${fmt(item.value)}`).join('<br>')
+        : 'Sin meses publicados al presente mes.';
+      const statusLine = status === 'pending'
+        ? '<p class="kpi-status-line">Programado</p>'
+        : (status === 'closed' ? '<p class="kpi-status-line">Ventana cerrada</p>' : '');
+
+      return {
+        label: cfg.label,
+        window: '',
+        hideWindow: true,
+        tone,
+        chip: status === 'pending' ? 'Programado' : '',
+        valueText: status === 'pending' && actual === 0 ? 'Programado' : fmtPct(pct),
+        reference: `Cantidad alcanzada en ${esc(currentMonth)}: <strong>${fmt(currentValue)}</strong>`,
+        line1: `${fmt(pct * 100, 2)}% de avance acumulado anual.`,
+        line2: '',
+        progressWidth: Math.min(pct, 1) * 100,
+        pillarHeight: Math.max(8, Math.min(pct, 1) * 100),
+        customHtml: `
+          <p class="kpi-custom-title">Meta anual de ${esc(cfg.label)}: <strong>${fmt(cfg.annualTarget)}</strong></p>
+          <div class="kpi-custom-section">
+            <div class="kpi-custom-section-title">Resultado alcanzado:</div>
+            <div>${fmt(actual)} actividades acumuladas.</div>
+          </div>
+          <div class="kpi-module-lines">${monthlyLines}</div>
+          <p class="kpi-custom-bold">${fmt(pct * 100, 2)}% de avance acumulado anual.</p>
+          <p class="kpi-coverage-current">Cantidad alcanzada en ${esc(currentMonth)}: <strong>${fmt(currentValue)}</strong></p>
+          ${statusLine}
+        `
+      };
+    }
+
+    function operationalAnnualKpisMarkup(row){
+      const cards = OP_ANNUAL_META
+        .map((cfg, idx) => renderKpiCard(operationalAnnualKpiData(cfg, row), idx))
+        .join('');
+      return `
+        <section class="section present-slide" id="acumulado-operativos">
+          <div class="section-head">
+            <div>
+              <div class="section-title">Metas anuales de actividades operativas</div>
+            </div>
+          </div>
+          <div class="kpis">${cards || '<div class="empty">No hay actividades operativas acumuladas para este al presente mes.</div>'}</div>
+        </section>`;
     }
 
     function operationalAnnualChartMarkup(row){
@@ -1446,6 +1500,7 @@
       const coverageCards = COVERAGE_CONFIG.map((cfg, idx) => renderKpiCard(coverageKpiData(cfg, row), idx)).join('');
       const opCards = OP_CONFIG.map((cfg, idx) => renderKpiCard(operationalKpiData(cfg, row), idx)).join('');
       const prepCards = preparationCardsMarkup(row);
+      const annualOperationalKpis = operationalAnnualKpisMarkup(row);
       const annualChart = operationalAnnualChartMarkup(row);
 
       document.getElementById('mainWrap').innerHTML = `
@@ -1502,6 +1557,8 @@
             </div>
             <div class="kpis" id="opsGrid">${opCards || '<div class="empty">No hay indicadores operativos para este al presente mes.</div>'}</div>
           </section>
+
+          ${annualOperationalKpis}
 
           ${annualChart}
         </div>
