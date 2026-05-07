@@ -487,6 +487,38 @@
       .pres-card-grid-4,.pres-card-grid-3,.pres-card-grid-2{grid-template-columns:1fr}
       .pres-title-row{flex-direction:column}.pres-brand-badge{justify-items:start;text-align:left}
     }
+
+
+    /* ── AJUSTES SOLICITADOS: HERO LIMPIO Y LECTURA MÁS LEGIBLE ── */
+    .hero.hero-clean{display:block;margin-bottom:28px}
+    .hero.hero-clean .hero-main{
+      background:#fff!important;color:#111!important;border:1px solid var(--line-soft)!important;
+      padding:36px 40px 34px;box-shadow:var(--shadow-sm);overflow:hidden;
+    }
+    .hero.hero-clean .hero-main::before,.hero.hero-clean .hero-main::after{display:none!important}
+    .hero.hero-clean h1{
+      font-family:var(--font-body);font-size:clamp(2rem,3.2vw,3.6rem);font-weight:800;
+      color:#111!important;background:none!important;-webkit-text-fill-color:#111!important;
+      line-height:1.05;letter-spacing:-.04em;margin:0 0 18px;
+    }
+    .hero.hero-clean .hero-lead{
+      color:#111!important;font-size:1.02rem;line-height:1.9;text-align:justify;max-width:none;margin:0;
+      letter-spacing:.005em;
+    }
+    .section-head-simple{display:block;align-items:initial;padding-bottom:12px;margin-bottom:18px}
+    .section-head-simple h2{font-size:1.75rem;color:#111;letter-spacing:-.035em}
+    .kpi-grid{align-items:stretch}
+    .kpi{min-height:220px;padding:22px 22px 20px}
+    #strategicGrid .kpi{min-height:185px}
+    #monthlyGrid .kpi{min-height:230px}
+    .kpi-label{font-size:1.06rem;line-height:1.35;color:#253746;max-width:none;min-height:auto;font-weight:750}
+    .kpi-value{font-size:clamp(2rem,2.35vw,3rem);line-height:1.04;letter-spacing:-.035em;color:#111}
+    .kpi-achieved{font-size:.98rem;line-height:1.35;font-weight:800}
+    .kpi-reference{font-size:.93rem;line-height:1.45;color:#4b5f70;font-weight:650}
+    .kpi-meta{font-size:.92rem;line-height:1.7;color:#31485a}
+    .kpi-readings:empty{display:none}
+    @media (max-width:780px){.hero.hero-clean .hero-main{padding:28px 22px}.hero.hero-clean .hero-lead{font-size:.98rem;line-height:1.8}}
+
   </style>
 </head>
 <body>
@@ -556,54 +588,27 @@
 
     <!-- FULL DASHBOARD -->
     <div id="fullView">
-      <section class="hero" id="heroSection">
+      <section class="hero hero-clean" id="heroSection">
         <article class="card hero-main">
-          <div class="hero-eyebrow">Programa · economía circular y agua</div>
-          <h1>Conservando<br>Atitlán</h1>
-          <p class="hero-lead"> Programa de la Asociación Amigos del Lago de Atitlán que recolecta aceite usado de cocina en la cuenca, lo procesa y transforma en jabón artesanal, contribuyendo directamente a proteger el agua del lago. Cada litro recolectado representa miles de litros de agua protegida de la contaminación.
-          </p>
-          <div class="hero-badges">
-            <span>Recolecta aceite usado</span>
-            <span>Protege el agua del lago</span>
-            <span>Produce y comercializa jabón</span>
-            <span>Opera en toda la cuenca</span>
-          </div>
-          <div class="hero-meta">
-            <div class="meta-box"><small>Período activo</small><strong id="heroPeriod">—</strong></div>
-            <div class="meta-box"><small>Jornadas registradas</small><strong id="heroJornadas">—</strong></div>
-            <div class="meta-box"><small>Inmuebles atendidos</small><strong id="heroInmuebles">—</strong></div>
-            <div class="meta-box"><small>Municipios visitados</small><strong id="heroMunicipios">—</strong></div>
-          </div>
+          <h1>Conservando Atitlán</h1>
+          <p class="hero-lead">Programa de la Asociación Amigos del Lago de Atitlán que recolecta aceite usado de cocina en la cuenca, lo procesa y transforma en jabón artesanal, contribuyendo directamente a proteger el agua del lago. Cada litro recolectado representa miles de litros de agua protegida de la contaminación.</p>
         </article>
-        <aside class="card hero-side">
-          <div class="logo-frame">
-            <img id="programLogo" src="./Conservando%20Atitl%C3%A1n%20.png" alt="Logo Conservando Atitlán" onerror="this.onerror=null;this.src='./logosatitlan.png';">
-          </div>
-          <div class="hero-status">
-            <div class="status-note"><small>Estado estratégico</small><strong id="heroStrategic">—</strong></div>
-            <div class="status-note"><small>Estado del período</small><strong id="heroMonthly">—</strong></div>
-          </div>
-        </aside>
       </section>
 
       <section class="section section-full-only" id="kpis-estrategicos">
-        <div class="section-head">
+        <div class="section-head section-head-simple">
           <div>
-            <div class="section-kicker">Indicadores estratégicos anuales</div>
-            <h2>Metas estructurales del programa</h2>
+            <h2>Metas anuales y avance acumulado</h2>
           </div>
-          <p>Avance acumulado frente a las metas anuales del programa. La lectura se presenta en unidades claras y comparables para cada indicador.</p>
         </div>
         <div class="kpi-grid" id="strategicGrid"></div>
       </section>
 
       <section class="section section-full-only" id="cumplimiento-periodo">
-        <div class="section-head">
+        <div class="section-head section-head-simple">
           <div>
-            <div class="section-kicker">Indicadores mensuales</div>
-            <h2 id="monthlyKpiTitle">Indicadores mensuales</h2>
+            <h2 id="monthlyKpiTitle">Cumplimiento de metas mensuales</h2>
           </div>
-          <p id="monthlyKpiDesc">Indicadores que admiten una meta mensual clara y datos operativos complementarios para interpretar la actividad del período.</p>
         </div>
         <div class="kpi-grid" id="monthlyGrid"></div>
       </section>
@@ -757,7 +762,7 @@ const TREND_OPTIONS = [
   { id:'inmuebles_atendidos_mes', label:'Inmuebles atendidos', unit:'inmuebles' },
   { id:'ingresos_ventas_q_mes', label:'Ventas registradas', unit:'GTQ' },
   { id:'municipios_visitados_mes', label:'Municipios visitados', unit:'municipios' },
-  { id:'pruebas_jabon_liquido_mes', label:'Pruebas de jabón líquido', unit:'hitos' }
+  { id:'pruebas_jabon_liquido_mes', label:'Pruebas de jabón líquido', unit:'pruebas' }
 ];
 const GOALS = {
   colectasAnual:12, aceiteAnual:80000, aguaAnual:80000000,
@@ -918,6 +923,10 @@ function animateMetricValue(node){
 }
 
 // ── METRICS ──────────────────────────────────────────────────────────────────
+function annualPctText(progress){
+  return `${fmtN(clamp(progress,0,100),1)}% del objetivo anual`;
+}
+
 function computeStrategicMetrics(){
   const row=selectedRow(), months=monthsElapsed();
   const oilMonthlyGoal=GOALS.aceiteAnual/12, waterMonthlyGoal=GOALS.aguaAnual/12;
@@ -929,63 +938,48 @@ function computeStrategicMetrics(){
   const pruebasAccum=countMonthsWith(r=>GOALS.pruebasMeses.includes(toNum(r.mes_num))&&toNum(r.pruebas_jabon_liquido_mes)>0);
   const pruebasExpected=expectedPruebasAtCut(months);
   const ventasAccum=sumMonths('ingresos_ventas_q_mes');
-  const periodJ=toNum(row?.jornadas_codigos_unicos_mes||row?.filas_recoleccion_validas_mes);
-  const periodC=toNum(row?.[JORNADA_RECOLECCION_FIELD])>0?1:0;
+
+  const colectaProgress=clamp((colectaAccum/GOALS.colectasAnual)*100,0,100);
+  const aceiteProgress=clamp((aceiteAccum/GOALS.aceiteAnual)*100,0,100);
+  const aguaProgress=clamp((aguaAccum/GOALS.aguaAnual)*100,0,100);
+  const jabProdProgress=clamp((jabProdAccum/GOALS.jabonesProducidosAnual)*100,0,100);
+  const jabVendProgress=clamp((jabVendAccum/GOALS.jabonesVendidosAnual)*100,0,100);
+  const pruebasProgress=clamp((pruebasAccum/GOALS.pruebasAnual)*100,0,100);
+
   return[
     {id:'colectas',title:'Jornadas de recolección',
       value:`${colectaAccum} / ${GOALS.colectasAnual}`,unit:'jornadas de recolección',
       status:statusFromRatio(months?colectaAccum/months:NaN,true),
-      expectedText:`Meta anual: ${GOALS.colectasAnual} jornadas de recolección`,
-      line1:`Acumulado: <strong>${colectaAccum} / ${GOALS.colectasAnual}</strong> jornadas de recolección · <strong>${fmtPct(colectaAccum/GOALS.colectasAnual)}</strong> del objetivo anual`,
-      line2:`${periodLabel(state.period)}: <strong>${periodJ}</strong> jornadas registradas · Jornada de recolección del mes: <strong>${periodC? 'cumplida' : 'pendiente'}</strong>`,
-      progress:clamp((colectaAccum/GOALS.colectasAnual)*100,0,100),
-      ratioVsExpected:months?colectaAccum/months:NaN,goalType:'annual'},
+      expectedText:annualPctText(colectaProgress),line1:'',line2:'',
+      progress:colectaProgress,ratioVsExpected:months?colectaAccum/months:NaN,goalType:'annual'},
     {id:'aceite',title:'Aceite usado recolectado',
       value:fmtN(aceiteAccum,2),unit:'litros',
       status:statusFromRatio(aceiteAccum/(oilMonthlyGoal*months),true),
-      expectedText:`Meta mensual: ${fmtN(oilMonthlyGoal,2)} litros`,
-      line1:`Acumulado: <strong>${fmtN(aceiteAccum,2)}</strong> litros · <strong>${fmtPct(aceiteAccum/GOALS.aceiteAnual)}</strong> del objetivo anual`,
-      line2:`${periodLabel(state.period)}: <strong>${fmtN(toNum(row?.litros_aceite_recolectados_mes),2)}</strong> litros · <strong>${fmtPct(toNum(row?.litros_aceite_recolectados_mes)/oilMonthlyGoal)}</strong> de la meta mensual`,
-      progress:clamp((aceiteAccum/GOALS.aceiteAnual)*100,0,100),
-      ratioVsExpected:aceiteAccum/(oilMonthlyGoal*months),goalType:'annual'},
+      expectedText:annualPctText(aceiteProgress),line1:'',line2:'',
+      progress:aceiteProgress,ratioVsExpected:aceiteAccum/(oilMonthlyGoal*months),goalType:'annual'},
     {id:'agua',title:'Agua protegida acumulada',
       value:fmtI(aguaAccum),unit:'litros',
       status:statusFromRatio(aguaAccum/(waterMonthlyGoal*months),true),
-      expectedText:`Meta mensual: ${fmtI(waterMonthlyGoal)} litros`,
-      line1:`Acumulado: <strong>${fmtI(aguaAccum)}</strong> litros · <strong>${fmtPct(aguaAccum/GOALS.aguaAnual)}</strong> del objetivo anual`,
-      line2:`${periodLabel(state.period)}: <strong>${fmtI(toNum(row?.litros_agua_protegidos_mes))}</strong> litros protegidos · <strong>${fmtPct(toNum(row?.litros_agua_protegidos_mes)/waterMonthlyGoal)}</strong> de meta`,
-      progress:clamp((aguaAccum/GOALS.aguaAnual)*100,0,100),
-      ratioVsExpected:aguaAccum/(waterMonthlyGoal*months),goalType:'annual'},
+      expectedText:annualPctText(aguaProgress),line1:'',line2:'',
+      progress:aguaProgress,ratioVsExpected:aguaAccum/(waterMonthlyGoal*months),goalType:'annual'},
     {id:'jabones-prod',title:'Jabones producidos',
-      value:`${fmtI(jabProdAccum)} / ${fmtI(GOALS.jabonesProducidosAnual)}`,unit:'jabones',
-      status:statusFromRatio(toNum(row?.jabones_producidos_mes)/GOALS.jabonesProducidosMensual,true),
-      expectedText:`Meta mensual: ${fmtI(GOALS.jabonesProducidosMensual)} jabones`,
-      line1:`Acumulado: <strong>${fmtI(jabProdAccum)}</strong> / ${fmtI(GOALS.jabonesProducidosAnual)} jabones · <strong>${fmtPct(jabProdAccum/GOALS.jabonesProducidosAnual)}</strong> del objetivo anual`,
-      line2:`${periodLabel(state.period)}: <strong>${fmtI(toNum(row?.jabones_producidos_mes))}</strong> jabones · <strong>${fmtPct(toNum(row?.jabones_producidos_mes)/GOALS.jabonesProducidosMensual)}</strong> de la meta mensual`,
-      progress:clamp((jabProdAccum/GOALS.jabonesProducidosAnual)*100,0,100),
-      ratioVsExpected:jabProdAccum/(GOALS.jabonesProducidosMensual*months),goalType:'annual'},
+      value:fmtI(jabProdAccum),unit:'jabones',
+      status:statusFromRatio(jabProdAccum/(GOALS.jabonesProducidosMensual*months),true),
+      expectedText:annualPctText(jabProdProgress),line1:'',line2:'',
+      progress:jabProdProgress,ratioVsExpected:jabProdAccum/(GOALS.jabonesProducidosMensual*months),goalType:'annual'},
     {id:'jabones-vend',title:'Jabones vendidos',
-      value:`${fmtI(jabVendAccum)} / ${fmtI(GOALS.jabonesVendidosAnual)}`,unit:'jabones',
-      status:'purple',
-      expectedText:`Meta anual: ${fmtI(GOALS.jabonesVendidosAnual)} jabones`,
-      line1:`Acumulado: <strong>${fmtI(jabVendAccum)}</strong> / ${fmtI(GOALS.jabonesVendidosAnual)} jabones · <strong>${fmtPct(jabVendAccum/GOALS.jabonesVendidosAnual)}</strong> del objetivo anual`,
-      line2:`${periodLabel(state.period)}: <strong>${fmtI(toNum(row?.jabones_vendidos_mes))}</strong> jabones vendidos en el período`,
-      progress:clamp((jabVendAccum/GOALS.jabonesVendidosAnual)*100,0,100),
-      ratioVsExpected:jabVendAccum/((GOALS.jabonesVendidosAnual/12)*months),goalType:'annual'},
+      value:fmtI(jabVendAccum),unit:'jabones',
+      status:statusFromRatio(jabVendAccum/((GOALS.jabonesVendidosAnual/12)*months),true),
+      expectedText:annualPctText(jabVendProgress),line1:'',line2:'',
+      progress:jabVendProgress,ratioVsExpected:jabVendAccum/((GOALS.jabonesVendidosAnual/12)*months),goalType:'annual'},
     {id:'pruebas',title:'Pruebas de jabón líquido',
-      value:`${pruebasAccum} / ${GOALS.pruebasAnual}`,unit:'hitos',
+      value:`${pruebasAccum} / ${GOALS.pruebasAnual}`,unit:'pruebas',
       status:pruebasExpected===0?'gray':statusFromRatio(pruebasAccum/pruebasExpected,true),
-      expectedText:pruebasExpected===0?'La meta inicia en marzo':`${pruebasExpected} hitos esperados`,
-      line1:`Acumulado: <strong>${pruebasAccum} / ${GOALS.pruebasAnual}</strong> hitos · <strong>${fmtPct(pruebasAccum/GOALS.pruebasAnual)}</strong> del objetivo anual`,
-      line2:pruebasExpected===0?`Calendario de pruebas previsto para <strong>marzo, abril y mayo</strong>.`:`${periodLabel(state.period)}: <strong>${fmtN(toNum(row?.pruebas_jabon_liquido_mes),0)}</strong> pruebas registradas`,
-      progress:clamp((pruebasAccum/GOALS.pruebasAnual)*100,0,100),
-      ratioVsExpected:pruebasExpected===0?NaN:pruebasAccum/pruebasExpected,goalType:'annual'},
+      expectedText:annualPctText(pruebasProgress),line1:'',line2:'',
+      progress:pruebasProgress,ratioVsExpected:pruebasExpected===0?NaN:pruebasAccum/pruebasExpected,goalType:'annual'},
     {id:'ventas',title:'Ventas acumuladas',
       value:fmtQ(ventasAccum),unit:'',
-      status:'purple',
-      expectedText:'Lectura informativa',
-      line1:`Acumulado: <strong>${fmtQ(ventasAccum)}</strong>`,
-      line2:`${periodLabel(state.period)}: <strong>${fmtQ(toNum(row?.ingresos_ventas_q_mes))}</strong> en ventas registradas`,
+      status:'purple',expectedText:'Acumulado anual',line1:'',line2:'',
       progress:clamp((toNum(row?.ingresos_ventas_q_mes)/Math.max(ventasAccum,1))*100,0,100),
       ratioVsExpected:NaN,goalType:'none'}
   ];
@@ -993,67 +987,77 @@ function computeStrategicMetrics(){
 
 function computeMonthlyMetrics(){
   const row=selectedRow(), months=monthsElapsed();
+  const lbl=periodLabel(state.period);
   const oilMonthlyGoal=GOALS.aceiteAnual/12, waterMonthlyGoal=GOALS.aguaAnual/12;
   const periodVentas=toNum(row?.ingresos_ventas_q_mes);
   const inmueblesGoal=GOALS.inmueblesMensual||150;
+  const inmueblesPeriodo=toNum(row?.inmuebles_atendidos_mes);
   const jornadasRegistradas=toNum(row?.jornadas_codigos_unicos_mes||row?.filas_recoleccion_validas_mes);
   const jornadaRecoleccionMes=toNum(row?.[JORNADA_RECOLECCION_FIELD])>0?1:0;
   const colectaAccum=countMonthsWith(r=>toNum(r[JORNADA_RECOLECCION_FIELD])>0);
   const soldHotel=toNum(row?.jabones_hotel_vendidos_mes), soldTocador=toNum(row?.jabones_tocador_vendidos_mes), soldTotal=toNum(row?.jabones_vendidos_mes);
   return[
     {id:'jornadas-recoleccion',title:'Jornadas de recolección',
-      value:`${colectaAccum} / ${GOALS.colectasAnual}`,unit:'jornadas',
+      value:`${colectaAccum} / ${GOALS.colectasAnual}`,unit:'jornadas de recolección',
       status:statusFromRatio(months?colectaAccum/months:NaN,true),
       expectedText:`Meta anual: ${GOALS.colectasAnual} jornadas de recolección`,
-      line1:`Avance anual: <strong>${colectaAccum} / ${GOALS.colectasAnual}</strong> jornadas de recolección · <strong>${fmtPct(colectaAccum/GOALS.colectasAnual)}</strong> del objetivo anual`,
-      line2:`${periodLabel(state.period)}: <strong>${fmtI(jornadasRegistradas)}</strong> jornadas registradas · Jornada de recolección del mes: <strong>${jornadaRecoleccionMes? 'cumplida' : 'pendiente'}</strong>`,
+      line1:`${lbl}: <strong>${fmtI(jornadasRegistradas)}</strong> jornadas registradas`,
+      line2:`Jornada de recolección del mes: <strong>${jornadaRecoleccionMes? 'cumplida' : 'pendiente'}</strong>`,
       progress:clamp((colectaAccum/GOALS.colectasAnual)*100,0,100),
       periodRatio:months?colectaAccum/months:NaN,goalType:'monthly'},
     {id:'aceite-mes',title:'Aceite recolectado en el período',
       value:fmtN(toNum(row?.litros_aceite_recolectados_mes),2),unit:'litros',
       status:statusFromRatio(toNum(row?.litros_aceite_recolectados_mes)/oilMonthlyGoal,true),
       expectedText:`Meta mensual: ${fmtN(oilMonthlyGoal,2)} litros`,
-      line1:`${periodLabel(state.period)}: <strong>${fmtN(toNum(row?.litros_aceite_recolectados_mes),2)}</strong> litros recolectados`,
-      line2:`Meta mensual: <strong>${fmtN(oilMonthlyGoal,2)}</strong> litros · cumplimiento: <strong>${fmtPct(toNum(row?.litros_aceite_recolectados_mes)/oilMonthlyGoal)}</strong>`,
+      line1:`${lbl}: <strong>${fmtN(toNum(row?.litros_aceite_recolectados_mes),2)}</strong> litros recolectados`,
+      line2:`Cumplimiento: <strong>${fmtPct(toNum(row?.litros_aceite_recolectados_mes)/oilMonthlyGoal)}</strong>`,
       progress:clamp((toNum(row?.litros_aceite_recolectados_mes)/oilMonthlyGoal)*100,0,100),
       periodRatio:toNum(row?.litros_aceite_recolectados_mes)/oilMonthlyGoal,goalType:'monthly'},
     {id:'agua-mes',title:'Agua protegida en el período',
       value:fmtI(toNum(row?.litros_agua_protegidos_mes)),unit:'litros',
       status:statusFromRatio(toNum(row?.litros_agua_protegidos_mes)/waterMonthlyGoal,true),
       expectedText:`Meta mensual: ${fmtI(waterMonthlyGoal)} litros`,
-      line1:`${periodLabel(state.period)}: <strong>${fmtI(toNum(row?.litros_agua_protegidos_mes))}</strong> litros protegidos`,
-      line2:`Meta mensual: <strong>${fmtI(waterMonthlyGoal)}</strong> litros · cumplimiento: <strong>${fmtPct(toNum(row?.litros_agua_protegidos_mes)/waterMonthlyGoal)}</strong>`,
+      line1:`${lbl}: <strong>${fmtI(toNum(row?.litros_agua_protegidos_mes))}</strong> litros protegidos`,
+      line2:`Cumplimiento: <strong>${fmtPct(toNum(row?.litros_agua_protegidos_mes)/waterMonthlyGoal)}</strong>`,
       progress:clamp((toNum(row?.litros_agua_protegidos_mes)/waterMonthlyGoal)*100,0,100),
       periodRatio:toNum(row?.litros_agua_protegidos_mes)/waterMonthlyGoal,goalType:'monthly'},
     {id:'produccion-mes',title:'Jabones producidos en el período',
       value:fmtI(toNum(row?.jabones_producidos_mes)),unit:'jabones',
       status:statusFromRatio(toNum(row?.jabones_producidos_mes)/GOALS.jabonesProducidosMensual,true),
       expectedText:`Meta mensual: ${fmtI(GOALS.jabonesProducidosMensual)} jabones`,
-      line1:`${periodLabel(state.period)}: <strong>${fmtI(toNum(row?.jabones_producidos_mes))}</strong> jabones producidos`,
-      line2:`Hotel: <strong>${fmtI(toNum(row?.jabones_hotel_producidos_mes))}</strong> · Tocador: <strong>${fmtI(toNum(row?.jabones_tocador_producidos_mes))}</strong> · cumplimiento total: <strong>${fmtPct(toNum(row?.jabones_producidos_mes)/GOALS.jabonesProducidosMensual)}</strong>`,
+      line1:`${lbl}: <strong>${fmtI(toNum(row?.jabones_producidos_mes))}</strong> jabones producidos`,
+      line2:`Hotel: <strong>${fmtI(toNum(row?.jabones_hotel_producidos_mes))}</strong> · Tocador: <strong>${fmtI(toNum(row?.jabones_tocador_producidos_mes))}</strong> · cumplimiento: <strong>${fmtPct(toNum(row?.jabones_producidos_mes)/GOALS.jabonesProducidosMensual)}</strong>`,
       progress:clamp((toNum(row?.jabones_producidos_mes)/GOALS.jabonesProducidosMensual)*100,0,100),
       periodRatio:toNum(row?.jabones_producidos_mes)/GOALS.jabonesProducidosMensual,goalType:'monthly'},
     {id:'jabones-vendidos-mes',title:'Jabones vendidos en el período',
       value:fmtI(soldTotal),unit:'jabones',
       status:statusFromRatio(soldTotal/GOALS.jabonesVendidosMensual,true),
       expectedText:`Meta mensual: ${fmtI(GOALS.jabonesVendidosMensual)} jabones`,
-      line1:`${periodLabel(state.period)}: <strong>${fmtI(soldTotal)}</strong> jabones vendidos`,
-      line2:`Hotel: <strong>${fmtI(soldHotel)}</strong> / ${fmtI(GOALS.jabonesHotelVendidosMensual)} · Tocador: <strong>${fmtI(soldTocador)}</strong> / ${fmtI(GOALS.jabonesTocadorVendidosMensual)} · cumplimiento total: <strong>${fmtPct(soldTotal/GOALS.jabonesVendidosMensual)}</strong>`,
+      line1:`${lbl}: <strong>${fmtI(soldTotal)}</strong> jabones vendidos`,
+      line2:`Hotel: <strong>${fmtI(soldHotel)}</strong> / ${fmtI(GOALS.jabonesHotelVendidosMensual)} · Tocador: <strong>${fmtI(soldTocador)}</strong> / ${fmtI(GOALS.jabonesTocadorVendidosMensual)} · cumplimiento: <strong>${fmtPct(soldTotal/GOALS.jabonesVendidosMensual)}</strong>`,
       progress:clamp((soldTotal/GOALS.jabonesVendidosMensual)*100,0,100),
       periodRatio:soldTotal/GOALS.jabonesVendidosMensual,goalType:'monthly'},
-    {id:'inmuebles',title:'Inmuebles atendidos',
-      value:fmtI(toNum(row?.inmuebles_atendidos_mes)),unit:'inmuebles',
-      status:statusFromRatio(toNum(row?.inmuebles_atendidos_mes)/inmueblesGoal,true),
+    {id:'inmuebles-entregaron',title:'Inmuebles que entregaron aceite',
+      value:fmtI(inmueblesPeriodo),unit:'inmuebles',
+      status:statusFromRatio(inmueblesPeriodo/inmueblesGoal,true),
       expectedText:`Meta mensual: ${fmtI(inmueblesGoal)} inmuebles`,
-      line1:`${periodLabel(state.period)}: <strong>${fmtI(toNum(row?.inmuebles_atendidos_mes))}</strong> inmuebles atendidos`,
-      line2:`Meta mensual: <strong>${fmtI(inmueblesGoal)}</strong> inmuebles · cumplimiento: <strong>${fmtPct(toNum(row?.inmuebles_atendidos_mes)/inmueblesGoal)}</strong> · acumulado: <strong>${fmtI(sumMonths('inmuebles_atendidos_mes'))}</strong>`,
-      progress:clamp((toNum(row?.inmuebles_atendidos_mes)/inmueblesGoal)*100,0,100),
-      periodRatio:toNum(row?.inmuebles_atendidos_mes)/inmueblesGoal,goalType:'monthly'},
+      line1:`${lbl}: <strong>${fmtI(inmueblesPeriodo)}</strong> inmuebles atendidos`,
+      line2:`Meta mensual: <strong>${fmtI(inmueblesGoal)}</strong> inmuebles`,
+      progress:clamp((inmueblesPeriodo/inmueblesGoal)*100,0,100),
+      periodRatio:inmueblesPeriodo/inmueblesGoal,goalType:'monthly'},
+    {id:'inmuebles-atendidos-meta',title:'Inmuebles atendidos',
+      value:fmtI(inmueblesGoal),unit:'inmuebles',
+      status:statusFromRatio(inmueblesPeriodo/inmueblesGoal,true),
+      expectedText:`Meta mensual: ${fmtI(inmueblesGoal)} inmuebles`,
+      line1:`${lbl}: <strong>${fmtI(inmueblesPeriodo)}</strong> inmuebles atendidos`,
+      line2:`Meta mensual: <strong>${fmtI(inmueblesGoal)}</strong> inmuebles`,
+      progress:clamp((inmueblesPeriodo/inmueblesGoal)*100,0,100),
+      periodRatio:inmueblesPeriodo/inmueblesGoal,goalType:'monthly'},
     {id:'ventas-mes',title:'Ventas registradas en el período',
       value:fmtQ(periodVentas),unit:'',
       status:'purple',
       expectedText:'Lectura informativa del período',
-      line1:`${periodLabel(state.period)}: <strong>${fmtQ(periodVentas)}</strong> en ventas`,
+      line1:`${lbl}: <strong>${fmtQ(periodVentas)}</strong> en ventas`,
       line2:`Acumulado: <strong>${fmtQ(sumMonths('ingresos_ventas_q_mes'))}</strong> · asociado a <strong>${fmtI(soldTotal)}</strong> jabones vendidos en el período`,
       progress:clamp((periodVentas/Math.max(sumMonths('ingresos_ventas_q_mes'),1))*100,0,100),
       periodRatio:NaN,goalType:'none'}
@@ -1078,8 +1082,7 @@ function render(){
 function updateSectionSubtitles(){
   const lbl=periodLabel(state.period);
   const el=id=>document.getElementById(id);
-  if(el('monthlyKpiTitle')) el('monthlyKpiTitle').textContent='Indicadores mensuales';
-  if(el('monthlyKpiDesc')) el('monthlyKpiDesc').textContent=`Indicadores mensuales de ${lbl}, ordenados según los objetivos priorizados del programa: jornadas de recolección, aceite, agua protegida, producción, venta de jabones e inmuebles atendidos.`;
+  if(el('monthlyKpiTitle')) el('monthlyKpiTitle').textContent='Cumplimiento de metas mensuales';
   if(el('diagTitle')) el('diagTitle').textContent='Diagnóstico de '+lbl;
   if(el('summarySubtitle')) el('summarySubtitle').textContent=`Datos operativos de ${lbl} y su acumulado en el año.`;
   if(el('progressChartSub')) el('progressChartSub').textContent=`Lectura directa: llevamos, esperado a la fecha y meta anual — ${lbl}.`;
@@ -1121,16 +1124,17 @@ function renderDiagnostic(strategic,monthly){
 
 function renderHero(strategic,monthly){
   const row=selectedRow(), lbl=periodLabel(state.period);
-  document.getElementById('heroPeriod').textContent=lbl;
-  document.getElementById('heroJornadas').textContent=fmtI(toNum(row?.jornadas_codigos_unicos_mes||row?.filas_recoleccion_validas_mes));
-  document.getElementById('heroInmuebles').textContent=fmtI(toNum(row?.inmuebles_atendidos_mes));
-  document.getElementById('heroMunicipios').textContent=fmtI(toNum(row?.municipios_visitados_mes));
+  const setText=(id,value)=>{const node=document.getElementById(id); if(node) node.textContent=value;};
+  setText('heroPeriod',lbl);
+  setText('heroJornadas',fmtI(toNum(row?.jornadas_codigos_unicos_mes||row?.filas_recoleccion_validas_mes)));
+  setText('heroInmuebles',fmtI(toNum(row?.inmuebles_atendidos_mes)));
+  setText('heroMunicipios',fmtI(toNum(row?.municipios_visitados_mes)));
   const sRatios=strategic.filter(m=>m.goalType!=='none'&&Number.isFinite(m.ratioVsExpected)).map(m=>m.ratioVsExpected);
   const sAvg=sRatios.length?sRatios.reduce((a,b)=>a+b,0)/sRatios.length:NaN;
-  document.getElementById('heroStrategic').textContent=chipTextFromStatus(statusFromRatio(sAvg,!!sRatios.length));
+  setText('heroStrategic',chipTextFromStatus(statusFromRatio(sAvg,!!sRatios.length)));
   const mRatios=monthly.filter(m=>m.goalType==='monthly'&&Number.isFinite(m.periodRatio)).map(m=>m.periodRatio);
   const mAvg=mRatios.length?mRatios.reduce((a,b)=>a+b,0)/mRatios.length:NaN;
-  document.getElementById('heroMonthly').textContent=chipTextFromStatus(statusFromRatio(mAvg,!!mRatios.length));
+  setText('heroMonthly',chipTextFromStatus(statusFromRatio(mAvg,!!mRatios.length)));
 }
 
 function renderKpiGrid(id,metrics){
@@ -1142,6 +1146,7 @@ function renderKpiGrid(id,metrics){
     const parts=splitDisplayValue(displayValue);
     const progressWidth=Math.max(0,Math.min(Number(metric.progress||0),100));
     const pillarHeight=Math.max(8,Math.min(progressWidth,100));
+    const detailRows=[metric.line1,metric.line2].filter(v=>String(v||'').trim());
     const card=document.createElement('article');
     card.className=`card kpi tone-${tone}`;
     card.style.setProperty('--delay',`${idx*80}ms`);
@@ -1155,13 +1160,10 @@ function renderKpiGrid(id,metrics){
         <div class="kpi-reading">
           <div class="kpi-value" data-value="${parts.number!=null?parts.number:''}" data-prefix="${escapeHtml(parts.prefix)}" data-suffix="${escapeHtml(parts.suffix)}" data-decimals="${parts.decimals}">${escapeHtml(parts.text)}</div>
           <div class="kpi-achieved">${escapeHtml(labelFromStatus(tone))}</div>
-          <div class="kpi-reference">${escapeHtml(metric.expectedText)}</div>
+          ${metric.expectedText?`<div class="kpi-reference">${escapeHtml(metric.expectedText)}</div>`:''}
         </div>
       </div>
-      <div class="kpi-readings">
-        <div class="kpi-meta">${metric.line1}</div>
-        <div class="kpi-meta">${metric.line2}</div>
-      </div>
+      ${detailRows.length?`<div class="kpi-readings">${detailRows.map(row=>`<div class="kpi-meta">${row}</div>`).join('')}</div>`:''}
       <div class="kpi-progress-line"><span data-width="${progressWidth}"></span></div>`;
     host.appendChild(card);
   });
@@ -1326,7 +1328,7 @@ function progressMetricAbsolute(metricId, months){
   if(metricId==='agua') return {actual:sumMonths('litros_agua_protegidos_mes'), expected:(GOALS.aguaAnual/12)*months, target:GOALS.aguaAnual, unit:'litros_int'};
   if(metricId==='jabones-prod') return {actual:sumMonths('jabones_producidos_mes'), expected:GOALS.jabonesProducidosMensual*months, target:GOALS.jabonesProducidosAnual, unit:'jabones'};
   if(metricId==='jabones-vend') return {actual:sumMonths('jabones_vendidos_mes'), expected:GOALS.jabonesVendidosMensual*months, target:GOALS.jabonesVendidosAnual, unit:'jabones'};
-  if(metricId==='pruebas') return {actual:countMonthsWith(r=>GOALS.pruebasMeses.includes(toNum(r.mes_num))&&toNum(r.pruebas_jabon_liquido_mes)>0), expected:expectedPruebasAtCut(months), target:GOALS.pruebasAnual, unit:'hitos'};
+  if(metricId==='pruebas') return {actual:countMonthsWith(r=>GOALS.pruebasMeses.includes(toNum(r.mes_num))&&toNum(r.pruebas_jabon_liquido_mes)>0), expected:expectedPruebasAtCut(months), target:GOALS.pruebasAnual, unit:'pruebas'};
   return {actual:0, expected:0, target:100, unit:''};
 }
 function progressMetricValueText(value, unit){
@@ -1334,7 +1336,7 @@ function progressMetricValueText(value, unit){
   if(unit==='litros_int') return fmtI(value)+' litros';
   if(unit==='jabones') return fmtI(value)+' jabones';
   if(unit==='jornadas_recoleccion') return fmtI(value)+' jornadas de recolección';
-  if(unit==='hitos') return fmtI(value)+' hitos';
+  if(unit==='pruebas') return fmtI(value)+' pruebas';
   return fmtN(value,2);
 }
 function progressTempoStatus(actualPct, expectedPct, expectedValue){
@@ -1762,7 +1764,7 @@ function buildPresentation(strategic,monthly){
   // SLIDE 3 – Indicadores estratégicos detalle
   slides.push(`<div class="pres-slide"><div class="pres-inner">
     <div class="pres-kicker">Indicadores estratégicos · ${escapeHtml(lbl)}</div>
-    <div class="pres-title-row"><div><h2>Metas estructurales anuales</h2><p>Lectura sencilla de las metas anuales del programa, con estado por indicador.</p></div></div>
+    <div class="pres-title-row"><div><h2>Metas anuales y avance acumulado</h2><p>Lectura sencilla de las metas anuales del programa, con estado por indicador.</p></div></div>
     <div class="pres-card-grid pres-card-grid-4" style="flex:1;align-content:start">
       ${strategic.slice(0,4).map(m=>presKpiCard(m)).join('')}
     </div>
