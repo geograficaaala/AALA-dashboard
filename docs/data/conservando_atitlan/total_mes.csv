@@ -2,4 +2,4 @@ program_id,program_name,periodo_clave,anio,mes_num,mes_label,aporta_metas_progra
 conservando_atitlan,Conservando Atitlán,2026-01,2026,1,Enero,True,1,9,9,9,78.0,6557.513,6557513.0,0,0,5100.0,400.0,5500.0,0.0,0.0,0.0,0.0,8.0,0.0,True,False
 conservando_atitlan,Conservando Atitlán,2026-02,2026,2,Febrero,True,1,9,9,9,88.0,6860.3150000000005,6860315.0,0,0,5500.0,450.0,5950.0,1950.0,230.0,2180.0,6862.5,8.0,0.0,True,False
 conservando_atitlan,Conservando Atitlán,2026-03,2026,3,Marzo,True,1,84,84,9,84.0,7053.0,7053000.0,0,0,9600.0,780.0,10380.0,2900.0,0.0,2900.0,5075.0,8.0,0.0,True,False
-conservando_atitlan,Conservando Atitlán,2026-04,2026,4,Abril,True,1,9,9,9,90.0,7310.0,7310000.0,0,0,0.0,0.0,0.0,2294.0,20.0,2314.0,3127.0,8.0,0.0,True,True
+conservando_atitlan,Conservando Atitlán,2026-04,2026,4,Abril,True,1,9,9,9,90.0,7340.0,7340000.0,0,0,0.0,0.0,0.0,2294.0,20.0,2314.0,3127.0,8.0,0.0,True,True
