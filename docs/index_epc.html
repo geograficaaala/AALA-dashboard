@@ -117,6 +117,16 @@
     .kpi-meta strong{color:#17314f}
     .kpi-progress-line{height:5px;background:#e2ebe7;border-radius:999px;overflow:hidden;margin-top:10px}
     .kpi-progress-line span{display:block;height:100%;width:0;background:var(--tone,#1c6084);transition:width .92s cubic-bezier(.22,1,.36,1)}
+
+    .annual-kpi{padding:20px 20px 18px;border-top:3px solid var(--green);min-height:310px}
+    .annual-kpi .kpi-custom{display:grid;gap:16px;color:#101820;font-size:.93rem;line-height:1.52}
+    .annual-kpi .kpi-custom-title{font-size:1rem;font-weight:800;line-height:1.32}
+    .annual-kpi .kpi-custom-section{display:grid;gap:5px}
+    .annual-kpi .kpi-custom-section-title{font-weight:800}
+    .annual-kpi .kpi-module-lines{display:grid;gap:4px}
+    .annual-kpi .kpi-custom-bold{font-weight:800;color:#0c1d3a}
+    .annual-kpi .kpi-coverage-current{padding-top:2px;color:#2a4570}
+
     .tone-green{--tone:#2e8f5e;--tone-soft:#d9f0e2}
     .tone-yellow{--tone:#c7982a;--tone-soft:#f4ead0}
     .tone-red{--tone:#c85f63;--tone-soft:#f5dfe1}
@@ -537,25 +547,37 @@
         id: 'docentes_capacitados',
         label: 'Docentes',
         valueKey: 'docentes_mes',
-        narrative: (visits, total, value) => `${visits} de ${total} módulos desarrollados con ${fmt(value)} docentes para el fortalecimiento del conocimiento ambiental y desarrollo de las capacidades de aprendizaje de los estudiantes en los módulos 1 al 7.`
+        moduleKey: 'docentes',
+        target: 121,
+        targetLabel: 'docentes',
+        coverageLabel: 'docentes'
       },
       {
         id: 'estudiantes_epc',
         label: 'Estudiantes',
         valueKey: 'estudiantes_epc_mes',
-        narrative: (visits, total, value) => `${visits} de ${total} módulos desarrollados con ${fmt(value)} estudiantes para el fortalecimiento del conocimiento ambiental y desarrollo de las capacidades de aprendizaje de los módulos 1 al 7.`
+        moduleKey: 'estudiantes',
+        target: 3514,
+        targetLabel: 'estudiantes',
+        coverageLabel: 'estudiantes'
       },
       {
         id: 'centros_cobertura',
         label: 'Centros educativos',
         valueKey: 'centros_mes',
-        narrative: (visits, total, value) => `${fmt(value)} centros educativos beneficiados con el programa Educando para Conservar, 2026.`
+        moduleKey: 'centros',
+        target: 50,
+        targetLabel: 'centros educativos',
+        coverageLabel: 'centros educativos'
       },
       {
         id: 'municipios_actividad_pedagogica',
         label: 'Municipios',
         valueKey: 'municipios_mes',
-        narrative: (visits, total, value) => `${fmt(value)} municipios priorizados por el programa Educando para Conservar, 2026.`
+        moduleKey: 'municipios',
+        target: 13,
+        targetLabel: 'municipios',
+        coverageLabel: 'municipios'
       }
     ];
 
@@ -589,6 +611,11 @@
       { key:'act_centros_acopio_mes', label:'Centro de acopio escolar', annualTarget:8, window:'Sin ventana mensual definida', start:null, end:null },
       { key:'act_limpiezas_mes', label:'Campaña de limpieza escolar', annualTarget:24, window:'Febrero a octubre', start:2, end:10 },
       { key:'act_proyectos_gestion_mes', label:'Proyecto de gestión ambiental escolar', annualTarget:2, window:'Sin ventana mensual definida', start:null, end:null }
+    ];
+
+    const PEDAGOGICAL_MODULES = [
+      { periodo_clave:'2026-03', number:1, name:'Medio ambiente', month:'marzo', docentes:121, estudiantes:3514, centros:50, municipios:13 },
+      { periodo_clave:'2026-04', number:2, name:'El bosque', month:'abril', docentes:120, estudiantes:3487, centros:50, municipios:13 }
     ];
 
     const ACTIVE_VISITS_TOTAL = 7;
@@ -720,15 +747,24 @@
 
     function coverageKpiData(cfg, row){
       const monthNum = Number(row.mes_num || 0);
-      const visits = activeCoverageVisitCount(cfg.valueKey, state.periodo);
+      const modules = PEDAGOGICAL_MODULES
+        .filter(m => String(m.periodo_clave) <= String(state.periodo))
+        .filter(m => Number(m[cfg.moduleKey] || 0) > 0);
+      const visits = Math.min(modules.length, ACTIVE_VISITS_TOTAL);
       const pct = visits / ACTIVE_VISITS_TOTAL;
-      const currentValue = Number(row[cfg.valueKey] || 0);
+      const currentValue = Number(row[cfg.valueKey] || modules.at(-1)?.[cfg.moduleKey] || 0);
+      const currentCoverageText = currentValue > 0
+        ? `${fmt(currentValue)} (${fmt((currentValue / cfg.target) * 100, 2)}%)`
+        : 'sin registro';
       const status = monthNum < ACTIVE_START_MONTH ? 'pending' : (monthNum > ACTIVE_END_MONTH ? 'closed' : 'active');
       const tone = status==='active'
         ? (currentValue > 0 ? 'tone-green' : 'tone-yellow')
         : 'tone-muted';
-      const modulesText = `${visits} de ${ACTIVE_VISITS_TOTAL} módulos desarrollados`;
-      const progressText = `${fmtPct(pct)} de avance acumulado al presente mes`;
+      const modulesText = `${visits} de ${ACTIVE_VISITS_TOTAL} módulos.`;
+      const moduleLines = modules.length
+        ? modules.map(m => `Módulo ${m.number} “${esc(m.name)}” – ${fmt(m[cfg.moduleKey])} mes de ${esc(m.month)}`).join('<br>')
+        : 'Sin módulos desarrollados al presente mes.';
+      const pctText = `${fmt(pct * 100, 2)}% de avance acumulado sobre módulos.`;
 
       return {
         label: cfg.label,
@@ -737,11 +773,21 @@
         tone,
         chip: status==='active' ? modulesText : badgeText(status, 0),
         valueText: fmtPct(pct),
-        reference: currentValue>0 ? `Cobertura al presente mes <strong>${fmt(currentValue)}</strong>` : 'Cobertura al presente mes <strong>sin registro</strong>',
-        line1: progressText,
+        reference: `Cobertura ${esc(cfg.coverageLabel)} al presente mes: <strong>${currentCoverageText}</strong>`,
+        line1: pctText,
         line2: '',
         progressWidth: pct*100,
-        pillarHeight: Math.max(8, pct*100)
+        pillarHeight: Math.max(8, pct*100),
+        customHtml: `
+          <p class="kpi-custom-title">Meta por módulo a nivel de ${esc(cfg.targetLabel)}: <strong>${fmt(cfg.target)}</strong></p>
+          <div class="kpi-custom-section">
+            <div class="kpi-custom-section-title">Resultado alcanzado:</div>
+            <div>${esc(modulesText)}</div>
+          </div>
+          <div class="kpi-module-lines">${moduleLines}</div>
+          <p class="kpi-custom-bold">${esc(pctText)}</p>
+          <p class="kpi-coverage-current">Cobertura ${esc(cfg.coverageLabel)} al presente mes: <strong>${currentCoverageText}</strong></p>
+        `
       };
     }
 
@@ -755,9 +801,7 @@
       const chip = badgeText(status, progress);
       const reference = status==='pending'
         ? 'Estado <strong>Programado</strong>'
-        : status==='closed'
-          ? `Meta mensual <strong>${fmt(cfg.target)}</strong>`
-          : `Meta mensual <strong>${fmt(cfg.target)}</strong>`;
+        : `Cantidad alcanzada en el mes <strong>${fmt(actual)}</strong>`;
 
       return {
         label: cfg.label,
@@ -766,14 +810,21 @@
         chip,
         valueText: status==='pending' ? 'Programado' : fmtPct(progress),
         reference,
-        line1: '',
-        line2: '',
+        line1: `Cantidad alcanzada en el mes: ${fmt(actual)}`,
+        line2: `Meta mensual: ${fmt(cfg.target)}`,
         progressWidth: Math.min(progress, 1) * 100,
         pillarHeight: Math.max(8, Math.min(progress, 1) * 100)
       };
     }
 
     function renderKpiCard(data, index){
+      if(String(data.customHtml || '').trim()){
+        return `
+        <article class="card kpi annual-kpi ${data.tone}" style="--delay:${index*80}ms">
+          <div class="kpi-custom">${data.customHtml}</div>
+        </article>`;
+      }
+
       const parts=splitDisplayValue(data.valueText);
       const windowMarkup = data.hideWindow || !String(data.window || '').trim() ? '' : `<div class="kpi-window">${esc(data.window)}</div>`;
       const chipMarkup = String(data.chip || '').trim() ? `<div class="kpi-achieved">${esc(data.chip)}</div>` : '';
