@@ -1565,6 +1565,18 @@
   .hero.hero-story-mode .hero-narrative p{font-size:.74rem!important;line-height:1.6!important}
 }
 
+
+
+/* ── Sistema visual unificado: todos los indicadores en verdes ── */
+.kpi.tone-yellow,.kpi.tone-red,.kpi.tone-blue,.kpi.tone-muted{--tone:#2e8f5e!important;--tone-soft:#e8f6ee!important;}
+.kpi.tone-green{--tone:#1f8f5d!important;--tone-soft:#d9f0e2!important;}
+.goal-card{border-left-color:#2e8f5e!important;}
+.goal-card .progress>span,.kpi-progress-line span,.progress>span,.exec-kpi-bar span{background:linear-gradient(90deg,#bfe8cf,#1f8f5d)!important;}
+.chip,.chip.yellow,.chip.red,.chip.blue,.chip.muted,.presentation-chip,.presentation-chip.yellow,.presentation-chip.red,.presentation-chip.muted{background:#d9f0e2!important;color:#1f6f49!important;}
+.status-yellow,.status-red,.status-muted{background:#e8f6ee!important;color:#1f6f49!important;border-color:rgba(31,143,93,.18)!important;}
+.estado-global.yellow,.estado-global.red,.estado-global.sin-actividad{background:#e8f6ee!important;color:#1f6f49!important;border-color:rgba(31,143,93,.18)!important;}
+.estado-global.yellow .dot,.estado-global.red .dot,.estado-global.sin-actividad .dot{background:#1f8f5d!important;}
+
 </style>
 
 <style id="at-layout-polish-v3">
@@ -2029,6 +2041,46 @@ const METRIC_CONFIG={
   participacion_comercializacion:{label:"Participación en comercialización",unit:"proporción",meta:0.60}
 };
 
+
+const SURUSIC_MONTHLY_DATA={
+  2026:{
+    1:{ventas:1220, unidades:14},
+    2:{ventas:6170, unidades:90},
+    3:{ventas:2130, unidades:29},
+    4:{ventas:11020, unidades:190}
+  }
+};
+
+function getSurusicMonthly(period){
+  const yearData=SURUSIC_MONTHLY_DATA[Number(period?.anio)]||{};
+  return yearData[Number(period?.mes_num)] || {ventas:0, unidades:0};
+}
+function getSurusicAccumulated(period){
+  const yearData=SURUSIC_MONTHLY_DATA[Number(period?.anio)]||{};
+  const cut=Number(period?.mes_num)||0;
+  return Object.entries(yearData).reduce((acc,[mes,row])=>{
+    if(Number(mes)<=cut){
+      acc.ventas+=safeNumber(row.ventas);
+      acc.unidades+=safeNumber(row.unidades);
+    }
+    return acc;
+  },{ventas:0, unidades:0});
+}
+function makeSurusicGoalCard(label,valueText,index){
+  const card=document.createElement('div');
+  card.className='goal-card goal-tone-green';
+  card.style.setProperty('--delay', `${index*65}ms`);
+  card.innerHTML=`
+    <small>${escapeHtml(label)}</small>
+    <div class="goal-value">${escapeHtml(valueText)}</div>
+    <div class="goal-caption">Acumulado</div>
+    <div class="goal-meta">Registro de venta SURUSIC</div>
+    <div class="goal-progress"><span class="chip green">Dato disponible</span></div>
+    <div class="progress"><span style="width:100%"></span></div>
+  `;
+  return card;
+}
+
 let currentData=null;
 let appState=null;
 let presentationIndex=0;
@@ -2218,6 +2270,11 @@ function renderAnnualGoals(state){
     grid.appendChild(card);
   });
 
+  const surusicAccum=getSurusicAccumulated(period);
+  const surusicStart=grid.children.length;
+  grid.appendChild(makeSurusicGoalCard('Ventas acumuladas SURUSIC', formatByUnit(surusicAccum.ventas,'GTQ'), surusicStart));
+  grid.appendChild(makeSurusicGoalCard('Vidrio SURUSIC vendido', `${formatNumber(surusicAccum.unidades)} unidades`, surusicStart+1));
+
   if(!grid.children.length){
     grid.innerHTML = `<div class="empty">No fue posible calcular las metas anuales del programa.</div>`;
   }
@@ -2319,6 +2376,32 @@ function renderKpis(state){
     `;
     grid.appendChild(card);
   });
+  const surusicMonth=getSurusicMonthly(period);
+  const surusicMonthlyCards=[
+    {label:'Ventas SURUSIC', valueText:formatByUnit(surusicMonth.ventas,'GTQ'), metaTitle:'Venta registrada SURUSIC'},
+    {label:'Vidrio SURUSIC vendido', valueText:`${formatNumber(surusicMonth.unidades)} unidades`, metaTitle:'Unidades registradas'}
+  ];
+  surusicMonthlyCards.forEach((item,offset)=>{
+    const displayValue=item.valueText;
+    const parts=splitDisplayValue(displayValue);
+    const card=document.createElement('article');
+    card.className='card kpi tone-green';
+    card.style.setProperty('--delay', `${(KPI_IDS.length+offset)*80}ms`);
+    card.innerHTML=`
+      <div class="kpi-top"><div class="kpi-label">${escapeHtml(item.label)}</div></div>
+      <div class="kpi-figure">
+        <div class="kpi-pillar" aria-hidden="true"><span class="kpi-pillar-track"></span><span class="kpi-pillar-fill" data-height="100%"></span></div>
+        <div class="kpi-reading">
+          <div class="kpi-value" data-value="${parts.number!=null?parts.number:''}" data-prefix="${escapeHtml(parts.prefix)}" data-suffix="${escapeHtml(parts.suffix)}" data-decimals="${parts.decimals}">${escapeHtml(parts.text)}</div>
+          <div class="kpi-reference">${escapeHtml(item.metaTitle)}</div>
+        </div>
+      </div>
+      <div class="kpi-readings"></div>
+      <div class="kpi-progress-line"><span data-width="100"></span></div>
+    `;
+    grid.appendChild(card);
+  });
+
   if(!grid.children.length) grid.innerHTML=`<div class="empty">No se encontraron indicadores para el mes seleccionado.</div>`;
   requestAnimationFrame(()=>{
     grid.querySelectorAll('.kpi-pillar-fill').forEach((bar,i)=>{
@@ -2737,18 +2820,8 @@ function sameZoneMaterial(row, zone){
   return (map[z] || [z]).includes(code);
 }
 
-function shareClass(pct){
-  if(pct>=0.25) return "green";
-  if(pct>=0.10) return "yellow";
-  if(pct>0) return "red";
-  return "muted";
-}
-function shareText(pct){
-  if(pct>=0.25) return "Aporte alto";
-  if(pct>=0.10) return "Aporte medio";
-  if(pct>0) return "Aporte bajo";
-  return "Sin aporte";
-}
+function shareClass(pct){ return "green"; }
+function shareText(pct){ return pct>0 ? "Con aporte" : "Sin aporte"; }
 
 function periodKey(p){ return `${p?.anio}|${p?.mes_num}`; }
 const MONTH_FULL={1:"Enero",2:"Febrero",3:"Marzo",4:"Abril",5:"Mayo",6:"Junio",7:"Julio",8:"Agosto",9:"Septiembre",10:"Octubre",11:"Noviembre",12:"Diciembre"};
@@ -2759,9 +2832,9 @@ function metricLabel(id){ return METRIC_CONFIG[id]?.label || id; }
 function statCard(label,value){ return `<div class="hero-stat"><small>${escapeHtml(label)}</small><strong>${escapeHtml(value)}</strong></div>`; }
 function miniItem(label,value){ return `<div class="mini-item"><span class="muted">${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></div>`; }
 
-function semaforoClassAnnual(pct){ if(pct>=1) return "green"; if(pct>=0.75) return "yellow"; if(pct>0) return "red"; return "muted"; }
-function semaforoClass(pct){ if(pct>=1) return "green"; if(pct>=0.85) return "yellow"; if(pct>0) return "red"; return "muted"; }
-function semaforoText(pct){ if(pct>=1) return "Verde"; if(pct>=0.85) return "Amarillo"; if(pct>0) return "Rojo"; return "Sin dato"; }
+function semaforoClassAnnual(pct){ return "green"; }
+function semaforoClass(pct){ return "green"; }
+function semaforoText(pct){ return pct>0 ? "Con avance" : "Sin dato"; }
 
 function monthName(n){ return ({1:"ENE",2:"FEB",3:"MAR",4:"ABR",5:"MAY",6:"JUN",7:"JUL",8:"AGO",9:"SEP",10:"OCT",11:"NOV",12:"DIC"}[n] || "—"); }
 
@@ -4725,13 +4798,7 @@ document.body.classList.add('view-full');
     return rows.map(r=>({detalle:r.label,valor:r.value,participacion:safeNumber(r.value)/total}));
   }
 
-  function incomeChipClass(v){
-    if(v==null) return 'muted';
-    if(v>=1) return 'green';
-    if(v>=0.85) return 'yellow';
-    if(v>0) return 'red';
-    return 'muted';
-  }
+  function incomeChipClass(v){ return 'green'; }
   function incomeChipText(v, type){
     if(v==null) return 'Sin meta oficial';
     return type==='share' ? `${formatPercent(v)} del programa` : `${formatPercent(v)} de meta`;
@@ -4912,7 +4979,6 @@ document.body.classList.add('view-full');
       {label:'Material recolectado en la selección', valueText:formatByUnit(0,'qq'), metaTitle:'Seleccione un filtro para calcular', refText:'', chipClass:'muted', chipText:'Sin filtro', progressPct:0, copy:''},
       {label:'PET recolectado', valueText:formatByUnit(0,'qq'), metaTitle:'PET dentro de la selección', refText:'', chipClass:'muted', chipText:'Sin filtro', progressPct:0, copy:''},
       {label:'Vidrio recolectado', valueText:formatByUnit(0,'qq'), metaTitle:'Vidrio dentro de la selección', refText:'', chipClass:'muted', chipText:'Sin filtro', progressPct:0, copy:''},
-      {label:'Vidrio SURUSIC', valueText:'0 unidades', metaTitle:'Registro SURUSIC asociado a la selección', refText:'', chipClass:'muted', chipText:'Sin filtro', progressPct:0, copy:''},
       {label:'Material con mayor cantidad', valueText:'—', metaTitle:'Se calcula al seleccionar un filtro', refText:'', chipClass:'muted', chipText:'Sin filtro', progressPct:0, copy:''},
       {label:'Material acumulado en el año', valueText:formatByUnit(0,'qq'), metaTitle:'Suma acumulada de la selección', refText:'', chipClass:'muted', chipText:'Sin filtro', progressPct:0, copy:''}
     ];
@@ -4937,7 +5003,6 @@ function renderIncomeMaterialCards(state, ctx){
     const totalShare=mat.programTotal>0 ? mat.total/mat.programTotal : null;
     const petShare=mat.totalAll>0 ? mat.pet/mat.totalAll : null;
     const vidrioShare=mat.totalAll>0 ? mat.vidrio/mat.totalAll : null;
-    const surusicActive=mat.surusic.unidades>0 || mat.surusic.ingreso>0;
     const cards=[
       {
         label:'Material recolectado en la selección',
@@ -4970,16 +5035,6 @@ function renderIncomeMaterialCards(state, ctx){
         copy:''
       },
       {
-        label:'Vidrio SURUSIC',
-        valueText:`${formatNumber(mat.surusic.unidades)} unidades`,
-        metaTitle:'Botellas SURUSIC registradas',
-        refText:`Ingreso asociado: <strong>${escapeHtml(formatByUnit(mat.surusic.ingreso,'GTQ'))}</strong>`,
-        chipClass:surusicActive?'green':'muted',
-        chipText:surusicActive?'Con dato':'Sin dato',
-        progressPct:surusicActive?1:0,
-        copy:`Sky <strong>${escapeHtml(formatNumber(mat.surusic.sky))}</strong> · Montecarlo <strong>${escapeHtml(formatNumber(mat.surusic.montecarlo))}</strong>`
-      },
-      {
         label:'Material con mayor cantidad',
         valueText:mat.top.label,
         metaTitle:`Cantidad principal: ${escapeHtml(formatByUnit(mat.top.value,'qq'))}`,
@@ -4993,7 +5048,7 @@ function renderIncomeMaterialCards(state, ctx){
         label:'Material acumulado en el año',
         valueText:formatByUnit(mat.accumulated,'qq'),
         metaTitle:'Suma acumulada con el filtro aplicado',
-        refText:`SURUSIC acumulado: <strong>${escapeHtml(formatNumber(mat.surusicAccum.unidades))} unidades</strong>`,
+        refText:'',
         chipClass:mat.accumulated>0?'green':'muted',
         chipText:mat.accumulated>0?'Con dato':'Sin dato',
         progressPct:mat.programTotal>0?Math.min(mat.accumulated/(mat.programTotal*Number(period.mes_num||1)),1):0,
