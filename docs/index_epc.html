@@ -446,6 +446,59 @@
     .kpi-meta{font-size:.83rem!important;line-height:1.55!important;color:#4c6478!important}
     .kpi-progress-line{height:7px!important;margin-top:auto!important;background:#e2ebe7!important}
     .kpi-progress-line span{background:linear-gradient(90deg,#bfe8cf,var(--tone,#1c6084))!important}
+    /* --- EPC limpieza final: números legibles, acumulados sueltos y gráficos útiles --- */
+    .kpi-value,
+    .annual-clear-main strong,
+    .annual-clear-row strong,
+    .metric-chip strong,
+    .chart-primary-value,
+    .chart-track-pct,
+    .exec-kpi-card strong,
+    .exec-strip-card strong{font-family:var(--font-body)!important;font-variant-numeric:tabular-nums!important;font-feature-settings:"tnum" 1!important}
+    .kpi-value{font-size:1.86rem!important;font-weight:800!important;letter-spacing:-.045em!important;color:#102c1f!important}
+    .kpi-unit-inline{font-family:var(--font-body)!important;font-size:.9rem!important;font-weight:800!important;color:#557265!important;padding-bottom:2px!important}
+    .kpi-reference{font-size:.86rem!important;color:#536b61!important}
+    .kpi-meta{font-size:.86rem!important;color:#344f42!important}
+    .annual-kpi{min-height:245px!important;background:linear-gradient(180deg,#ffffff 0%,var(--tone-soft,#edf6f1) 190%)!important}
+    .annual-clear{display:grid;gap:10px;height:100%}
+    .annual-clear-label{font-size:.75rem!important;line-height:1.38!important;color:#456358!important}
+    .annual-clear-main{padding:0!important;background:transparent!important;border:0!important;border-radius:0!important;display:block!important}
+    .annual-clear-main strong{display:block;font-size:1.96rem!important;font-weight:850!important;line-height:1.05!important;color:#0d2a1c!important;letter-spacing:-.055em!important}
+    .annual-clear-main span{display:none!important}
+    .annual-clear-lines{gap:5px!important}
+    .annual-clear-row{padding:7px 0!important;border-bottom:1px solid rgba(49,93,72,.12)!important}
+    .annual-clear-row span{font-size:.72rem!important;color:#557265!important}
+    .annual-clear-row strong{font-size:.93rem!important;color:#102c1f!important;font-weight:850!important}
+    .annual-clear-progress{height:8px!important;background:#e2eee7!important;margin-top:auto!important}
+    .annual-clear-progress span{background:linear-gradient(90deg,#cdeed9,var(--tone,#195f33))!important}
+
+    .epc-analysis-card{padding:22px 24px;background:linear-gradient(180deg,#ffffff 0%,#f7fbf8 100%);border-left:4px solid #267a46}
+    .epc-analysis-card h3{font-family:var(--font-head);font-size:1.1rem;font-weight:600;color:#17314f;margin-bottom:10px}
+    .epc-analysis-card p{font-size:.9rem;line-height:1.76;color:#2f4e44;margin:0 0 10px;text-align:justify}
+    .epc-analysis-card p:last-child{margin-bottom:0}
+    .epc-analysis-card strong{color:#153f2a}
+    .epc-analysis-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:14px}
+    .epc-analysis-block{padding:13px 14px;border-radius:16px;background:#f1faf4;border:1px solid #dceee3}
+    .epc-analysis-block strong{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:#267a46;margin-bottom:5px}
+    .epc-analysis-block span{display:block;font-size:.87rem;line-height:1.5;color:#304c40}
+
+    .epc-chart-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+    .epc-chart-tab{border:1px solid #cde4d4;background:#f1faf4;color:#195f33;border-radius:999px;padding:9px 14px;font-family:var(--font-body);font-size:.82rem;font-weight:800;cursor:pointer;transition:.18s ease}
+    .epc-chart-tab:hover{background:#e4f4e9;transform:translateY(-1px)}
+    .epc-chart-tab.active{background:linear-gradient(135deg,#267a46,#195f33);color:#fff;border-color:transparent;box-shadow:0 8px 20px rgba(38,122,70,.18)}
+    .epc-chart-panel{display:none}
+    .epc-chart-panel.active{display:block}
+    .epc-chart-card{padding:22px;background:linear-gradient(180deg,#ffffff 0%,#f6fbf8 100%)}
+    .epc-chart-list{display:grid;gap:11px}
+    .epc-hbar{display:grid;grid-template-columns:minmax(180px,.8fr) minmax(260px,1.6fr) 150px;gap:12px;align-items:center;padding:12px 14px;border-radius:16px;background:#ffffff;border:1px solid #dceee3;box-shadow:0 1px 6px rgba(22,68,44,.04)}
+    .epc-hbar-name{font-size:.86rem;font-weight:850;color:#17314f;line-height:1.3}
+    .epc-hbar-sub{display:block;margin-top:2px;font-size:.74rem;font-weight:700;color:#6f8779}
+    .epc-hbar-track{height:12px;border-radius:999px;background:#e3efe7;overflow:hidden}
+    .epc-hbar-fill{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#caeed9,#267a46);width:0;transition:width .85s cubic-bezier(.22,1,.36,1)}
+    .epc-hbar-value{text-align:right;font-size:.86rem;font-weight:850;color:#153f2a;font-variant-numeric:tabular-nums}
+    .epc-chart-note{margin-top:12px;font-size:.83rem;line-height:1.6;color:#587166}
+    @media(max-width:1100px){.epc-analysis-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.epc-hbar{grid-template-columns:1fr;gap:8px}.epc-hbar-value{text-align:left}}
+    @media(max-width:760px){.epc-analysis-grid{grid-template-columns:1fr}.kpi-value{font-size:1.65rem!important}.annual-clear-main strong{font-size:1.72rem!important}}
     .section-head{align-items:flex-start!important}
     .section-head .section-sub{margin-top:5px}
     @media(max-width:1100px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
@@ -467,7 +520,7 @@
       <a class="nav-tab active" href="#resumen">Resumen</a>
       <a class="nav-tab" href="#metas-anuales-avance-acumulado">Metas anuales y avance acumulado</a>
       <a class="nav-tab" href="#metas-mensuales">Metas mensuales</a>
-      <a class="nav-tab" href="#grafica-operativos">Gráfica anual</a>
+      <a class="nav-tab" href="#graficos-interactivos">Gráficos interactivos</a>
     </nav>
     <div class="header-utility">
       <a class="back" href="./index.html"><span class="back-arrow">&#8592;</span>Volver al inicio</a>
@@ -1060,11 +1113,10 @@
             <div class="annual-clear-label">${esc(cfg.label)}</div>
             <div class="annual-clear-main">
               <strong>${fmt(actual)} ${esc(baseUnit)}</strong>
-              <span>Acumulado al presente mes</span>
             </div>
             <div class="annual-clear-lines">
               <div class="annual-clear-row"><span>Meta anual</span><strong>${fmt(target)} ${esc(baseUnit)}</strong></div>
-              <div class="annual-clear-row"><span>Cumplimiento</span><strong>${esc(complianceText)}</strong></div>
+              <div class="annual-clear-row"><span>Cumplimiento acumulado de meta anual</span><strong>${esc(complianceText)}</strong></div>
             </div>
             <div class="annual-clear-progress" aria-hidden="true"><span style="width:${Math.max(0, Math.min(progressWidth, 100))}%"></span></div>
           </div>`
@@ -1080,61 +1132,130 @@
           <div class="section-head">
             <div>
               <div class="section-title">Metas anuales y avance acumulado</div>
-              <p class="section-sub">Resultados acumulados al presente mes frente a las metas anuales de EPC.</p>
-            </div>
+                          </div>
           </div>
           <div class="kpis">${cards || '<div class="empty">No hay metas anuales acumuladas para el presente mes.</div>'}</div>
         </section>`;
     }
 
-    function operationalAnnualChartMarkup(row){
-      const items = annualOperationalRows(row);
+    function monthlyCoverageChartItems(row){
+      return COVERAGE_CONFIG.map(cfg => {
+        const actual = Number(row[cfg.valueKey] || 0);
+        const target = Number(cfg.target || 0);
+        const pct = target > 0 ? actual / target : 0;
+        const unit = cfg.coverageLabel || cfg.targetLabel || '';
+        return {
+          label: cfg.label,
+          actual,
+          target,
+          unit,
+          pct,
+          pctLabel: fmtPct(pct),
+          width: Math.max(0, Math.min(100, pct * 100))
+        };
+      });
+    }
+
+    function monthlyActivityChartItems(row){
+      const monthNum = Number(row.mes_num || 0);
+      return OP_CONFIG.map(cfg => {
+        const actual = Number(row[cfg.key] || 0);
+        const target = Number(cfg.target || 0);
+        const hasWindow = Number.isFinite(Number(cfg.start)) && Number.isFinite(Number(cfg.end));
+        const status = !hasWindow ? 'pending' : (monthNum < cfg.start ? 'pending' : (monthNum > cfg.end ? 'closed' : 'active'));
+        const pct = target > 0 ? actual / target : 0;
+        return {
+          label: cfg.label,
+          actual,
+          target,
+          status,
+          pct,
+          pctLabel: status === 'pending' && actual === 0 ? 'Programado' : fmtPct(pct),
+          width: status === 'pending' && actual === 0 ? 0 : Math.max(0, Math.min(100, pct * 100)),
+          detail: status === 'pending' && actual === 0 ? 'Programado' : `${fmt(actual)} de ${fmt(target)}`
+        };
+      });
+    }
+
+    function hbarMarkup(item, mode){
+      const detail = mode === 'coverage'
+        ? `${fmt(item.actual)} de ${fmt(item.target)} ${item.unit}`.trim()
+        : item.detail;
       return `
-        <section class="section present-slide" id="grafica-operativos">
+        <div class="epc-hbar">
+          <div>
+            <div class="epc-hbar-name">${esc(item.label)}</div>
+            <span class="epc-hbar-sub">${esc(detail)}</span>
+          </div>
+          <div class="epc-hbar-track" aria-hidden="true"><span class="epc-hbar-fill" style="width:${Math.max(0, Math.min(100, item.width))}%"></span></div>
+          <div class="epc-hbar-value">${esc(item.pctLabel)}</div>
+        </div>`;
+    }
+
+    function operationalAnnualChartMarkup(row){
+      const monthText = `${monthName(row.mes_num)} ${row.anio || ''}`.trim();
+      const coverage = monthlyCoverageChartItems(row).map(item => hbarMarkup(item, 'coverage')).join('');
+      const activities = monthlyActivityChartItems(row).map(item => hbarMarkup(item, 'activity')).join('');
+      return `
+        <section class="section present-slide" id="graficos-interactivos">
           <div class="section-head">
             <div>
-              <div class="section-title">Gráfica interactiva · avance acumulado al presente mes frente a meta anual</div>
+              <div class="section-title">Gráficos interactivos</div>
             </div>
           </div>
-          <article class="card chart-card">
-            <div class="chart-grid">
-              ${items.map(item => {
-                const meta = chartStatusMeta(item);
-                return `
-                <article class="chart-item ${item.status}">
-                  <div class="chart-item-top">
-                    <div class="chart-heading">
-                      <div class="chart-label">${esc(item.label)}</div>
-                      <div class="chart-sub">${esc(item.window)}</div>
-                    </div>
-                    <div class="chart-badge ${item.status}">${esc(meta.badge)}</div>
-                  </div>
-                  <div class="chart-body">
-                    <div class="chart-primary">
-                      <div class="chart-primary-label">${esc(meta.label)}</div>
-                      <div class="chart-primary-value">${esc(meta.value)}</div>
-                      <div class="chart-primary-copy">${esc(meta.detail)}</div>
-                    </div>
-                    <div class="chart-side-metrics">
-                      <div class="metric-chip">
-                        <span>Acumulado</span>
-                        <strong>${fmt(item.actual)}</strong>
-                      </div>
-                      <div class="metric-chip">
-                        <span>Meta anual</span>
-                        <strong>${fmt(item.annualTarget)}</strong>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="chart-track-wrap">
-                    <div class="chart-track ${item.status}">
-                      <span class="chart-fill" data-width="${item.visualPct * 100}"></span>
-                      ${item.status === 'pending' ? '<span class="chart-track-note">Programado</span>' : `<span class="chart-track-note">${fmt(item.actual)} de ${fmt(item.annualTarget)}</span><span class="chart-track-pct">${fmtPct(item.pct)}</span>`}
-                    </div>
-                  </div>
-                  <div class="chart-tooltip">${annualOperationalTooltip(item)}</div>
-                </article>`;
-              }).join('')}
+          <article class="card epc-chart-card">
+            <div class="epc-chart-tabs" role="tablist" aria-label="Gráficos EPC">
+              <button class="epc-chart-tab active" type="button" data-chart-tab="cobertura" onclick="switchEpcChart('cobertura')">Cobertura mensual</button>
+              <button class="epc-chart-tab" type="button" data-chart-tab="actividades" onclick="switchEpcChart('actividades')">Actividades del mes</button>
+            </div>
+            <div class="epc-chart-panel active" data-chart-panel="cobertura">
+              <div class="epc-chart-list">${coverage}</div>
+              <p class="epc-chart-note">Cada barra compara el resultado de ${esc(monthText)} contra su meta mensual. La barra más llena indica mayor avance.</p>
+            </div>
+            <div class="epc-chart-panel" data-chart-panel="actividades">
+              <div class="epc-chart-list">${activities}</div>
+              <p class="epc-chart-note">Cada barra muestra las actividades registradas en ${esc(monthText)} contra la meta mensual correspondiente. Las actividades aún no iniciadas aparecen como programadas.</p>
+            </div>
+          </article>
+        </section>`;
+    }
+
+    function switchEpcChart(mode){
+      document.querySelectorAll('[data-chart-tab]').forEach(btn => btn.classList.toggle('active', btn.dataset.chartTab === mode));
+      document.querySelectorAll('[data-chart-panel]').forEach(panel => panel.classList.toggle('active', panel.dataset.chartPanel === mode));
+    }
+
+    function monthlyAnalysisMarkup(row){
+      const monthText = `${monthName(row.mes_num)} ${row.anio || ''}`.trim();
+      const coverage = monthlyCoverageChartItems(row);
+      const coverageAvg = coverage.length ? coverage.reduce((acc,item)=>acc+Number(item.pct||0),0)/coverage.length : 0;
+      const bestCoverage = coverage.slice().sort((a,b)=>Number(b.pct||0)-Number(a.pct||0))[0];
+      const lowestCoverage = coverage.slice().sort((a,b)=>Number(a.pct||0)-Number(b.pct||0))[0];
+      const activities = monthlyActivityChartItems(row);
+      const activeActivities = activities.filter(item => item.status !== 'pending' && Number(item.actual||0) > 0);
+      const activityTotal = activities.reduce((acc,item)=>acc+Number(item.actual||0),0);
+      const activityText = activeActivities.length
+        ? activeActivities.slice(0,4).map(item => `${item.label}: ${fmt(item.actual)}`).join(' · ')
+        : 'sin actividades operativas registradas para este mes';
+      const annual = annualOperationalRows(row).filter(item => !(item.status === 'pending' && Number(item.actual||0) === 0));
+      const annualAvg = annual.length ? annual.reduce((acc,item)=>acc+Number(item.pct||0),0)/annual.length : 0;
+      return `
+        <section class="section present-slide" id="analisis-mes">
+          <div class="section-head">
+            <div>
+              <div class="section-title">Análisis del mes</div>
+            </div>
+          </div>
+          <article class="card epc-analysis-card">
+            <h3>${esc(monthText)}</h3>
+            <p>Durante <strong>${esc(monthText)}</strong>, EPC reporta <strong>${fmt(row.estudiantes_epc_mes||0)}</strong> estudiantes, <strong>${fmt(row.docentes_mes||0)}</strong> docentes, <strong>${fmt(row.centros_mes||0)}</strong> centros educativos y <strong>${fmt(row.municipios_mes||0)}</strong> municipios con cobertura pedagógica registrada.</p>
+            <p>El cumplimiento mensual promedio de cobertura es de <strong>${fmtPct(coverageAvg)}</strong>. El indicador más alto del mes es <strong>${esc(bestCoverage?.label || '—')}</strong> con <strong>${esc(bestCoverage?.pctLabel || '—')}</strong>; el indicador que requiere mayor seguimiento es <strong>${esc(lowestCoverage?.label || '—')}</strong> con <strong>${esc(lowestCoverage?.pctLabel || '—')}</strong>.</p>
+            <p>En actividades operativas, el mes registra <strong>${fmt(activityTotal)}</strong> acciones en total: <strong>${esc(activityText)}</strong>.</p>
+            <div class="epc-analysis-grid">
+              <div class="epc-analysis-block"><strong>Cobertura pedagógica</strong><span>${fmt(row.estudiantes_epc_mes||0)} estudiantes · ${fmt(row.docentes_mes||0)} docentes</span></div>
+              <div class="epc-analysis-block"><strong>Presencia territorial</strong><span>${fmt(row.centros_mes||0)} centros · ${fmt(row.municipios_mes||0)} municipios</span></div>
+              <div class="epc-analysis-block"><strong>Actividades del mes</strong><span>${fmt(activityTotal)} acciones registradas</span></div>
+              <div class="epc-analysis-block"><strong>Promedio anual activo</strong><span>${fmtPct(annualAvg)} de avance acumulado</span></div>
             </div>
           </article>
         </section>`;
@@ -1572,6 +1693,7 @@
         ...OP_CONFIG.map(cfg => operationalKpiData(cfg, row))
       ].map((data, idx) => renderKpiCard(data, idx)).join('');
       const annualOperationalKpis = operationalAnnualKpisMarkup(row);
+      const monthlyAnalysis = monthlyAnalysisMarkup(row);
       const annualChart = operationalAnnualChartMarkup(row);
 
       document.getElementById('mainWrap').innerHTML = `
@@ -1615,11 +1737,12 @@
             <div class="section-head">
               <div>
                 <div class="section-title">Metas mensuales</div>
-                <p class="section-sub">Lectura del mes seleccionado contra la meta mensual de cobertura y actividades.</p>
-              </div>
+                              </div>
             </div>
             <div class="kpis" id="monthlyKpiGrid">${monthlyCards || '<div class="empty">No hay metas mensuales para este al presente mes.</div>'}</div>
           </section>
+
+          ${monthlyAnalysis}
 
           ${annualChart}
         </div>
