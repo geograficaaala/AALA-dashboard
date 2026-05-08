@@ -1948,27 +1948,41 @@ iframe[src*="maps"] {
     }
 
 
-/* ── Ajuste final hero: lectura natural sin espacios raros ── */
+/* ── Ajuste final hero: texto legible, sin huecos ni palabras invisibles ── */
 .hero-copy-text{
+  max-width:920px !important;
+}
+.hero-copy-text h1{
   max-width:880px !important;
+  margin-bottom:18px !important;
 }
 .hero-copy-text .hero-lead{
+  display:block !important;
+  color:#243447 !important;
   text-align:left !important;
-  text-align-last:auto !important;
+  text-align-last:left !important;
   hyphens:none !important;
   word-spacing:normal !important;
   letter-spacing:normal !important;
   word-break:normal !important;
   overflow-wrap:normal !important;
-  text-wrap:pretty;
-  max-width:74ch !important;
-  font-size:.9rem !important;
-  line-height:1.68 !important;
+  max-width:88ch !important;
+  font-size:.92rem !important;
+  line-height:1.64 !important;
   margin:0 0 10px !important;
 }
+.hero-copy-text .hero-lead strong{
+  color:#17314f !important;
+  -webkit-text-fill-color:#17314f !important;
+  font-weight:700 !important;
+}
 @media(max-width:1100px){
+  .hero-copy-text,
+  .hero-copy-text h1,
   .hero-copy-text .hero-lead{
     max-width:none !important;
+  }
+  .hero-copy-text .hero-lead{
     font-size:.9rem !important;
   }
 }
