@@ -1197,6 +1197,34 @@ th{background:#f3f7f3;color:#547089}
 @media(max-width:1280px){.module-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.footer-inner{grid-template-columns:1fr 1fr}}
 @media(max-width:900px){.header-inner{min-height:auto}.nav-bar{top:auto}.module-tabs{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr}}
 
+
+/* Ajustes finales solicitados: KPIs tipo Reforestación y tabla simplificada */
+.kpi-card{
+  padding:18px 16px 16px;
+  border:1.5px solid #dfe9e5;
+  border-top:3px solid #dfe9e5;
+  border-left:1.5px solid #dfe9e5;
+  border-radius:18px;
+  min-height:178px;
+  display:block;
+  background:#fff;
+}
+.kpi-card:hover{border-top-color:#2e6a57;transform:translateY(-4px);box-shadow:0 16px 40px rgba(23,50,58,.12)}
+.kpi-card::after{display:none}
+.kpi-label{font-weight:700;font-size:.67rem;text-transform:uppercase;letter-spacing:.08em;color:#6b7f90;margin-bottom:8px;line-height:1.3}
+.kpi-val{font-family:var(--font-mono);font-size:1.55rem;font-weight:500;margin-bottom:10px;color:#17314f;line-height:1;letter-spacing:-.02em}
+.kpi-meta{display:block;color:#6f8c94;font-size:.79rem;line-height:1.55;margin-top:4px}
+.kpi-meta strong{display:inline;font-size:.79rem;text-transform:none;letter-spacing:0;color:#6f8c94;font-weight:700}
+.kpi-meta span{display:inline;font-size:.79rem;color:#17314f;margin-left:4px}
+.kpi-bar{height:5px;border-radius:999px;background:#dfe9e5;overflow:hidden;margin-top:12px}
+.kpi-bar span{background:linear-gradient(90deg,#24916d,#2b87a6)}
+.table-header p:empty{display:none}
+.process-table{min-width:940px}
+.comments-cell{min-width:320px;max-width:520px;white-space:normal}
+.comment-wrap{display:grid;gap:5px;line-height:1.55;color:#36516a}
+.comment-wrap span{font-size:.8rem;color:#17314f}
+.comment-wrap small{font-size:.75rem;color:#6b7f90}
+
 </style>
 </head>
 <body class="view-full">
@@ -1303,7 +1331,7 @@ th{background:#f3f7f3;color:#547089}
     <section id="procesos" class="mb-6">
       <div class="section-header">
         <div>
-          <div class="section-title">Seguimiento de procesos por componente</div>
+          <div class="section-title">Seguimiento de procesos activos</div>
           <div class="section-sub">Seleccione un componente para revisar registros acumulados, situación actual y aporte a la meta anual.</div>
         </div>
       </div>
@@ -1314,7 +1342,7 @@ th{background:#f3f7f3;color:#547089}
           <select id="processSelect"></select>
         </div>
         <div class="filter-group">
-          <label for="stageSelect">Estado para informe</label>
+          <label for="stageSelect">Situación</label>
           <select id="stageSelect">
             <option value="all">Todos los estados</option>
             <option value="confirmado">Suman al avance</option>
@@ -1348,6 +1376,11 @@ th{background:#f3f7f3;color:#547089}
     </section>
     <!-- ── DIAGNOSTIC ─────────────────────────── -->
     <section id="analisis" class="mb-4">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Análisis del mes</div>
+        </div>
+      </div>
       <div id="diagnosticPanel">
         <div class="loader"><span class="spinner"></span></div>
       </div>
@@ -1493,6 +1526,27 @@ function contributionText(label){
   if(n.includes('no elegible')) return 'No se suma a la meta anual.';
   return 'Pendiente de revisión.';
 }
+
+function activityComment(r){
+  const base = {
+    estudios: 'Estudio o caracterización técnica vinculada con agua, saneamiento o gestión ambiental municipal.',
+    pirdes: 'Proceso municipal orientado a planificación, implementación o seguimiento de PIRDES.',
+    asistencias: 'Acompañamiento técnico brindado a una municipalidad o equipo local para fortalecer la gestión del servicio.',
+    reuniones: 'Espacio de coordinación institucional para seguimiento de acuerdos, necesidades o acciones vinculadas al programa.',
+    capacidad: 'Actividad de formación o capacitación para fortalecer capacidades técnicas municipales.'
+  }[r.__type || state.process] || 'Actividad registrada como parte del acompañamiento municipal del programa.';
+
+  const meta = friendlyMeta(r.meta);
+  const note = shortLabel(r.note || r.kind || 'Registro acumulado del período seleccionado.');
+  return `
+    <div class="comment-wrap">
+      <span>${esc(base)}</span>
+      <small>Meta relacionada: ${esc(meta)}.</small>
+      <small>${esc(note)}</small>
+    </div>
+  `;
+}
+
 function friendlyMeta(meta){
   const t=String(meta||'Meta anual').replace(/\s*\/\s*/g,' y ');
   return t || 'Meta anual del programa';
@@ -1512,7 +1566,6 @@ function renderKpis(){
     return `<article class="kpi-card fade-in" style="--kpi-color:${m.color}">
       <div class="kpi-label">${esc(m.label)}</div>
       <div class="kpi-val">${fmt(m.valor)}</div>
-      <div class="kpi-meta"><strong>Resultado acumulado</strong><span>${fmt(m.valor)} ${esc(m.unidad)}</span></div>
       <div class="kpi-meta"><strong>Meta anual</strong><span>${fmt(m.meta)} ${esc(m.unidad)}</span></div>
       <div class="kpi-meta"><strong>Cumplimiento acumulado</strong><span>${fmtPct(pc)}</span></div>
       <div class="kpi-bar"><span style="width:${Math.min(pc,100).toFixed(1)}%"></span></div>
@@ -1533,19 +1586,14 @@ function renderTable(rows){
   if(!rows.length) return `<div class="empty-state">No hay actividades visibles para los filtros seleccionados.</div>`;
   return `<div class="tbl-wrap"><table class="process-table">
     <thead><tr>
-      <th>Componente</th><th>Fecha</th><th>Municipio / alcance</th><th>Actividad</th><th>Estado para informe</th><th>Resumen para revisión</th>
+      <th>Componente</th><th>Fecha</th><th>Municipio / alcance</th><th>Actividad</th><th>Comentarios</th>
     </tr></thead>
     <tbody>${rows.map(r=>`<tr>
       <td class="component-cell"><strong>${esc(PROCESS_LABELS[r.__type]||PROCESS_LABELS[state.process]||'Componente')}</strong></td>
       <td class="mono">${esc(r.date||periodLabel(r.period))}</td>
       <td class="bold">${esc(r.municipio||'—')}</td>
       <td class="process-cell"><strong>${esc(r.activity||'Actividad registrada')}</strong>${r.kind?`<span>${esc(r.kind)}</span>`:''}</td>
-      <td>${stagePill(r.stage,r.stageLabel)}</td>
-      <td class="report-summary">
-        <strong>${esc(contributionText(r.contribution))}</strong>
-        <span>Objetivo relacionado: ${esc(friendlyMeta(r.meta))}.</span>
-        <span class="summary-note">${esc(shortLabel(r.note||'Sin comentario adicional para el período.'))}</span>
-      </td>
+      <td class="comments-cell">${activityComment(r)}</td>
     </tr>`).join('')}</tbody>
   </table></div>`;
 }
@@ -1557,7 +1605,7 @@ function renderProcesses(){
   const follow = all.filter(r=>r.stage!=='confirmado'&&r.stage!=='no').length;
   const no = all.filter(r=>r.stage==='no').length;
   document.getElementById('tableTitle').textContent = PROCESS_LABELS[state.process];
-  document.getElementById('tableSub').textContent = `${PROCESS_HELP[state.process]} Actividades acumuladas hasta ${periodLabel(state.periodo)}.`;
+  document.getElementById('tableSub').textContent = '';
   const statsEl=document.getElementById('tableStats'); if(statsEl) statsEl.innerHTML = '';
   document.getElementById('activePeriodPill').textContent = periodLabel(state.periodo);
   document.getElementById('processTable').innerHTML = renderTable(rows);
