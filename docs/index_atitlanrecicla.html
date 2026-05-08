@@ -1850,10 +1850,10 @@
         <div class="annual-goals-grid" id="annualGoalsGrid"></div>
       </article>
     </section>
-    <section class="toolbar toolbar-compact">
+    <section class="toolbar toolbar-compact" hidden aria-hidden="true">
       <select id="periodSelect" hidden></select>
       <span id="latestPeriodPill" hidden></span>
-      <div class="card filter"><label for="zoneSelect">Zona</label><select id="zoneSelect"></select></div>
+      <select id="zoneSelect" hidden disabled tabindex="-1" aria-hidden="true"></select>
     </section>
     <section class="section">
       <div class="section-head"><div><h2>Metas mensuales</h2><p id="kpiSubtitle" class="hidden"></p></div></div>
