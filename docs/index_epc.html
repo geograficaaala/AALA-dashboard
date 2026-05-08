@@ -93,6 +93,8 @@
     .section{margin-bottom:22px}
     .section-head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:14px}
     .section-title{font-family:var(--font-head);font-size:1.35rem;font-weight:600;letter-spacing:-.01em;color:var(--text)}
+    #metas-anuales-avance-acumulado .section-title,
+    #metas-mensuales .section-title{font-size:1.62rem;line-height:1.15}
     .section-sub{font-size:.87rem;color:var(--muted);line-height:1.6;max-width:860px}
     .section-chip{padding:8px 12px;border-radius:999px;background:var(--blue-pale);border:1px solid var(--blue-soft);color:var(--blue);font-size:.74rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
 
@@ -693,7 +695,7 @@
 ];
 
     const OP_ANNUAL_META = [
-      { key:'act_tul_mes', label:'Siembra y poda de tul', annualTarget:10, window:'Marzo a diciembre', start:3, end:12, resultSuffix:'acciones de tul acumuladas' },
+      { key:'act_tul_mes', label:'Siembra y poda de tul', annualTarget:10, window:'Marzo a diciembre', start:3, end:12, resultSuffix:'jornadas acumuladas' },
       { key:'act_giras_mes', label:'Giras educativas', annualTarget:24, window:'Marzo a septiembre', start:3, end:9, resultSuffix:'giras acumuladas' },
       { key:'act_ferias_mes', label:'Ferias ambientales', annualTarget:16, window:'Febrero a diciembre', start:2, end:12, resultSuffix:'ferias acumuladas' },
       { key:'act_huertos_mes', label:'Huertos escolares', annualTarget:8, window:'Abril a septiembre', start:4, end:9, resultSuffix:'huertos acumulados' },
@@ -718,6 +720,28 @@
     const ACTIVE_VISITS_TOTAL = 7;
     const ACTIVE_START_MONTH = 3;
     const ACTIVE_END_MONTH = 9;
+
+    // Diplomado juvenil 2026: 2 cohortes · 60 estudiantes por cohorte · 5 módulos + 1 presentación final por cohorte.
+    // El avance anual de estudiantes se reconoce por sostenimiento dentro de las sesiones de cada cohorte, no por sumar estudiantes cada mes.
+    const DIPLOMA_ANNUAL_STUDENTS = 120;
+    const DIPLOMA_COHORT_SIZE = 60;
+    const DIPLOMA_SESSIONS_PER_COHORT = 6;
+    const DIPLOMA_ANNUAL_SESSIONS = 12;
+    const DIPLOMA_SESSIONS = [
+      { period:'2026-03', cohort:1, type:'módulo', label:'Módulo 1' },
+      { period:'2026-03', cohort:1, type:'módulo', label:'Módulo 2' },
+      { period:'2026-04', cohort:1, type:'módulo', label:'Módulo 3' },
+      { period:'2026-05', cohort:1, type:'módulo', label:'Módulo 4' },
+      { period:'2026-05', cohort:1, type:'módulo', label:'Módulo 5' },
+      { period:'2026-06', cohort:1, type:'presentación final', label:'Presentación final' },
+      { period:'2026-07', cohort:2, type:'módulo', label:'Módulo 1' },
+      { period:'2026-07', cohort:2, type:'módulo', label:'Módulo 2' },
+      { period:'2026-08', cohort:2, type:'módulo', label:'Módulo 3' },
+      { period:'2026-08', cohort:2, type:'módulo', label:'Módulo 4' },
+      { period:'2026-09', cohort:2, type:'módulo', label:'Módulo 5' },
+      { period:'2026-09', cohort:2, type:'presentación final', label:'Presentación final' }
+    ];
+
     const MONTHS = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 
     const state = { periodo:'', data:{ total:[], indicadores:[], metadata:[] } };
@@ -863,6 +887,162 @@
       const next = Math.ceil(v);
       if(next <= ACTIVE_VISITS_TOTAL && (next - v) <= 0.10) return `Casi ${next} de ${ACTIVE_VISITS_TOTAL} módulos`;
       return `${fmt(v, 2)} de ${ACTIVE_VISITS_TOTAL} módulos`;
+    }
+
+    function diplomaSessionsUpTo(period){
+      return DIPLOMA_SESSIONS.filter(item => String(item.period) <= String(period));
+    }
+
+    function diplomaSessionsInPeriod(period){
+      return DIPLOMA_SESSIONS.filter(item => String(item.period) === String(period));
+    }
+
+    function diplomaCompletedByCohort(period, cohort){
+      return diplomaSessionsUpTo(period).filter(item => Number(item.cohort) === Number(cohort)).length;
+    }
+
+    function diplomaCurrentCohort(period){
+      const inMonth = diplomaSessionsInPeriod(period);
+      if(inMonth.length) return inMonth[0].cohort;
+      const completed = diplomaSessionsUpTo(period);
+      if(!completed.length) return 1;
+      return completed[completed.length - 1].cohort;
+    }
+
+    function diplomaProgressLabel(period){
+      const totalCompleted = diplomaSessionsUpTo(period).length;
+      const c1 = diplomaCompletedByCohort(period, 1);
+      const c2 = diplomaCompletedByCohort(period, 2);
+      if(totalCompleted <= 0) return 'Programado para iniciar';
+      if(c1 < DIPLOMA_SESSIONS_PER_COHORT) return `Cohorte 1: ${c1} de ${DIPLOMA_SESSIONS_PER_COHORT} sesiones completadas`;
+      if(c2 <= 0) return 'Cohorte 1 completada';
+      if(c2 < DIPLOMA_SESSIONS_PER_COHORT) return `Cohorte 2: ${c2} de ${DIPLOMA_SESSIONS_PER_COHORT} sesiones completadas`;
+      return 'Cohortes 1 y 2 completadas';
+    }
+
+    function diplomaStudentMainText(period){
+      const totalCompleted = diplomaSessionsUpTo(period).length;
+      const c1 = diplomaCompletedByCohort(period, 1);
+      const c2 = diplomaCompletedByCohort(period, 2);
+      if(totalCompleted <= 0) return 'Programado';
+      if(c1 < DIPLOMA_SESSIONS_PER_COHORT) return `${fmt(DIPLOMA_COHORT_SIZE)} estudiantes en formación`;
+      if(c2 <= 0) return `${fmt(DIPLOMA_COHORT_SIZE)} estudiantes formados`;
+      if(c2 < DIPLOMA_SESSIONS_PER_COHORT) return `${fmt(DIPLOMA_ANNUAL_STUDENTS)} estudiantes en formación`;
+      return `${fmt(DIPLOMA_ANNUAL_STUDENTS)} estudiantes formados`;
+    }
+
+    function diplomaMonthlyStudentMainText(period){
+      const sessions = diplomaSessionsInPeriod(period);
+      if(!sessions.length) return 'Programado';
+      const cohort = sessions[0].cohort;
+      const completedInCohort = diplomaCompletedByCohort(period, cohort);
+      const isFinalSessionMonth = completedInCohort >= DIPLOMA_SESSIONS_PER_COHORT && sessions.some(item => item.type === 'presentación final');
+      return `${fmt(DIPLOMA_COHORT_SIZE)} estudiantes ${isFinalSessionMonth ? 'formados' : 'en formación'}`;
+    }
+
+    function sessionUnit(count){
+      return Number(count) === 1 ? 'sesión' : 'sesiones';
+    }
+
+    function completedSessionUnit(count){
+      return Number(count) === 1 ? 'sesión completada' : 'sesiones completadas';
+    }
+
+    function diplomaAnnualStudentKpiData(row){
+      const completed = diplomaSessionsUpTo(state.periodo).length;
+      const pct = DIPLOMA_ANNUAL_SESSIONS > 0 ? completed / DIPLOMA_ANNUAL_SESSIONS : 0;
+      const status = completed > 0 ? 'active' : 'pending';
+      const complianceText = completed > 0 ? fmtPct(pct) : 'Programado';
+      return {
+        label:'Estudiantes del diplomado',
+        tone: greenToneFromProgress(status, pct),
+        customHtml: `
+          <div class="annual-clear">
+            <div class="annual-clear-label">Estudiantes del diplomado</div>
+            <div class="annual-clear-main">
+              <strong>${esc(diplomaStudentMainText(state.periodo))}</strong>
+            </div>
+            <div class="annual-clear-lines">
+              <div class="annual-clear-row"><span>Meta anual</span><strong>${fmt(DIPLOMA_ANNUAL_STUDENTS)} estudiantes</strong></div>
+              <div class="annual-clear-row"><span>Avance del diplomado</span><strong>${esc(diplomaProgressLabel(state.periodo))}</strong></div>
+              <div class="annual-clear-row"><span>Cumplimiento acumulado de meta anual</span><strong>${esc(complianceText)}</strong></div>
+            </div>
+            <div class="annual-clear-progress" aria-hidden="true"><span style="width:${Math.max(0, Math.min(pct * 100, 100))}%"></span></div>
+          </div>`
+      };
+    }
+
+    function diplomaAnnualSessionsKpiData(row){
+      const completed = diplomaSessionsUpTo(state.periodo).length;
+      const pct = DIPLOMA_ANNUAL_SESSIONS > 0 ? completed / DIPLOMA_ANNUAL_SESSIONS : 0;
+      const status = completed > 0 ? 'active' : 'pending';
+      const complianceText = completed > 0 ? fmtPct(pct) : 'Programado';
+      return {
+        label:'Módulos del diplomado',
+        tone: greenToneFromProgress(status, pct),
+        customHtml: `
+          <div class="annual-clear">
+            <div class="annual-clear-label">Módulos del diplomado</div>
+            <div class="annual-clear-main">
+              <strong>${completed > 0 ? `${fmt(completed)} ${esc(completedSessionUnit(completed))}` : 'Programado'}</strong>
+            </div>
+            <div class="annual-clear-lines">
+              <div class="annual-clear-row"><span>Meta anual</span><strong>${fmt(DIPLOMA_ANNUAL_SESSIONS)} sesiones</strong></div>
+              <div class="annual-clear-row"><span>Avance del diplomado</span><strong>${esc(diplomaProgressLabel(state.periodo))}</strong></div>
+              <div class="annual-clear-row"><span>Cumplimiento acumulado de meta anual</span><strong>${esc(complianceText)}</strong></div>
+            </div>
+            <div class="annual-clear-progress" aria-hidden="true"><span style="width:${Math.max(0, Math.min(pct * 100, 100))}%"></span></div>
+          </div>`
+      };
+    }
+
+    function diplomaAnnualKpis(row){
+      return [diplomaAnnualStudentKpiData(row), diplomaAnnualSessionsKpiData(row)];
+    }
+
+    function diplomaMonthlyStudentKpiData(row){
+      const sessions = diplomaSessionsInPeriod(state.periodo);
+      const isActive = sessions.length > 0;
+      const progress = isActive ? 1 : 0;
+      const cohort = isActive ? sessions[0].cohort : diplomaCurrentCohort(state.periodo);
+      return {
+        label:'Estudiantes del diplomado',
+        window:'',
+        hideWindow:true,
+        tone: greenToneFromProgress(isActive ? 'active' : 'pending', progress),
+        chip: isActive ? `Cohorte ${cohort}` : '',
+        valueText: diplomaMonthlyStudentMainText(state.periodo),
+        reference: isActive ? `Meta mensual <strong>${fmt(DIPLOMA_COHORT_SIZE)} estudiantes sostenidos</strong>` : 'Estado <strong>Programado</strong>',
+        line1:'',
+        line2: isActive ? 'Cumplimiento de meta mensual: <strong>100.00%</strong>' : '',
+        progressWidth: progress * 100,
+        pillarHeight: Math.max(8, progress * 100)
+      };
+    }
+
+    function diplomaMonthlySessionsKpiData(row){
+      const sessions = diplomaSessionsInPeriod(state.periodo);
+      const actual = sessions.length;
+      const isActive = actual > 0;
+      const hasPresentation = sessions.some(item => item.type === 'presentación final');
+      const label = hasPresentation && actual === 1 ? '1 presentación final' : `${fmt(actual)} ${esc(completedSessionUnit(actual))}`;
+      return {
+        label:'Módulos del diplomado',
+        window:'',
+        hideWindow:true,
+        tone: greenToneFromProgress(isActive ? 'active' : 'pending', isActive ? 1 : 0),
+        chip: isActive ? `Cohorte ${sessions[0].cohort}` : '',
+        valueText: isActive ? label : 'Programado',
+        reference: isActive ? `Meta mensual <strong>${fmt(actual)} ${esc(sessionUnit(actual))}</strong>` : 'Estado <strong>Programado</strong>',
+        line1:'',
+        line2: isActive ? 'Cumplimiento de meta mensual: <strong>100.00%</strong>' : '',
+        progressWidth: isActive ? 100 : 0,
+        pillarHeight: isActive ? 100 : 8
+      };
+    }
+
+    function diplomaMonthlyKpis(row){
+      return [diplomaMonthlyStudentKpiData(row), diplomaMonthlySessionsKpiData(row)];
     }
 
     function coverageKpiData(cfg, row){
@@ -1109,6 +1289,21 @@
       return cleaned || String(unitText || 'actividades');
     }
 
+    function unitForCount(unitText, count){
+      const n = Number(count) || 0;
+      if(Math.abs(n) !== 1) return unitText;
+      return String(unitText || '')
+        .replace(/^jornadas\b/i,'jornada')
+        .replace(/^giras\b/i,'gira')
+        .replace(/^ferias\b/i,'feria')
+        .replace(/^huertos\b/i,'huerto')
+        .replace(/^murales\b/i,'mural')
+        .replace(/^reforestaciones\b/i,'reforestación')
+        .replace(/^monitoreos\b/i,'monitoreo')
+        .replace(/^centros de acopio\b/i,'centro de acopio')
+        .replace(/^proyectos\b/i,'proyecto');
+    }
+
     function coverageAnnualKpiData(cfg, row){
       const monthNum = Number(row.mes_num || 0);
       const actual = Number(row[cfg.valueKey] || 0);
@@ -1148,6 +1343,8 @@
       const status = annualOperationalStatus(cfg, row);
       const tone = greenToneFromProgress(status, pct);
       const baseUnit = annualBaseUnit(cfg.resultSuffix || 'actividades acumuladas');
+      const actualUnit = unitForCount(baseUnit, actual);
+      const targetUnit = unitForCount(baseUnit, target);
       const complianceText = status === 'pending' && actual === 0 ? 'Programado' : fmtPct(pct);
       const progressWidth = status === 'pending' && actual === 0 ? 0 : Math.min(pct, 1) * 100;
 
@@ -1158,10 +1355,10 @@
           <div class="annual-clear">
             <div class="annual-clear-label">${esc(cfg.label)}</div>
             <div class="annual-clear-main">
-              <strong>${fmt(actual)} ${esc(baseUnit)}</strong>
+              <strong>${fmt(actual)} ${esc(actualUnit)}</strong>
             </div>
             <div class="annual-clear-lines">
-              <div class="annual-clear-row"><span>Meta anual</span><strong>${fmt(target)} ${esc(baseUnit)}</strong></div>
+              <div class="annual-clear-row"><span>Meta anual</span><strong>${fmt(target)} ${esc(targetUnit)}</strong></div>
               <div class="annual-clear-row"><span>Cumplimiento acumulado de meta anual</span><strong>${esc(complianceText)}</strong></div>
             </div>
             <div class="annual-clear-progress" aria-hidden="true"><span style="width:${Math.max(0, Math.min(progressWidth, 100))}%"></span></div>
@@ -1172,6 +1369,7 @@
     function operationalAnnualKpisMarkup(row){
       const cards = [
         ...COVERAGE_CONFIG.map(cfg => coverageAnnualKpiData(cfg, row)),
+        ...diplomaAnnualKpis(row),
         ...FIELD_ACTIVITY_CUMULATIVE_META.map(cfg => operationalAnnualKpiData(cfg, row))
       ]
         .map((data, idx) => renderKpiCard(data, idx))
@@ -1739,6 +1937,7 @@
 
       const monthlyCards = [
         ...COVERAGE_CONFIG.map(cfg => coverageMonthlyKpiData(cfg, row)),
+        ...diplomaMonthlyKpis(row),
         ...OP_CONFIG.map(cfg => operationalKpiData(cfg, row))
       ].map((data, idx) => renderKpiCard(data, idx)).join('');
       const annualOperationalKpis = operationalAnnualKpisMarkup(row);
