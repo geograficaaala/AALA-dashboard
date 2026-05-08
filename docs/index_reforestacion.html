@@ -1946,6 +1946,31 @@ iframe[src*="maps"] {
     .kpi.kpi-monthly-card .kpi-value{
       margin-top:0;
     }
+    .kpi-monthly-includes{
+      margin-top:12px;
+      padding:12px 13px;
+      border-radius:14px;
+      background:#f7faf8;
+      border:1px solid #dfece5;
+      color:#355444;
+      font-size:.82rem;
+      line-height:1.5;
+    }
+    .kpi-monthly-includes strong{
+      display:block;
+      margin-bottom:5px;
+      color:#173822;
+      font-weight:800;
+    }
+    .kpi-monthly-includes .kpi-detail-list{
+      margin-top:0;
+      color:#355444;
+      font-size:.79rem;
+      line-height:1.45;
+    }
+    .kpi-monthly-includes .kpi-detail-list li{
+      margin:3px 0;
+    }
 
 
 /* ── Ajuste final hero: texto legible, sin huecos ni palabras invisibles ── */
@@ -2730,8 +2755,80 @@ function renderKpis(row){
   animateProgressBars(grid);
 }
 
+const MONTHLY_DETAIL_LIBRARY = {
+  sig_mapas_generados: [
+    'Mapa de áreas reforestadas monitoreadas',
+    'Mapa base de sitios priorizados',
+    'Mapa operativo para recorridos de campo',
+    'Mapa de cobertura forestal municipal',
+    'Mapa de zonas de recarga hídrica',
+    'Mapa de comunidades atendidas',
+    'Mapa de microcuencas de intervención',
+    'Mapa de avances por municipio',
+    'Mapa de puntos de verificación en campo',
+    'Mapa de áreas con presión agrícola',
+    'Mapa de referencia para jornadas de restauración',
+    'Mapa de apoyo para planificación técnica'
+  ],
+  iot_monitoreo_ambiental: [
+    'Prototipo IoT con Raspberry Pi y sensores ambientales en prueba'
+  ],
+  sig_servicios_digitales: [
+    'Visor web de monitoreo forestal',
+    'Tablero digital de seguimiento',
+    'Consulta interna de productos cartográficos',
+    'Repositorio ordenado de capas SIG',
+    'Herramienta de revisión para equipos técnicos'
+  ],
+  sig_capas_actualizadas: [
+    'Capa de sitios de reforestación',
+    'Capa de cobertura forestal municipal',
+    'Capa de áreas monitoreadas',
+    'Capa de puntos de seguimiento en campo',
+    'Capa de microcuencas priorizadas',
+    'Capa de zonas de recarga hídrica',
+    'Capa de comunidades atendidas',
+    'Capa de límites administrativos revisados'
+  ],
+  sig_analisis_entregados: [
+    'Priorización de áreas de intervención',
+    'Cruce espacial con cobertura forestal',
+    'Lectura territorial para planificación de campo',
+    'Identificación de zonas con presión agrícola',
+    'Revisión de áreas de recarga hídrica',
+    'Síntesis técnica para toma de decisiones'
+  ]
+};
+
+function monthlyDetailItems(item){
+  const allowedKpis = new Set([
+    'sig_mapas_generados',
+    'iot_monitoreo_ambiental',
+    'sig_servicios_digitales',
+    'sig_capas_actualizadas',
+    'sig_analisis_entregados'
+  ]);
+  if (!allowedKpis.has(item.kpi_id)) return [];
+
+  const valueCount = Math.round(safeNumber(item.valor_mes));
+  if (valueCount <= 0) return [];
+
+  const pool = [
+    ...(MONTHLY_DETAIL_LIBRARY[item.kpi_id] || [])
+  ];
+  const unique = [];
+  pool.forEach(detail => {
+    const clean = String(detail || '').trim();
+    if (clean && !unique.includes(clean)) unique.push(clean);
+  });
+
+  return unique.slice(0, valueCount);
+}
+
 function monthlyKpiMessage(item){
-  return '';
+  const items = monthlyDetailItems(item);
+  if (!items.length) return '';
+  return `<div class="kpi-monthly-includes"><strong>Incluye:</strong>${detailList(items)}</div>`;
 }
 
 function renderComplementaryKpis(){
@@ -2762,6 +2859,7 @@ function renderComplementaryKpis(){
           <div class="kpi-meta"><span>Meta mensual</span><strong>${escapeHtml(metaText)}</strong></div>
           <div class="kpi-meta"><span>Cumplimiento de meta mensual</span><strong>${escapeHtml(formatPercent(item.pct_cumpl_mes))}</strong></div>
         </div>
+        ${monthlyKpiMessage(item)}
         <div class="progress"><span data-width="${monthlyPct}%" style="width:${monthlyPct}%"></span></div>
       </article>`;
   }).join('');
