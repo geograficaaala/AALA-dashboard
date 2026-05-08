@@ -1906,7 +1906,27 @@ iframe[src*="maps"] {
 
 .compat-hidden{display:none!important}
 
-</style>
+
+    /* ── REFORESTACION KPI CLARITY V2 ── */
+    .metric-section .section-head h2{font-size:clamp(1.55rem,2.2vw,2.05rem);line-height:1.15;color:#172f24}
+    .metric-section .section-head p{display:none}
+    .kpi.clean-kpi{border-top:0;border-left:5px solid var(--green);padding:20px 18px 18px;background:linear-gradient(180deg,#ffffff 0%,#fbfdfb 100%);animation:kpiIn .46s ease both;animation-delay:var(--delay,0ms)}
+    .kpi.clean-kpi:hover{border-left-color:#174f37;transform:translateY(-4px);box-shadow:0 18px 46px rgba(23,50,58,.13)}
+    .kpi.clean-kpi .kpi-top{margin-bottom:14px}
+    .kpi.clean-kpi .kpi-label{font-size:.76rem;color:#375848;letter-spacing:.075em}
+    .kpi.clean-kpi .kpi-value{font-family:var(--font-body);font-size:clamp(1.65rem,2.2vw,2.2rem);font-weight:800;color:#132c20;letter-spacing:-.035em;line-height:1.08;margin-top:4px}
+    .kpi.clean-kpi .kpi-readings{display:grid;gap:8px;margin-top:8px}
+    .kpi.clean-kpi .kpi-meta{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:8px 10px;border-radius:12px;background:#f3f8f5;border:1px solid #dfece5;color:#42604f;font-size:.83rem;line-height:1.35}
+    .kpi.clean-kpi .kpi-meta span{font-weight:700;color:#5e7668}
+    .kpi.clean-kpi .kpi-meta strong{font-family:var(--font-body);font-weight:800;color:#173822;text-align:right}
+    .kpi-explain{margin-top:4px;padding:10px 12px;border-radius:14px;background:#eef8f1;border-left:4px solid #2e6a57;color:#315542;font-size:.84rem;line-height:1.55}
+    .kpi-explain strong{color:#174f37}
+    .kpi-component-tag{display:inline-flex;margin-bottom:6px;padding:4px 9px;border-radius:999px;background:#eef8f1;color:#2e6a57;font-size:.65rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+    .progress{height:7px;background:#e3eee8;margin-top:14px}
+    .progress>span{background:linear-gradient(90deg,#8bc9a4,#2e6a57)}
+    @keyframes kpiIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+  </style>
 
 </head>
 <body class="view-full">
@@ -1952,7 +1972,7 @@ iframe[src*="maps"] {
       </div>
       <div class="card filter">
         <label>Meta anual principal</label>
-        <div class="pill">35 ha · 90,000 árboles · sistema digital · 10,000 plantas</div>
+        <div class="pill">35 ha · 90,000 árboles · sistema forestal digital · 10,000 plantas</div>
       </div>
       <button class="view-btn present-btn" onclick="switchView('full')">Ver tablero completo</button>
     </div>
@@ -1971,7 +1991,7 @@ iframe[src*="maps"] {
     <div class="exec-row-2">
       <div class="card panel panel-accent" id="execBarPanel">
         <h3>Flujo operativo acumulado</h3>
-        <p class="sub">Lectura de monitoreo, siembra, sistema digital y vivero.</p>
+        <p class="sub">Lectura de monitoreo, siembra, sistema forestal digital y vivero.</p>
         <div class="viz-wrap" id="execBarChart"></div>
         <div class="interp" id="execBarInterp"></div>
       </div>
@@ -1990,9 +2010,12 @@ iframe[src*="maps"] {
     <section class="hero" id="resumen">
       <div class="card hero-main">
         <div class="hero-copy hero-copy-text">
-          <h1>Reforestando Atitlan para un Futuro Verde</h1>
-          <p class="hero-lead">Este tablero resume los avances del programa de reforestación y restauración ecológica en la Cuenca del Lago de Atitlán. La lectura se organiza para que el seguimiento sea directo: primero se muestran las metas anuales y su avance acumulado, después las metas mensuales del período seleccionado, luego los mapas de soporte y finalmente el análisis del mes.</p>
-          <p class="hero-lead">Los indicadores principales permiten revisar hectáreas monitoreadas, árboles programados para temporada de siembra, consolidación del sistema digital de monitoreo forestal y producción de plantas nativas en vivero. La sección de supervivencia se mantiene como referencia técnica independiente para entender la calidad del establecimiento en campo.</p>
+          <h1>Reforestando Atitlán para un Futuro Verde</h1>
+          <p class="hero-lead">El proyecto <strong>Reforestando Atitlán para un Futuro Verde</strong> es una iniciativa de reforestación y restauración ecológica enfocada en recuperar áreas degradadas y zonas de recarga hídrica en la Cuenca del Lago de Atitlán.</p>
+          <p class="hero-lead">La cuenca, hogar de más de 350,000 habitantes, enfrenta deforestación, erosión de suelos y pérdida de biodiversidad por presión agrícola, incendios forestales y crecimiento urbano.</p>
+          <p class="hero-lead">El programa busca reforestar con especies adaptadas a las zonas de intervención y con especies nativas, restaurando funciones ecológicas del bosque, conservación de biodiversidad y sostenibilidad de recursos naturales para las comunidades locales.</p>
+          <p class="hero-lead">Desde 2016, el proyecto ha logrado plantar más de 1.7 millones de árboles en alrededor de 1,000 hectáreas, fortaleciendo la interconectividad de corredores biológicos en la región.</p>
+          <p class="hero-lead">Los monitoreos anuales registran una supervivencia promedio del 71.7%, reflejando aportes a la restauración de áreas degradadas, estabilización de suelos y protección de fuentes hídricas.</p>
         </div>
       </div>
       <aside class="card hero-side" aria-label="Identidad visual del programa">
@@ -2003,7 +2026,7 @@ iframe[src*="maps"] {
     </section>
 
     <section class="section metric-section" id="metasAnuales">
-      <div class="section-head"><div><h2>Metas anuales y avance acumulado</h2><p>Avance acumulado al mes seleccionado contra las metas anuales 2026.</p></div></div>
+      <div class="section-head"><div><h2>Metas anuales y avance acumulado</h2></div></div>
       <div class="kpis" id="kpiGrid"></div>
     </section>
 
@@ -2151,41 +2174,41 @@ const DATA_URLS = {
 
 
 const COMPLEMENTARY_KPI_SEED = [
-  { periodo_clave:'2026-01', mes_num:1, mes_label:'Enero', componente:'Monitoreo digital', kpi_id:'sig_mapas_generados', kpi_nombre:'Mapas digitales para planificación forestal', unidad:'mapas', meta_mensual:12, valor_mes:9, detalle:['Mapa de áreas reforestadas monitoreadas','Mapa base de sitios priorizados','Mapa de apoyo para planificación de campo'] },
-  { periodo_clave:'2026-01', mes_num:1, mes_label:'Enero', componente:'Monitoreo digital', kpi_id:'iot_monitoreo_ambiental', kpi_nombre:'Proyecto IoT para monitoreo ambiental', unidad:'proyectos', meta_mensual:0, meta_anual:1, valor_mes:0, detalle:['Prototipo con Raspberry Pi 4B','Sensores ambientales para registro en campo','Base de datos para seguimiento del monitoreo'] },
-  { periodo_clave:'2026-01', mes_num:1, mes_label:'Enero', componente:'Monitoreo digital', kpi_id:'sig_servicios_digitales', kpi_nombre:'Plataformas digitales', unidad:'', meta_mensual:3, valor_mes:2, detalle:['Geoportal de monitoreo forestal','Visor de productos cartográficos'] },
-  { periodo_clave:'2026-01', mes_num:1, mes_label:'Enero', componente:'Monitoreo digital', kpi_id:'sig_capas_actualizadas', kpi_nombre:'Información geográfica forestal actualizada', unidad:'capas', meta_mensual:8, valor_mes:6, detalle:['Sitios de reforestación','Cobertura municipal','Áreas monitoreadas','Puntos de seguimiento en campo'] },
-  { periodo_clave:'2026-01', mes_num:1, mes_label:'Enero', componente:'Monitoreo digital', kpi_id:'sig_analisis_entregados', kpi_nombre:'Análisis territoriales para toma de decisiones', unidad:'análisis', meta_mensual:6, valor_mes:5, detalle:['Priorización de áreas','Cruce con cobertura forestal','Lectura territorial para planificación'] },
+  { periodo_clave:'2026-01', mes_num:1, mes_label:'Enero', componente:'Soporte cartográfico', kpi_id:'sig_mapas_generados', kpi_nombre:'Mapas digitales para planificación forestal', unidad:'mapas', meta_mensual:12, valor_mes:9, detalle:['Mapa de áreas reforestadas monitoreadas','Mapa base de sitios priorizados','Mapa de apoyo para planificación de campo'] },
+  { periodo_clave:'2026-01', mes_num:1, mes_label:'Enero', componente:'Soporte cartográfico', kpi_id:'iot_monitoreo_ambiental', kpi_nombre:'Proyecto IoT para monitoreo ambiental', unidad:'proyectos', meta_mensual:0, meta_anual:1, valor_mes:0, detalle:['Prototipo con Raspberry Pi 4B','Sensores ambientales para registro en campo','Base de datos para seguimiento del monitoreo'] },
+  { periodo_clave:'2026-01', mes_num:1, mes_label:'Enero', componente:'Soporte cartográfico', kpi_id:'sig_servicios_digitales', kpi_nombre:'Plataformas digitales', unidad:'', meta_mensual:3, valor_mes:2, detalle:['Geoportal de monitoreo forestal','Visor de productos cartográficos'] },
+  { periodo_clave:'2026-01', mes_num:1, mes_label:'Enero', componente:'Soporte cartográfico', kpi_id:'sig_capas_actualizadas', kpi_nombre:'Información geográfica forestal actualizada', unidad:'capas', meta_mensual:8, valor_mes:6, detalle:['Sitios de reforestación','Cobertura municipal','Áreas monitoreadas','Puntos de seguimiento en campo'] },
+  { periodo_clave:'2026-01', mes_num:1, mes_label:'Enero', componente:'Soporte cartográfico', kpi_id:'sig_analisis_entregados', kpi_nombre:'Análisis territoriales para toma de decisiones', unidad:'análisis', meta_mensual:6, valor_mes:5, detalle:['Priorización de áreas','Cruce con cobertura forestal','Lectura territorial para planificación'] },
   { periodo_clave:'2026-01', mes_num:1, mes_label:'Enero', componente:'Vivero forestal', kpi_id:'vivero_mantenimiento', kpi_nombre:'Actividades en campo', unidad:'actividades', meta_mensual:12, valor_mes:9, detalle:['Riego y control de humedad','Limpieza de áreas de producción','Revisión del estado de plantas'] },
   { periodo_clave:'2026-01', mes_num:1, mes_label:'Enero', componente:'Vivero forestal', kpi_id:'vivero_bolsas_llenadas', kpi_nombre:'Insumos preparados para producción de plantas', unidad:'bolsas', meta_mensual:200, valor_mes:150, detalle:['Bolsas preparadas con sustrato','Insumos listos para trasplante','Ordenamiento de material para vivero'] },
   { periodo_clave:'2026-01', mes_num:1, mes_label:'Enero', componente:'Vivero forestal', kpi_id:'vivero_semillas_germinadas', kpi_nombre:'Germinación de especies nativas', unidad:'semillas', meta_mensual:100, valor_mes:72, detalle:['Semillas con germinación activa','Seguimiento a especies nativas','Registro inicial de producción'] },
   { periodo_clave:'2026-01', mes_num:1, mes_label:'Enero', componente:'Gestión del programa', kpi_id:'otras_actividades_estrategicas', kpi_nombre:'Actividades de coordinación interinsitucional estratégica', unidad:'actividades', meta_mensual:4, valor_mes:3, detalle:['Coordinación con actores locales','Preparación de jornadas de campo','Seguimiento técnico y administrativo'] },
 
-  { periodo_clave:'2026-02', mes_num:2, mes_label:'Febrero', componente:'Monitoreo digital', kpi_id:'sig_mapas_generados', kpi_nombre:'Mapas digitales para planificación forestal', unidad:'mapas', meta_mensual:12, valor_mes:10, detalle:['Mapa de avance de monitoreos','Mapa de ubicación de sitios','Mapa de apoyo a decisiones técnicas'] },
-  { periodo_clave:'2026-02', mes_num:2, mes_label:'Febrero', componente:'Monitoreo digital', kpi_id:'iot_monitoreo_ambiental', kpi_nombre:'Proyecto IoT para monitoreo ambiental', unidad:'proyectos', meta_mensual:0, meta_anual:1, valor_mes:0, detalle:['Prototipo con Raspberry Pi 4B','Sensores ambientales para registro en campo','Base de datos para seguimiento del monitoreo'] },
-  { periodo_clave:'2026-02', mes_num:2, mes_label:'Febrero', componente:'Monitoreo digital', kpi_id:'sig_servicios_digitales', kpi_nombre:'Plataformas digitales', unidad:'', meta_mensual:3, valor_mes:2, detalle:['Geoportal de monitoreo forestal','Visor de productos cartográficos'] },
-  { periodo_clave:'2026-02', mes_num:2, mes_label:'Febrero', componente:'Monitoreo digital', kpi_id:'sig_capas_actualizadas', kpi_nombre:'Información geográfica forestal actualizada', unidad:'capas', meta_mensual:8, valor_mes:6, detalle:['Sitios de reforestación','Cobertura municipal','Áreas monitoreadas','Puntos de seguimiento en campo'] },
-  { periodo_clave:'2026-02', mes_num:2, mes_label:'Febrero', componente:'Monitoreo digital', kpi_id:'sig_analisis_entregados', kpi_nombre:'Análisis territoriales para toma de decisiones', unidad:'análisis', meta_mensual:6, valor_mes:4, detalle:['Priorización de áreas','Cruce con cobertura forestal','Lectura territorial para planificación'] },
+  { periodo_clave:'2026-02', mes_num:2, mes_label:'Febrero', componente:'Soporte cartográfico', kpi_id:'sig_mapas_generados', kpi_nombre:'Mapas digitales para planificación forestal', unidad:'mapas', meta_mensual:12, valor_mes:10, detalle:['Mapa de avance de monitoreos','Mapa de ubicación de sitios','Mapa de apoyo a decisiones técnicas'] },
+  { periodo_clave:'2026-02', mes_num:2, mes_label:'Febrero', componente:'Soporte cartográfico', kpi_id:'iot_monitoreo_ambiental', kpi_nombre:'Proyecto IoT para monitoreo ambiental', unidad:'proyectos', meta_mensual:0, meta_anual:1, valor_mes:0, detalle:['Prototipo con Raspberry Pi 4B','Sensores ambientales para registro en campo','Base de datos para seguimiento del monitoreo'] },
+  { periodo_clave:'2026-02', mes_num:2, mes_label:'Febrero', componente:'Soporte cartográfico', kpi_id:'sig_servicios_digitales', kpi_nombre:'Plataformas digitales', unidad:'', meta_mensual:3, valor_mes:2, detalle:['Geoportal de monitoreo forestal','Visor de productos cartográficos'] },
+  { periodo_clave:'2026-02', mes_num:2, mes_label:'Febrero', componente:'Soporte cartográfico', kpi_id:'sig_capas_actualizadas', kpi_nombre:'Información geográfica forestal actualizada', unidad:'capas', meta_mensual:8, valor_mes:6, detalle:['Sitios de reforestación','Cobertura municipal','Áreas monitoreadas','Puntos de seguimiento en campo'] },
+  { periodo_clave:'2026-02', mes_num:2, mes_label:'Febrero', componente:'Soporte cartográfico', kpi_id:'sig_analisis_entregados', kpi_nombre:'Análisis territoriales para toma de decisiones', unidad:'análisis', meta_mensual:6, valor_mes:4, detalle:['Priorización de áreas','Cruce con cobertura forestal','Lectura territorial para planificación'] },
   { periodo_clave:'2026-02', mes_num:2, mes_label:'Febrero', componente:'Vivero forestal', kpi_id:'vivero_mantenimiento', kpi_nombre:'Actividades en campo', unidad:'actividades', meta_mensual:12, valor_mes:10, detalle:['Riego y control de humedad','Limpieza de áreas de producción','Revisión del estado de plantas'] },
   { periodo_clave:'2026-02', mes_num:2, mes_label:'Febrero', componente:'Vivero forestal', kpi_id:'vivero_bolsas_llenadas', kpi_nombre:'Insumos preparados para producción de plantas', unidad:'bolsas', meta_mensual:200, valor_mes:160, detalle:['Bolsas preparadas con sustrato','Insumos listos para trasplante','Ordenamiento de material para vivero'] },
   { periodo_clave:'2026-02', mes_num:2, mes_label:'Febrero', componente:'Vivero forestal', kpi_id:'vivero_semillas_germinadas', kpi_nombre:'Germinación de especies nativas', unidad:'semillas', meta_mensual:100, valor_mes:78, detalle:['Semillas con germinación activa','Seguimiento a especies nativas','Registro inicial de producción'] },
   { periodo_clave:'2026-02', mes_num:2, mes_label:'Febrero', componente:'Gestión del programa', kpi_id:'otras_actividades_estrategicas', kpi_nombre:'Actividades de coordinación interinsitucional estratégica', unidad:'actividades', meta_mensual:4, valor_mes:3, detalle:['Coordinación con actores locales','Preparación de jornadas de campo','Seguimiento técnico y administrativo'] },
 
-  { periodo_clave:'2026-03', mes_num:3, mes_label:'Marzo', componente:'Monitoreo digital', kpi_id:'sig_mapas_generados', kpi_nombre:'Mapas digitales para planificación forestal', unidad:'mapas', meta_mensual:12, valor_mes:10, detalle:['Mapa de monitoreos completados','Mapa de cobertura de restauración','Mapa de apoyo para rutas de campo'] },
-  { periodo_clave:'2026-03', mes_num:3, mes_label:'Marzo', componente:'Monitoreo digital', kpi_id:'iot_monitoreo_ambiental', kpi_nombre:'Proyecto IoT para monitoreo ambiental', unidad:'proyectos', meta_mensual:0, meta_anual:1, valor_mes:1, detalle:['Prototipo con Raspberry Pi 4B','Sensores ambientales para registro en campo','Base de datos para seguimiento del monitoreo'] },
-  { periodo_clave:'2026-03', mes_num:3, mes_label:'Marzo', componente:'Monitoreo digital', kpi_id:'sig_servicios_digitales', kpi_nombre:'Plataformas digitales', unidad:'', meta_mensual:3, valor_mes:2, detalle:['Geoportal de monitoreo forestal','Visor de productos cartográficos'] },
-  { periodo_clave:'2026-03', mes_num:3, mes_label:'Marzo', componente:'Monitoreo digital', kpi_id:'sig_capas_actualizadas', kpi_nombre:'Información geográfica forestal actualizada', unidad:'capas', meta_mensual:8, valor_mes:7, detalle:['Sitios de reforestación','Cobertura municipal','Áreas monitoreadas','Puntos de seguimiento en campo'] },
-  { periodo_clave:'2026-03', mes_num:3, mes_label:'Marzo', componente:'Monitoreo digital', kpi_id:'sig_analisis_entregados', kpi_nombre:'Análisis territoriales para toma de decisiones', unidad:'análisis', meta_mensual:6, valor_mes:5, detalle:['Priorización de áreas','Cruce con cobertura forestal','Lectura territorial para planificación'] },
+  { periodo_clave:'2026-03', mes_num:3, mes_label:'Marzo', componente:'Soporte cartográfico', kpi_id:'sig_mapas_generados', kpi_nombre:'Mapas digitales para planificación forestal', unidad:'mapas', meta_mensual:12, valor_mes:10, detalle:['Mapa de monitoreos completados','Mapa de cobertura de restauración','Mapa de apoyo para rutas de campo'] },
+  { periodo_clave:'2026-03', mes_num:3, mes_label:'Marzo', componente:'Soporte cartográfico', kpi_id:'iot_monitoreo_ambiental', kpi_nombre:'Proyecto IoT para monitoreo ambiental', unidad:'proyectos', meta_mensual:0, meta_anual:1, valor_mes:1, detalle:['Prototipo con Raspberry Pi 4B','Sensores ambientales para registro en campo','Base de datos para seguimiento del monitoreo'] },
+  { periodo_clave:'2026-03', mes_num:3, mes_label:'Marzo', componente:'Soporte cartográfico', kpi_id:'sig_servicios_digitales', kpi_nombre:'Plataformas digitales', unidad:'', meta_mensual:3, valor_mes:2, detalle:['Geoportal de monitoreo forestal','Visor de productos cartográficos'] },
+  { periodo_clave:'2026-03', mes_num:3, mes_label:'Marzo', componente:'Soporte cartográfico', kpi_id:'sig_capas_actualizadas', kpi_nombre:'Información geográfica forestal actualizada', unidad:'capas', meta_mensual:8, valor_mes:7, detalle:['Sitios de reforestación','Cobertura municipal','Áreas monitoreadas','Puntos de seguimiento en campo'] },
+  { periodo_clave:'2026-03', mes_num:3, mes_label:'Marzo', componente:'Soporte cartográfico', kpi_id:'sig_analisis_entregados', kpi_nombre:'Análisis territoriales para toma de decisiones', unidad:'análisis', meta_mensual:6, valor_mes:5, detalle:['Priorización de áreas','Cruce con cobertura forestal','Lectura territorial para planificación'] },
   { periodo_clave:'2026-03', mes_num:3, mes_label:'Marzo', componente:'Vivero forestal', kpi_id:'vivero_mantenimiento', kpi_nombre:'Actividades en campo', unidad:'actividades', meta_mensual:12, valor_mes:9, detalle:['Riego y control de humedad','Limpieza de áreas de producción','Revisión del estado de plantas'] },
   { periodo_clave:'2026-03', mes_num:3, mes_label:'Marzo', componente:'Vivero forestal', kpi_id:'vivero_bolsas_llenadas', kpi_nombre:'Insumos preparados para producción de plantas', unidad:'bolsas', meta_mensual:200, valor_mes:155, detalle:['Bolsas preparadas con sustrato','Insumos listos para trasplante','Ordenamiento de material para vivero'] },
   { periodo_clave:'2026-03', mes_num:3, mes_label:'Marzo', componente:'Vivero forestal', kpi_id:'vivero_semillas_germinadas', kpi_nombre:'Germinación de especies nativas', unidad:'semillas', meta_mensual:100, valor_mes:80, detalle:['Semillas con germinación activa','Seguimiento a especies nativas','Registro inicial de producción'] },
   { periodo_clave:'2026-03', mes_num:3, mes_label:'Marzo', componente:'Gestión del programa', kpi_id:'otras_actividades_estrategicas', kpi_nombre:'Actividades de coordinación interinsitucional estratégica', unidad:'actividades', meta_mensual:4, valor_mes:3, detalle:['Coordinación con actores locales','Preparación de jornadas de campo','Seguimiento técnico y administrativo'] }
 ,
-  { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Monitoreo digital', kpi_id:'sig_mapas_generados', kpi_nombre:'Mapas digitales para planificación forestal', unidad:'mapas', meta_mensual:12, valor_mes:10.2, detalle:['Mapa de seguimiento de áreas monitoreadas','Mapa de actualización de sitios priorizados','Mapa operativo para recorridos de campo'] },
-  { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Monitoreo digital', kpi_id:'iot_monitoreo_ambiental', kpi_nombre:'Proyecto IoT para monitoreo ambiental', unidad:'proyectos', meta_mensual:1, valor_mes:0.85, detalle:['Prototipo con Raspberry Pi 4B en fase funcional','Sensores ambientales configurados para pruebas de campo','Registro inicial de datos para seguimiento del monitoreo'] },
-  { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Monitoreo digital', kpi_id:'sig_servicios_digitales', kpi_nombre:'Plataformas digitales', unidad:'', meta_mensual:4, valor_mes:3.4, detalle:['Geoportal de monitoreo forestal actualizado','Visor de productos cartográficos revisado','Consulta interna para seguimiento técnico'] },
-  { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Monitoreo digital', kpi_id:'sig_capas_actualizadas', kpi_nombre:'Información geográfica forestal actualizada', unidad:'capas', meta_mensual:8, valor_mes:6.8, detalle:['Capa de sitios de reforestación actualizada','Capa de cobertura municipal depurada','Capa de áreas monitoreadas revisada','Puntos de seguimiento en campo integrados'] },
-  { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Monitoreo digital', kpi_id:'sig_analisis_entregados', kpi_nombre:'Análisis territoriales para toma de decisiones', unidad:'análisis', meta_mensual:6, valor_mes:5.1, detalle:['Análisis de priorización de áreas','Cruce con cobertura forestal reciente','Lectura territorial para planificación de campo'] },
+  { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Soporte cartográfico', kpi_id:'sig_mapas_generados', kpi_nombre:'Mapas digitales para planificación forestal', unidad:'mapas', meta_mensual:12, valor_mes:10.2, detalle:['Mapa de seguimiento de áreas monitoreadas','Mapa de actualización de sitios priorizados','Mapa operativo para recorridos de campo'] },
+  { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Soporte cartográfico', kpi_id:'iot_monitoreo_ambiental', kpi_nombre:'Proyecto IoT para monitoreo ambiental', unidad:'proyectos', meta_mensual:1, valor_mes:0.85, detalle:['Prototipo con Raspberry Pi 4B en fase funcional','Sensores ambientales configurados para pruebas de campo','Registro inicial de datos para seguimiento del monitoreo'] },
+  { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Soporte cartográfico', kpi_id:'sig_servicios_digitales', kpi_nombre:'Plataformas digitales', unidad:'', meta_mensual:4, valor_mes:3.4, detalle:['Geoportal de monitoreo forestal actualizado','Visor de productos cartográficos revisado','Consulta interna para seguimiento técnico'] },
+  { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Soporte cartográfico', kpi_id:'sig_capas_actualizadas', kpi_nombre:'Información geográfica forestal actualizada', unidad:'capas', meta_mensual:8, valor_mes:6.8, detalle:['Capa de sitios de reforestación actualizada','Capa de cobertura municipal depurada','Capa de áreas monitoreadas revisada','Puntos de seguimiento en campo integrados'] },
+  { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Soporte cartográfico', kpi_id:'sig_analisis_entregados', kpi_nombre:'Análisis territoriales para toma de decisiones', unidad:'análisis', meta_mensual:6, valor_mes:5.1, detalle:['Análisis de priorización de áreas','Cruce con cobertura forestal reciente','Lectura territorial para planificación de campo'] },
   { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Vivero forestal', kpi_id:'vivero_mantenimiento', kpi_nombre:'Actividades en campo', unidad:'actividades', meta_mensual:12, valor_mes:10.2, detalle:['Riego y control de humedad','Limpieza de áreas de producción','Revisión del estado sanitario de plantas'] },
   { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Vivero forestal', kpi_id:'vivero_bolsas_llenadas', kpi_nombre:'Insumos preparados para producción de plantas', unidad:'bolsas', meta_mensual:200, valor_mes:170, detalle:['Bolsas preparadas con sustrato','Insumos listos para trasplante','Ordenamiento de material para vivero'] },
   { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Vivero forestal', kpi_id:'vivero_semillas_germinadas', kpi_nombre:'Germinación de especies nativas', unidad:'semillas', meta_mensual:100, valor_mes:85, detalle:['Semillas con germinación activa','Seguimiento a especies nativas','Registro de producción mensual'] },
@@ -2235,7 +2258,7 @@ function getComplementaryRowsForPeriod(period){
 const KPI_CONFIG = [
   {
     id: 'ha',
-    title: 'Áreas reforestadas monitoreadas',
+    title: 'Hectáreas monitoreadas',
     valueField: 'ha_monitoreadas_kpi_acum',
     metaField: 'meta_ha',
     pctField: 'pct_meta_ha',
@@ -2247,7 +2270,7 @@ const KPI_CONFIG = [
   },
   {
     id: 'arboles',
-    title: 'Árboles establecidos en campo',
+    title: 'Árboles establecidos',
     valueField: 'arboles_sembrados_acum',
     metaField: 'meta_arboles',
     pctField: 'pct_meta_arboles',
@@ -2259,7 +2282,7 @@ const KPI_CONFIG = [
   },
   {
     id: 'sig',
-    title: 'Sistema digital de monitoreo forestal',
+    title: 'Sistema forestal digital',
     valueField: 'aporte_sig_acum',
     metaField: 'meta_unidad_sig',
     pctField: 'pct_meta_sig',
@@ -2271,7 +2294,7 @@ const KPI_CONFIG = [
   },
   {
     id: 'plantas',
-    title: 'Producción de plantas nativas en vivero',
+    title: 'Plantas nativas en vivero',
     valueField: 'plantas_netas_acum',
     metaField: 'meta_plantas',
     pctField: 'pct_meta_plantas',
@@ -2327,13 +2350,13 @@ function sourceLabel(value){
   return raw.replace(/_/g, ' ').replace(/\bKPI\b/gi, 'indicadores');
 }
 function indicatorValue(cfg, row){
-  if (cfg.id === 'arboles') return formatByUnit(0, cfg.unit);
-  if (cfg.id === 'sig') return `${formatPercent(row[cfg.pctField])} de avance`;
+  if (cfg.id === 'arboles') return 'Programado';
+  if (cfg.id === 'sig') return `${formatPercent(row[cfg.pctField])} consolidado`;
   return formatByUnit(row[cfg.valueField], cfg.unit);
 }
 function indicatorMeta(cfg, row){
   if (cfg.id === 'arboles') return formatByUnit(row[cfg.metaField] || 90000, cfg.unit);
-  if (cfg.id === 'sig') return 'Sistema funcional consolidado';
+  if (cfg.id === 'sig') return '1 sistema consolidado';
   return formatByUnit(row[cfg.metaField], cfg.unit);
 }
 function indicatorMonthly(cfg, row){
@@ -2450,7 +2473,7 @@ function applyProgramAdjustments(rows){
     meta_especies: mar.meta_especies || '10',
     pct_meta_especies: String(especiesAbril / safeNumber(mar.meta_especies || 10)),
 
-    logros_texto: 'En abril reforzamos el monitoreo técnico, actualizamos productos cartográficos, avanzamos en el sistema digital y consolidamos producción de vivero para próximas jornadas de restauración.',
+    logros_texto: 'En abril reforzamos el monitoreo técnico, actualizamos productos cartográficos, avanzamos en el sistema forestal digital y consolidamos producción de vivero para próximas jornadas de restauración.',
     alertas_texto: '',
     fuente_texto: mar.fuente_texto || '03_Monitoreos | 04_Siembras | 05_SIG_Cartografia | 06_Vivero',
     estatus_reporte: 'Con movimiento',
@@ -2615,10 +2638,10 @@ function animateProgressBars(scope=document){
 }
 
 function annualKpiMessage(cfg, row){
-  if (cfg.id === 'arboles') return 'La siembra se activa en la temporada principal de junio a noviembre.';
-  if (cfg.id === 'ha') return 'Muestra hectáreas monitoreadas y verificadas con soporte cartográfico.';
-  if (cfg.id === 'sig') return 'Mide el avance del sistema digital: mapas, plataformas, capas, análisis y herramientas.';
-  if (cfg.id === 'plantas') return 'Muestra plantas nativas acumuladas en vivero para futuras jornadas de restauración.';
+  if (cfg.id === 'arboles') return 'La siembra se mide en temporada principal, de junio a noviembre; antes de ese período aparece como programado.';
+  if (cfg.id === 'ha') return 'Hectáreas reforestadas que ya fueron verificadas en campo y respaldadas con mapas.';
+  if (cfg.id === 'sig') return 'Avance de herramientas del programa: mapas, plataformas, capas, análisis y soporte tecnológico.';
+  if (cfg.id === 'plantas') return 'Plantas producidas y disponibles en vivero para futuras jornadas de restauración.';
   return cfg.note ? cfg.note(row) : '';
 }
 
@@ -2629,7 +2652,6 @@ function renderKpis(row){
     const pctRaw = cfg.id === 'arboles' ? 0 : safeNumber(row[cfg.pctField]);
     const pct = Math.max(0, Math.min(100, pctRaw * 100));
     const isProgrammed = cfg.id === 'arboles' && safeNumber(row.mes_num) < 6;
-    const stateLabel = isProgrammed ? 'programado' : (row[cfg.semaforoField] || '—');
     const value = isProgrammed ? 'Programado' : indicatorValue(cfg, row);
     const meta = indicatorMeta(cfg, row);
     const cumplimiento = isProgrammed ? 'Programado' : formatPercent(row[cfg.pctField]);
@@ -2640,12 +2662,12 @@ function renderKpis(row){
             <div class="kpi-label">${escapeHtml(cfg.title)}</div>
             <div class="kpi-value">${escapeHtml(value)}</div>
           </div>
-          <span class="kpi-state ${semaforoClass(isProgrammed ? 'muted' : row[cfg.semaforoField])}">${escapeHtml(stateLabel)}</span>
         </div>
         <div class="kpi-readings">
-          <div class="kpi-meta">Meta anual: <strong>${escapeHtml(meta)}</strong></div>
-          <div class="kpi-meta">Cumplimiento acumulado de meta anual: <strong>${escapeHtml(cumplimiento)}</strong></div>
-          <div class="kpi-explain">${escapeHtml(annualKpiMessage(cfg, row))}</div>
+          <div class="kpi-meta"><span>Resultado acumulado</span><strong>${escapeHtml(value)}</strong></div>
+          <div class="kpi-meta"><span>Meta anual</span><strong>${escapeHtml(meta)}</strong></div>
+          <div class="kpi-meta"><span>Cumplimiento acumulado de meta anual</span><strong>${escapeHtml(cumplimiento)}</strong></div>
+          <div class="kpi-explain"><strong>Qué significa:</strong> ${escapeHtml(annualKpiMessage(cfg, row))}</div>
         </div>
         <div class="progress"><span data-width="${pct}%" style="width:${pct}%"></span></div>
       </article>`;
@@ -2655,9 +2677,9 @@ function renderKpis(row){
 
 function monthlyKpiMessage(item){
   const id = String(item.kpi_id || '');
-  if (id.includes('sig_')) return 'Producto del mes para fortalecer la lectura territorial y el monitoreo digital.';
-  if (id.includes('vivero')) return 'Trabajo mensual de vivero para preparar plantas e insumos de restauración.';
-  if (id.includes('iot')) return 'Avance del proyecto tecnológico de monitoreo ambiental.';
+  if (id.includes('sig_')) return 'Producto mensual de soporte cartográfico, análisis territorial o herramienta digital.';
+  if (id.includes('vivero')) return 'Trabajo mensual del vivero para preparar plantas e insumos de restauración.';
+  if (id.includes('iot')) return 'Avance mensual del proyecto tecnológico de seguimiento ambiental.';
   return 'Acción mensual de apoyo operativo para el programa.';
 }
 
@@ -2675,20 +2697,22 @@ function renderComplementaryKpis(){
     const metaText = safeNumber(item.meta_mensual) > 0
       ? formatByUnit(item.meta_mensual, item.unidad)
       : (item.meta_anual ? formatByUnit(item.meta_anual, item.unidad) : 'Sin meta mensual');
+    const comp = String(item.componente || '').replace(/Monitoreo\s+digital/gi, 'Soporte cartográfico');
+    const valueText = formatByUnit(item.valor_mes, item.unidad);
     return `
       <article class="card kpi clean-kpi" style="--delay:${idx * 45}ms">
         <div class="kpi-top">
           <div>
-            <div class="kpi-component-tag">${escapeHtml(item.componente)}</div>
+            <div class="kpi-component-tag">${escapeHtml(comp)}</div>
             <div class="kpi-label">${escapeHtml(item.kpi_nombre)}</div>
-            <div class="kpi-value">${escapeHtml(formatByUnit(item.valor_mes, item.unidad))}</div>
+            <div class="kpi-value">${escapeHtml(valueText)}</div>
           </div>
-          <span class="kpi-state ${semaforoClass(item.semaforo_mes)}">${escapeHtml(item.semaforo_mes)}</span>
         </div>
         <div class="kpi-readings">
-          <div class="kpi-meta">Meta mensual: <strong>${escapeHtml(metaText)}</strong></div>
-          <div class="kpi-meta">Cumplimiento de meta mensual: <strong>${escapeHtml(formatPercent(item.pct_cumpl_mes))}</strong></div>
-          <div class="kpi-explain">${escapeHtml(monthlyKpiMessage(item))}</div>
+          <div class="kpi-meta"><span>Resultado del mes</span><strong>${escapeHtml(valueText)}</strong></div>
+          <div class="kpi-meta"><span>Meta mensual</span><strong>${escapeHtml(metaText)}</strong></div>
+          <div class="kpi-meta"><span>Cumplimiento de meta mensual</span><strong>${escapeHtml(formatPercent(item.pct_cumpl_mes))}</strong></div>
+          <div class="kpi-explain"><strong>Qué significa:</strong> ${escapeHtml(monthlyKpiMessage(item))}</div>
         </div>
         <div class="progress"><span data-width="${monthlyPct}%" style="width:${monthlyPct}%"></span></div>
       </article>`;
@@ -2722,7 +2746,7 @@ function renderAlerts(row){
   const alerts = [];
   if (String(row.semaforo_arboles).toLowerCase() === 'gris') alerts.push({tone:'yellow', text:'La temporada principal de siembra aún no está activa o no reporta avance exigible.'});
   if (String(row.semaforo_plantas).toLowerCase() === 'rojo') alerts.push({tone:'red', text:'El vivero acumula menos avance del esperado para la meta anual de 10,000 plantas.'});
-  if (String(row.semaforo_sig).toLowerCase() === 'azul' || safeNumber(row.aporte_sig_acum) >= 1) alerts.push({tone:'blue', text:'El sistema digital de monitoreo forestal presenta una consolidación favorable y ya aporta mapas, análisis y herramientas para el programa.'});
+  if (String(row.semaforo_sig).toLowerCase() === 'azul' || safeNumber(row.aporte_sig_acum) >= 1) alerts.push({tone:'blue', text:'El sistema forestal digital de monitoreo forestal presenta una consolidación favorable y ya aporta mapas, análisis y herramientas para el programa.'});
   if (String(row.alertas_texto || '').trim()) alerts.push({tone:'yellow', text: row.alertas_texto});
   if (!alerts.length) alerts.push({tone:'green', text:'No se detectan alertas críticas en el período seleccionado.'});
   const html = alerts.map(a => `<div class="alert ${a.tone}">${escapeHtml(a.text)}</div>`).join('');
@@ -2745,7 +2769,7 @@ function renderDiagnostics(row){
   const lag = strongest[strongest.length-1];
   const html = `
     <h3>Analisis del mes</h3>
-    <p>En <strong>${escapeHtml(row.mes_label)} ${escapeHtml(row.anio)}</strong>, el programa registra <strong>${escapeHtml(formatByUnit(row.ha_monitoreadas_kpi_acum,'ha',2))}</strong> monitoreadas, <strong>${escapeHtml(formatByUnit(row.arboles_sembrados_acum,'árboles'))}</strong> árboles sembrados, un avance del sistema digital de monitoreo forestal de <strong>${escapeHtml(formatPercent(row.pct_meta_sig))}</strong> y <strong>${escapeHtml(formatByUnit(row.plantas_netas_acum,'plantas'))}</strong> plantas acumuladas en vivero.</p>
+    <p>En <strong>${escapeHtml(row.mes_label)} ${escapeHtml(row.anio)}</strong>, el programa registra <strong>${escapeHtml(formatByUnit(row.ha_monitoreadas_kpi_acum,'ha',2))}</strong> monitoreadas, <strong>${escapeHtml(formatByUnit(row.arboles_sembrados_acum,'árboles'))}</strong> árboles sembrados, un avance del sistema forestal digital de <strong>${escapeHtml(formatPercent(row.pct_meta_sig))}</strong> y <strong>${escapeHtml(formatByUnit(row.plantas_netas_acum,'plantas'))}</strong> plantas acumuladas en vivero.</p>
     <p>El componente con mayor avance relativo es <strong>${escapeHtml(lead.title)}</strong>, con <strong>${escapeHtml(formatPercent(lead.pct))}</strong> de cumplimiento de su meta anual y un acumulado de <strong>${escapeHtml(lead.id === 'sig' ? formatPercent(lead.pct) + ' de avance' : formatByUnit(lead.value, lead.unit))}</strong>.</p>
     <p>El componente con mayor rezago relativo es <strong>${escapeHtml(lag.title)}</strong>, con <strong>${escapeHtml(formatPercent(lag.pct))}</strong> de avance. ${escapeHtml(row.alertas_texto || 'Se recomienda revisar el calendario operativo y reforzar la captura de evidencia del período.')}</p>
     <p>La lectura del mes reporta: <strong>${escapeHtml(row.logros_texto || 'Sin logros narrativos cargados')}</strong>. Fuente consolidada del tablero: <strong>${escapeHtml(sourceLabel(row.fuente_texto))}</strong>.</p>`;
@@ -2760,7 +2784,7 @@ function renderLineChart(){
   const series = [
     {label:'Monitoreo', color:'#2e6a57', values: rows.map(r => clampPct(r.pct_meta_ha))},
     {label:'Siembras', color:'#4f8f66', values: rows.map(r => clampPct(r.pct_meta_arboles))},
-    {label:'Sistema digital', color:'#1f7b62', values: rows.map(r => clampPct(r.pct_meta_sig))},
+    {label:'Sistema forestal digital', color:'#1f7b62', values: rows.map(r => clampPct(r.pct_meta_sig))},
     {label:'Vivero', color:'#8bbc6f', values: rows.map(r => clampPct(r.pct_meta_plantas))}
   ];
   const x = i => pad.l + (rows.length === 1 ? plotW/2 : i * (plotW/(rows.length-1)));
@@ -2788,7 +2812,7 @@ function renderLineChart(){
   setHtml('lineChart', svg);
 
   const row = getSelectedRow();
-  setHtml('lineInterp', `<strong>${escapeHtml(row.mes_label)} ${escapeHtml(row.anio)}</strong> muestra un avance de ${escapeHtml(formatPercent(row.pct_meta_ha))} en monitoreo, ${escapeHtml(formatPercent(row.pct_meta_arboles))} en siembras, ${escapeHtml(formatPercent(row.pct_meta_sig))} en sistema digital y ${escapeHtml(formatPercent(row.pct_meta_plantas))} en vivero.`);
+  setHtml('lineInterp', `<strong>${escapeHtml(row.mes_label)} ${escapeHtml(row.anio)}</strong> muestra un avance de ${escapeHtml(formatPercent(row.pct_meta_ha))} en monitoreo, ${escapeHtml(formatPercent(row.pct_meta_arboles))} en siembras, ${escapeHtml(formatPercent(row.pct_meta_sig))} en sistema forestal digital y ${escapeHtml(formatPercent(row.pct_meta_plantas))} en vivero.`);
 }
 
 function renderBarChart(){
@@ -2826,7 +2850,7 @@ function renderBarChart(){
   setHtml('barChart', svg);
   setHtml('execBarChart', svg);
   const row = getSelectedRow();
-  const interp = `En ${row.mes_label.toLowerCase()} registramos ${formatByUnit(row.ha_monitoreadas_kpi_mes,'ha')} de monitoreo válido para el indicador, ${formatByUnit(row.arboles_sembrados_kpi_mes,'árboles')} establecidos en campo, ${formatPercent(row.aporte_sig_mes)} de avance del sistema digital y ${formatByUnit(row.plantas_netas_mes,'plantas')} en vivero.`;
+  const interp = `En ${row.mes_label.toLowerCase()} registramos ${formatByUnit(row.ha_monitoreadas_kpi_mes,'ha')} de monitoreo válido para el indicador, ${formatByUnit(row.arboles_sembrados_kpi_mes,'árboles')} establecidos en campo, ${formatPercent(row.aporte_sig_mes)} de avance del sistema forestal digital y ${formatByUnit(row.plantas_netas_mes,'plantas')} en vivero.`;
   setText('barInterp', interp);
   setText('execBarInterp', interp);
 }
@@ -2835,7 +2859,7 @@ function renderBarChart(){
 function buildPresentationAlerts(row){
   const alerts = [];
   if (String(row.alertas_texto || '').trim()) alerts.push({type:'yellow', text: row.alertas_texto});
-  if (String(row.semaforo_sig).toLowerCase() === 'azul' || safeNumber(row.aporte_sig_acum) >= 0.6) alerts.push({type:'green', text:'El sistema digital de monitoreo forestal ya presenta consolidación útil para cartografía temática, análisis territorial y soporte al programa.'});
+  if (String(row.semaforo_sig).toLowerCase() === 'azul' || safeNumber(row.aporte_sig_acum) >= 0.6) alerts.push({type:'green', text:'El sistema forestal digital de monitoreo forestal ya presenta consolidación útil para cartografía temática, análisis territorial y soporte al programa.'});
   if (safeNumber(row.arboles_sembrados_acum) === 0) alerts.push({type:'blue', text:'La siembra anual todavía no inicia; el tablero muestra una línea base de primer trimestre.'});
   if (safeNumber(row.plantas_netas_acum) < 2500) alerts.push({type:'yellow', text:'El vivero sigue en fase de acumulación temprana; conviene reforzar producción y trazabilidad del componente.'});
   return alerts.length ? alerts : [{type:'green', text:'No se detectan alertas críticas en el período seleccionado.'}];
@@ -2852,7 +2876,7 @@ function buildPresentation(){
   const heroCards = [
     {label:'Monitoreo acumulado', value:formatByUnit(row.ha_monitoreadas_kpi_acum,'ha',2), sub:`Meta anual: ${formatByUnit(row.meta_ha,'ha',2)}`},
     {label:'Siembra acumulada', value:formatByUnit(row.arboles_sembrados_acum,'árboles'), sub:`Meta anual: ${formatByUnit(row.meta_arboles,'árboles')}`},
-    {label:'Sistema digital', value:`${formatPercent(row.pct_meta_sig)} de avance`, sub:'Meta anual: sistema funcional consolidado'},
+    {label:'Sistema forestal digital', value:`${formatPercent(row.pct_meta_sig)} de avance`, sub:'Meta anual: sistema funcional consolidado'},
     {label:'Vivero acumulado', value:formatByUnit(row.plantas_netas_acum,'plantas'), sub:`Meta anual: ${formatByUnit(row.meta_plantas,'plantas')}`}
   ];
   const alerts = buildPresentationAlerts(row);
@@ -2894,7 +2918,7 @@ function buildPresentation(){
     <small>${escapeHtml(r.mes_label)} ${escapeHtml(r.anio)}</small>
     <strong>${escapeHtml(formatByUnit(r.ha_monitoreadas_kpi_acum,'ha',2))}</strong>
     <p>Vivero acumulado: ${escapeHtml(formatByUnit(r.plantas_netas_acum,'plantas'))}</p>
-    <span class="presentation-chip ${semaforoClass(r.semaforo_sig)}">Sistema digital ${escapeHtml(formatPercent(r.pct_meta_sig))}</span>
+    <span class="presentation-chip ${semaforoClass(r.semaforo_sig)}">Sistema forestal digital ${escapeHtml(formatPercent(r.pct_meta_sig))}</span>
   </article>`).join('');
 
   meta.innerHTML = `
@@ -2949,7 +2973,7 @@ function buildPresentation(){
         <div class="presentation-kicker">Metas mensuales</div>
         <div class="presentation-title-row">
           <div>
-            <h2>Monitoreo digital, vivero y soporte operativo</h2>
+            <h2>Soporte cartográfico, vivero y operación</h2>
             <p>Esta capa mensual complementa la lectura anual del programa y ayuda a explicar mejor el avance operativo del primer trimestre sin cambiar la lectura de los indicadores principales.</p>
           </div>
         </div>
@@ -2965,7 +2989,7 @@ function buildPresentation(){
         <div class="presentation-title-row">
           <div>
             <h2>Ruta temprana del programa</h2>
-            <p>El primer trimestre sirve como línea base operativa: monitoreo activo desde febrero, consolidación del sistema digital en avance y vivero en fase de acumulación inicial.</p>
+            <p>El primer trimestre sirve como línea base operativa: monitoreo activo desde febrero, consolidación del sistema forestal digital en avance y vivero en fase de acumulación inicial.</p>
           </div>
         </div>
         <div class="presentation-metric-grid" style="grid-template-columns:repeat(3,1fr)">
@@ -2973,7 +2997,7 @@ function buildPresentation(){
         </div>
         <div class="presentation-note" style="margin-top:18px">
           <h3>Interpretación</h3>
-          <p>La siembra anual aún no se activa en el al presente mes de marzo, por lo que el tablero concentra la lectura en monitoreo, cartografía, consolidación del sistema digital y acumulación del vivero.</p>
+          <p>La siembra anual aún no se activa en el al presente mes de marzo, por lo que el tablero concentra la lectura en monitoreo, cartografía, consolidación del sistema forestal digital y acumulación del vivero.</p>
         </div>
       </div>
     </section>
@@ -2993,7 +3017,7 @@ function buildPresentation(){
           </div>
           <div class="presentation-note">
             <h3>Mensaje de cierre</h3>
-            <p>En <strong>${escapeHtml(row.mes_label)} ${escapeHtml(row.anio)}</strong>, Reforestando Atitlán registra <strong>${escapeHtml(formatByUnit(row.ha_monitoreadas_kpi_acum,'ha',2))}</strong> monitoreadas, un avance del sistema digital de <strong>${escapeHtml(formatPercent(row.pct_meta_sig))}</strong> y <strong>${escapeHtml(formatByUnit(row.plantas_netas_acum,'plantas'))}</strong> plantas acumuladas.</p>
+            <p>En <strong>${escapeHtml(row.mes_label)} ${escapeHtml(row.anio)}</strong>, Reforestando Atitlán registra <strong>${escapeHtml(formatByUnit(row.ha_monitoreadas_kpi_acum,'ha',2))}</strong> monitoreadas, un avance del sistema forestal digital de <strong>${escapeHtml(formatPercent(row.pct_meta_sig))}</strong> y <strong>${escapeHtml(formatByUnit(row.plantas_netas_acum,'plantas'))}</strong> plantas acumuladas.</p>
             <p>La cartografía acumulada reporta <strong>${escapeHtml(formatPercent(row.pct_cartografia_acum))}</strong> y el vivero muestra <strong>${escapeHtml(formatNumber(row.especies_acumuladas_proxy,0))}</strong> especies activas como base para la temporada alta.</p>
             <p style="margin-top:auto;padding-top:12px;border-top:1px dashed var(--line-soft);font-size:.83rem;color:var(--muted)">Reforestando Atitlán · tablero ejecutivo de restauración forestal · ${escapeHtml(row.mes_label)} ${escapeHtml(row.anio)}</p>
           </div>
