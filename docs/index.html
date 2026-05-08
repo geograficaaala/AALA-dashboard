@@ -864,9 +864,13 @@
     .metric-header,
     .metric-row {
       display: grid;
-      grid-template-columns: minmax(130px, 1fr) minmax(0, 1.4fr) minmax(0, 1.1fr);
+      grid-template-columns: minmax(150px, 1.1fr) minmax(0, 1.3fr) minmax(0, 1.05fr) minmax(0, 1.15fr);
       gap: 14px;
       align-items: start;
+    }
+    .program-card.no-monthly .metric-header,
+    .program-card.no-monthly .metric-row {
+      grid-template-columns: minmax(150px, 1.1fr) minmax(0, 1.4fr) minmax(0, 1.1fr);
     }
     .metric-header {
       padding-bottom: 10px;
@@ -1355,7 +1359,8 @@
         gap: 8px;
       }
       .metric-header span:not(:first-child),
-      .mcol-pct {
+      .mcol-pct,
+      .mcol-monthly {
         display: none;
       }
       .section-card,
@@ -1645,6 +1650,21 @@
   text-justify:inter-word;
 }
 
+
+.mcol-monthly{
+  display:grid;
+  align-content:start;
+  gap:0;
+}
+.metric-monthly-value{
+  font: .78rem/1.5 var(--font-mono);
+  color: var(--text-2);
+  margin-bottom: 7px;
+}
+.program-card.no-monthly .prog-score-label::after{
+  content:'';
+}
+
 </style>
 </head>
 <body>
@@ -1675,13 +1695,6 @@
           <strong>La Asociación Amigos del Lago de Atitlán se enfoca en generar una cultura regenerativa en la cuenca Lago</strong>, para que los seres humanos podamos coexistir de forma sostenible y sana con el entorno natural.
           Hacemos educación ambiental, reforestación, reciclaje, empoderamiento económico de mujeres, asesoría municipal en agua y saneamiento.
         </p>
-        <div class="hero-pills" aria-label="Líneas de trabajo">
-          <span class="pill">Educación ambiental</span>
-          <span class="pill">Reforestación</span>
-          <span class="pill">Reciclaje</span>
-          <span class="pill">Agua y saneamiento</span>
-          <span class="pill">Siembra de tul</span>
-        </div>
       </article>
 
       <aside class="card hero-side stagger-2">
@@ -2204,109 +2217,55 @@ const META_ANUAL_INGRESOS   = 448000;  // GTQ brutos
 const META_DIARIA_LIDERESA  = 135;     // GTQ/día (meta mensual del CSV)
 
 async function loadAtitlan(cfg){
-  const [totalRaw, indRaw] = await Promise.all([parseCsv(cfg.totalUrl), parseCsv(cfg.indUrl)]);
-  const baseTotal = cast(totalRaw);
-  const baseInds  = cast(indRaw);
+  // Datos consolidados al corte de abril de 2026.
+  const materialesMes = 1683.5;
+  const materialesMetaMes = 1630;
+  const ingresosMes = 32463.9;
+  const ingresosMetaMes = 40727;
+  const ingresoLideresaMes = 183.280424242;
+  const ingresoLideresaMeta = META_DIARIA_LIDERESA;
 
-  // Sincronizado con index_atitlanrecicla.html · abril 2026
-  const ABRIL_TOTAL_ATITLAN = {
-    programa:'atitlan_recicla', anio:2026, mes_num:4, mes:'ABR', zona:'TOTAL',
-    mujeres_activas:58, mujeres_actividades:42, mujeres_comercializacion:31,
-    mujeres_comercializacion_no_inscritas:2, ingreso_diario_lideresa:183.280424242,
-    mujeres_inscritas_total:64, mujeres_nuevas_inscritas:0,
-    materiales_lideresas_qq:1574.4, materiales_municipalidad_qq:46.41,
-    total_materiales_qq:1683.5,
-    ingreso_bruto_lideresas:30241.27, gasto_transporte:2300,
-    pago_coop_lideresas:130.5, ingreso_neto_lideresas:30110.77,
-    ingreso_bruto_municipalidad:2222.63, pago_coop_municipalidad:322.43,
-    ingreso_neto_municipalidad:1900.2, ingreso_bruto_total:32463.9,
-    ingreso_neto_total_territorio:32010.97, ingreso_neto_cooperativa:452.93,
-    horas_trabajadas_lideresas:2058.1, pet_qq:95.59,
-    vidrio_peso_qq:876.71, vidrio_total_qq:877.42,
-    ingreso_pet:3623.35, ingreso_vidrio_peso:16901.86,
-    ingreso_vidrio_gronn:0, ingreso_vidrio_surusic:142,
-    pct_participacion_actividades:0.724137931034,
-    pct_participacion_comercializacion:0.568965517241
-  };
-  const ABRIL_INDICADORES_ATITLAN = [
-    ['materiales_generales','Materiales reciclables recolectados',1683.5,1630,'qq'],
-    ['pet','PET recolectado',95.59,153,'qq'],
-    ['vidrio','Vidrio recolectado',877.42,1018,'qq'],
-    ['ingreso_bruto_total','Ingresos brutos totales',32463.9,40727,'GTQ'],
-    ['ingreso_bruto_mujeres','Ingresos brutos por mujeres',30241.27,36655,'GTQ'],
-    ['ingreso_bruto_municipalidades','Ingresos brutos por municipalidades',2222.63,4073,'GTQ'],
-    ['ingreso_diario_lideresa','Ingreso diario por lideresa',183.280424242,135,'GTQ/día'],
-    ['participacion_actividades','Participación activa en actividades',0.724137931034,0.75,'proporción'],
-    ['participacion_comercializacion','Participación en comercialización',0.568965517241,0.6,'proporción']
-  ].map(([indicador_id, indicador_nombre, valor, meta_mensual, unidad]) => ({
-    programa_id:'atitlan_recicla', programa_nombre:'Atitlán Recicla', anio:2026, mes_num:4, mes:'ABR',
-    nivel_agregacion:'programa', territorio:'TOTAL', indicador_id, indicador_nombre,
-    valor, meta_mensual, unidad, fuente:'CDM · abril 2026'
-  }));
-
-  const totalPatched = baseTotal
-    .filter(r => !(Number(r.mes_num) === 4 && String(r.zona || '').toUpperCase() === 'TOTAL'))
-    .concat([ABRIL_TOTAL_ATITLAN]);
-  const indsPatched = baseInds
-    .filter(r => !(Number(r.mes_num) === 4 && String(r.nivel_agregacion||'').toLowerCase() === 'programa'))
-    .concat(ABRIL_INDICADORES_ATITLAN);
-
-  const total = sortByMonth(totalPatched.filter(r => !r.zona || String(r.zona).toUpperCase() === 'TOTAL'));
-  const inds  = indsPatched;
-
-  const withData = total.filter(r => Number(r.total_materiales_qq || 0) > 0);
-  const latest   = withData[withData.length - 1] || {};
-  const latestMonth = Number(latest.mes_num || 0);
-
-  const latestIndicators = inds.filter(r =>
-    Number(r.mes_num) === latestMonth &&
-    String(r.nivel_agregacion||'').toLowerCase() === 'programa'
-  );
-  const score = avg(
-    latestIndicators
-      .filter(r => Number(r.meta_mensual) > 0)
-      .map(r => (Number(r.valor||0) / Number(r.meta_mensual||1)) * 100)
-  );
-
-  const rowsConDatos = total.filter(r => Number(r.total_materiales_qq || 0) > 0);
-  const acumMateriales = rowsConDatos.reduce((s, r) => s + Number(r.total_materiales_qq || 0), 0);
-  const acumIngresos   = rowsConDatos.reduce((s, r) => s + Number(r.ingreso_bruto_total || 0), 0);
-
-  const ingresoLideresaRow = latestIndicators.find(r => r.indicador_id === 'ingreso_diario_lideresa');
-  const ingresoLideresaVal = ingresoLideresaRow ? Number(ingresoLideresaRow.valor || 0) : Number(latest.ingreso_diario_lideresa || 0);
-  const mesLargoAtitlan = MES_LARGO[safe(latest.mes)] || safe(latest.mes);
+  const acumMateriales = 6920.79;
+  const acumIngresos = 147928.61;
 
   const pctMateriales = (acumMateriales / META_ANUAL_MATERIALES) * 100;
-  const pctIngresos   = (acumIngresos   / META_ANUAL_INGRESOS)   * 100;
-  const pctLideresa   = ingresoLideresaRow
-    ? (Number(ingresoLideresaRow.valor||0) / Number(ingresoLideresaRow.meta_mensual||META_DIARIA_LIDERESA)) * 100
-    : 0;
+  const pctIngresos = (acumIngresos / META_ANUAL_INGRESOS) * 100;
+  const pctLideresa = (ingresoLideresaMes / ingresoLideresaMeta) * 100;
+
+  const pctMaterialesMes = (materialesMes / materialesMetaMes) * 100;
+  const pctIngresosMes = (ingresosMes / ingresosMetaMes) * 100;
+  const pctLideresaMes = pctLideresa;
+  const score = avg([pctMaterialesMes, pctIngresosMes, pctLideresaMes]);
 
   const keyMetrics = [
     {
-      label: 'Colecta de materiales reciclables',
+      label: 'Recolección de 17,920 quintales de materiales reciclables.',
       acumDisplay: `${fmt(acumMateriales)} / ${fmt(META_ANUAL_MATERIALES)} qq`,
       pct: pctMateriales,
-      pctDisplay: `${fmtPct(pctMateriales)} de avance acumulado hasta el mes de abril con respecto a meta anual`,
+      pctDisplay: `${fmtPct(pctMateriales)} de avance acumulado hasta abril contra la meta anual`,
       barPct: pctMateriales,
+      monthlyDisplay: `${fmt(materialesMes,1)} / ${fmt(materialesMetaMes)} qq en abril · ${fmtPct(pctMaterialesMes)}`,
+      monthlyPct: pctMaterialesMes,
       temporality: 'Este indicador tiene por temporalidad desde enero a noviembre de 2026'
     },
     {
-      label: 'Ingresos brutos por comercialización',
-      acumDisplay: `${fmt(acumIngresos)} / ${fmt(META_ANUAL_INGRESOS)} GTQ`,
+      label: 'Generación de Q448,000 en ingresos brutos por comercialización.',
+      acumDisplay: `Q${fmt(acumIngresos,2)} / Q${fmt(META_ANUAL_INGRESOS)} GTQ`,
       pct: pctIngresos,
-      pctDisplay: `${fmtPct(pctIngresos)} de avance acumulado hasta el mes de abril con respecto a meta anual`,
+      pctDisplay: `${fmtPct(pctIngresos)} de avance acumulado hasta abril contra la meta anual`,
       barPct: pctIngresos,
+      monthlyDisplay: `Q${fmt(ingresosMes,2)} / Q${fmt(ingresosMetaMes)} en abril · ${fmtPct(pctIngresosMes)}`,
+      monthlyPct: pctIngresosMes,
       temporality: 'Este indicador tiene por temporalidad desde enero a noviembre de 2026'
     },
     {
-      label: 'Ingresos medios diarios por lideresas',
-      acumDisplay: `${fmt(ingresoLideresaVal, 1)} GTQ/día en ${safe(latest.mes) !== '—' ? mesLargoAtitlan : 'el presente mes'} — meta mensual: ${fmt(META_DIARIA_LIDERESA)} GTQ/día`,
+      label: 'Ingreso medio diario de Q135 por lideresa activa en comercialización.',
+      acumDisplay: `Q${fmt(ingresoLideresaMes,1)} diarios por lideresa en abril`,
       pct: pctLideresa,
-      pctDisplay: pctLideresa >= 100
-        ? `En ${safe(latest.mes) !== '—' ? mesLargoAtitlan : 'el presente mes'}, las lideresas generaron ${fmt(ingresoLideresaVal, 1)} GTQ/día, superando la meta mensual en ${fmtPct(pctLideresa - 100)}`
-        : `En ${safe(latest.mes) !== '—' ? mesLargoAtitlan : 'el presente mes'}, las lideresas generaron ${fmt(ingresoLideresaVal, 1)} GTQ/día — ${fmtPct(pctLideresa)} de la meta mensual (${fmt(META_DIARIA_LIDERESA)} GTQ/día)`,
+      pctDisplay: `${fmtPct(pctLideresa)} de cumplimiento frente a la meta mensual de Q${fmt(ingresoLideresaMeta)} diarios`,
       barPct: pctLideresa,
+      monthlyDisplay: `Q${fmt(ingresoLideresaMes,1)} / Q${fmt(ingresoLideresaMeta)} diarios · ${fmtPct(pctLideresaMes)}`,
+      monthlyPct: pctLideresaMes,
       isMensual: true,
       temporality: 'Este indicador tiene por temporalidad desde enero a noviembre de 2026'
     }
@@ -2314,8 +2273,8 @@ async function loadAtitlan(cfg){
 
   return {
     ...cfg,
-    latestLabel: withData.length ? `${MES_LARGO[safe(latest.mes)] || safe(latest.mes)} ${safe(latest.anio)}` : 'Sin datos',
-    periodKey: latestMonth ? `${safe(latest.anio)}-${String(latestMonth).padStart(2,'0')}` : '—',
+    latestLabel: 'Abril',
+    periodKey: '2026-04',
     score: score || 0,
     scoreLabel: 'Cumplimiento promedio vs metas mensuales',
     metrics: keyMetrics,
@@ -2324,7 +2283,7 @@ async function loadAtitlan(cfg){
 }
 
 async function loadConservando(cfg){
-  // Sincronizado con index_conservando_atitlan.html · abril 2026
+  // Sincronizado con index_conservando_atitlan.html · abril 2026.
   const aceiteAcum = 27810.828;
   const aguaAcum = 27810828;
   const jabonesProdAcum = 26680;
@@ -2335,60 +2294,75 @@ async function loadConservando(cfg){
   const metaJabonesProd = 65040;
   const metaJabonesVend = 51600;
 
+  const aceiteMes = 7340;
+  const aceiteMetaMes = 6666.67;
+  const aguaMes = 7340000;
+  const aguaMetaMes = 6666666.67;
+  const jabonesProdMes = 4850;
+  const jabonesProdMetaMes = 5420;
+  const jabonesVendMes = 2314;
+  const jabonesVendMetaMes = 4300;
+
   const pctAceite = (aceiteAcum / metaAceite) * 100;
   const pctAgua = (aguaAcum / metaAgua) * 100;
   const pctJabonesProd = (jabonesProdAcum / metaJabonesProd) * 100;
   const pctJabonesVend = (jabonesVendAcum / metaJabonesVend) * 100;
 
-  const esperadoCorte = (4 / 12) * 100; // enero-abril 2026
-  const score = avg([
-    (pctAceite / esperadoCorte) * 100,
-    (pctAgua / esperadoCorte) * 100,
-    (pctJabonesProd / esperadoCorte) * 100,
-    (pctJabonesVend / esperadoCorte) * 100
-  ]);
+  const pctAceiteMes = (aceiteMes / aceiteMetaMes) * 100;
+  const pctAguaMes = (aguaMes / aguaMetaMes) * 100;
+  const pctJabonesProdMes = (jabonesProdMes / jabonesProdMetaMes) * 100;
+  const pctJabonesVendMes = (jabonesVendMes / jabonesVendMetaMes) * 100;
+  const score = avg([pctAceiteMes, pctAguaMes, pctJabonesProdMes, pctJabonesVendMes]);
 
   const keyMetrics = [
     {
-      label:'Litros de aceite usado de cocina recolectados.',
-      acumDisplay:`${fmt(aceiteAcum)} lt / ${fmt(metaAceite)} litros recolectados anualmente`,
+      label:'Recolección de 80,000 litros de aceite usado de cocina.',
+      acumDisplay:`${fmt(aceiteAcum)} / ${fmt(metaAceite)} litros recolectados`,
       pct:pctAceite,
-      pctDisplay:`${fmtPct(pctAceite)} de avance acumulado hasta el mes de abril con respecto a meta anual`,
+      pctDisplay:`${fmtPct(pctAceite)} de avance acumulado hasta abril contra la meta anual`,
       barPct:pctAceite,
+      monthlyDisplay:`${fmt(aceiteMes)} / ${fmt(aceiteMetaMes,2)} litros en abril · ${fmtPct(pctAceiteMes)}`,
+      monthlyPct:pctAceiteMes,
       temporality: 'Este indicador tiene por temporalidad desde enero a diciembre de 2026'
     },
     {
-      label:'Litros de agua protegidos.',
-      acumDisplay:`${fmt(aguaAcum)} lt / ${fmt(metaAgua)} litros de agua protegidos`,
+      label:'Protección de 80,000,000 litros de agua por manejo adecuado de aceite usado.',
+      acumDisplay:`${fmt(aguaAcum)} / ${fmt(metaAgua)} litros de agua protegidos`,
       pct:pctAgua,
-      pctDisplay:`${fmtPct(pctAgua)} de avance acumulado hasta el mes de abril con respecto a meta anual`,
+      pctDisplay:`${fmtPct(pctAgua)} de avance acumulado hasta abril contra la meta anual`,
       barPct:pctAgua,
+      monthlyDisplay:`${fmt(aguaMes)} / ${fmt(aguaMetaMes,2)} litros en abril · ${fmtPct(pctAguaMes)}`,
+      monthlyPct:pctAguaMes,
       temporality: 'Este indicador tiene por temporalidad desde enero a diciembre de 2026'
     },
     {
-      label:'65,040 jabones producidos.',
-      acumDisplay:`${fmt(jabonesProdAcum)} jabones producidos / ${fmt(metaJabonesProd)} jabones producidos anualmente`,
+      label:'Producción de 65,040 jabones durante 2026.',
+      acumDisplay:`${fmt(jabonesProdAcum)} / ${fmt(metaJabonesProd)} jabones producidos`,
       pct:pctJabonesProd,
-      pctDisplay:`${fmtPct(pctJabonesProd)} de avance acumulado hasta el mes de abril con respecto a meta anual`,
+      pctDisplay:`${fmtPct(pctJabonesProd)} de avance acumulado hasta abril contra la meta anual`,
       barPct:pctJabonesProd,
+      monthlyDisplay:`${fmt(jabonesProdMes)} / ${fmt(jabonesProdMetaMes)} jabones en abril · ${fmtPct(pctJabonesProdMes)}`,
+      monthlyPct:pctJabonesProdMes,
       temporality: 'Este indicador tiene por temporalidad desde enero a diciembre de 2026'
     },
     {
-      label:'51,600 jabones vendidos anualmente.',
-      acumDisplay:`${fmt(jabonesVendAcum)} vendidos / ${fmt(metaJabonesVend)} jabones anualmente`,
+      label:'Venta de 51,600 jabones durante 2026.',
+      acumDisplay:`${fmt(jabonesVendAcum)} / ${fmt(metaJabonesVend)} jabones vendidos`,
       pct:pctJabonesVend,
-      pctDisplay:`${fmtPct(pctJabonesVend)} de avance acumulado hasta el mes de abril con respecto a meta anual`,
+      pctDisplay:`${fmtPct(pctJabonesVend)} de avance acumulado hasta abril contra la meta anual`,
       barPct:pctJabonesVend,
+      monthlyDisplay:`${fmt(jabonesVendMes)} / ${fmt(jabonesVendMetaMes)} jabones en abril · ${fmtPct(pctJabonesVendMes)}`,
+      monthlyPct:pctJabonesVendMes,
       temporality: 'Este indicador tiene por temporalidad desde enero a diciembre de 2026'
     }
   ];
 
   return {
     ...cfg,
-    latestLabel:'Abril 2026',
+    latestLabel:'Abril',
     periodKey:'2026-04',
     score:score || 0,
-    scoreLabel:'Promedio vs esperado al presente mes',
+    scoreLabel:'Promedio vs metas mensuales',
     metrics:keyMetrics,
     sourceSummary:'Kobo · abril 2026'
   };
@@ -2397,274 +2371,211 @@ async function loadConservando(cfg){
 async function loadFM(cfg){
   const vigenciaMunicipal = 'Este indicador tiene por periodo de enero a diciembre de 2026, considerando los plazos y procedimientos administrativos propios de las municipalidades';
 
-  const defaults = {
-    FM_GEN_01: {
+  const keyMetrics = [
+    {
       label:'15 municipalidades de la Cuenca del Lago de Atitlán con capacidad instalada en los temas de SNIP (Sistema nacional de inversión pública), SIG (Sistemas de Información Geográfica), recolección digital de datos y cumplimiento legal ambiental.',
-      meta: 15,
-      unidad: 'municipalidades'
-    },
-    FM_GEN_02: {
-      label:'6 Estudios de caracterización de desechos y residuos sólidos y o aguas residuales.',
-      meta: 6,
-      unidad: 'estudios'
-    },
-    FM_GEN_03: {
-      label:'5 PIRDES Municipales (Planes de Manejo integrales de residuos y desechos sólidos)',
-      meta: 5,
-      unidad: 'planes integrales'
-    },
-    FM_GEN_04: {
-      label:'20 Asistencias técnicas municipales en aguas residuales.',
-      meta: 20,
-      unidad: 'asistencias técnicas'
-    }
-  };
-
-  const order = ['FM_GEN_01', 'FM_GEN_02', 'FM_GEN_03', 'FM_GEN_04'];
-  let rows = [];
-
-  try {
-    rows = cast(await parseCsv(cfg.cardUrl || './data/fortalecimiento_municipal/programa_card.csv'));
-  } catch (err) {
-    console.warn('No se pudo cargar programa_card.csv para Fortalecimiento Municipal. Se usará respaldo en 0.', err);
-    rows = [];
-  }
-
-  const byId = {};
-  rows.forEach(row => {
-    const id = String(row.indicador_id || '').trim();
-    if (id) byId[id] = row;
-  });
-
-  const toNumber = (value, fallback = 0) => {
-    if (value === undefined || value === null || value === '') return fallback;
-    const n = Number(String(value).replace(/,/g, ''));
-    return Number.isFinite(n) ? n : fallback;
-  };
-
-  const buildMetric = (id) => {
-    const fallback = defaults[id];
-    const row = byId[id] || {};
-
-    const valor = toNumber(row.valor_acumulado, 0);
-    const meta = toNumber(row.meta_anual, fallback.meta);
-    const unidad = safe(row.unidad || fallback.unidad);
-    const label = fallback.label;
-    const pct = meta > 0 ? (valor / meta) * 100 : 0;
-
-    return {
-      label,
-      acumDisplay:`${fmt(valor)}/${fmt(meta)} ${unidad}`,
-      pct,
-      pctDisplay:`${fmtPct(pct)} de avance`,
-      barPct:pct,
+      acumDisplay:'1/15 municipalidades',
+      pct:(1/15)*100,
+      pctDisplay:`${fmtPct((1/15)*100)} de avance`,
+      barPct:(1/15)*100,
       temporality: vigenciaMunicipal,
       temporalFullRow:true
-    };
-  };
+    },
+    {
+      label:'6 Estudios de caracterización de desechos y residuos sólidos y o aguas residuales.',
+      acumDisplay:'4/6 estudios',
+      pct:(4/6)*100,
+      pctDisplay:`${fmtPct((4/6)*100)} de avance`,
+      barPct:(4/6)*100,
+      temporality: vigenciaMunicipal,
+      temporalFullRow:true
+    },
+    {
+      label:'5 PIRDES Municipales (Planes de Manejo integrales de residuos y desechos sólidos)',
+      acumDisplay:'2/5 planes integrales',
+      pct:(2/5)*100,
+      pctDisplay:`${fmtPct((2/5)*100)} de avance`,
+      barPct:(2/5)*100,
+      temporality: vigenciaMunicipal,
+      temporalFullRow:true
+    },
+    {
+      label:'20 Asistencias técnicas municipales en aguas residuales.',
+      acumDisplay:'3/20 asistencias técnicas',
+      pct:(3/20)*100,
+      pctDisplay:`${fmtPct((3/20)*100)} de avance`,
+      barPct:(3/20)*100,
+      temporality: vigenciaMunicipal,
+      temporalFullRow:true
+    }
+  ];
 
-  const keyMetrics = order.map(buildMetric);
   const score = avg(keyMetrics.map(metric => Number(metric.pct || 0)));
 
   return {
     ...cfg,
-    latestLabel:'Acumulado 2026 validado',
-    periodKey:'2026-validado',
+    latestLabel:'Abril',
+    periodKey:'2026-04',
     score:score || 0,
     scoreLabel:'Cumplimiento promedio con respecto a meta anual',
+    scoreHeader:'Cumplimiento promedio con respecto a meta anual',
+    hasMonthlyColumn:false,
     metrics:keyMetrics,
     sourceSummary:'Google Sheets · programa_card.csv'
   };
 }
 
 async function loadEPC(cfg){
-  // Sincronizado con index_epc.html · abril 2026
+  // Sincronizado con index_epc.html · abril 2026.
   const modulosDesarrollados = 2;
   const modulosMeta = 7;
   const pctDocentes = (modulosDesarrollados / modulosMeta) * 100;
   const pctEstudiantes = (modulosDesarrollados / modulosMeta) * 100;
 
   const momentosDiplomadoDesarrollados = 3;
-  const momentosDiplomadoAnuales = 12; // dos cohortes de seis momentos formativos
+  const momentosDiplomadoAnuales = 12;
   const pctAvanceFormacion = (momentosDiplomadoDesarrollados / momentosDiplomadoAnuales) * 100;
 
   const actividadesVal = 24;
   const actividadesMeta = 128;
-  const actividadesEsperadasAlCorte = 32;
   const pctActividades = (actividadesVal / actividadesMeta) * 100;
-  const pctActividadesVsEsperado = (actividadesVal / actividadesEsperadasAlCorte) * 100;
 
-  const score = avg([
-    99.2, // docentes abril: 120 / 121
-    99.2, // estudiantes abril: 3,487 / 3,514
-    pctAvanceFormacion,
-    pctActividadesVsEsperado
-  ]);
+  const docentesMes = 120;
+  const docentesMetaMes = 121;
+  const estudiantesMes = 3487;
+  const estudiantesMetaMes = 3514;
+  const jovenesMes = 66;
+  const jovenesMetaMes = 60;
+  const actividadesMes = 14;
+  const actividadesMetaMes = 14;
+
+  const pctDocentesMes = (docentesMes / docentesMetaMes) * 100;
+  const pctEstudiantesMes = (estudiantesMes / estudiantesMetaMes) * 100;
+  const pctJovenesMes = (jovenesMes / jovenesMetaMes) * 100;
+  const pctActividadesMes = (actividadesMes / actividadesMetaMes) * 100;
+  const score = avg([pctDocentesMes, pctEstudiantesMes, pctJovenesMes, pctActividadesMes]);
 
   const keyMetrics = [
     {
       label:'Capacidades pedagógicas instaladas de los 7 módulos del Material de Referencia Educando para Conservar en 121 docentes de los niveles ordinario, básico y diversificado de 50 centros educativos de 13 municipios de la cuenca del Lago de Atitlán.',
       acumDisplay:`${modulosDesarrollados}/${modulosMeta} módulos desarrollados`,
       pct:pctDocentes,
-      pctDisplay:`${fmtPct(pctDocentes)} de avance acumulado hasta el mes de abril con respecto a meta anual`,
+      pctDisplay:`${fmtPct(pctDocentes)} de avance acumulado hasta abril contra la meta anual`,
       barPct:pctDocentes,
+      monthlyDisplay:`${fmt(docentesMes)} / ${fmt(docentesMetaMes)} docentes en abril · ${fmtPct(pctDocentesMes)}`,
+      monthlyPct:pctDocentesMes,
       temporality: 'Este indicador tiene por temporalidad desde marzo a septiembre de 2026'
     },
     {
       label:'3,514 estudiantes de los niveles ordinario, básico y diversificado de 50 centros educativos de la Cuenca del Lago de Atitlán, capacitados en los 7 módulos del Material de Referencia Educando para Conservar.',
       acumDisplay:`${modulosDesarrollados}/${modulosMeta} módulos desarrollados`,
       pct:pctEstudiantes,
-      pctDisplay:`${fmtPct(pctEstudiantes)} de avance acumulado hasta el mes de abril con respecto a meta anual`,
+      pctDisplay:`${fmtPct(pctEstudiantes)} de avance acumulado hasta abril contra la meta anual`,
       barPct:pctEstudiantes,
+      monthlyDisplay:`${fmt(estudiantesMes)} / ${fmt(estudiantesMetaMes)} estudiantes en abril · ${fmtPct(pctEstudiantesMes)}`,
+      monthlyPct:pctEstudiantesMes,
       temporality: 'Este indicador tiene por temporalidad desde marzo a septiembre de 2026'
     },
     {
-      label:'Participación de 120 jóvenes de 12 municipios de la cuenca del Lago de Atitlán en el \'Diplomado de Gestión Ambiental y Liderazgo Juvenil\', estructurado en dos cohortes anuales de 60 estudiantes cada una, cubriendo cinco módulos temáticos y el desarrollo y presentación de un proyecto con un sólido enfoque social y ambiental.',
+      label:'Participación de 120 jóvenes de 12 municipios de la cuenca del Lago de Atitlán en el Diplomado de Gestión Ambiental y Liderazgo Juvenil.',
       acumDisplay:`${momentosDiplomadoDesarrollados}/${momentosDiplomadoAnuales} momentos formativos desarrollados`,
       pct:pctAvanceFormacion,
-      pctDisplay:`${fmtPct(pctAvanceFormacion)} de avance acumulado hasta el mes de abril con respecto a meta anual`,
+      pctDisplay:`${fmtPct(pctAvanceFormacion)} de avance acumulado hasta abril contra la meta anual`,
       barPct:pctAvanceFormacion,
+      monthlyDisplay:`${fmt(jovenesMes)} / ${fmt(jovenesMetaMes)} jóvenes asistentes en abril · ${fmtPct(pctJovenesMes)}`,
+      monthlyPct:pctJovenesMes,
       temporality: 'Este indicador tiene por temporalidad desde marzo a octubre de 2026'
     },
     {
-      label:'Actividades en campo',
+      label:'128 actividades en campo de educación ambiental y aprendizaje práctico durante 2026.',
       acumDisplay:`${fmt(actividadesVal)} / ${fmt(actividadesMeta)} actividades`,
       pct:pctActividades,
-      pctDisplay:`${fmtPct(pctActividades)} de avance acumulado hasta el mes de abril con respecto a meta anual · ${fmtPct(pctActividadesVsEsperado)} frente a lo esperado al corte`,
+      pctDisplay:`${fmtPct(pctActividades)} de avance acumulado hasta abril contra la meta anual`,
       barPct:pctActividades,
+      monthlyDisplay:`${fmt(actividadesMes)} / ${fmt(actividadesMetaMes)} actividades en abril · ${fmtPct(pctActividadesMes)}`,
+      monthlyPct:pctActividadesMes,
       temporality: 'Este indicador tiene por temporalidad desde enero a octubre de 2026'
     }
   ];
 
   return {
     ...cfg,
-    latestLabel:'Abril 2026',
+    latestLabel:'Abril',
     periodKey:'2026-04',
     score:score || 0,
-    scoreLabel:'Promedio vs esperado al presente mes',
+    scoreLabel:'Promedio vs metas mensuales',
     metrics:keyMetrics,
     sourceSummary:'Kobo · abril 2026'
   };
 }
 
 async function loadReforestacion(cfg){
-  const [totalRaw, indRaw, metaRaw] = await Promise.all([
-    parseCsv(cfg.totalUrl),
-    parseCsv(cfg.indUrl),
-    parseCsv('./data/reforestacion/metadata_publicacion.csv').catch(() => [])
-  ]);
+  // Lectura actualizada a abril de 2026 con el mismo criterio mensual usado en el tablero de Reforestación.
+  const haAcum = 10.62;
+  const haMeta = 35;
+  const haMes = 0.97;
+  const haMetaMesOperativa = 1.14;
 
-  const total = sortByMonth(cast(totalRaw));
-  const inds = cast(indRaw);
-  const meta = cast(metaRaw);
-
-  const latestMovement = [...total].reverse().find(r =>
-    Number(r.ha_monitoreadas_kpi_mes || 0) > 0 ||
-    Number(r.arboles_sembrados_kpi_mes || 0) > 0 ||
-    Number(r.aporte_sig_mes || 0) > 0 ||
-    Number(r.plantas_netas_mes || 0) > 0 ||
-    Number(r.especies_activas_mes || 0) > 0
-  ) || total[total.length - 1] || {};
-
-  const fallbackPeriod = String(meta[0]?.latest_period || '');
-  const periodKey = String(latestMovement.periodo_clave || fallbackPeriod || '—');
-  const latestLabel = latestMovement.mes_label && latestMovement.anio
-    ? `${safe(latestMovement.mes_label)} ${safe(latestMovement.anio)}`
-    : (meta[0]?.latest_month_label ? `${safe(meta[0].latest_month_label)} ${String(fallbackPeriod).slice(0,4)}` : 'Sin datos');
-
-  const latestIndicators = inds.filter(r => String(r.periodo_clave || '') === periodKey);
-  const pick = (subId) => latestIndicators.find(r => String(r.subindicador_id || '') === subId) || {};
-  const pctFromRow = (row, fallbackValue = 0, fallbackMeta = 0) => {
-    const pct = Number(row?.pct_meta_anual);
-    if (Number.isFinite(pct) && pct >= 0) return pct * 100;
-    const value = Number(fallbackValue || row?.valor_acumulado || 0);
-    const metaVal = Number(fallbackMeta || row?.meta_anual || 0);
-    return metaVal > 0 ? (value / metaVal) * 100 : 0;
-  };
-
-  const ha = pick('ha_monitoreadas');
-  const cart = pick('cartografia_cobertura');
-  const arboles = pick('arboles_sembrados');
-  const sig = pick('unidad_sig');
-  const plantas = pick('plantas_vivero');
-  const especies = pick('especies_nativas');
-
-  const haAcum = Number(ha.valor_acumulado || latestMovement.ha_monitoreadas_kpi_acum || 0);
-  const haMeta = Number(ha.meta_anual || latestMovement.meta_ha || 35);
-  const pctHa = pctFromRow(ha, haAcum, haMeta);
-
-  // Cobertura cartográfica de monitoreo: 35 ha equivalen al 100%.
-  // Se calcula con las hectáreas monitoreadas acumuladas, no con una proporción independiente.
-  const cartAcum = haAcum;
-  const pctCart = haMeta > 0 ? (cartAcum / haMeta) * 100 : 0;
-
-  const arbolesAcum = Number(arboles.valor_acumulado || latestMovement.arboles_sembrados_acum || 0);
+  const arbolesAcum = 0;
   const arbolesMeta = 90000;
-  const pctArboles = pctFromRow(arboles, arbolesAcum, arbolesMeta);
 
-  const sigAcum = Number(sig.valor_acumulado || latestMovement.aporte_sig_acum || 0);
-  const sigMeta = Number(sig.meta_anual || latestMovement.meta_unidad_sig || 1);
-  const pctSig = pctFromRow(sig, sigAcum, sigMeta);
+  const sigPct = 66;
+  const sigMetaMes = 4;
+  const sigMes = 3.4;
+  const sigPctMes = 85;
 
   const plantasAcum = 2200;
-  const plantasMeta = Number(plantas.meta_anual || latestMovement.meta_plantas || 10000);
-  const pctPlantas = plantasMeta > 0 ? (plantasAcum / plantasMeta) * 100 : 0;
+  const plantasMeta = 10000;
+  const especiesAcum = 8;
+  const especiesMeta = 10;
+  const plantasMes = 223;
+  const plantasMetaMes = 262;
+  const plantasPctMes = 85;
 
-  const especiesAcum = Number(especies.valor_acumulado || latestMovement.especies_acumuladas_proxy || 0);
-  const especiesMeta = Number(especies.meta_anual || latestMovement.meta_especies || 10);
-  const pctEspecies = pctFromRow(especies, especiesAcum, especiesMeta);
-
-  const pctMonitoreoIntegral = Math.min(pctHa, pctCart || 0);
-  const pctViveroIntegral = Math.min(pctPlantas, pctEspecies || 0);
-  // Excluir siembra cuando no está activa (flag del CSV)
-  const siembraActiva = String(latestMovement.siembra_activa || 'False').toLowerCase() === 'true';
-  const scoreComponents = [pctMonitoreoIntegral, pctSig, pctViveroIntegral];
-  if (siembraActiva) scoreComponents.push(pctArboles);
-  const scoreBase = avg(scoreComponents);
-  const complementary = summarizeReforestacionComplementary(periodKey);
-  const score = complementary.rows.length
-    ? (scoreBase * 0.7) + (Number(complementary.avgCumplAcum || 0) * 0.3)
-    : scoreBase;
+  const pctHa = (haAcum / haMeta) * 100;
+  const pctCart = pctHa;
+  const pctArboles = (arbolesAcum / arbolesMeta) * 100;
+  const pctPlantas = (plantasAcum / plantasMeta) * 100;
+  const pctEspecies = (especiesAcum / especiesMeta) * 100;
+  const pctViveroIntegral = Math.min(pctPlantas, pctEspecies);
+  const score = avg([85, sigPctMes, plantasPctMes]);
 
   const keyMetrics = [
     {
       label: '35 hectáreas monitoreadas de las reforestaciones realizadas en 2025 en Sololá y la Cuenca del Lago de Atitlán, con su respectiva cartografía.',
       acumDisplay: `${fmt(haAcum, 2)} / ${fmt(haMeta)} ha monitoreadas`,
-      pct: pctMonitoreoIntegral,
-      pctDisplay: `${fmtPct(pctHa)} en hectáreas y ${fmtPct(pctCart)} en cartografía`,
-      barPct: pctMonitoreoIntegral,
+      pct: pctHa,
+      pctDisplay: `${fmtPct(pctHa)} de avance acumulado hasta abril contra la meta anual`,
+      barPct: pctHa,
+      monthlyDisplay: `${fmt(haMes,2)} / ${fmt(haMetaMesOperativa,2)} ha monitoreadas en abril · ${fmtPct(85)}`,
+      monthlyPct: 85,
       temporality: 'Este indicador tiene por temporalidad desde enero a julio de 2026',
       subIndicators: [
-        {
-          label: 'Hectáreas monitoreadas',
-          valueDisplay: `${fmt(haAcum, 2)} / ${fmt(haMeta)} ha`,
-          barPct: pctHa
-        },
-        {
-          label: 'Cobertura cartográfica de monitoreo',
-          valueDisplay: `${fmt(cartAcum, 2)} / ${fmt(haMeta)} ha`,
-          barPct: pctCart,
-          pending: pctCart === 0
-        }
+        { label: 'Hectáreas monitoreadas', valueDisplay: `${fmt(haAcum, 2)} / ${fmt(haMeta)} ha`, barPct: pctHa },
+        { label: 'Cobertura cartográfica de monitoreo', valueDisplay: `${fmt(haAcum, 2)} / ${fmt(haMeta)} ha`, barPct: pctCart }
       ]
     },
     {
-      label: '90,000 árboles sembrados durante 2026 en el departamento de Sololá y la Cuenca del Lago de Atitlán.',
+      label: '90,000 árboles reforestados durante 2026 en el departamento de Sololá y la Cuenca del Lago de Atitlán.',
       acumDisplay: `${fmt(arbolesAcum)} / ${fmt(arbolesMeta)} árboles`,
       pct: pctArboles,
-      pctDisplay: `${fmtPct(pctArboles)} de avance acumulado hasta el mes de marzo con respecto a meta anual`,
+      pctDisplay: `${fmtPct(pctArboles)} de avance acumulado hasta abril contra la meta anual`,
       barPct: pctArboles,
-      temporality: 'Este indicador tiene por temporalidad desde junio a noviembre de 2026',
-      inactive: !siembraActiva
+      monthlyDisplay: 'Indicador programado de junio a noviembre de 2026',
+      monthlyPct: null,
+      temporality: 'Este indicador tiene por temporalidad desde junio a noviembre de 2026'
     },
     {
       label: '1 unidad de análisis SIG creada con especialización en cartografía forestal temática a través del eje de la CODEMA-Sololá.',
-      acumDisplay: 'Unidad cartográfica en consolidación',
-      pct: pctSig,
-      pctDisplay: `${fmtPct(pctSig)} de avance acumulado de consolidación`,
-      barPct: pctSig,
-      fullWidthBar: true,
-      hideAcumBar: true
+      acumDisplay: `${fmtPct(sigPct)} de consolidación acumulada`,
+      pct: sigPct,
+      pctDisplay: `${fmtPct(sigPct)} de avance acumulado de consolidación`,
+      barPct: sigPct,
+      monthlyDisplay: `${fmt(sigMes,1)} / ${fmt(sigMetaMes)} hitos SIG en abril · ${fmtPct(sigPctMes)}`,
+      monthlyPct: sigPctMes,
+      fullWidthBar: false,
+      hideAcumBar: false,
+      temporality: 'Este indicador tiene por temporalidad desde enero a diciembre de 2026'
     },
     {
       label: '10,000 plantas forestales de 10 especies nativas producidas en el vivero AALA durante 2026.',
@@ -2672,30 +2583,24 @@ async function loadReforestacion(cfg){
       pct: pctViveroIntegral,
       pctDisplay: `${fmtPct(pctPlantas)} en plantas y ${fmtPct(pctEspecies)} en especies`,
       barPct: pctViveroIntegral,
+      monthlyDisplay: `${fmt(plantasMes)} / ${fmt(plantasMetaMes)} plantas netas en abril · ${fmtPct(plantasPctMes)}`,
+      monthlyPct: plantasPctMes,
       temporality: 'Este indicador tiene por temporalidad desde enero a noviembre de 2026',
       subIndicators: [
-        {
-          label: 'Plantas forestales',
-          valueDisplay: `${fmt(plantasAcum)} / ${fmt(plantasMeta)} plantas`,
-          barPct: pctPlantas
-        },
-        {
-          label: 'Especies nativas activas',
-          valueDisplay: `${fmt(especiesAcum)} / ${fmt(especiesMeta)} especies`,
-          barPct: pctEspecies
-        }
+        { label: 'Plantas forestales', valueDisplay: `${fmt(plantasAcum)} / ${fmt(plantasMeta)} plantas`, barPct: pctPlantas },
+        { label: 'Especies nativas activas', valueDisplay: `${fmt(especiesAcum)} / ${fmt(especiesMeta)} especies`, barPct: pctEspecies }
       ]
     }
   ];
 
   return {
     ...cfg,
-    latestLabel,
-    periodKey,
-    score: 86,
-    scoreLabel: 'Avance institucional ajustado',
+    latestLabel:'Abril',
+    periodKey:'2026-04',
+    score:score || 0,
+    scoreLabel:'Cumplimiento promedio vs metas mensuales',
     metrics: keyMetrics,
-    sourceSummary: 'Google Sheets · Reforestación'
+    sourceSummary: 'Google Sheets · Reforestación · abril 2026'
   };
 }
 
@@ -2713,78 +2618,66 @@ const TUL_DATA = [
 ];
 
 async function loadTul(cfg){
-  const META_ML_ANUAL      = 800;
-  const META_ML_MENSUAL    = 200;
+  const META_ML_ANUAL = 1300;
   const META_JORNADAS_ANUAL = 21;
 
-  const acumMetrosSiembra = TUL_DATA.filter(r => r.tipo === 'Siembra').reduce((s,r) => s + r.metros, 0);
-  const acumJornadas      = 6;
-  const mesesConActividad = 2;
-  const metaJornadasEsperada = META_JORNADAS_ANUAL;
-  const metaMLEsperada       = META_ML_MENSUAL   * mesesConActividad;
+  const acumMetrosSiembra = 705;
+  const acumJornadas = 6;
+  const jornadasMes = 2;
+  const jornadasMetaMes = 2;
+  const metrosMes = 225;
+  const metrosMetaMes = 225;
 
   const pctJornadas = (acumJornadas / META_JORNADAS_ANUAL) * 100;
-  const pctML       = (acumMetrosSiembra / metaMLEsperada) * 100;
-  const pctAnual    = (acumMetrosSiembra / META_ML_ANUAL) * 100;
-
-  const score = avg([Math.min(pctJornadas, 100), Math.min(pctML, 100)]);
+  const pctAnual = (acumMetrosSiembra / META_ML_ANUAL) * 100;
+  const pctJornadasMes = (jornadasMes / jornadasMetaMes) * 100;
+  const pctMetrosMes = (metrosMes / metrosMetaMes) * 100;
+  const score = avg([pctJornadasMes, pctMetrosMes]);
 
   const keyMetrics = [
     {
       label: '21 jornadas anuales de siembra y mantenimiento de tul en los municipios ribereños del Lago de Atitlán.',
       acumDisplay: `${fmt(acumJornadas)} / ${fmt(META_JORNADAS_ANUAL)} jornadas anuales`,
       pct: pctJornadas,
-      pctDisplay: `${fmtPct(pctJornadas)} de avance mensual vs meta anual`,
+      pctDisplay: `${fmtPct(pctJornadas)} de avance acumulado hasta abril contra la meta anual`,
       barPct: pctJornadas,
+      monthlyDisplay: `${fmt(jornadasMes)} / ${fmt(jornadasMetaMes)} jornadas en abril · ${fmtPct(pctJornadasMes)}`,
+      monthlyPct: pctJornadasMes,
       temporality: 'Este indicador tiene por temporalidad desde febrero a diciembre de 2026'
     },
     {
-      label: '800 metros lineales de tul sembrados a lo largo de las orillas del Lago de Atitlán durante 2026.',
+      label: '1,300 metros lineales de tul sembrados a lo largo de las orillas del Lago de Atitlán durante 2026.',
       acumDisplay: `${fmt(acumMetrosSiembra)} / ${fmt(META_ML_ANUAL)} metros lineales sembrados`,
       pct: pctAnual,
-      pctDisplay: `${fmtPct(pctAnual)} de avance acumulado hasta el mes de marzo con respecto a meta anual · ${fmtPct(pctML)} vs lo esperado al corte`,
+      pctDisplay: `${fmtPct(pctAnual)} de avance acumulado hasta abril contra la meta anual`,
       barPct: pctAnual,
+      monthlyDisplay: `${fmt(metrosMes)} / ${fmt(metrosMetaMes)} metros lineales en abril · ${fmtPct(pctMetrosMes)}`,
+      monthlyPct: pctMetrosMes,
       temporality: 'Este indicador tiene por temporalidad desde febrero a diciembre de 2026'
     }
   ];
 
   return {
     ...cfg,
-    latestLabel: 'Marzo 2026',
-    periodKey: '2026-03',
+    latestLabel: 'Abril',
+    periodKey: '2026-04',
     score: score || 0,
-    scoreLabel: 'Avance mensual vs meta anual',
+    scoreLabel: 'Cumplimiento promedio vs metas mensuales',
     metrics: keyMetrics,
-    sourceSummary: 'ArcGIS Survey123 · marzo 2026'
+    sourceSummary: 'ArcGIS Survey123 · abril 2026'
   };
 }
 
 /* ────────────────────────────────
    RENDER MÉTRICAS
 ──────────────────────────────── */
-function metricRow(m, index = 0){
+function metricRow(m, index = 0, hasMonthlyColumn = true){
   const objectiveNumber = `${index + 1}`;
-  const temporalityMarkup = (m.temporality && !m.temporalFullRow)
-    ? `<span class="metric-temporality">(${m.temporality})</span>`
-    : '';
-  const temporalFullMarkup = (m.temporality && m.temporalFullRow)
+  const temporalFullMarkup = m.temporality
     ? `<div class="metric-note-full">${m.temporality}</div>`
     : '';
-  const metricNameMarkup = `<span class="metric-number">${objectiveNumber}</span><span class="metric-label-text">${m.label}${temporalityMarkup}</span>`;
+  const metricNameMarkup = `<span class="metric-number">${objectiveNumber}</span><span class="metric-label-text">${m.label}</span>`;
 
-  /* Indicador inactivo al presente mes (ej. siembra fuera de temporada) */
-  if (m.inactive) {
-    return `
-    <div class="metric-row">
-      <div class="mname">${metricNameMarkup}</div>
-      <div class="mcol-acum" style="grid-column:2/-1">
-        <div class="metric-primary" style="color:var(--muted);font-style:italic">
-          Indicador no activo al presente mes · se activa a partir de julio
-        </div>
-        <div class="mbar"><span style="width:0%"></span></div>
-      </div>
-    </div>
-  `;}
   const pct = Number(m.pct);
   const barPct = Number.isFinite(Number(m.barPct)) ? Number(m.barPct) : pct;
   const hasPct = Number.isFinite(barPct);
@@ -2807,19 +2700,14 @@ function metricRow(m, index = 0){
     : '';
   const acumBar = m.hideAcumBar ? '' : `<div class="mbar"><span class="${cls}" style="width:${hasPct ? w : 0}%"></span></div>`;
 
-  if (m.fullWidthBar) {
-    return `
-    <div class="metric-row">
-      <div class="mname">${metricNameMarkup}</div>
-      <div class="mcol-acum" style="grid-column:2/-1">
-        <div class="metric-primary">${pctLabel || acumLabel}</div>
-        <div class="mbar"><span class="${cls}" style="width:${hasPct ? w : 0}%"></span></div>
-        ${subIndicators}
-      </div>
-      ${temporalFullMarkup}
-    </div>
-  `;
-  }
+  const monthlyPct = Number(m.monthlyPct);
+  const hasMonthlyPct = Number.isFinite(monthlyPct);
+  const monthlyW = hasMonthlyPct ? Math.min(Math.max(monthlyPct, 0), 100) : 0;
+  const monthlyCls = barClass(hasMonthlyPct ? monthlyPct : 0);
+  const monthlyLabel = m.monthlyDisplay || (hasMonthlyPct ? fmtPct(monthlyPct) : '—');
+  const monthlyCol = hasMonthlyColumn
+    ? `<div class="mcol-monthly"><div class="metric-monthly-value">${monthlyLabel}</div><div class="mbar"><span class="${monthlyCls}" style="width:${hasMonthlyPct ? monthlyW : 0}%"></span></div></div>`
+    : '';
 
   return `
     <div class="metric-row">
@@ -2833,6 +2721,7 @@ function metricRow(m, index = 0){
         <div class="metric-primary">${pctLabel}</div>
         <div class="mbar"><span class="${cls}" style="width:${hasPct ? w : 0}%"></span></div>
       </div>
+      ${monthlyCol}
       ${temporalFullMarkup}
     </div>
   `;
@@ -2843,8 +2732,11 @@ function metricRow(m, index = 0){
 ──────────────────────────────── */
 function programCard(p){
   const scoreFill = Math.min(Math.max(Number(p.score || 0), 0), 100);
+  const hasMonthlyColumn = p.hasMonthlyColumn !== false;
+  const cardClass = hasMonthlyColumn ? 'card program-card' : 'card program-card no-monthly';
+  const scoreHeader = p.scoreHeader || 'Cumplimiento promedio con respecto a metas mensuales';
   return `
-    <article class="card program-card">
+    <article class="${cardClass}">
       <div class="program-head">
         <div>
           <div class="program-kicker">Indicadores priorizados</div>
@@ -2853,7 +2745,7 @@ function programCard(p){
       </div>
       <div class="prog-score-wrap">
         <div class="prog-score-header">
-          <span class="prog-score-label">Cumplimiento promedio con respecto a metas mensuales</span>
+          <span class="prog-score-label">${scoreHeader}</span>
           <span class="prog-score-value">${fmtPct(p.score)}</span>
         </div>
         <div class="prog-score-track">
@@ -2863,11 +2755,12 @@ function programCard(p){
       </div>
       <div class="metric-list">
         <div class="metric-header">
-          <span>Indicador</span>
-          <span>Avance acumulado al período vigente / Meta anual</span>
-          <span>% de avance acumulado al período vigente con respecto a meta anual</span>
+          <span>Indicador anual</span>
+          <span>Avance acumulado al presente mes contra meta anual</span>
+          <span>Avance porcentual acumulado al presente mes contra meta anual</span>
+          ${hasMonthlyColumn ? '<span>Cumplimiento de metas mensuales</span>' : ''}
         </div>
-        ${p.metrics.map((metric, index) => metricRow(metric, index)).join('')}
+        ${p.metrics.map((metric, index) => metricRow(metric, index, hasMonthlyColumn)).join('')}
       </div>
       <div class="program-footer">
         <a class="btn" href="${p.dashboard}">
@@ -2897,7 +2790,7 @@ function renderSummary(programs){
   const avgScore = avg(programs.map(p => p.score));
   const onTrack  = programs.filter(p => p.score >= 80).length;
   const alert    = programs.filter(p => p.score < 80).length;
-  const visitLabel = currentVisitLabel(programs);
+  const visitLabel = 'Abril';
   const [, chipText] = statusClass(avgScore);
 
   document.getElementById('kpiPrograms').textContent = String(programs.length);
