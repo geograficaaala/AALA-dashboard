@@ -1860,7 +1860,7 @@
       <div class="kpis" id="kpiGrid"></div>
     </section>
     <div class="section-divider">Tendencia histórica y cumplimiento</div>
-    <section class="section grid-2">
+    <section class="section">
       <article class="card panel panel-accent chart-zoomable" id="trendChartPanel">
         <div class="trend-panel-head">
           <div>
@@ -1874,34 +1874,23 @@
         <div class="chart-wrap chart-wrap-elevated" id="trendChart"></div>
         <div class="legend"><span><i style="background:#267a46"></i>Valor</span><span><i style="border-top:2px dashed #a0bca8;background:none"></i>Meta mensual</span></div>
       </article>
-      <article class="card panel panel-accent">
-        <h3>Semáforo de indicadores</h3>
-        <p class="sub" id="semaforoSubtitle">Cumplimiento del mes y avance acumulado.</p>
-        <div id="semaforoTable"></div>
-      </article>
     </section>
     <div class="section-divider">Comparativa por zona y material</div>
-    <section class="section grid-2">
+    <section class="section">
       <article class="card panel panel-accent chart-zoomable" id="zoneBarPanel">
         <h3>Materiales recolectados por zona</h3>
         <p class="sub" id="barZoneSub">Comparación de volumen en qq por zona.</p>
         <div class="viz-wrap" id="zoneBarChart"></div>
-        <div class="interp" id="zoneBarInterp"></div>
+        <div class="interp hidden" id="zoneBarInterp"></div>
       </article>
-      <article class="card panel panel-accent chart-zoomable" id="donutPanel">
-        <h3>Composición de materiales</h3>
-        <p class="sub" id="donutSub">Distribución por tipo de material en el mes.</p>
-        <div class="viz-wrap" id="donutChart"></div>
-        <div class="interp" id="donutInterp"></div>
-      </article>
-    </section>
-    <div class="section-divider">Distribución territorial</div>
-    <section class="section grid-2 territory-single">
-      <article class="card panel"><h3 id="zonePanelTitle">Desempeño por zona</h3><p class="sub" id="zonePanelSubtitle">Mes seleccionado.</p><div id="zonePanel"></div></article>
     </section>
     <div class="section-divider">Operación y territorios</div>
     <section class="section grid-2">
-      <article class="card panel"><h3>Materiales del mes</h3><p class="sub" id="materialsSubtitle">Resumen por cantidad y tipo.</p><div id="materialsPanel"></div></article>
+      <article class="card panel panel-accent">
+        <h3>Estado de avance de indicadores</h3>
+        <p class="sub" id="semaforoSubtitle">Cumplimiento del mes y avance acumulado.</p>
+        <div id="semaforoTable"></div>
+      </article>
       <article class="card panel"><h3 id="territoryTitle">Detalle territorial</h3><p class="sub" id="territorySubtitle">Territorios con resultado reportado.</p><div id="territoryPanel"></div></article>
     </section>
     <div class="section-divider">Diagnóstico narrativo</div>
@@ -2503,6 +2492,7 @@ function renderZones(state){
   const panel=document.getElementById("zonePanel");
   const title=document.getElementById("zonePanelTitle");
   const subtitle=document.getElementById("zonePanelSubtitle");
+  if(!panel || !title || !subtitle) return;
 
   if(state.selectedZone==="__all__"){
     title.textContent="Desempeño por zona";
@@ -2528,6 +2518,8 @@ function renderZones(state){
 function renderMaterials(state){
   const period=getSelectedPeriod(state);
   const subtitle=document.getElementById("materialsSubtitle");
+  const panel=document.getElementById("materialsPanel");
+  if(!subtitle || !panel) return;
   let rows=[];
 
   if(currentData.materialesRaw.length) rows=currentData.materialesRaw.filter(r=>samePeriodLoose(r,period));
@@ -2538,12 +2530,12 @@ function renderMaterials(state){
   subtitle.textContent=`${getZoneLabel(state.selectedZone)} · ${periodLabel(period)}.`;
 
   if(!rows.length){
-    document.getElementById("materialsPanel").innerHTML=`<div class="empty">No se encontraron materiales para esta selección.</div>`;
+    panel.innerHTML=`<div class="empty">No se encontraron materiales para esta selección.</div>`;
     return;
   }
 
   const grouped=aggregate(rows,["material"],{cantidad:"sum",ingreso_total_venta:"sum",ingreso_cooperativa:"sum"}).sort((a,b)=>safeNumber(b.cantidad)-safeNumber(a.cantidad)).slice(0,12);
-  document.getElementById("materialsPanel").innerHTML=renderTable(grouped,["material","cantidad","ingreso_total_venta","ingreso_cooperativa"],{material:"Material",cantidad:"Cantidad",ingreso_total_venta:"Ingreso venta",ingreso_cooperativa:"Ingreso Atitlán Recicla"}) + `<div class="footer-note">Esta tabla responde al mes y zona seleccionados.</div>`;
+  panel.innerHTML=renderTable(grouped,["material","cantidad","ingreso_total_venta","ingreso_cooperativa"],{material:"Material",cantidad:"Cantidad",ingreso_total_venta:"Ingreso venta",ingreso_cooperativa:"Ingreso Atitlán Recicla"}) + `<div class="footer-note">Esta tabla responde al mes y zona seleccionados.</div>`;
 }
 
 function renderTerritory(state){
@@ -2616,7 +2608,7 @@ function renderDiagnostic(state){
   const mujeresText = muj ? `El ingreso bruto destinado directamente a las lideresas y mujeres de Atitlán Recicla fue de <strong>${escapeHtml(formatByUnit(muj.valor,muj.unit))}</strong>en <strong>${lbl}</strong>. El ingreso diario promedio por lideresa activa alcanzó <strong>${escapeHtml(formatByUnit(dlid?.valor,dlid?.unit))}</strong>, frente a una meta de <strong>${escapeHtml(formatByUnit(dlid?.meta,dlid?.unit))}</strong>. Este indicador es central para medir el impacto económico en las mujeres de la cuenca.` : '';
 
   document.getElementById("diagnosticPanel").innerHTML = `
-    <h3 style="margin-top:0">Diagnóstico de <strong>${lbl}</strong></h3>
+    <h3 style="margin-top:0">Análisis del mes</h3>
     <p>${monthlyText}</p>
     <p>${annualText}</p>
     <p>${leaderText}${leaderDetail}</p>
@@ -3462,12 +3454,12 @@ function setupPanelClicks(state){
     });
   }
 
-  /* ── Semaforo ── */
+  /* ── Estado de indicadores ── */
   var sm=document.getElementById('semaforoTable');
   if(sm){
     sm.closest('article').style.cursor='pointer';
     sm.closest('article').addEventListener('click',function(){
-      openModal('Semáforo de indicadores', function(body){ renderSemaforoModal(body, state); });
+      openModal('Estado de avance de indicadores', function(body){ renderSemaforoModal(body, state); });
     });
   }
 
@@ -3595,7 +3587,7 @@ function renderZoneModal(body, state){
   body.insertAdjacentHTML('beforeend', buildInterp(sections));
 }
 
-/* ── Semaforo modal ── */
+/* ── Estado de indicadores modal ── */
 function renderSemaforoModal(body, state){
   var period=getSelectedPeriod(state);
   var metrics=getMetricsForSelection(state,period);
@@ -3787,7 +3779,7 @@ function renderZoneBarChart(containerId,state,period,subtitleId,interpId){
     svg.appendChild(lbl); svg.appendChild(valLbl);
   });
   container.innerHTML=''; container.appendChild(svg);
-  var sub=document.getElementById(subtitleId); if(sub) sub.textContent=periodLabel(period)+' · '+rows.length+' zonas · en qq · haz clic en la tarjeta para más detalle';
+  var sub=document.getElementById(subtitleId); if(sub) sub.textContent=rows.length+' zonas · volumen en qq';
   var interp=document.getElementById(interpId);
   if(interp&&rows.length){
     var top=rows[0];
