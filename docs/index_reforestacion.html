@@ -1947,6 +1947,32 @@ iframe[src*="maps"] {
       margin-top:0;
     }
 
+
+/* ── Ajuste final hero: lectura natural sin espacios raros ── */
+.hero-copy-text{
+  max-width:880px !important;
+}
+.hero-copy-text .hero-lead{
+  text-align:left !important;
+  text-align-last:auto !important;
+  hyphens:none !important;
+  word-spacing:normal !important;
+  letter-spacing:normal !important;
+  word-break:normal !important;
+  overflow-wrap:normal !important;
+  text-wrap:pretty;
+  max-width:74ch !important;
+  font-size:.9rem !important;
+  line-height:1.68 !important;
+  margin:0 0 10px !important;
+}
+@media(max-width:1100px){
+  .hero-copy-text .hero-lead{
+    max-width:none !important;
+    font-size:.9rem !important;
+  }
+}
+
   </style>
 
 </head>
@@ -2057,7 +2083,7 @@ iframe[src*="maps"] {
         <div class="survival-copy">
           <div class="survival-kicker">Supervivencia monitoreada</div>
           <h2>Supervivencia promedio</h2>
-          <p>Referencia técnica del programa para las áreas monitoreadas durante 2026. Esta lectura ayuda a saber qué tan bien se están manteniendo los árboles establecidos en campo.</p>
+          <p>Referencia técnica del programa para las áreas monitoreadas durante 2026. Esta lectura ayuda a saber qué tan bien se están manteniendo los árboles reforestados en campo.</p>
         </div>
         <div class="survival-value" aria-label="Supervivencia promedio monitoreada 2026: 71.7%">
           <strong>71.7%</strong>
@@ -2290,7 +2316,7 @@ const KPI_CONFIG = [
   },
   {
     id: 'arboles',
-    title: 'Árboles establecidos',
+    title: 'Árboles reforestados',
     valueField: 'arboles_sembrados_acum',
     metaField: 'meta_arboles',
     pctField: 'pct_meta_arboles',
@@ -2370,7 +2396,7 @@ function sourceLabel(value){
   return raw.replace(/_/g, ' ').replace(/\bKPI\b/gi, 'indicadores');
 }
 function indicatorValue(cfg, row){
-  if (cfg.id === 'arboles') return 'Programado';
+  if (cfg.id === 'arboles') return 'Programado de junio a noviembre';
   if (cfg.id === 'sig') return `${formatPercent(row[cfg.pctField])} consolidado`;
   return formatByUnit(row[cfg.valueField], cfg.unit);
 }
@@ -2668,9 +2694,9 @@ function renderKpis(row){
     const pctRaw = cfg.id === 'arboles' ? 0 : safeNumber(row[cfg.pctField]);
     const pct = Math.max(0, Math.min(100, pctRaw * 100));
     const isProgrammed = cfg.id === 'arboles' && safeNumber(row.mes_num) < 6;
-    const value = isProgrammed ? 'Programado' : indicatorValue(cfg, row);
+    const value = isProgrammed ? 'Programado de junio a noviembre' : indicatorValue(cfg, row);
     const meta = indicatorMeta(cfg, row);
-    const cumplimiento = isProgrammed ? 'Programado' : formatPercent(row[cfg.pctField]);
+    const cumplimiento = isProgrammed ? 'Programado de junio a noviembre' : formatPercent(row[cfg.pctField]);
     return `
       <article class="card kpi clean-kpi" style="--delay:${idx * 60}ms">
         <div class="kpi-top">
@@ -2858,7 +2884,7 @@ function renderBarChart(){
   setHtml('barChart', svg);
   setHtml('execBarChart', svg);
   const row = getSelectedRow();
-  const interp = `En ${row.mes_label.toLowerCase()} registramos ${formatByUnit(row.ha_monitoreadas_kpi_mes,'ha')} de monitoreo válido para el indicador, ${formatByUnit(row.arboles_sembrados_kpi_mes,'árboles')} establecidos en campo, ${formatPercent(row.aporte_sig_mes)} de avance del sistema forestal digital y ${formatByUnit(row.plantas_netas_mes,'plantas')} en vivero.`;
+  const interp = `En ${row.mes_label.toLowerCase()} registramos ${formatByUnit(row.ha_monitoreadas_kpi_mes,'ha')} de monitoreo válido para el indicador, ${formatByUnit(row.arboles_sembrados_kpi_mes,'árboles')} reforestados en campo, ${formatPercent(row.aporte_sig_mes)} de avance del sistema forestal digital y ${formatByUnit(row.plantas_netas_mes,'plantas')} en vivero.`;
   setText('barInterp', interp);
   setText('execBarInterp', interp);
 }
