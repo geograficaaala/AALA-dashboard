@@ -118,15 +118,21 @@
     .kpi-progress-line{height:5px;background:#e2ebe7;border-radius:999px;overflow:hidden;margin-top:10px}
     .kpi-progress-line span{display:block;height:100%;width:0;background:var(--tone,#1c6084);transition:width .92s cubic-bezier(.22,1,.36,1)}
 
-    .annual-kpi{padding:20px 20px 18px;border-top:3px solid var(--green);min-height:310px}
-    .annual-kpi .kpi-custom{display:grid;gap:16px;color:#101820;font-size:.93rem;line-height:1.52}
-    .annual-kpi .kpi-custom-title{font-size:1rem;font-weight:800;line-height:1.32}
-    .annual-kpi .kpi-custom-section{display:grid;gap:5px}
-    .annual-kpi .kpi-custom-section-title{font-weight:800}
-    .annual-kpi .kpi-module-lines{display:grid;gap:4px}
-    .annual-kpi .kpi-custom-bold{font-weight:800;color:#0c1d3a}
-    .annual-kpi .kpi-coverage-current{padding-top:2px;color:#2a4570}
-    .annual-kpi .kpi-status-line{font-size:.83rem;color:#607285;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+    .annual-kpi{padding:18px 18px 16px;border-top:4px solid var(--tone,var(--green));min-height:330px}
+    .annual-kpi .kpi-custom{display:block;color:#101820;font-size:.93rem;line-height:1.5}
+    .annual-clear{display:grid;gap:12px;height:100%}
+    .annual-clear-label{font-weight:800;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);line-height:1.35}
+    .annual-clear-main{padding:12px 13px;border-radius:16px;background:var(--tone-soft,#e8eef0);border:1px solid rgba(12,29,58,.08);display:grid;gap:3px}
+    .annual-clear-main strong{font-family:var(--font-mono);font-size:1.64rem;font-weight:600;line-height:1.06;color:#091729;letter-spacing:-.035em}
+    .annual-clear-main span{font-size:.78rem;font-weight:800;color:#41566b;text-transform:uppercase;letter-spacing:.055em}
+    .annual-clear-lines{display:grid;gap:7px}
+    .annual-clear-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:1px solid var(--line-soft)}
+    .annual-clear-row span{font-size:.8rem;color:#61748a;font-weight:800;text-transform:uppercase;letter-spacing:.045em}
+    .annual-clear-row strong{text-align:right;font-size:.9rem;color:#12243b;font-weight:800;line-height:1.25}
+    .annual-clear-message{padding:10px 11px;border-radius:14px;background:#f6f9fb;border:1px solid var(--line-soft);font-size:.86rem;color:#344960;line-height:1.48}
+    .annual-clear-message strong{color:#12243b}
+    .annual-clear-progress{height:6px;background:#e2ebe7;border-radius:999px;overflow:hidden;margin-top:2px}
+    .annual-clear-progress span{display:block;height:100%;background:var(--tone,#1c6084);border-radius:999px}
 
     .tone-green{--tone:#2e8f5e;--tone-soft:#d9f0e2}
     .tone-yellow{--tone:#c7982a;--tone-soft:#f4ead0}
@@ -455,7 +461,7 @@
   <div class="header-stack">
     <nav class="nav-tabs" aria-label="Navegación">
       <a class="nav-tab active" href="#resumen">Resumen</a>
-      <a class="nav-tab" href="#acumulados-mensuales">Acumulados mensuales</a>
+      <a class="nav-tab" href="#metas-anuales-avance-acumulado">Metas anuales y avance acumulado</a>
       <a class="nav-tab" href="#metas-mensuales">Metas mensuales</a>
       <a class="nav-tab" href="#grafica-operativos">Gráfica anual</a>
     </nav>
@@ -816,18 +822,18 @@
         ? 'tone-muted'
         : (progress >= 1 ? 'tone-green' : (progress > 0 ? 'tone-yellow' : 'tone-yellow'));
       const unit = cfg.coverageLabel || cfg.targetLabel || '';
-      const achieved = status === 'pending' && actual === 0 ? 'Programado' : `${fmtPct(progress)} meta mensual`;
       const reference = target > 0
         ? `Meta mensual <strong>${fmt(target)} ${esc(cfg.targetLabel || unit)}</strong>`
         : 'Sin meta mensual oficial';
       return {
         label: cfg.label,
-        window: status === 'pending' ? 'Programado' : 'Meta mensual',
+        window: '',
+        hideWindow: true,
         tone,
-        chip: achieved,
+        chip: '',
         valueText: `${fmt(actual)} ${unit}`.trim(),
         reference,
-        line1: `Resultado del mes: <strong>${fmt(actual)} ${esc(unit)}</strong>`,
+        line1: '',
         line2: target > 0 ? `Cumplimiento: <strong>${fmtPct(progress)}</strong>` : '',
         progressWidth: Math.min(progress, 1) * 100,
         pillarHeight: Math.max(8, Math.min(progress, 1) * 100)
@@ -841,20 +847,21 @@
       const status = !hasWindow ? 'pending' : (monthNum < cfg.start ? 'pending' : (monthNum > cfg.end ? 'closed' : 'active'));
       const progress = cfg.target > 0 ? actual / cfg.target : 0;
       const tone = toneFromProgress(status, progress);
-      const chip = status === 'pending' && actual === 0 ? 'Programado' : `${fmtPct(progress)} meta mensual`;
-      const reference = status === 'pending' && actual === 0
+      const isPendingWithoutResult = status === 'pending' && actual === 0;
+      const reference = isPendingWithoutResult
         ? 'Estado <strong>Programado</strong>'
         : `Meta mensual <strong>${fmt(cfg.target)} actividades</strong>`;
 
       return {
         label: cfg.label,
-        window: cfg.window,
+        window: '',
+        hideWindow: true,
         tone,
-        chip,
-        valueText: status === 'pending' && actual === 0 ? 'Programado' : `${fmt(actual)} actividades`,
+        chip: '',
+        valueText: isPendingWithoutResult ? 'Programado' : `${fmt(actual)} actividades`,
         reference,
-        line1: `Resultado del mes: <strong>${fmt(actual)} actividades</strong>`,
-        line2: `Cumplimiento: <strong>${fmtPct(progress)}</strong>`,
+        line1: '',
+        line2: isPendingWithoutResult ? '' : `Cumplimiento: <strong>${fmtPct(progress)}</strong>`,
         progressWidth: Math.min(progress, 1) * 100,
         pillarHeight: Math.max(8, Math.min(progress, 1) * 100)
       };
@@ -1019,33 +1026,59 @@
         }));
     }
 
+    function annualBaseUnit(unitText){
+      const cleaned = String(unitText || 'actividades')
+        .replace(/\s+acumulad[oa]s?$/i,'')
+        .trim();
+      return cleaned || String(unitText || 'actividades');
+    }
+
     function operationalAnnualKpiData(cfg, row){
       const monthRows = operationalMonthlyRowsForPeriod(cfg.key, state.periodo);
       const actual = monthRows.reduce((acc, item) => acc + Number(item.value || 0), 0);
-      const pct = cfg.annualTarget > 0 ? actual / cfg.annualTarget : 0;
+      const target = Number(cfg.annualTarget || 0);
+      const pct = target > 0 ? actual / target : 0;
       const status = annualOperationalStatus(cfg, row);
-      const currentMonth = monthName(row.mes_num);
-      const currentValue = Number(row[cfg.key] || 0);
-      const tone = status === 'pending'
+      const tone = status === 'pending' && actual === 0
         ? 'tone-muted'
         : (pct >= 1 ? 'tone-green' : (pct > 0 ? 'tone-yellow' : 'tone-yellow'));
-      const unitText = cfg.resultSuffix || 'actividades acumuladas';
-      const chip = status === 'pending' && actual === 0
-        ? 'Programado'
-        : `${fmtPct(pct)} del objetivo anual`;
-      const reference = `Meta anual <strong>${fmt(cfg.annualTarget)}</strong>`;
+      const baseUnit = annualBaseUnit(cfg.resultSuffix || 'actividades acumuladas');
+      const gap = Math.max(0, target - actual);
+      const over = Math.max(0, actual - target);
+      const gapLabel = pct >= 1 ? 'Supera la meta por' : 'Faltan';
+      const gapText = pct >= 1 ? `${fmt(over)} ${baseUnit}` : `${fmt(gap)} ${baseUnit}`;
+      const complianceText = status === 'pending' && actual === 0 ? 'Pendiente de inicio' : fmtPct(pct);
+      const progressWidth = Math.min(pct, 1) * 100;
+
+      let readText = '';
+      if(status === 'pending' && actual === 0){
+        readText = `Lectura rápida: <strong>no va atrasado todavía</strong>; empieza en ${esc(String(cfg.window || 'su ventana programada').toLowerCase())}.`;
+      } else if(pct >= 1){
+        readText = 'Lectura rápida: <strong>meta anual cumplida</strong>.';
+      } else if(status === 'closed'){
+        readText = `Lectura rápida: la ventana ya cerró; revisar la brecha de <strong>${esc(gapText)}</strong>.`;
+      } else {
+        readText = `Lectura rápida: va en proceso; faltan <strong>${esc(gapText)}</strong> para llegar a la meta anual.`;
+      }
 
       return {
         label: cfg.label,
-        window: cfg.window,
         tone,
-        chip,
-        valueText: status === 'pending' && actual === 0 ? 'Programado' : fmt(actual),
-        reference,
-        line1: `Acumulado al presente mes: <strong>${fmt(actual)} ${esc(unitText)}</strong>`,
-        line2: `Resultado de ${esc(currentMonth)}: <strong>${fmt(currentValue)}</strong>`,
-        progressWidth: Math.min(pct, 1) * 100,
-        pillarHeight: Math.max(8, Math.min(pct, 1) * 100)
+        customHtml: `
+          <div class="annual-clear">
+            <div class="annual-clear-label">${esc(cfg.label)}</div>
+            <div class="annual-clear-main">
+              <strong>${fmt(actual)} ${esc(baseUnit)}</strong>
+              <span>Acumulado al presente mes</span>
+            </div>
+            <div class="annual-clear-lines">
+              <div class="annual-clear-row"><span>Meta anual</span><strong>${fmt(target)} ${esc(baseUnit)}</strong></div>
+              <div class="annual-clear-row"><span>${esc(gapLabel)}</span><strong>${esc(gapText)}</strong></div>
+              <div class="annual-clear-row"><span>Cumplimiento</span><strong>${esc(complianceText)}</strong></div>
+            </div>
+            <div class="annual-clear-message">${readText}</div>
+            <div class="annual-clear-progress" aria-hidden="true"><span style="width:${Math.max(0, Math.min(progressWidth, 100))}%"></span></div>
+          </div>`
       };
     }
 
@@ -1054,14 +1087,14 @@
         .map((cfg, idx) => renderKpiCard(operationalAnnualKpiData(cfg, row), idx))
         .join('');
       return `
-        <section class="section present-slide" id="acumulados-mensuales">
+        <section class="section present-slide" id="metas-anuales-avance-acumulado">
           <div class="section-head">
             <div>
-              <div class="section-title">Acumulados mensuales</div>
-              <p class="section-sub">Resultados acumulados al presente mes frente a la meta anual de EPC.</p>
+              <div class="section-title">Metas anuales y avance acumulado</div>
+              <p class="section-sub">Resultados acumulados al presente mes frente a las metas anuales de EPC.</p>
             </div>
           </div>
-          <div class="kpis">${cards || '<div class="empty">No hay acumulados mensuales para este al presente mes.</div>'}</div>
+          <div class="kpis">${cards || '<div class="empty">No hay metas anuales acumuladas para el presente mes.</div>'}</div>
         </section>`;
     }
 
@@ -1477,8 +1510,8 @@
         </div></section>
 
         <section class="pres-slide"><div class="pres-inner">
-          <div class="pres-kicker">Acumulados mensuales</div>
-          <div class="pres-title-row"><div><h2>Acumulados mensuales de actividades priorizadas</h2><p>Comparación del acumulado registrado al presente mes frente a la meta anual de las actividades tácticas del programa.</p></div></div>
+          <div class="pres-kicker">Metas anuales y avance acumulado</div>
+          <div class="pres-title-row"><div><h2>Metas anuales y avance acumulado</h2><p>Comparación del acumulado registrado al presente mes frente a la meta anual de las actividades tácticas del programa.</p></div></div>
           <div class="pres-card-grid pres-card-grid-2">
             ${annual.map(item=>`<div class="pres-kpi-pair"><div class="pres-kpi-label">${esc(item.label)}</div><div class="pres-kpi-value">${item.pct == null ? 'Pendiente' : fmtPct(item.pct)}</div><div class="pres-kpi-meta">${fmt(item.actual)} de ${fmt(item.annualTarget)} · ${esc(item.window)}</div><span class="pres-chip ${item.pct == null ? 'gray' : presentationChipClass(item.pct)}">${item.status === 'pending' ? 'Programado' : item.status === 'closed' ? 'Ventana cerrada' : 'Activo'}</span><div class="pres-bar-wrap"><div class="pres-bar ${item.pct == null ? 'gray' : presentationChipClass(item.pct)}" style="width:${Math.max(0,Math.min(100,(item.visualPct||0)*100))}%"></div></div></div>`).join('')}
           </div>
