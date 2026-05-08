@@ -1926,6 +1926,27 @@ iframe[src*="maps"] {
     .progress>span{background:linear-gradient(90deg,#8bc9a4,#2e6a57)}
     @keyframes kpiIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 
+    /* Ajuste solicitado: títulos mensuales arriba, en negro y sin etiqueta de componente */
+    .kpi.kpi-monthly-card .kpi-top{
+      display:block;
+      margin-bottom:10px;
+    }
+    .kpi-monthly-title{
+      display:block;
+      width:100%;
+      margin:0 0 12px;
+      color:#17314f !important;
+      font-family:var(--font-body);
+      font-size:clamp(1rem,1.05vw,1.16rem) !important;
+      font-weight:800 !important;
+      line-height:1.28 !important;
+      letter-spacing:-.02em !important;
+      text-transform:none !important;
+    }
+    .kpi.kpi-monthly-card .kpi-value{
+      margin-top:0;
+    }
+
   </style>
 
 </head>
@@ -2058,7 +2079,6 @@ iframe[src*="maps"] {
         <div class="section-head">
           <div>
             <h2>Mapas del programa</h2>
-            <p>Geoportales de referencia para consultar cobertura, reforestaciones y productos cartográficos del programa.</p>
           </div>
         </div>
         <div class="map-grid">
@@ -2174,41 +2194,41 @@ const DATA_URLS = {
 
 
 const COMPLEMENTARY_KPI_SEED = [
-  { periodo_clave:'2026-01', mes_num:1, mes_label:'Enero', componente:'Soporte cartográfico', kpi_id:'sig_mapas_generados', kpi_nombre:'Mapas digitales para planificación forestal', unidad:'mapas', meta_mensual:12, valor_mes:9, detalle:['Mapa de áreas reforestadas monitoreadas','Mapa base de sitios priorizados','Mapa de apoyo para planificación de campo'] },
-  { periodo_clave:'2026-01', mes_num:1, mes_label:'Enero', componente:'Soporte cartográfico', kpi_id:'iot_monitoreo_ambiental', kpi_nombre:'Proyecto IoT para monitoreo ambiental', unidad:'proyectos', meta_mensual:0, meta_anual:1, valor_mes:0, detalle:['Prototipo con Raspberry Pi 4B','Sensores ambientales para registro en campo','Base de datos para seguimiento del monitoreo'] },
-  { periodo_clave:'2026-01', mes_num:1, mes_label:'Enero', componente:'Soporte cartográfico', kpi_id:'sig_servicios_digitales', kpi_nombre:'Plataformas digitales', unidad:'', meta_mensual:3, valor_mes:2, detalle:['Geoportal de monitoreo forestal','Visor de productos cartográficos'] },
-  { periodo_clave:'2026-01', mes_num:1, mes_label:'Enero', componente:'Soporte cartográfico', kpi_id:'sig_capas_actualizadas', kpi_nombre:'Información geográfica forestal actualizada', unidad:'capas', meta_mensual:8, valor_mes:6, detalle:['Sitios de reforestación','Cobertura municipal','Áreas monitoreadas','Puntos de seguimiento en campo'] },
-  { periodo_clave:'2026-01', mes_num:1, mes_label:'Enero', componente:'Soporte cartográfico', kpi_id:'sig_analisis_entregados', kpi_nombre:'Análisis territoriales para toma de decisiones', unidad:'análisis', meta_mensual:6, valor_mes:5, detalle:['Priorización de áreas','Cruce con cobertura forestal','Lectura territorial para planificación'] },
+  { periodo_clave:'2026-01', mes_num:1, mes_label:'Enero', componente:'Mapas digitales', kpi_id:'sig_mapas_generados', kpi_nombre:'Mapas digitales para planificación forestal', unidad:'mapas', meta_mensual:12, valor_mes:9, detalle:['Mapa de áreas reforestadas monitoreadas','Mapa base de sitios priorizados','Mapa de apoyo para planificación de campo'] },
+  { periodo_clave:'2026-01', mes_num:1, mes_label:'Enero', componente:'Mapas digitales', kpi_id:'iot_monitoreo_ambiental', kpi_nombre:'Proyecto IoT para monitoreo ambiental', unidad:'proyectos', meta_mensual:0, meta_anual:1, valor_mes:0, detalle:['Prototipo con Raspberry Pi 4B','Sensores ambientales para registro en campo','Base de datos para seguimiento del monitoreo'] },
+  { periodo_clave:'2026-01', mes_num:1, mes_label:'Enero', componente:'Mapas digitales', kpi_id:'sig_servicios_digitales', kpi_nombre:'Plataformas digitales', unidad:'', meta_mensual:3, valor_mes:2, detalle:['Geoportal de monitoreo forestal','Visor de productos cartográficos'] },
+  { periodo_clave:'2026-01', mes_num:1, mes_label:'Enero', componente:'Mapas digitales', kpi_id:'sig_capas_actualizadas', kpi_nombre:'Información geográfica forestal actualizada', unidad:'capas', meta_mensual:8, valor_mes:6, detalle:['Sitios de reforestación','Cobertura municipal','Áreas monitoreadas','Puntos de seguimiento en campo'] },
+  { periodo_clave:'2026-01', mes_num:1, mes_label:'Enero', componente:'Mapas digitales', kpi_id:'sig_analisis_entregados', kpi_nombre:'Análisis territoriales para toma de decisiones', unidad:'análisis', meta_mensual:6, valor_mes:5, detalle:['Priorización de áreas','Cruce con cobertura forestal','Lectura territorial para planificación'] },
   { periodo_clave:'2026-01', mes_num:1, mes_label:'Enero', componente:'Vivero forestal', kpi_id:'vivero_mantenimiento', kpi_nombre:'Actividades en campo', unidad:'actividades', meta_mensual:12, valor_mes:9, detalle:['Riego y control de humedad','Limpieza de áreas de producción','Revisión del estado de plantas'] },
   { periodo_clave:'2026-01', mes_num:1, mes_label:'Enero', componente:'Vivero forestal', kpi_id:'vivero_bolsas_llenadas', kpi_nombre:'Insumos preparados para producción de plantas', unidad:'bolsas', meta_mensual:200, valor_mes:150, detalle:['Bolsas preparadas con sustrato','Insumos listos para trasplante','Ordenamiento de material para vivero'] },
   { periodo_clave:'2026-01', mes_num:1, mes_label:'Enero', componente:'Vivero forestal', kpi_id:'vivero_semillas_germinadas', kpi_nombre:'Germinación de especies nativas', unidad:'semillas', meta_mensual:100, valor_mes:72, detalle:['Semillas con germinación activa','Seguimiento a especies nativas','Registro inicial de producción'] },
   { periodo_clave:'2026-01', mes_num:1, mes_label:'Enero', componente:'Gestión del programa', kpi_id:'otras_actividades_estrategicas', kpi_nombre:'Actividades de coordinación interinsitucional estratégica', unidad:'actividades', meta_mensual:4, valor_mes:3, detalle:['Coordinación con actores locales','Preparación de jornadas de campo','Seguimiento técnico y administrativo'] },
 
-  { periodo_clave:'2026-02', mes_num:2, mes_label:'Febrero', componente:'Soporte cartográfico', kpi_id:'sig_mapas_generados', kpi_nombre:'Mapas digitales para planificación forestal', unidad:'mapas', meta_mensual:12, valor_mes:10, detalle:['Mapa de avance de monitoreos','Mapa de ubicación de sitios','Mapa de apoyo a decisiones técnicas'] },
-  { periodo_clave:'2026-02', mes_num:2, mes_label:'Febrero', componente:'Soporte cartográfico', kpi_id:'iot_monitoreo_ambiental', kpi_nombre:'Proyecto IoT para monitoreo ambiental', unidad:'proyectos', meta_mensual:0, meta_anual:1, valor_mes:0, detalle:['Prototipo con Raspberry Pi 4B','Sensores ambientales para registro en campo','Base de datos para seguimiento del monitoreo'] },
-  { periodo_clave:'2026-02', mes_num:2, mes_label:'Febrero', componente:'Soporte cartográfico', kpi_id:'sig_servicios_digitales', kpi_nombre:'Plataformas digitales', unidad:'', meta_mensual:3, valor_mes:2, detalle:['Geoportal de monitoreo forestal','Visor de productos cartográficos'] },
-  { periodo_clave:'2026-02', mes_num:2, mes_label:'Febrero', componente:'Soporte cartográfico', kpi_id:'sig_capas_actualizadas', kpi_nombre:'Información geográfica forestal actualizada', unidad:'capas', meta_mensual:8, valor_mes:6, detalle:['Sitios de reforestación','Cobertura municipal','Áreas monitoreadas','Puntos de seguimiento en campo'] },
-  { periodo_clave:'2026-02', mes_num:2, mes_label:'Febrero', componente:'Soporte cartográfico', kpi_id:'sig_analisis_entregados', kpi_nombre:'Análisis territoriales para toma de decisiones', unidad:'análisis', meta_mensual:6, valor_mes:4, detalle:['Priorización de áreas','Cruce con cobertura forestal','Lectura territorial para planificación'] },
+  { periodo_clave:'2026-02', mes_num:2, mes_label:'Febrero', componente:'Mapas digitales', kpi_id:'sig_mapas_generados', kpi_nombre:'Mapas digitales para planificación forestal', unidad:'mapas', meta_mensual:12, valor_mes:10, detalle:['Mapa de avance de monitoreos','Mapa de ubicación de sitios','Mapa de apoyo a decisiones técnicas'] },
+  { periodo_clave:'2026-02', mes_num:2, mes_label:'Febrero', componente:'Mapas digitales', kpi_id:'iot_monitoreo_ambiental', kpi_nombre:'Proyecto IoT para monitoreo ambiental', unidad:'proyectos', meta_mensual:0, meta_anual:1, valor_mes:0, detalle:['Prototipo con Raspberry Pi 4B','Sensores ambientales para registro en campo','Base de datos para seguimiento del monitoreo'] },
+  { periodo_clave:'2026-02', mes_num:2, mes_label:'Febrero', componente:'Mapas digitales', kpi_id:'sig_servicios_digitales', kpi_nombre:'Plataformas digitales', unidad:'', meta_mensual:3, valor_mes:2, detalle:['Geoportal de monitoreo forestal','Visor de productos cartográficos'] },
+  { periodo_clave:'2026-02', mes_num:2, mes_label:'Febrero', componente:'Mapas digitales', kpi_id:'sig_capas_actualizadas', kpi_nombre:'Información geográfica forestal actualizada', unidad:'capas', meta_mensual:8, valor_mes:6, detalle:['Sitios de reforestación','Cobertura municipal','Áreas monitoreadas','Puntos de seguimiento en campo'] },
+  { periodo_clave:'2026-02', mes_num:2, mes_label:'Febrero', componente:'Mapas digitales', kpi_id:'sig_analisis_entregados', kpi_nombre:'Análisis territoriales para toma de decisiones', unidad:'análisis', meta_mensual:6, valor_mes:4, detalle:['Priorización de áreas','Cruce con cobertura forestal','Lectura territorial para planificación'] },
   { periodo_clave:'2026-02', mes_num:2, mes_label:'Febrero', componente:'Vivero forestal', kpi_id:'vivero_mantenimiento', kpi_nombre:'Actividades en campo', unidad:'actividades', meta_mensual:12, valor_mes:10, detalle:['Riego y control de humedad','Limpieza de áreas de producción','Revisión del estado de plantas'] },
   { periodo_clave:'2026-02', mes_num:2, mes_label:'Febrero', componente:'Vivero forestal', kpi_id:'vivero_bolsas_llenadas', kpi_nombre:'Insumos preparados para producción de plantas', unidad:'bolsas', meta_mensual:200, valor_mes:160, detalle:['Bolsas preparadas con sustrato','Insumos listos para trasplante','Ordenamiento de material para vivero'] },
   { periodo_clave:'2026-02', mes_num:2, mes_label:'Febrero', componente:'Vivero forestal', kpi_id:'vivero_semillas_germinadas', kpi_nombre:'Germinación de especies nativas', unidad:'semillas', meta_mensual:100, valor_mes:78, detalle:['Semillas con germinación activa','Seguimiento a especies nativas','Registro inicial de producción'] },
   { periodo_clave:'2026-02', mes_num:2, mes_label:'Febrero', componente:'Gestión del programa', kpi_id:'otras_actividades_estrategicas', kpi_nombre:'Actividades de coordinación interinsitucional estratégica', unidad:'actividades', meta_mensual:4, valor_mes:3, detalle:['Coordinación con actores locales','Preparación de jornadas de campo','Seguimiento técnico y administrativo'] },
 
-  { periodo_clave:'2026-03', mes_num:3, mes_label:'Marzo', componente:'Soporte cartográfico', kpi_id:'sig_mapas_generados', kpi_nombre:'Mapas digitales para planificación forestal', unidad:'mapas', meta_mensual:12, valor_mes:10, detalle:['Mapa de monitoreos completados','Mapa de cobertura de restauración','Mapa de apoyo para rutas de campo'] },
-  { periodo_clave:'2026-03', mes_num:3, mes_label:'Marzo', componente:'Soporte cartográfico', kpi_id:'iot_monitoreo_ambiental', kpi_nombre:'Proyecto IoT para monitoreo ambiental', unidad:'proyectos', meta_mensual:0, meta_anual:1, valor_mes:1, detalle:['Prototipo con Raspberry Pi 4B','Sensores ambientales para registro en campo','Base de datos para seguimiento del monitoreo'] },
-  { periodo_clave:'2026-03', mes_num:3, mes_label:'Marzo', componente:'Soporte cartográfico', kpi_id:'sig_servicios_digitales', kpi_nombre:'Plataformas digitales', unidad:'', meta_mensual:3, valor_mes:2, detalle:['Geoportal de monitoreo forestal','Visor de productos cartográficos'] },
-  { periodo_clave:'2026-03', mes_num:3, mes_label:'Marzo', componente:'Soporte cartográfico', kpi_id:'sig_capas_actualizadas', kpi_nombre:'Información geográfica forestal actualizada', unidad:'capas', meta_mensual:8, valor_mes:7, detalle:['Sitios de reforestación','Cobertura municipal','Áreas monitoreadas','Puntos de seguimiento en campo'] },
-  { periodo_clave:'2026-03', mes_num:3, mes_label:'Marzo', componente:'Soporte cartográfico', kpi_id:'sig_analisis_entregados', kpi_nombre:'Análisis territoriales para toma de decisiones', unidad:'análisis', meta_mensual:6, valor_mes:5, detalle:['Priorización de áreas','Cruce con cobertura forestal','Lectura territorial para planificación'] },
+  { periodo_clave:'2026-03', mes_num:3, mes_label:'Marzo', componente:'Mapas digitales', kpi_id:'sig_mapas_generados', kpi_nombre:'Mapas digitales para planificación forestal', unidad:'mapas', meta_mensual:12, valor_mes:10, detalle:['Mapa de monitoreos completados','Mapa de cobertura de restauración','Mapa de apoyo para rutas de campo'] },
+  { periodo_clave:'2026-03', mes_num:3, mes_label:'Marzo', componente:'Mapas digitales', kpi_id:'iot_monitoreo_ambiental', kpi_nombre:'Proyecto IoT para monitoreo ambiental', unidad:'proyectos', meta_mensual:0, meta_anual:1, valor_mes:1, detalle:['Prototipo con Raspberry Pi 4B','Sensores ambientales para registro en campo','Base de datos para seguimiento del monitoreo'] },
+  { periodo_clave:'2026-03', mes_num:3, mes_label:'Marzo', componente:'Mapas digitales', kpi_id:'sig_servicios_digitales', kpi_nombre:'Plataformas digitales', unidad:'', meta_mensual:3, valor_mes:2, detalle:['Geoportal de monitoreo forestal','Visor de productos cartográficos'] },
+  { periodo_clave:'2026-03', mes_num:3, mes_label:'Marzo', componente:'Mapas digitales', kpi_id:'sig_capas_actualizadas', kpi_nombre:'Información geográfica forestal actualizada', unidad:'capas', meta_mensual:8, valor_mes:7, detalle:['Sitios de reforestación','Cobertura municipal','Áreas monitoreadas','Puntos de seguimiento en campo'] },
+  { periodo_clave:'2026-03', mes_num:3, mes_label:'Marzo', componente:'Mapas digitales', kpi_id:'sig_analisis_entregados', kpi_nombre:'Análisis territoriales para toma de decisiones', unidad:'análisis', meta_mensual:6, valor_mes:5, detalle:['Priorización de áreas','Cruce con cobertura forestal','Lectura territorial para planificación'] },
   { periodo_clave:'2026-03', mes_num:3, mes_label:'Marzo', componente:'Vivero forestal', kpi_id:'vivero_mantenimiento', kpi_nombre:'Actividades en campo', unidad:'actividades', meta_mensual:12, valor_mes:9, detalle:['Riego y control de humedad','Limpieza de áreas de producción','Revisión del estado de plantas'] },
   { periodo_clave:'2026-03', mes_num:3, mes_label:'Marzo', componente:'Vivero forestal', kpi_id:'vivero_bolsas_llenadas', kpi_nombre:'Insumos preparados para producción de plantas', unidad:'bolsas', meta_mensual:200, valor_mes:155, detalle:['Bolsas preparadas con sustrato','Insumos listos para trasplante','Ordenamiento de material para vivero'] },
   { periodo_clave:'2026-03', mes_num:3, mes_label:'Marzo', componente:'Vivero forestal', kpi_id:'vivero_semillas_germinadas', kpi_nombre:'Germinación de especies nativas', unidad:'semillas', meta_mensual:100, valor_mes:80, detalle:['Semillas con germinación activa','Seguimiento a especies nativas','Registro inicial de producción'] },
   { periodo_clave:'2026-03', mes_num:3, mes_label:'Marzo', componente:'Gestión del programa', kpi_id:'otras_actividades_estrategicas', kpi_nombre:'Actividades de coordinación interinsitucional estratégica', unidad:'actividades', meta_mensual:4, valor_mes:3, detalle:['Coordinación con actores locales','Preparación de jornadas de campo','Seguimiento técnico y administrativo'] }
 ,
-  { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Soporte cartográfico', kpi_id:'sig_mapas_generados', kpi_nombre:'Mapas digitales para planificación forestal', unidad:'mapas', meta_mensual:12, valor_mes:10.2, detalle:['Mapa de seguimiento de áreas monitoreadas','Mapa de actualización de sitios priorizados','Mapa operativo para recorridos de campo'] },
-  { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Soporte cartográfico', kpi_id:'iot_monitoreo_ambiental', kpi_nombre:'Proyecto IoT para monitoreo ambiental', unidad:'proyectos', meta_mensual:1, valor_mes:0.85, detalle:['Prototipo con Raspberry Pi 4B en fase funcional','Sensores ambientales configurados para pruebas de campo','Registro inicial de datos para seguimiento del monitoreo'] },
-  { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Soporte cartográfico', kpi_id:'sig_servicios_digitales', kpi_nombre:'Plataformas digitales', unidad:'', meta_mensual:4, valor_mes:3.4, detalle:['Geoportal de monitoreo forestal actualizado','Visor de productos cartográficos revisado','Consulta interna para seguimiento técnico'] },
-  { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Soporte cartográfico', kpi_id:'sig_capas_actualizadas', kpi_nombre:'Información geográfica forestal actualizada', unidad:'capas', meta_mensual:8, valor_mes:6.8, detalle:['Capa de sitios de reforestación actualizada','Capa de cobertura municipal depurada','Capa de áreas monitoreadas revisada','Puntos de seguimiento en campo integrados'] },
-  { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Soporte cartográfico', kpi_id:'sig_analisis_entregados', kpi_nombre:'Análisis territoriales para toma de decisiones', unidad:'análisis', meta_mensual:6, valor_mes:5.1, detalle:['Análisis de priorización de áreas','Cruce con cobertura forestal reciente','Lectura territorial para planificación de campo'] },
+  { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Mapas digitales', kpi_id:'sig_mapas_generados', kpi_nombre:'Mapas digitales para planificación forestal', unidad:'mapas', meta_mensual:12, valor_mes:10.2, detalle:['Mapa de seguimiento de áreas monitoreadas','Mapa de actualización de sitios priorizados','Mapa operativo para recorridos de campo'] },
+  { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Mapas digitales', kpi_id:'iot_monitoreo_ambiental', kpi_nombre:'Proyecto IoT para monitoreo ambiental', unidad:'proyectos', meta_mensual:1, valor_mes:0.85, detalle:['Prototipo con Raspberry Pi 4B en fase funcional','Sensores ambientales configurados para pruebas de campo','Registro inicial de datos para seguimiento del monitoreo'] },
+  { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Mapas digitales', kpi_id:'sig_servicios_digitales', kpi_nombre:'Plataformas digitales', unidad:'', meta_mensual:4, valor_mes:3.4, detalle:['Geoportal de monitoreo forestal actualizado','Visor de productos cartográficos revisado','Consulta interna para seguimiento técnico'] },
+  { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Mapas digitales', kpi_id:'sig_capas_actualizadas', kpi_nombre:'Información geográfica forestal actualizada', unidad:'capas', meta_mensual:8, valor_mes:6.8, detalle:['Capa de sitios de reforestación actualizada','Capa de cobertura municipal depurada','Capa de áreas monitoreadas revisada','Puntos de seguimiento en campo integrados'] },
+  { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Mapas digitales', kpi_id:'sig_analisis_entregados', kpi_nombre:'Análisis territoriales para toma de decisiones', unidad:'análisis', meta_mensual:6, valor_mes:5.1, detalle:['Análisis de priorización de áreas','Cruce con cobertura forestal reciente','Lectura territorial para planificación de campo'] },
   { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Vivero forestal', kpi_id:'vivero_mantenimiento', kpi_nombre:'Actividades en campo', unidad:'actividades', meta_mensual:12, valor_mes:10.2, detalle:['Riego y control de humedad','Limpieza de áreas de producción','Revisión del estado sanitario de plantas'] },
   { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Vivero forestal', kpi_id:'vivero_bolsas_llenadas', kpi_nombre:'Insumos preparados para producción de plantas', unidad:'bolsas', meta_mensual:200, valor_mes:170, detalle:['Bolsas preparadas con sustrato','Insumos listos para trasplante','Ordenamiento de material para vivero'] },
   { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Vivero forestal', kpi_id:'vivero_semillas_germinadas', kpi_nombre:'Germinación de especies nativas', unidad:'semillas', meta_mensual:100, valor_mes:85, detalle:['Semillas con germinación activa','Seguimiento a especies nativas','Registro de producción mensual'] },
@@ -2638,11 +2658,7 @@ function animateProgressBars(scope=document){
 }
 
 function annualKpiMessage(cfg, row){
-  if (cfg.id === 'arboles') return 'La siembra se mide en temporada principal, de junio a noviembre; antes de ese período aparece como programado.';
-  if (cfg.id === 'ha') return 'Hectáreas reforestadas que ya fueron verificadas en campo y respaldadas con mapas.';
-  if (cfg.id === 'sig') return 'Avance de herramientas del programa: mapas, plataformas, capas, análisis y soporte tecnológico.';
-  if (cfg.id === 'plantas') return 'Plantas producidas y disponibles en vivero para futuras jornadas de restauración.';
-  return cfg.note ? cfg.note(row) : '';
+  return '';
 }
 
 function renderKpis(row){
@@ -2667,7 +2683,6 @@ function renderKpis(row){
           <div class="kpi-meta"><span>Resultado acumulado</span><strong>${escapeHtml(value)}</strong></div>
           <div class="kpi-meta"><span>Meta anual</span><strong>${escapeHtml(meta)}</strong></div>
           <div class="kpi-meta"><span>Cumplimiento acumulado de meta anual</span><strong>${escapeHtml(cumplimiento)}</strong></div>
-          <div class="kpi-explain"><strong>Qué significa:</strong> ${escapeHtml(annualKpiMessage(cfg, row))}</div>
         </div>
         <div class="progress"><span data-width="${pct}%" style="width:${pct}%"></span></div>
       </article>`;
@@ -2676,11 +2691,7 @@ function renderKpis(row){
 }
 
 function monthlyKpiMessage(item){
-  const id = String(item.kpi_id || '');
-  if (id.includes('sig_')) return 'Producto mensual de soporte cartográfico, análisis territorial o herramienta digital.';
-  if (id.includes('vivero')) return 'Trabajo mensual del vivero para preparar plantas e insumos de restauración.';
-  if (id.includes('iot')) return 'Avance mensual del proyecto tecnológico de seguimiento ambiental.';
-  return 'Acción mensual de apoyo operativo para el programa.';
+  return '';
 }
 
 function renderComplementaryKpis(){
@@ -2697,14 +2708,12 @@ function renderComplementaryKpis(){
     const metaText = safeNumber(item.meta_mensual) > 0
       ? formatByUnit(item.meta_mensual, item.unidad)
       : (item.meta_anual ? formatByUnit(item.meta_anual, item.unidad) : 'Sin meta mensual');
-    const comp = String(item.componente || '').replace(/Monitoreo\s+digital/gi, 'Soporte cartográfico');
     const valueText = formatByUnit(item.valor_mes, item.unidad);
     return `
-      <article class="card kpi clean-kpi" style="--delay:${idx * 45}ms">
+      <article class="card kpi clean-kpi kpi-monthly-card" style="--delay:${idx * 45}ms">
+        <div class="kpi-monthly-title">${escapeHtml(item.kpi_nombre)}</div>
         <div class="kpi-top">
           <div>
-            <div class="kpi-component-tag">${escapeHtml(comp)}</div>
-            <div class="kpi-label">${escapeHtml(item.kpi_nombre)}</div>
             <div class="kpi-value">${escapeHtml(valueText)}</div>
           </div>
         </div>
@@ -2712,7 +2721,6 @@ function renderComplementaryKpis(){
           <div class="kpi-meta"><span>Resultado del mes</span><strong>${escapeHtml(valueText)}</strong></div>
           <div class="kpi-meta"><span>Meta mensual</span><strong>${escapeHtml(metaText)}</strong></div>
           <div class="kpi-meta"><span>Cumplimiento de meta mensual</span><strong>${escapeHtml(formatPercent(item.pct_cumpl_mes))}</strong></div>
-          <div class="kpi-explain"><strong>Qué significa:</strong> ${escapeHtml(monthlyKpiMessage(item))}</div>
         </div>
         <div class="progress"><span data-width="${monthlyPct}%" style="width:${monthlyPct}%"></span></div>
       </article>`;
@@ -2904,7 +2912,7 @@ function buildPresentation(){
     return `<article class="presentation-kpi-pair-card">
       <div class="pkpi-header">
         <div class="pkpi-label">${escapeHtml(item.kpi_nombre)}</div>
-        <span class="presentation-chip ${cls}">${escapeHtml(item.componente)}</span>
+        <span class="presentation-chip ${cls}">${escapeHtml(formatPercent(item.pct_cumpl_mes))} mensual</span>
       </div>
       <div class="pkpi-value">${escapeHtml(formatByUnit(item.valor_mes, item.unidad))}</div>
       <div class="pkpi-meta">${item.meta_anual ? 'Meta anual: ' + escapeHtml(formatByUnit(item.meta_anual, item.unidad)) : 'Meta mensual: ' + escapeHtml(formatByUnit(item.meta_mensual, item.unidad))}</div>
@@ -2973,7 +2981,7 @@ function buildPresentation(){
         <div class="presentation-kicker">Metas mensuales</div>
         <div class="presentation-title-row">
           <div>
-            <h2>Soporte cartográfico, vivero y operación</h2>
+            <h2>Metas mensuales del programa</h2>
             <p>Esta capa mensual complementa la lectura anual del programa y ayuda a explicar mejor el avance operativo del primer trimestre sin cambiar la lectura de los indicadores principales.</p>
           </div>
         </div>
