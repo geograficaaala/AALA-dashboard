@@ -415,7 +415,33 @@
       .pres-slide{padding:24px 22px 22px}
     }
 
-</style>
+
+
+    /* --- Orden EPC: KPIs estilo Atitlán Recicla --- */
+    .kpis{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:14px!important}
+    .kpi{position:relative;overflow:hidden;min-height:210px;padding:18px 18px 16px!important;border-top:0!important;border-left:4px solid var(--tone,#1c6084)!important;border-radius:24px!important;background:linear-gradient(180deg,#ffffff 0%,#fbfdfc 100%)!important;box-shadow:var(--shadow-sm);display:grid;grid-template-rows:auto 1fr auto auto;gap:10px;opacity:0;transform:translateY(14px);animation:kpiReveal .58s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--delay,0ms)}
+    .kpi::after{content:'';position:absolute;right:-34px;top:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(28,96,132,.10) 0%,transparent 72%);opacity:.9;pointer-events:none}
+    .kpi>*{position:relative;z-index:1}
+    .kpi:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+    .kpi-top{margin-bottom:2px!important;align-items:flex-start!important}
+    .kpi-label{min-height:2.3em;font-size:.72rem!important;font-weight:800!important;letter-spacing:.11em!important;line-height:1.4!important;color:var(--muted)!important}
+    .kpi-window{background:#eef5ff!important;border-color:#d6e4f4!important;color:#3463b8!important}
+    .kpi-figure{min-height:98px!important;grid-template-columns:26px minmax(0,1fr)!important;gap:18px!important;align-items:end!important}
+    .kpi-value{font-size:1.58rem!important;line-height:1.02!important;color:#17314f!important;letter-spacing:-.03em!important}
+    .kpi-unit-inline{font-size:.82rem!important;color:#6f8c94!important;text-transform:none!important}
+    .kpi-achieved{font-size:.84rem!important;font-weight:800!important;color:#17314f!important;line-height:1.35!important}
+    .kpi-reference{font-size:.82rem!important;color:#6f8c94!important;line-height:1.5!important}
+    .kpi-reference strong,.kpi-meta strong{color:#17314f!important}
+    .kpi-readings{gap:8px!important;margin-top:2px!important}
+    .kpi-meta{font-size:.83rem!important;line-height:1.55!important;color:#4c6478!important}
+    .kpi-progress-line{height:7px!important;margin-top:auto!important;background:#e2ebe7!important}
+    .kpi-progress-line span{background:linear-gradient(90deg,#bfe8cf,var(--tone,#1c6084))!important}
+    .section-head{align-items:flex-start!important}
+    .section-head .section-sub{margin-top:5px}
+    @media(max-width:1100px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+    @media(max-width:760px){.kpis{grid-template-columns:1fr!important}.kpi{min-height:190px}}
+
+  </style>
 </head>
 <body>
   <header class="header">
@@ -429,9 +455,8 @@
   <div class="header-stack">
     <nav class="nav-tabs" aria-label="Navegación">
       <a class="nav-tab active" href="#resumen">Resumen</a>
-      <a class="nav-tab" href="#cobertura">Cobertura</a>
-      <a class="nav-tab" href="#operativos">Operativos</a>
-      <a class="nav-tab" href="#acumulado-operativos">Acumulado anual</a>
+      <a class="nav-tab" href="#acumulados-mensuales">Acumulados mensuales</a>
+      <a class="nav-tab" href="#metas-mensuales">Metas mensuales</a>
       <a class="nav-tab" href="#grafica-operativos">Gráfica anual</a>
     </nav>
     <div class="header-utility">
@@ -780,6 +805,35 @@
       };
     }
 
+
+    function coverageMonthlyKpiData(cfg, row){
+      const monthNum = Number(row.mes_num || 0);
+      const actual = Number(row[cfg.valueKey] || 0);
+      const target = Number(cfg.target || 0);
+      const progress = target > 0 ? actual / target : 0;
+      const status = monthNum < ACTIVE_START_MONTH ? 'pending' : (monthNum > ACTIVE_END_MONTH ? 'closed' : 'active');
+      const tone = status === 'pending'
+        ? 'tone-muted'
+        : (progress >= 1 ? 'tone-green' : (progress > 0 ? 'tone-yellow' : 'tone-yellow'));
+      const unit = cfg.coverageLabel || cfg.targetLabel || '';
+      const achieved = status === 'pending' && actual === 0 ? 'Programado' : `${fmtPct(progress)} meta mensual`;
+      const reference = target > 0
+        ? `Meta mensual <strong>${fmt(target)} ${esc(cfg.targetLabel || unit)}</strong>`
+        : 'Sin meta mensual oficial';
+      return {
+        label: cfg.label,
+        window: status === 'pending' ? 'Programado' : 'Meta mensual',
+        tone,
+        chip: achieved,
+        valueText: `${fmt(actual)} ${unit}`.trim(),
+        reference,
+        line1: `Resultado del mes: <strong>${fmt(actual)} ${esc(unit)}</strong>`,
+        line2: target > 0 ? `Cumplimiento: <strong>${fmtPct(progress)}</strong>` : '',
+        progressWidth: Math.min(progress, 1) * 100,
+        pillarHeight: Math.max(8, Math.min(progress, 1) * 100)
+      };
+    }
+
     function operationalKpiData(cfg, row){
       const monthNum = Number(row.mes_num || 0);
       const actual = Number(row[cfg.key] || 0);
@@ -787,20 +841,20 @@
       const status = !hasWindow ? 'pending' : (monthNum < cfg.start ? 'pending' : (monthNum > cfg.end ? 'closed' : 'active'));
       const progress = cfg.target > 0 ? actual / cfg.target : 0;
       const tone = toneFromProgress(status, progress);
-      const chip = badgeText(status, progress);
-      const reference = status==='pending'
+      const chip = status === 'pending' && actual === 0 ? 'Programado' : `${fmtPct(progress)} meta mensual`;
+      const reference = status === 'pending' && actual === 0
         ? 'Estado <strong>Programado</strong>'
-        : `Cantidad alcanzada en el mes <strong>${fmt(actual)}</strong>`;
+        : `Meta mensual <strong>${fmt(cfg.target)} actividades</strong>`;
 
       return {
         label: cfg.label,
         window: cfg.window,
         tone,
         chip,
-        valueText: status==='pending' ? 'Programado' : fmtPct(progress),
+        valueText: status === 'pending' && actual === 0 ? 'Programado' : `${fmt(actual)} actividades`,
         reference,
-        line1: `Cantidad alcanzada en el mes: ${fmt(actual)}`,
-        line2: `Meta mensual: ${fmt(cfg.target)}`,
+        line1: `Resultado del mes: <strong>${fmt(actual)} actividades</strong>`,
+        line2: `Cumplimiento: <strong>${fmtPct(progress)}</strong>`,
         progressWidth: Math.min(progress, 1) * 100,
         pillarHeight: Math.max(8, Math.min(progress, 1) * 100)
       };
@@ -817,8 +871,8 @@
       const parts=splitDisplayValue(data.valueText);
       const windowMarkup = data.hideWindow || !String(data.window || '').trim() ? '' : `<div class="kpi-window">${esc(data.window)}</div>`;
       const chipMarkup = String(data.chip || '').trim() ? `<div class="kpi-achieved">${esc(data.chip)}</div>` : '';
-      const line1Markup = String(data.line1 || '').trim() ? `<div class="kpi-meta">${esc(data.line1)}</div>` : '';
-      const line2Markup = String(data.line2 || '').trim() ? `<div class="kpi-meta">${esc(data.line2)}</div>` : '';
+      const line1Markup = String(data.line1 || '').trim() ? `<div class="kpi-meta">${data.line1}</div>` : '';
+      const line2Markup = String(data.line2 || '').trim() ? `<div class="kpi-meta">${data.line2}</div>` : '';
       const readingsMarkup = (line1Markup || line2Markup) ? `<div class="kpi-readings">${line1Markup}${line2Markup}</div>` : '';
       return `
         <article class="card kpi ${data.tone}" style="--delay:${index*80}ms">
@@ -974,37 +1028,24 @@
       const currentValue = Number(row[cfg.key] || 0);
       const tone = status === 'pending'
         ? 'tone-muted'
-        : (actual > 0 ? 'tone-green' : 'tone-yellow');
-      const monthlyLines = monthRows.length
-        ? monthRows.map(item => `${esc(item.month)}: ${fmt(item.value)}`).join('<br>')
-        : 'Sin meses publicados al presente mes.';
-      const statusLine = status === 'pending'
-        ? '<p class="kpi-status-line">Programado</p>'
-        : (status === 'closed' ? '<p class="kpi-status-line">Ventana cerrada</p>' : '');
+        : (pct >= 1 ? 'tone-green' : (pct > 0 ? 'tone-yellow' : 'tone-yellow'));
+      const unitText = cfg.resultSuffix || 'actividades acumuladas';
+      const chip = status === 'pending' && actual === 0
+        ? 'Programado'
+        : `${fmtPct(pct)} del objetivo anual`;
+      const reference = `Meta anual <strong>${fmt(cfg.annualTarget)}</strong>`;
 
       return {
         label: cfg.label,
-        window: '',
-        hideWindow: true,
+        window: cfg.window,
         tone,
-        chip: status === 'pending' ? 'Programado' : '',
-        valueText: status === 'pending' && actual === 0 ? 'Programado' : fmtPct(pct),
-        reference: `Cantidad alcanzada en ${esc(currentMonth)}: <strong>${fmt(currentValue)}</strong>`,
-        line1: `${fmt(pct * 100, 2)}% de avance acumulado anual.`,
-        line2: '',
+        chip,
+        valueText: status === 'pending' && actual === 0 ? 'Programado' : fmt(actual),
+        reference,
+        line1: `Acumulado al presente mes: <strong>${fmt(actual)} ${esc(unitText)}</strong>`,
+        line2: `Resultado de ${esc(currentMonth)}: <strong>${fmt(currentValue)}</strong>`,
         progressWidth: Math.min(pct, 1) * 100,
-        pillarHeight: Math.max(8, Math.min(pct, 1) * 100),
-        customHtml: `
-          <p class="kpi-custom-title">Meta anual de ${esc(cfg.label)}: <strong>${fmt(cfg.annualTarget)}</strong></p>
-          <div class="kpi-custom-section">
-            <div class="kpi-custom-section-title">Resultado alcanzado:</div>
-            <div>${fmt(actual)} ${esc(cfg.resultSuffix || 'actividades acumuladas')}.</div>
-          </div>
-          <div class="kpi-module-lines">${monthlyLines}</div>
-          <p class="kpi-custom-bold">${fmt(pct * 100, 2)}% de avance acumulado anual.</p>
-          <p class="kpi-coverage-current">Cantidad alcanzada en ${esc(currentMonth)}: <strong>${fmt(currentValue)}</strong></p>
-          ${statusLine}
-        `
+        pillarHeight: Math.max(8, Math.min(pct, 1) * 100)
       };
     }
 
@@ -1013,13 +1054,14 @@
         .map((cfg, idx) => renderKpiCard(operationalAnnualKpiData(cfg, row), idx))
         .join('');
       return `
-        <section class="section present-slide" id="acumulado-operativos">
+        <section class="section present-slide" id="acumulados-mensuales">
           <div class="section-head">
             <div>
-              <div class="section-title">KPIs acumulados mensuales de actividades de campo</div>
+              <div class="section-title">Acumulados mensuales</div>
+              <p class="section-sub">Resultados acumulados al presente mes frente a la meta anual de EPC.</p>
             </div>
           </div>
-          <div class="kpis">${cards || '<div class="empty">No hay actividades operativas acumuladas para este al presente mes.</div>'}</div>
+          <div class="kpis">${cards || '<div class="empty">No hay acumulados mensuales para este al presente mes.</div>'}</div>
         </section>`;
     }
 
@@ -1435,8 +1477,8 @@
         </div></section>
 
         <section class="pres-slide"><div class="pres-inner">
-          <div class="pres-kicker">Metas anuales</div>
-          <div class="pres-title-row"><div><h2>Avance acumulado de actividades priorizadas</h2><p>Comparación del acumulado registrado al presente mes frente a la meta anual de las actividades tácticas del programa.</p></div></div>
+          <div class="pres-kicker">Acumulados mensuales</div>
+          <div class="pres-title-row"><div><h2>Acumulados mensuales de actividades priorizadas</h2><p>Comparación del acumulado registrado al presente mes frente a la meta anual de las actividades tácticas del programa.</p></div></div>
           <div class="pres-card-grid pres-card-grid-2">
             ${annual.map(item=>`<div class="pres-kpi-pair"><div class="pres-kpi-label">${esc(item.label)}</div><div class="pres-kpi-value">${item.pct == null ? 'Pendiente' : fmtPct(item.pct)}</div><div class="pres-kpi-meta">${fmt(item.actual)} de ${fmt(item.annualTarget)} · ${esc(item.window)}</div><span class="pres-chip ${item.pct == null ? 'gray' : presentationChipClass(item.pct)}">${item.status === 'pending' ? 'Programado' : item.status === 'closed' ? 'Ventana cerrada' : 'Activo'}</span><div class="pres-bar-wrap"><div class="pres-bar ${item.pct == null ? 'gray' : presentationChipClass(item.pct)}" style="width:${Math.max(0,Math.min(100,(item.visualPct||0)*100))}%"></div></div></div>`).join('')}
           </div>
@@ -1503,9 +1545,10 @@
       const status = computeProgramStatus(row);
       const latestText = meta.latest_month_label ? `${meta.latest_month_label} ${String(meta.latest_period||'').slice(0,4)}` : monthName(row.mes_num);
 
-      const coverageCards = COVERAGE_CONFIG.map((cfg, idx) => renderKpiCard(coverageKpiData(cfg, row), idx)).join('');
-      const opCards = OP_CONFIG.map((cfg, idx) => renderKpiCard(operationalKpiData(cfg, row), idx)).join('');
-      const prepCards = preparationCardsMarkup(row);
+      const monthlyCards = [
+        ...COVERAGE_CONFIG.map(cfg => coverageMonthlyKpiData(cfg, row)),
+        ...OP_CONFIG.map(cfg => operationalKpiData(cfg, row))
+      ].map((data, idx) => renderKpiCard(data, idx)).join('');
       const annualOperationalKpis = operationalAnnualKpisMarkup(row);
       const annualChart = operationalAnnualChartMarkup(row);
 
@@ -1544,27 +1587,17 @@
             </article>
           </section>
 
-          <section class="section present-slide" id="cobertura">
-            <div class="section-head">
-              <div>
-                <div class="section-title">Metas anuales y avance acumulado</div>
-              </div>
-            </div>
-            <div class="kpis" id="coverageGrid">${coverageCards || '<div class="empty">No hay indicadores de cobertura para este al presente mes.</div>'}</div>
-          </section>
+          ${annualOperationalKpis}
 
-          ${prepCards}
-
-          <section class="section present-slide" id="operativos">
+          <section class="section present-slide" id="metas-mensuales">
             <div class="section-head">
               <div>
                 <div class="section-title">Metas mensuales</div>
+                <p class="section-sub">Lectura del mes seleccionado contra la meta mensual de cobertura y actividades.</p>
               </div>
             </div>
-            <div class="kpis" id="opsGrid">${opCards || '<div class="empty">No hay indicadores operativos para este al presente mes.</div>'}</div>
+            <div class="kpis" id="monthlyKpiGrid">${monthlyCards || '<div class="empty">No hay metas mensuales para este al presente mes.</div>'}</div>
           </section>
-
-          ${annualOperationalKpis}
 
           ${annualChart}
         </div>
