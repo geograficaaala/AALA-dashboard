@@ -514,6 +514,43 @@
     @media(max-width:1100px){.kpis,.kpis.paired-kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
     @media(max-width:760px){.kpis,.kpis.paired-kpis{grid-template-columns:1fr!important}.kpi{min-height:190px}}
 
+
+
+    /* --- Ajuste final: título de programa estilo Atitlán Recicla --- */
+    #resumen.hero.present-slide{
+      display:grid!important;
+      grid-template-columns:minmax(0,1fr) 290px!important;
+      gap:22px!important;
+      align-items:start!important;
+      margin-bottom:22px!important;
+    }
+    #resumen.hero.present-slide .hero-main{
+      padding:20px 24px 18px!important;
+      min-height:0!important;
+    }
+    #resumen.hero.present-slide .hero-main h1{
+      font-family:var(--font-body)!important;
+      font-size:clamp(2.4rem,4.4vw,4.2rem)!important;
+      font-weight:800!important;
+      line-height:.96!important;
+      letter-spacing:-.05em!important;
+      margin:0 0 12px!important;
+      background:none!important;
+      -webkit-text-fill-color:initial!important;
+      color:#17314f!important;
+    }
+    #resumen.hero.present-slide .hero-lead{
+      margin-top:0!important;
+    }
+    #resumen.hero.present-slide .hero-side.logo-only{
+      min-height:100%!important;
+      padding:22px!important;
+    }
+    @media(max-width:780px){
+      #resumen.hero.present-slide{grid-template-columns:1fr!important}
+    }
+
+
   </style>
 </head>
 <body>
