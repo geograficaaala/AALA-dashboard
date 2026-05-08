@@ -429,6 +429,7 @@
 
     /* --- Orden EPC: KPIs estilo Atitlán Recicla --- */
     .kpis{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:14px!important}
+    .kpis.paired-kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}
     .kpi{position:relative;overflow:hidden;min-height:210px;padding:18px 18px 16px!important;border-top:0!important;border-left:4px solid var(--tone,#1c6084)!important;border-radius:24px!important;background:linear-gradient(180deg,#ffffff 0%,#fbfdfc 100%)!important;box-shadow:var(--shadow-sm);display:grid;grid-template-rows:auto 1fr auto auto;gap:10px;opacity:0;transform:translateY(14px);animation:kpiReveal .58s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--delay,0ms)}
     .kpi::after{content:'';position:absolute;right:-34px;top:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(28,96,132,.10) 0%,transparent 72%);opacity:.9;pointer-events:none}
     .kpi>*{position:relative;z-index:1}
@@ -501,8 +502,8 @@
     @media(max-width:760px){.epc-analysis-grid{grid-template-columns:1fr}.kpi-value{font-size:1.65rem!important}.annual-clear-main strong{font-size:1.72rem!important}}
     .section-head{align-items:flex-start!important}
     .section-head .section-sub{margin-top:5px}
-    @media(max-width:1100px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
-    @media(max-width:760px){.kpis{grid-template-columns:1fr!important}.kpi{min-height:190px}}
+    @media(max-width:1100px){.kpis,.kpis.paired-kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+    @media(max-width:760px){.kpis,.kpis.paired-kpis{grid-template-columns:1fr!important}.kpi{min-height:190px}}
 
   </style>
 </head>
@@ -521,6 +522,7 @@
       <a class="nav-tab" href="#metas-anuales-avance-acumulado">Metas anuales y avance acumulado</a>
       <a class="nav-tab" href="#metas-mensuales">Metas mensuales</a>
       <a class="nav-tab" href="#graficos-interactivos">Gráficos interactivos</a>
+      <a class="nav-tab" href="#analisis-mes">Análisis del mes</a>
     </nav>
     <div class="header-utility">
       <a class="back" href="./index.html"><span class="back-arrow">&#8592;</span>Volver al inicio</a>
@@ -839,34 +841,47 @@
       return state.data.indicadores.filter(r => r.periodo_clave===state.periodo);
     }
 
-    function activeCoverageVisitCount(key, period){
+    function activeCoverageModuleProgress(cfg, period){
+      const target = Number(cfg.target || 0);
       const rows=(state.data.total||[])
         .filter(r => isTrue(r.tiene_datos_mes))
         .filter(r => String(r.periodo_clave) <= String(period))
         .filter(r => Number(r.mes_num) >= ACTIVE_START_MONTH && Number(r.mes_num) <= ACTIVE_END_MONTH);
-      return Math.min(rows.filter(r => Number(r[key]||0) > 0).length, ACTIVE_VISITS_TOTAL);
+      const progress = rows.reduce((acc, r) => {
+        const actual = Number(r[cfg.valueKey] || 0);
+        if(target > 0) return acc + Math.min(actual / target, 1);
+        return acc + (actual > 0 ? 1 : 0);
+      }, 0);
+      return Math.max(0, Math.min(progress, ACTIVE_VISITS_TOTAL));
+    }
+
+    function coverageModuleLabel(value){
+      const v = Math.max(0, Math.min(Number(value) || 0, ACTIVE_VISITS_TOTAL));
+      if(v <= 0) return `0 de ${ACTIVE_VISITS_TOTAL} módulos`;
+      const rounded = Math.round(v);
+      if(Math.abs(v - rounded) < 0.01) return `${rounded} de ${ACTIVE_VISITS_TOTAL} módulos`;
+      const next = Math.ceil(v);
+      if(next <= ACTIVE_VISITS_TOTAL && (next - v) <= 0.10) return `Casi ${next} de ${ACTIVE_VISITS_TOTAL} módulos`;
+      return `${fmt(v, 2)} de ${ACTIVE_VISITS_TOTAL} módulos`;
     }
 
     function coverageKpiData(cfg, row){
       const monthNum = Number(row.mes_num || 0);
-      const visits = activeCoverageVisitCount(cfg.valueKey, state.periodo);
-      const pct = visits / ACTIVE_VISITS_TOTAL;
+      const moduleProgress = activeCoverageModuleProgress(cfg, state.periodo);
+      const pct = moduleProgress / ACTIVE_VISITS_TOTAL;
       const currentValue = Number(row[cfg.valueKey] || 0);
+      const unit = cfg.coverageLabel || cfg.targetLabel || '';
       const status = monthNum < ACTIVE_START_MONTH ? 'pending' : (monthNum > ACTIVE_END_MONTH ? 'closed' : 'active');
-      const tone = status==='active'
-        ? greenToneFromProgress(status, currentValue > 0 ? 1 : 0)
-        : greenToneFromProgress(status, 0);
-      const modulesText = `${visits} de ${ACTIVE_VISITS_TOTAL} módulos desarrollados`;
-      const progressText = '';
+      const tone = greenToneFromProgress(status, pct);
 
       return {
         label: cfg.label,
         window: '',
         hideWindow: true,
         tone,
-        chip: status==='active' ? modulesText : badgeText(status, 0),
+        chip: status==='pending' && moduleProgress===0 ? 'Programado' : `Avance de cobertura EPC: ${coverageModuleLabel(moduleProgress)}`,
         valueText: fmtPct(pct),
-        reference: currentValue>0 ? `Cobertura al presente mes <strong>${fmt(currentValue)}</strong>` : 'Cobertura al presente mes <strong>sin registro</strong>',
+        reference: currentValue>0 ? `Cobertura del mes seleccionado <strong>${fmt(currentValue)} ${esc(unit)}</strong>` : 'Cobertura del mes seleccionado <strong>sin registro</strong>',
         line1: '',
         line2: '',
         progressWidth: pct*100,
@@ -895,7 +910,7 @@
         valueText: `${fmt(actual)} ${unit}`.trim(),
         reference,
         line1: '',
-        line2: target > 0 ? `Cumplimiento: <strong>${fmtPct(progress)}</strong>` : '',
+        line2: target > 0 ? `Cumplimiento de meta mensual: <strong>${fmtPct(progress)}</strong>` : '',
         progressWidth: Math.min(progress, 1) * 100,
         pillarHeight: Math.max(8, Math.min(progress, 1) * 100)
       };
@@ -922,7 +937,7 @@
         valueText: isPendingWithoutResult ? 'Programado' : `${fmt(actual)} actividades`,
         reference,
         line1: '',
-        line2: isPendingWithoutResult ? '' : `Cumplimiento: <strong>${fmtPct(progress)}</strong>`,
+        line2: isPendingWithoutResult ? '' : `Cumplimiento de meta mensual: <strong>${fmtPct(progress)}</strong>`,
         progressWidth: Math.min(progress, 1) * 100,
         pillarHeight: Math.max(8, Math.min(progress, 1) * 100)
       };
@@ -1094,6 +1109,37 @@
       return cleaned || String(unitText || 'actividades');
     }
 
+    function coverageAnnualKpiData(cfg, row){
+      const monthNum = Number(row.mes_num || 0);
+      const actual = Number(row[cfg.valueKey] || 0);
+      const target = Number(cfg.target || 0);
+      const unit = cfg.coverageLabel || cfg.targetLabel || '';
+      const moduleProgress = activeCoverageModuleProgress(cfg, state.periodo);
+      const pct = moduleProgress / ACTIVE_VISITS_TOTAL;
+      const status = monthNum < ACTIVE_START_MONTH ? 'pending' : (monthNum > ACTIVE_END_MONTH ? 'closed' : 'active');
+      const tone = greenToneFromProgress(status, pct);
+      const complianceText = status === 'pending' && moduleProgress === 0 ? 'Programado' : fmtPct(pct);
+      const progressWidth = status === 'pending' && moduleProgress === 0 ? 0 : Math.min(pct, 1) * 100;
+
+      return {
+        label: cfg.label,
+        tone,
+        customHtml: `
+          <div class="annual-clear">
+            <div class="annual-clear-label">${esc(cfg.label)}</div>
+            <div class="annual-clear-main">
+              <strong>${fmt(actual)} ${esc(unit)}</strong>
+            </div>
+            <div class="annual-clear-lines">
+              <div class="annual-clear-row"><span>Meta anual de cobertura</span><strong>${fmt(target)} ${esc(unit)}</strong></div>
+              <div class="annual-clear-row"><span>Avance de cobertura EPC</span><strong>${esc(coverageModuleLabel(moduleProgress))}</strong></div>
+              <div class="annual-clear-row"><span>Cumplimiento acumulado de meta anual</span><strong>${esc(complianceText)}</strong></div>
+            </div>
+            <div class="annual-clear-progress" aria-hidden="true"><span style="width:${Math.max(0, Math.min(progressWidth, 100))}%"></span></div>
+          </div>`
+      };
+    }
+
     function operationalAnnualKpiData(cfg, row){
       const monthRows = operationalMonthlyRowsForPeriod(cfg.key, state.periodo);
       const actual = monthRows.reduce((acc, item) => acc + Number(item.value || 0), 0);
@@ -1124,17 +1170,20 @@
     }
 
     function operationalAnnualKpisMarkup(row){
-      const cards = FIELD_ACTIVITY_CUMULATIVE_META
-        .map((cfg, idx) => renderKpiCard(operationalAnnualKpiData(cfg, row), idx))
+      const cards = [
+        ...COVERAGE_CONFIG.map(cfg => coverageAnnualKpiData(cfg, row)),
+        ...FIELD_ACTIVITY_CUMULATIVE_META.map(cfg => operationalAnnualKpiData(cfg, row))
+      ]
+        .map((data, idx) => renderKpiCard(data, idx))
         .join('');
       return `
         <section class="section present-slide" id="metas-anuales-avance-acumulado">
           <div class="section-head">
             <div>
               <div class="section-title">Metas anuales y avance acumulado</div>
-                          </div>
+            </div>
           </div>
-          <div class="kpis">${cards || '<div class="empty">No hay metas anuales acumuladas para el presente mes.</div>'}</div>
+          <div class="kpis paired-kpis">${cards || '<div class="empty">No hay metas anuales acumuladas para el presente mes.</div>'}</div>
         </section>`;
     }
 
@@ -1739,12 +1788,12 @@
                 <div class="section-title">Metas mensuales</div>
                               </div>
             </div>
-            <div class="kpis" id="monthlyKpiGrid">${monthlyCards || '<div class="empty">No hay metas mensuales para este al presente mes.</div>'}</div>
+            <div class="kpis paired-kpis" id="monthlyKpiGrid">${monthlyCards || '<div class="empty">No hay metas mensuales para este al presente mes.</div>'}</div>
           </section>
 
-          ${monthlyAnalysis}
-
           ${annualChart}
+
+          ${monthlyAnalysis}
         </div>
       `;
 
