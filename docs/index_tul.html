@@ -1319,9 +1319,9 @@
         <a class="nav-tab active" href="#resumen">Resumen</a>
         <a class="nav-tab" href="#indicadoresAnuales">Indicadores acumulados</a>
         <a class="nav-tab" href="#indicadoresMensuales">Indicadores mensuales</a>
-        <a class="nav-tab" href="#analisisMes">Análisis del mes</a>
         <a class="nav-tab" href="#programacion">Programación</a>
         <a class="nav-tab" href="#geoportal">Geoportal</a>
+        <a class="nav-tab" href="#analisisMes">Análisis del mes</a>
       </nav>
 
       <div class="header-utility">
@@ -1389,7 +1389,7 @@
       <section class="section metric-section" id="indicadoresAnuales">
         <div class="section-head">
           <div>
-            <h2>KPIs acumulados anuales</h2>
+            <h2>Metas anuales y avance acumulado</h2>
           </div>
         </div>
         <div class="kpis" id="annualKpiGrid"></div>
@@ -1398,21 +1398,11 @@
       <section class="section metric-section" id="indicadoresMensuales">
         <div class="section-head">
           <div>
-            <h2>KPIs mensuales</h2>
+            <h2>Metas mensuales</h2>
           </div>
         </div>
         <div class="kpis" id="monthlyKpiGrid"></div>
       </section>
-
-      <section class="section" id="analisisMes">
-        <div class="section-head">
-          <div>
-            <h2>Análisis del mes</h2>
-          </div>
-        </div>
-        <article class="card panel analysis-panel" id="monthlyAnalysis"></article>
-      </section>
-
       <section class="section" id="programacion">
         <div class="section-head">
           <div>
@@ -1454,6 +1444,16 @@
             </iframe>
           </div>
         </article>
+      </section>
+
+
+      <section class="section" id="analisisMes">
+        <div class="section-head">
+          <div>
+            <h2>Análisis del mes</h2>
+          </div>
+        </div>
+        <article class="card panel analysis-panel" id="monthlyAnalysis"></article>
       </section>
     </div>
   </div>
@@ -1806,37 +1806,15 @@
           { delay: 135 }
         ),
         buildKpi(
-          'Capas vectoriales históricas',
-          d.capas,
-          [
-            ['Resultado acumulado', `${d.capas} capas`],
-            ['Meta anual', `${ANNUAL_GOALS.capas} capas`],
-            ['Cumplimiento acumulado', `${pct(d.capas, ANNUAL_GOALS.capas)}%`]
-          ],
-          pct(d.capas, ANNUAL_GOALS.capas),
-          { delay: 180 }
-        ),
-        buildKpi(
-          'Jornadas programadas',
+          'Jornadas de siembra',
           d.jornadas,
           [
             ['Resultado acumulado', `${d.jornadas} jornadas`],
             ['Meta anual', `${ANNUAL_GOALS.jornadas} jornadas`],
-            ['Período programado', 'Febrero–diciembre']
+            ['Cumplimiento acumulado', `${pct(d.jornadas, ANNUAL_GOALS.jornadas)}%`]
           ],
           pct(d.jornadas, ANNUAL_GOALS.jornadas),
-          { delay: 225 }
-        ),
-        buildKpi(
-          'Puntos de siembra atendidos',
-          d.sitios,
-          [
-            ['Resultado acumulado', `${d.sitios} puntos`],
-            ['Meta anual', `${ANNUAL_GOALS.sitios} puntos`],
-            ['Cumplimiento acumulado', `${pct(d.sitios, ANNUAL_GOALS.sitios)}%`]
-          ],
-          pct(d.sitios, ANNUAL_GOALS.sitios),
-          { delay: 270 }
+          { delay: 180 }
         ),
         buildKpi(
           'Municipios atendidos',
@@ -1847,7 +1825,7 @@
             ['Cobertura territorial', `${pct(d.municipios, ANNUAL_GOALS.municipios)}%`]
           ],
           pct(d.municipios, ANNUAL_GOALS.municipios),
-          { delay: 315 }
+          { delay: 225 }
         )
       ].join('');
 
@@ -1858,19 +1836,6 @@
 
     function renderMonthlyKpis(month){
       const d = MONTHLY_DATA[month].monthly;
-
-      const monthlyPercents = [
-        pctMonthly(d.jornadas, d.jornadasGoal),
-        pctMonthly(d.metros, d.metrosGoal),
-        pctMonthly(d.macollas, d.macollasGoal),
-        pctMonthly(d.mantenimiento, d.mantenimientoGoal),
-        pctMonthly(d.mapas, d.mapasGoal),
-        pctMonthly(d.sitios, d.sitiosGoal)
-      ];
-
-      if (d.capasGoal > 0 || d.capas > 0) monthlyPercents.push(pctMonthly(d.capas, d.capasGoal));
-      const avg = Math.round(monthlyPercents.reduce((a,b) => a + b, 0) / monthlyPercents.length);
-
       document.getElementById('monthlyKpiGrid').innerHTML = [
         buildKpi(
           'Jornadas del mes',
@@ -1926,41 +1891,7 @@
           ],
           pctMonthly(d.mapas, d.mapasGoal),
           { monthly: true, delay: 180 }
-        ),
-        buildKpi(
-          'Capas vectoriales del mes',
-          d.capas,
-          [
-            ['Resultado del mes', `${d.capas} capa${d.capas === 1 ? '' : 's'}`],
-            ['Meta mensual', d.capasGoal ? `${d.capasGoal} capa` : 'Sin entrega programada'],
-            ['Avance mensual', d.capasGoal ? `${pctMonthly(d.capas, d.capasGoal)}%` : 'No exigible']
-          ],
-          pctMonthly(d.capas, d.capasGoal),
-          { monthly: true, delay: 225 }
-        ),
-        buildKpi(
-          'Sitios atendidos en el mes',
-          d.sitios,
-          [
-            ['Resultado del mes', `${d.sitios} sitios`],
-            ['Meta mensual', `${d.sitiosGoal} sitios`],
-            ['Cumplimiento mensual', `${pctMonthly(d.sitios, d.sitiosGoal)}%`]
-          ],
-          pctMonthly(d.sitios, d.sitiosGoal),
-          { monthly: true, delay: 270 }
-        ),
-        buildKpi(
-          'Cumplimiento mensual',
-          `${avg}%`,
-          [
-            ['Lectura integrada', `${avg}%`],
-            ['Base de cálculo', 'Jornadas, siembra, mantenimiento, mapas y sitios'],
-            ['Período', monthName(month)]
-          ],
-          avg,
-          { monthly: true, delay: 315 }
-        )
-      ].join('');
+        )].join('');
     }
 
     function renderMonthlyAnalysis(month){
