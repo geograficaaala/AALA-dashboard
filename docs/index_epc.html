@@ -501,6 +501,13 @@
     .epc-hbar-value{text-align:right;font-size:.86rem;font-weight:850;color:#153f2a;font-variant-numeric:tabular-nums}
     .epc-chart-note{margin-top:12px;font-size:.83rem;line-height:1.6;color:#587166}
     @media(max-width:1100px){.epc-analysis-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.epc-hbar{grid-template-columns:1fr;gap:8px}.epc-hbar-value{text-align:left}}
+
+    .monthly-kpi-block{margin-top:18px}
+    .monthly-kpi-block:first-child{margin-top:0}
+    .monthly-kpi-subhead{display:flex;align-items:center;gap:10px;margin:0 0 10px;color:#195f33;font-size:.86rem;font-weight:900;letter-spacing:.09em;text-transform:uppercase}
+    .monthly-kpi-subhead::before{content:'';width:22px;height:3px;border-radius:999px;background:linear-gradient(90deg,#cdeed9,#195f33)}
+    .monthly-kpi-block.diplomado{padding:14px 14px 16px;border-radius:22px;background:linear-gradient(180deg,#f8fcf9 0%,#eef8f1 100%);border:1.5px solid rgba(25,95,51,.16)}
+    .monthly-kpi-block.diplomado .monthly-kpi-subhead{color:#0d4f2b}
     @media(max-width:760px){.epc-analysis-grid{grid-template-columns:1fr}.kpi-value{font-size:1.65rem!important}.annual-clear-main strong{font-size:1.72rem!important}}
     .section-head{align-items:flex-start!important}
     .section-head .section-sub{margin-top:5px}
@@ -1935,11 +1942,18 @@
       const status = computeProgramStatus(row);
       const latestText = meta.latest_month_label ? `${meta.latest_month_label} ${String(meta.latest_period||'').slice(0,4)}` : monthName(row.mes_num);
 
-      const monthlyCards = [
-        ...COVERAGE_CONFIG.map(cfg => coverageMonthlyKpiData(cfg, row)),
-        ...diplomaMonthlyKpis(row),
-        ...OP_CONFIG.map(cfg => operationalKpiData(cfg, row))
-      ].map((data, idx) => renderKpiCard(data, idx)).join('');
+      const monthlyCoverageCards = COVERAGE_CONFIG
+        .map(cfg => coverageMonthlyKpiData(cfg, row))
+        .map((data, idx) => renderKpiCard(data, idx))
+        .join('');
+      const monthlyDiplomaCards = diplomaMonthlyKpis(row)
+        .map((data, idx) => renderKpiCard(data, idx + COVERAGE_CONFIG.length))
+        .join('');
+      const monthlyOperationalCards = OP_CONFIG
+        .map(cfg => operationalKpiData(cfg, row))
+        .map((data, idx) => renderKpiCard(data, idx + COVERAGE_CONFIG.length + diplomaMonthlyKpis(row).length))
+        .join('');
+      const monthlyAny = monthlyCoverageCards || monthlyDiplomaCards || monthlyOperationalCards;
       const annualOperationalKpis = operationalAnnualKpisMarkup(row);
       const monthlyAnalysis = monthlyAnalysisMarkup(row);
       const annualChart = operationalAnnualChartMarkup(row);
@@ -1987,7 +2001,22 @@
                 <div class="section-title">Metas mensuales</div>
                               </div>
             </div>
-            <div class="kpis paired-kpis" id="monthlyKpiGrid">${monthlyCards || '<div class="empty">No hay metas mensuales para este al presente mes.</div>'}</div>
+            <div id="monthlyKpiGrid">
+              ${monthlyAny ? `
+                <div class="monthly-kpi-block">
+                  <div class="monthly-kpi-subhead">Cobertura EPC</div>
+                  <div class="kpis paired-kpis">${monthlyCoverageCards}</div>
+                </div>
+                <div class="monthly-kpi-block diplomado">
+                  <div class="monthly-kpi-subhead">Diplomado juvenil</div>
+                  <div class="kpis paired-kpis">${monthlyDiplomaCards}</div>
+                </div>
+                <div class="monthly-kpi-block">
+                  <div class="monthly-kpi-subhead">Actividades del mes</div>
+                  <div class="kpis paired-kpis">${monthlyOperationalCards}</div>
+                </div>
+              ` : '<div class="empty">No hay metas mensuales para este al presente mes.</div>'}
+            </div>
           </section>
 
           ${annualChart}
