@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Manejo de Tul · AALA</title>
-  <meta name="description" content="Tablero institucional del programa Manejo de Tul — Asociación Amigos del Lago de Atitlán">
+  <title>Siembra de Tul · AALA</title>
+  <meta name="description" content="Tablero institucional del programa Siembra de Tul — Asociación Amigos del Lago de Atitlán">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root{
@@ -1094,6 +1094,190 @@
       display:block;
     }
 
+
+
+    /* ── KPI clarity · Reforestación-compatible ── */
+    .hero-lead{
+      text-align:left;
+      max-width:94ch;
+      font-size:.9rem;
+      line-height:1.78;
+      hyphens:none;
+      text-wrap:pretty;
+    }
+
+    .metric-section .section-head h2,
+    #analisisMes .section-head h2,
+    #programacion .section-head h2,
+    #geoportal .section-head h2{
+      font-family:var(--font-head);
+      font-size:clamp(1.55rem,2.2vw,2.05rem);
+      font-weight:600;
+      line-height:1.15;
+      color:#172f24;
+      letter-spacing:-.02em;
+    }
+
+    .metric-section .section-head p{display:none}
+
+    .kpi.clean-kpi{
+      min-height:auto;
+      grid-template-rows:auto auto auto;
+      border-top:0;
+      border-left:5px solid #2e6a57;
+      padding:20px 18px 18px;
+      background:linear-gradient(180deg,#ffffff 0%,#fbfdfb 100%);
+      animation:kpiIn .46s ease both;
+      animation-delay:var(--delay,0ms);
+    }
+
+    .kpi.clean-kpi:hover{
+      border-left-color:#174f37;
+      transform:translateY(-4px);
+      box-shadow:0 18px 46px rgba(23,50,58,.13);
+    }
+
+    .kpi.clean-kpi .kpi-top{
+      display:block;
+      margin-bottom:8px;
+    }
+
+    .kpi.clean-kpi .kpi-label{
+      font-size:.76rem;
+      color:#375848;
+      letter-spacing:.075em;
+      margin-bottom:6px;
+    }
+
+    .kpi.clean-kpi .kpi-value{
+      font-family:var(--font-body);
+      font-size:clamp(1.65rem,2.2vw,2.2rem);
+      font-weight:800;
+      color:#132c20;
+      letter-spacing:-.035em;
+      line-height:1.08;
+      margin-top:4px;
+    }
+
+    .kpi.clean-kpi .kpi-readings{
+      display:grid;
+      gap:8px;
+      margin-top:8px;
+      align-content:start;
+    }
+
+    .kpi.clean-kpi .kpi-meta{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:10px;
+      padding:8px 10px;
+      border-radius:12px;
+      background:#f3f8f5;
+      border:1px solid #dfece5;
+      color:#42604f;
+      font-size:.83rem;
+      line-height:1.35;
+    }
+
+    .kpi.clean-kpi .kpi-meta span{
+      font-weight:700;
+      color:#5e7668;
+    }
+
+    .kpi.clean-kpi .kpi-meta strong{
+      font-family:var(--font-body);
+      font-weight:800;
+      color:#173822;
+      text-align:right;
+    }
+
+    .kpi.kpi-monthly-card .kpi-top{
+      display:block;
+      margin-bottom:8px;
+    }
+
+    .kpi-monthly-title{
+      display:block;
+      width:100%;
+      margin:0 0 12px;
+      color:#17314f !important;
+      font-family:var(--font-body);
+      font-size:clamp(1rem,1.05vw,1.16rem) !important;
+      font-weight:800 !important;
+      line-height:1.28 !important;
+      letter-spacing:-.02em !important;
+      text-transform:none !important;
+    }
+
+    .kpi.clean-kpi .progress{
+      height:7px;
+      background:#e3eee8;
+      margin-top:14px;
+    }
+
+    .kpi.clean-kpi .progress>span{
+      background:linear-gradient(90deg,#8bc9a4,#2e6a57);
+    }
+
+    .analysis-panel{
+      display:grid;
+      gap:14px;
+      background:linear-gradient(180deg,#ffffff 0%,#fbfdfb 100%);
+    }
+
+    .analysis-panel h3{
+      font-family:var(--font-head);
+      font-size:1.28rem;
+      font-weight:600;
+      color:#17314f;
+      margin:0;
+    }
+
+    .analysis-panel p{
+      color:#36516a;
+      font-size:.92rem;
+      line-height:1.78;
+      margin:0;
+      max-width:110ch;
+    }
+
+    .analysis-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+    }
+
+    .analysis-item{
+      padding:13px 14px;
+      border-radius:16px;
+      background:#f3f8f5;
+      border:1px solid #dfece5;
+    }
+
+    .analysis-item small{
+      display:block;
+      color:#5e7668;
+      font-size:.68rem;
+      font-weight:800;
+      letter-spacing:.09em;
+      text-transform:uppercase;
+      margin-bottom:5px;
+    }
+
+    .analysis-item strong{
+      display:block;
+      color:#173822;
+      font-size:.96rem;
+      line-height:1.35;
+    }
+
+    @keyframes kpiIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+    @media(max-width:900px){
+      .analysis-grid{grid-template-columns:1fr}
+    }
+
     @media(max-width:1180px){
       .header{flex-wrap:wrap}
       .header-stack{width:100%;justify-items:start}
@@ -1126,16 +1310,16 @@
       <img src="./aala_logo.png" alt="Logo Amigos del Lago de Atitlán" class="header-logo-img">
       <span class="brand-text">
         <span class="brand-kicker">Asociación Amigos del Lago de Atitlán</span>
-        <span class="brand-title">Manejo de Tul · Tablero de programa</span>
+        <span class="brand-title">Siembra de Tul · Tablero de programa</span>
       </span>
     </a>
 
     <div class="header-stack">
       <nav class="nav-tabs" aria-label="Navegación de la página">
         <a class="nav-tab active" href="#resumen">Resumen</a>
-        <a class="nav-tab" href="#objetivos">Objetivos</a>
-        <a class="nav-tab" href="#indicadoresMensuales">Indicadores mensuales</a>
         <a class="nav-tab" href="#indicadoresAnuales">Indicadores acumulados</a>
+        <a class="nav-tab" href="#indicadoresMensuales">Indicadores mensuales</a>
+        <a class="nav-tab" href="#analisisMes">Análisis del mes</a>
         <a class="nav-tab" href="#programacion">Programación</a>
         <a class="nav-tab" href="#geoportal">Geoportal</a>
       </nav>
@@ -1175,7 +1359,7 @@
       <section class="hero" id="resumen">
         <div class="card hero-main">
           <div class="hero-copy-text">
-            <h1>Manejo de Tul</h1>
+            <h1>Siembra de Tul</h1>
 
             <p class="hero-lead">
               En el lago de Atitlán se han identificado dos tipos de tul: <strong>Schoenoplectus californicus</strong>, comúnmente conocido como tul macho, utilizado para la elaboración de artesanías como petates y sopladores; y <strong>Typha domingensis</strong>, conocido como tul hembra, utilizado principalmente para amarrar cangrejos de agua dulce.
@@ -1202,135 +1386,37 @@
           </div>
         </aside>
       </section>
-<section class="section" id="objetivos">
-        <article class="objectives-panel">
-          <div class="section-kicker">Objetivos del programa</div>
-
-          <div class="objective-general">
-            <h3>Objetivo general</h3>
-            <p>
-              Conservar la biodiversidad de macrófitas por medio de la restauración ecológica y el fomento de la resiliencia ambiental en el Lago de Atitlán, a través de la siembra y mantenimiento de tul macho.
-            </p>
-          </div>
-
-          <div class="objective-list">
-            <h3>Objetivos específicos</h3>
-
-            <div class="objective-row">
-              <div class="objective-n">01</div>
-              <div>
-                <strong>Ampliar la cobertura de tul</strong>
-                <span>Ampliar la cobertura de tul a las orillas del Lago de Atitlán.</span>
-              </div>
-            </div>
-
-            <div class="objective-row">
-              <div class="objective-n">02</div>
-              <div>
-                <strong>Realizar mantenimiento a masas tulares</strong>
-                <span>Realizar jornadas de mantenimiento a las masas tulares.</span>
-              </div>
-            </div>
-
-            <div class="objective-row">
-              <div class="objective-n">03</div>
-              <div>
-                <strong>Actualizar el mapeo de masas tulares</strong>
-                <span>Actualizar el mapeo de masas tulares a través de implementación de fotogrametría para la digitalización de jornadas de siembra.</span>
-              </div>
-            </div>
-
-            <div class="objective-row">
-              <div class="objective-n">04</div>
-              <div>
-                <strong>Generar capas vectoriales históricas</strong>
-                <span>Obtener las capas en formato vectorial de la cobertura histórica de tul mediante el método S2DR3.</span>
-              </div>
-            </div>
-          </div>
-        </article>
-      </section>
-
-      <section class="section">
-        <article class="card panel">
-          <div class="section-head">
-            <div>
-              <h2>Metas anuales 2026</h2>
-              <p>Metas institucionales de seguimiento anual del programa.</p>
-            </div>
-          </div>
-
-          <div class="annual-goals-grid">
-            <div class="goal-card">
-              <small>Siembra anual</small>
-              <strong>1,300 metros lineales sembrados</strong>
-              <div class="goal-meta">10 puntos de siembra</div>
-              <div class="goal-progress">Cobertura lineal a lo largo del litoral del Lago de Atitlán.</div>
-            </div>
-
-            <div class="goal-card">
-              <small>Material vegetal</small>
-              <strong>1,350 macollas establecidas</strong>
-              <div class="goal-meta">Meta anual</div>
-              <div class="goal-progress">Material vegetal programado para las jornadas de siembra.</div>
-            </div>
-
-            <div class="goal-card">
-              <small>Mantenimiento</small>
-              <strong>10 jornadas de mantenimiento</strong>
-              <div class="goal-meta">Áreas estratégicas</div>
-              <div class="goal-progress">Acciones orientadas al cuidado y permanencia de masas tulares.</div>
-            </div>
-
-            <div class="goal-card">
-              <small>Cartografía temática</small>
-              <strong>11 mapas actualizados</strong>
-              <div class="goal-meta">Por municipio</div>
-              <div class="goal-progress">Información territorial para seguimiento y toma de decisiones.</div>
-            </div>
-
-            <div class="goal-card">
-              <small>Capas históricas</small>
-              <strong>4 capas vectoriales</strong>
-              <div class="goal-meta">Meta anual</div>
-              <div class="goal-progress">Base geográfica para el análisis histórico de cobertura de tul.</div>
-            </div>
-
-            <div class="goal-card">
-              <small>Programación anual</small>
-              <strong>21 jornadas programadas</strong>
-              <div class="goal-meta">Febrero–diciembre</div>
-              <div class="goal-progress">Incluye siembra, resiembra, mantenimiento y monitoreo.</div>
-            </div>
-          </div>
-        </article>
-      </section>
-
-      <section class="section" id="indicadoresMensuales">
+      <section class="section metric-section" id="indicadoresAnuales">
         <div class="section-head">
           <div>
-            <h2>Avance mensual frente a metas mensuales</h2>
-            <p id="monthlyPeriodText">Lectura correspondiente al mes seleccionado.</p>
+            <h2>KPIs acumulados anuales</h2>
+          </div>
+        </div>
+        <div class="kpis" id="annualKpiGrid"></div>
+      </section>
+
+      <section class="section metric-section" id="indicadoresMensuales">
+        <div class="section-head">
+          <div>
+            <h2>KPIs mensuales</h2>
           </div>
         </div>
         <div class="kpis" id="monthlyKpiGrid"></div>
       </section>
 
-      <section class="section" id="indicadoresAnuales">
+      <section class="section" id="analisisMes">
         <div class="section-head">
           <div>
-            <h2>Avance acumulado frente a metas anuales</h2>
-            <p id="annualPeriodText">Avance acumulado del programa desde febrero de 2026.</p>
+            <h2>Análisis del mes</h2>
           </div>
         </div>
-        <div class="kpis" id="annualKpiGrid"></div>
+        <article class="card panel analysis-panel" id="monthlyAnalysis"></article>
       </section>
 
       <section class="section" id="programacion">
         <div class="section-head">
           <div>
             <h2>Programación de jornadas 2026</h2>
-            <p>Las jornadas realizadas al mes seleccionado se muestran en verde. Las jornadas posteriores se mantienen como programadas.</p>
           </div>
         </div>
 
@@ -1344,7 +1430,6 @@
           <div class="section-head">
             <div>
               <h2>Cobertura territorial acumulada</h2>
-              <p>Municipios donde el programa ha registrado actividades durante el período seleccionado.</p>
             </div>
           </div>
           <div class="territory-list" id="territoryList"></div>
@@ -1354,8 +1439,7 @@
       <section class="section" id="geoportal">
         <div class="section-head">
           <div>
-            <h2>Geoportal del programa</h2>
-            <p>Visor geográfico del programa Manejo de Tul.</p>
+            <h2>Geoportal oficial de Tul</h2>
           </div>
         </div>
 
@@ -1363,7 +1447,7 @@
           <div class="iframe-box">
             <iframe
               src="https://experience.arcgis.com/experience/a1342628ff9e473f870f0f11ce49bf01/"
-              title="Geoportal Manejo de Tul"
+              title="Geoportal oficial de Tul"
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
               allowfullscreen>
@@ -1456,6 +1540,7 @@
       mantenimiento: 10,
       mapas: 11,
       capas: 4,
+      sitios: 10,
       municipios: 6
     };
 
@@ -1484,6 +1569,10 @@
           macollasGoal: 132,
           mantenimiento: 1,
           mantenimientoGoal: 1,
+          mapas: 1,
+          mapasGoal: 1,
+          capas: 0,
+          capasGoal: 0,
           sitios: 2,
           sitiosGoal: 2
         },
@@ -1508,6 +1597,10 @@
           macollasGoal: 145,
           mantenimiento: 1,
           mantenimientoGoal: 1,
+          mapas: 1,
+          mapasGoal: 1,
+          capas: 1,
+          capasGoal: 1,
           sitios: 2,
           sitiosGoal: 2
         },
@@ -1532,6 +1625,10 @@
           macollasGoal: 132,
           mantenimiento: 1,
           mantenimientoGoal: 1,
+          mapas: 1,
+          mapasGoal: 1,
+          capas: 0,
+          capasGoal: 0,
           sitios: 2,
           sitiosGoal: 2
         },
@@ -1551,36 +1648,56 @@
     const EVENTS = [
       { month: 2, date: '13-feb', municipio: 'Santa Cruz La Laguna', sitio: 'Patalik', actividad: 'Siembra', semillero: 'Santa Catarina Palopó', coords: '423421, 1629737' },
       { month: 2, date: '27-feb', municipio: 'San Antonio Palopó', sitio: 'Tzampetey 1', actividad: 'Siembra', semillero: 'Santa Catarina Palopó', coords: '431825, 1620374' },
-
       { month: 3, date: '13-mar', municipio: 'San Pablo La Laguna', sitio: 'Las Cristalinas', actividad: 'Resiembra', semillero: 'Mismo lugar', coords: '416103, 1626975' },
       { month: 3, date: '27-mar', municipio: 'San Antonio Palopó', sitio: 'Tzampetey 2, 3, 4, 5', actividad: 'Siembra', semillero: 'Santa Catarina Palopó', coords: '431955, 1620392' },
-
       { month: 4, date: '10-abr', municipio: 'San Juan La Laguna', sitio: 'Pachites 1', actividad: 'Siembra', semillero: 'San Pablo La Laguna', coords: '415428, 1626315' },
       { month: 4, date: '24-abr', municipio: 'San Juan La Laguna', sitio: 'Las Cristalinas', actividad: 'Siembra', semillero: 'San Pablo La Laguna (2 puntos)', coords: '415592, 1626421' },
-
       { month: 5, date: '08-may', municipio: 'San Pedro La Laguna', sitio: 'Playa Dorada 1', actividad: 'Siembra', semillero: 'Santa Catarina Palopó', coords: '419710, 1623057' },
       { month: 5, date: '22-may', municipio: 'San Pedro La Laguna', sitio: 'Playa Dorada 2, 3, 4', actividad: 'Siembra', semillero: 'Santa Catarina Palopó', coords: '419942, 1622765' },
-
       { month: 6, date: '12-jun', municipio: 'San Antonio Palopó', sitio: 'Chicaman', actividad: 'Siembra', semillero: 'Santa Catarina Palopó', coords: '432879, 1621322' },
       { month: 6, date: '26-jun', municipio: 'San Juan La Laguna', sitio: 'Pachites 2', actividad: 'Siembra', semillero: 'San Pablo La Laguna', coords: '415350, 1626251' },
-
       { month: 7, date: '10-jul', municipio: 'San Antonio Palopó', sitio: 'Chicaman, Agua Escondida 1', actividad: 'Siembra', semillero: 'Santa Catarina Palopó', coords: '433656, 1621863' },
       { month: 7, date: '24-jul', municipio: 'Panajachel', sitio: 'Mariposario 2', actividad: 'Siembra', semillero: 'Por validar', coords: '427622, 1630608' },
-
       { month: 8, date: '07-ago', municipio: 'San Antonio Palopó', sitio: 'Chicaman, Agua Escondida 2', actividad: 'Siembra', semillero: 'Santa Catarina Palopó', coords: '433646, 1621925' },
       { month: 8, date: '21-ago', municipio: 'San Juan La Laguna', sitio: 'Pachites 3', actividad: 'Siembra', semillero: 'San Pablo La Laguna', coords: '415374, 1625879' },
-
       { month: 9, date: '11-sep', municipio: 'San Antonio Palopó', sitio: 'Tzampetey, Piedra del Mono', actividad: 'Siembra', semillero: 'Santa Catarina Palopó', coords: '432772, 1621333' },
       { month: 9, date: '25-sep', municipio: 'San Antonio Palopó', sitio: 'Panka', actividad: 'Siembra', semillero: 'Santa Catarina Palopó', coords: '432250, 1620460' },
-
       { month: 10, date: '09-oct', municipio: 'San Antonio Palopó', sitio: 'Tzampetey, Villa de los Dioses', actividad: 'Siembra', semillero: 'Por validar', coords: '432701, 1621339' },
       { month: 10, date: '23-oct', municipio: 'Panajachel', sitio: 'San Buenaventura', actividad: 'Siembra', semillero: 'Tzanjuyú', coords: '428565, 1630563' },
-
       { month: 11, date: '13-nov', municipio: 'Panajachel', sitio: 'San Buenaventura', actividad: 'Siembra', semillero: 'Por validar', coords: '428084, 1630878' },
       { month: 11, date: '27-nov', municipio: 'Panajachel', sitio: 'Mariposario 3', actividad: 'Siembra', semillero: 'Por validar', coords: '427507, 1630445' },
-
       { month: 12, date: '04-dic', municipio: 'Por confirmar', sitio: 'Monitoreo anual de masas tulares', actividad: 'Monitoreo', semillero: 'No aplica', coords: 'Por validar' }
     ];
+
+    const MONTHLY_ANALYSIS = {
+      2: {
+        headline: 'Febrero abre la ejecución anual con cumplimiento operativo completo.',
+        body: 'El programa inicia el período con dos jornadas realizadas, superando ligeramente la meta de metros lineales y cumpliendo la programación mensual de mantenimiento. La cobertura inicial permite activar el seguimiento territorial de los primeros puntos de siembra en el litoral del lago.',
+        items: [
+          ['Ejecución', '2 jornadas realizadas en Santa Cruz La Laguna y San Antonio Palopó.'],
+          ['Restauración', '230 metros lineales sembrados y 135 macollas establecidas.'],
+          ['SIG', '1 mapa actualizado para documentar sitios iniciales de intervención.']
+        ]
+      },
+      3: {
+        headline: 'Marzo consolida avance de siembra, resiembra y soporte cartográfico.',
+        body: 'El mes mantiene el ritmo de dos jornadas y suma una capa vectorial histórica al seguimiento territorial. La resiembra en San Pablo La Laguna y la continuidad de siembra en San Antonio Palopó fortalecen la trazabilidad técnica del programa.',
+        items: [
+          ['Ejecución', '2 jornadas realizadas y 250 metros lineales intervenidos.'],
+          ['Material vegetal', '147 macollas establecidas durante el período mensual.'],
+          ['Información territorial', '1 mapa actualizado y 1 capa vectorial incorporada al seguimiento.']
+        ]
+      },
+      4: {
+        headline: 'Abril mantiene cumplimiento mensual y amplía la cobertura acumulada en San Juan La Laguna.',
+        body: 'El período cumple la meta mensual de jornadas, metros lineales, macollas y mantenimiento. Con seis sitios acumulados al cierre de abril, el programa avanza de forma ordenada hacia la programación anual de siembra, resiembra, mantenimiento y monitoreo.',
+        items: [
+          ['Ejecución', '2 jornadas realizadas en San Juan La Laguna.'],
+          ['Restauración', '225 metros lineales sembrados y 132 macollas establecidas.'],
+          ['Seguimiento', '3 mapas acumulados y 4 municipios atendidos a abril.']
+        ]
+      }
+    };
 
     let selectedMonth = DEFAULT_MONTH;
 
@@ -1590,6 +1707,11 @@
 
     function pct(v,g){
       return g ? Math.max(0, Math.min(100, Math.round((v / g) * 100))) : 0;
+    }
+
+    function pctMonthly(v,g){
+      if (g > 0) return pct(v,g);
+      return v > 0 ? 100 : 0;
     }
 
     function monthName(n){
@@ -1615,22 +1737,19 @@
       });
     }
 
-    function buildKpi(label, value, meta1, meta2, percent, suffix = ''){
+    function buildKpi(label, value, readings, percent, options = {}){
+      const isMonthly = options.monthly === true;
+      const stateClass = isMonthly ? 'kpi-monthly-card' : '';
+      const titleBlock = isMonthly
+        ? `<div class="kpi-monthly-title">${label}</div><div class="kpi-top"><div><div class="kpi-value">${value}</div></div></div>`
+        : `<div class="kpi-top"><div><div class="kpi-label">${label}</div><div class="kpi-value">${value}</div></div></div>`;
+
       return `
-        <article class="card kpi" style="--delay:${Math.random() * 120 | 0}ms">
-          <div class="kpi-top">
-            <div>
-              <div class="kpi-label">${label}</div>
-              <div class="kpi-value">${value}${suffix}</div>
-            </div>
-            <span class="kpi-state green">${percent}%</span>
-          </div>
-
+        <article class="card kpi clean-kpi ${stateClass}" style="--delay:${options.delay || 0}ms">
+          ${titleBlock}
           <div class="kpi-readings">
-            <div class="kpi-meta">${meta1}</div>
-            <div class="kpi-meta">${meta2}</div>
+            ${readings.map(r => `<div class="kpi-meta"><span>${r[0]}</span><strong>${r[1]}</strong></div>`).join('')}
           </div>
-
           <div class="progress">
             <span style="width:${percent}%"></span>
           </div>
@@ -1638,135 +1757,229 @@
       `;
     }
 
+    function renderAnnualKpis(month){
+      const d = MONTHLY_DATA[month].annual;
+
+      const annualCards = [
+        buildKpi(
+          'Metros lineales sembrados',
+          `${fmt(d.metros)} m`,
+          [
+            ['Resultado acumulado', `${fmt(d.metros)} m`],
+            ['Meta anual', `${fmt(ANNUAL_GOALS.metros)} m`],
+            ['Cumplimiento acumulado', `${pct(d.metros, ANNUAL_GOALS.metros)}%`]
+          ],
+          pct(d.metros, ANNUAL_GOALS.metros),
+          { delay: 0 }
+        ),
+        buildKpi(
+          'Macollas establecidas',
+          fmt(d.macollas),
+          [
+            ['Resultado acumulado', `${fmt(d.macollas)} macollas`],
+            ['Meta anual', `${fmt(ANNUAL_GOALS.macollas)} macollas`],
+            ['Cumplimiento acumulado', `${pct(d.macollas, ANNUAL_GOALS.macollas)}%`]
+          ],
+          pct(d.macollas, ANNUAL_GOALS.macollas),
+          { delay: 45 }
+        ),
+        buildKpi(
+          'Mantenimiento de masas tulares',
+          d.mantenimiento,
+          [
+            ['Resultado acumulado', `${d.mantenimiento} jornadas`],
+            ['Meta anual', `${ANNUAL_GOALS.mantenimiento} jornadas`],
+            ['Cumplimiento acumulado', `${pct(d.mantenimiento, ANNUAL_GOALS.mantenimiento)}%`]
+          ],
+          pct(d.mantenimiento, ANNUAL_GOALS.mantenimiento),
+          { delay: 90 }
+        ),
+        buildKpi(
+          'Mapas actualizados',
+          d.mapas,
+          [
+            ['Resultado acumulado', `${d.mapas} mapas`],
+            ['Meta anual', `${ANNUAL_GOALS.mapas} mapas`],
+            ['Cumplimiento acumulado', `${pct(d.mapas, ANNUAL_GOALS.mapas)}%`]
+          ],
+          pct(d.mapas, ANNUAL_GOALS.mapas),
+          { delay: 135 }
+        ),
+        buildKpi(
+          'Capas vectoriales históricas',
+          d.capas,
+          [
+            ['Resultado acumulado', `${d.capas} capas`],
+            ['Meta anual', `${ANNUAL_GOALS.capas} capas`],
+            ['Cumplimiento acumulado', `${pct(d.capas, ANNUAL_GOALS.capas)}%`]
+          ],
+          pct(d.capas, ANNUAL_GOALS.capas),
+          { delay: 180 }
+        ),
+        buildKpi(
+          'Jornadas programadas',
+          d.jornadas,
+          [
+            ['Resultado acumulado', `${d.jornadas} jornadas`],
+            ['Meta anual', `${ANNUAL_GOALS.jornadas} jornadas`],
+            ['Período programado', 'Febrero–diciembre']
+          ],
+          pct(d.jornadas, ANNUAL_GOALS.jornadas),
+          { delay: 225 }
+        ),
+        buildKpi(
+          'Puntos de siembra atendidos',
+          d.sitios,
+          [
+            ['Resultado acumulado', `${d.sitios} puntos`],
+            ['Meta anual', `${ANNUAL_GOALS.sitios} puntos`],
+            ['Cumplimiento acumulado', `${pct(d.sitios, ANNUAL_GOALS.sitios)}%`]
+          ],
+          pct(d.sitios, ANNUAL_GOALS.sitios),
+          { delay: 270 }
+        ),
+        buildKpi(
+          'Municipios atendidos',
+          d.municipios,
+          [
+            ['Resultado acumulado', `${d.municipios} municipios`],
+            ['Meta de referencia', `${ANNUAL_GOALS.municipios} municipios`],
+            ['Cobertura territorial', `${pct(d.municipios, ANNUAL_GOALS.municipios)}%`]
+          ],
+          pct(d.municipios, ANNUAL_GOALS.municipios),
+          { delay: 315 }
+        )
+      ].join('');
+
+      document.getElementById('annualKpiGrid').innerHTML = annualCards;
+      document.getElementById('execKpiGrid').innerHTML = annualCards;
+      document.getElementById('execPeriodText').textContent = `Resumen ejecutivo a ${monthName(month)} de ${ACTIVE_YEAR}.`;
+    }
+
     function renderMonthlyKpis(month){
       const d = MONTHLY_DATA[month].monthly;
 
-      const avg = Math.round((
-        pct(d.jornadas, d.jornadasGoal) +
-        pct(d.metros, d.metrosGoal) +
-        pct(d.macollas, d.macollasGoal) +
-        pct(d.mantenimiento, d.mantenimientoGoal)
-      ) / 4);
+      const monthlyPercents = [
+        pctMonthly(d.jornadas, d.jornadasGoal),
+        pctMonthly(d.metros, d.metrosGoal),
+        pctMonthly(d.macollas, d.macollasGoal),
+        pctMonthly(d.mantenimiento, d.mantenimientoGoal),
+        pctMonthly(d.mapas, d.mapasGoal),
+        pctMonthly(d.sitios, d.sitiosGoal)
+      ];
 
-      document.getElementById('monthlyPeriodText').textContent =
-        `Lectura correspondiente a ${monthName(month)} de 2026.`;
+      if (d.capasGoal > 0 || d.capas > 0) monthlyPercents.push(pctMonthly(d.capas, d.capasGoal));
+      const avg = Math.round(monthlyPercents.reduce((a,b) => a + b, 0) / monthlyPercents.length);
 
       document.getElementById('monthlyKpiGrid').innerHTML = [
         buildKpi(
           'Jornadas del mes',
           d.jornadas,
-          `Meta mensual: ${d.jornadasGoal} jornadas.`,
-          'Resultado del período seleccionado.',
-          pct(d.jornadas, d.jornadasGoal)
+          [
+            ['Resultado del mes', `${d.jornadas} jornadas`],
+            ['Meta mensual', `${d.jornadasGoal} jornadas`],
+            ['Cumplimiento mensual', `${pctMonthly(d.jornadas, d.jornadasGoal)}%`]
+          ],
+          pctMonthly(d.jornadas, d.jornadasGoal),
+          { monthly: true, delay: 0 }
         ),
         buildKpi(
-          'Metros lineales del mes',
-          fmt(d.metros),
-          `Meta mensual: ${fmt(d.metrosGoal)} metros lineales.`,
-          'Cobertura lineal intervenida durante el mes.',
-          pct(d.metros, d.metrosGoal)
+          'Metros lineales sembrados en el mes',
+          `${fmt(d.metros)} m`,
+          [
+            ['Resultado del mes', `${fmt(d.metros)} m`],
+            ['Meta mensual', `${fmt(d.metrosGoal)} m`],
+            ['Cumplimiento mensual', `${pctMonthly(d.metros, d.metrosGoal)}%`]
+          ],
+          pctMonthly(d.metros, d.metrosGoal),
+          { monthly: true, delay: 45 }
         ),
         buildKpi(
-          'Macollas del mes',
+          'Macollas establecidas en el mes',
           fmt(d.macollas),
-          `Meta mensual: ${fmt(d.macollasGoal)} macollas.`,
-          'Material vegetal utilizado en jornadas del mes.',
-          pct(d.macollas, d.macollasGoal)
+          [
+            ['Resultado del mes', `${fmt(d.macollas)} macollas`],
+            ['Meta mensual', `${fmt(d.macollasGoal)} macollas`],
+            ['Cumplimiento mensual', `${pctMonthly(d.macollas, d.macollasGoal)}%`]
+          ],
+          pctMonthly(d.macollas, d.macollasGoal),
+          { monthly: true, delay: 90 }
         ),
         buildKpi(
-          'Mantenimiento del mes',
+          'Mantenimiento de masas tulares en el mes',
           d.mantenimiento,
-          `Meta mensual: ${d.mantenimientoGoal} jornada.`,
-          'Acciones de cuidado de masas tulares.',
-          pct(d.mantenimiento, d.mantenimientoGoal)
+          [
+            ['Resultado del mes', `${d.mantenimiento} jornada`],
+            ['Meta mensual', `${d.mantenimientoGoal} jornada`],
+            ['Cumplimiento mensual', `${pctMonthly(d.mantenimiento, d.mantenimientoGoal)}%`]
+          ],
+          pctMonthly(d.mantenimiento, d.mantenimientoGoal),
+          { monthly: true, delay: 135 }
         ),
         buildKpi(
-          'Sitios atendidos',
+          'Mapas actualizados en el mes',
+          d.mapas,
+          [
+            ['Resultado del mes', `${d.mapas} mapa`],
+            ['Meta mensual', `${d.mapasGoal} mapa`],
+            ['Cumplimiento mensual', `${pctMonthly(d.mapas, d.mapasGoal)}%`]
+          ],
+          pctMonthly(d.mapas, d.mapasGoal),
+          { monthly: true, delay: 180 }
+        ),
+        buildKpi(
+          'Capas vectoriales del mes',
+          d.capas,
+          [
+            ['Resultado del mes', `${d.capas} capa${d.capas === 1 ? '' : 's'}`],
+            ['Meta mensual', d.capasGoal ? `${d.capasGoal} capa` : 'Sin entrega programada'],
+            ['Avance mensual', d.capasGoal ? `${pctMonthly(d.capas, d.capasGoal)}%` : 'No exigible']
+          ],
+          pctMonthly(d.capas, d.capasGoal),
+          { monthly: true, delay: 225 }
+        ),
+        buildKpi(
+          'Sitios atendidos en el mes',
           d.sitios,
-          `Meta mensual: ${d.sitiosGoal} sitios.`,
-          'Sitios intervenidos en el período.',
-          pct(d.sitios, d.sitiosGoal)
+          [
+            ['Resultado del mes', `${d.sitios} sitios`],
+            ['Meta mensual', `${d.sitiosGoal} sitios`],
+            ['Cumplimiento mensual', `${pctMonthly(d.sitios, d.sitiosGoal)}%`]
+          ],
+          pctMonthly(d.sitios, d.sitiosGoal),
+          { monthly: true, delay: 270 }
         ),
         buildKpi(
           'Cumplimiento mensual',
+          `${avg}%`,
+          [
+            ['Lectura integrada', `${avg}%`],
+            ['Base de cálculo', 'Jornadas, siembra, mantenimiento, mapas y sitios'],
+            ['Período', monthName(month)]
+          ],
           avg,
-          'Promedio de cumplimiento de metas mensuales.',
-          'Lectura sintética del comportamiento mensual.',
-          avg,
-          '%'
+          { monthly: true, delay: 315 }
         )
       ].join('');
     }
 
-    function renderAnnualKpis(month){
-      const d = MONTHLY_DATA[month].annual;
+    function renderMonthlyAnalysis(month){
+      const d = MONTHLY_ANALYSIS[month];
+      const el = document.getElementById('monthlyAnalysis');
+      if (!el || !d) return;
 
-      document.getElementById('annualPeriodText').textContent =
-        `Avance acumulado desde febrero hasta ${monthName(month).toLowerCase()} de 2026.`;
-
-      const html = [
-        buildKpi(
-          'Jornadas acumuladas',
-          d.jornadas,
-          `Meta anual: ${ANNUAL_GOALS.jornadas} jornadas.`,
-          'Avance acumulado desde febrero.',
-          pct(d.jornadas, ANNUAL_GOALS.jornadas)
-        ),
-        buildKpi(
-          'Metros lineales acumulados',
-          fmt(d.metros),
-          `Meta anual: ${fmt(ANNUAL_GOALS.metros)} metros lineales.`,
-          'Cobertura acumulada trabajada.',
-          pct(d.metros, ANNUAL_GOALS.metros)
-        ),
-        buildKpi(
-          'Macollas acumuladas',
-          fmt(d.macollas),
-          `Meta anual: ${fmt(ANNUAL_GOALS.macollas)} macollas.`,
-          'Material vegetal acumulado.',
-          pct(d.macollas, ANNUAL_GOALS.macollas)
-        ),
-        buildKpi(
-          'Mantenimiento acumulado',
-          d.mantenimiento,
-          `Meta anual: ${ANNUAL_GOALS.mantenimiento} jornadas.`,
-          'Acciones de cuidado y permanencia.',
-          pct(d.mantenimiento, ANNUAL_GOALS.mantenimiento)
-        ),
-        buildKpi(
-          'Mapas actualizados',
-          d.mapas,
-          `Meta anual: ${ANNUAL_GOALS.mapas} mapas.`,
-          'Actualización cartográfica de cobertura.',
-          pct(d.mapas, ANNUAL_GOALS.mapas)
-        ),
-        buildKpi(
-          'Capas vectoriales',
-          d.capas,
-          `Meta anual: ${ANNUAL_GOALS.capas} capas.`,
-          'Capas históricas en formato vectorial.',
-          pct(d.capas, ANNUAL_GOALS.capas)
-        ),
-        buildKpi(
-          'Municipios atendidos',
-          d.municipios,
-          `Meta de referencia: ${ANNUAL_GOALS.municipios} municipios.`,
-          'Cobertura territorial acumulada.',
-          pct(d.municipios, ANNUAL_GOALS.municipios)
-        ),
-        buildKpi(
-          'Sitios atendidos',
-          d.sitios,
-          `Sitios acumulados: ${d.sitios}.`,
-          'Puntos intervenidos mediante jornadas.',
-          pct(d.sitios, 10)
-        )
-      ].join('');
-
-      document.getElementById('annualKpiGrid').innerHTML = html;
-      document.getElementById('execKpiGrid').innerHTML = html;
-      document.getElementById('execPeriodText').textContent =
-        `Resumen ejecutivo a ${monthName(month)} de 2026.`;
+      el.innerHTML = `
+        <h3>${d.headline}</h3>
+        <p>${d.body}</p>
+        <div class="analysis-grid">
+          ${d.items.map(item => `
+            <div class="analysis-item">
+              <small>${item[0]}</small>
+              <strong>${item[1]}</strong>
+            </div>
+          `).join('')}
+        </div>
+      `;
     }
 
     function renderCalendar(month){
@@ -1835,28 +2048,9 @@
         btn.classList.toggle('active', Number(btn.dataset.month) === month);
       });
 
-      const d = MONTHLY_DATA[month];
-
-      const periodTitle = document.getElementById('periodTitle');
-      const periodSubtitle = document.getElementById('periodSubtitle');
-      const periodTag = document.getElementById('periodTag');
-
-      if (periodTitle) {
-        periodTitle.textContent = `Avance acumulado a ${monthName(month)} ${ACTIVE_YEAR}`;
-      }
-
-      if (periodSubtitle) {
-        periodSubtitle.textContent =
-          `Lectura del programa desde febrero hasta ${monthName(month).toLowerCase()}, con ${d.annual.jornadas} jornadas realizadas de ${ANNUAL_GOALS.jornadas} programadas.`;
-      }
-
-      if (periodTag) {
-        periodTag.textContent =
-          month === DEFAULT_MONTH ? 'Al presente mes' : `Mes seleccionado: ${monthName(month)}`;
-      }
-
-      renderMonthlyKpis(month);
       renderAnnualKpis(month);
+      renderMonthlyKpis(month);
+      renderMonthlyAnalysis(month);
       renderCalendar(month);
       renderTerritory(month);
     }
