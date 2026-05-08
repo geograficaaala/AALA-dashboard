@@ -1903,6 +1903,9 @@ iframe[src*="maps"] {
   .survival-card{grid-template-columns:1fr !important}
 }
 
+
+.compat-hidden{display:none!important}
+
 </style>
 
 </head>
@@ -2109,6 +2112,17 @@ iframe[src*="maps"] {
 
 
 
+</div>
+
+<!-- Contenedores de compatibilidad: se mantienen ocultos para que la lógica JS existente no falle después de simplificar el tablero visual. -->
+<div class="compat-hidden" aria-hidden="true">
+  <select id="periodSelect"></select>
+  <div id="alertPanel"></div>
+  <div id="narrativePanel"></div>
+  <div id="lineChart"></div>
+  <div id="lineInterp"></div>
+  <div id="barChart"></div>
+  <div id="barInterp"></div>
 </div>
 
 <div class="presentation-overlay" id="presentationOverlay" aria-hidden="true">
@@ -2527,6 +2541,10 @@ const ACTIVE_YEAR = 2026;
 const ACTIVE_MONTH_MAX = 4;
 let presentationIndex = 0;
 
+
+function setHtml(id, html){ const el=document.getElementById(id); if(el) el.innerHTML=html; }
+function setText(id, txt){ const el=document.getElementById(id); if(el) el.textContent=txt; }
+
 function buildMonthControls(){
   const select = document.getElementById('periodSelect');
   const pills = document.getElementById('monthPills');
@@ -2606,6 +2624,7 @@ function annualKpiMessage(cfg, row){
 
 function renderKpis(row){
   const grid = document.getElementById('kpiGrid');
+  if (!grid) return;
   grid.innerHTML = KPI_CONFIG.map((cfg, idx) => {
     const pctRaw = cfg.id === 'arboles' ? 0 : safeNumber(row[cfg.pctField]);
     const pct = Math.max(0, Math.min(100, pctRaw * 100));
@@ -2679,10 +2698,11 @@ function renderComplementaryKpis(){
 
 function renderExecutive(row){
   const status = overallStatus(row);
-  document.getElementById('execStatusBadge').textContent = status.label;
-  document.getElementById('execPeriodInfo').textContent = `${row.mes_label} ${row.anio} · último período al presente mes Abril 2026`;
-  document.getElementById('execPeriodPill').textContent = `${row.mes_label} ${row.anio}`;
+  setText('execStatusBadge', status.label);
+  setText('execPeriodInfo', `${row.mes_label} ${row.anio} · último período al presente mes Abril 2026`);
+  setText('execPeriodPill', `${row.mes_label} ${row.anio}`);
   const execGrid = document.getElementById('execKpiGrid');
+  if (!execGrid) return;
   execGrid.innerHTML = KPI_CONFIG.map(cfg => {
     const pct = cfg.id === 'arboles' ? 0 : clampPct(row[cfg.pctField]);
     const pctText = cfg.id === 'arboles' ? '0%' : formatPercent(row[cfg.pctField]);
@@ -2690,12 +2710,12 @@ function renderExecutive(row){
   }).join('');
   animateProgressBars(execGrid);
 
-  document.getElementById('execStrip').innerHTML = `
+  setHtml('execStrip', `
     <div class="exec-strip-card"><small>Cartografía</small><strong>${escapeHtml(formatPercent(row.pct_cartografia_acum))}</strong></div>
     <div class="exec-strip-card"><small>Especies activas</small><strong>${escapeHtml(formatNumber(row.especies_acumuladas_proxy,0))}</strong></div>
     <div class="exec-strip-card"><small>Área intervenida del mes</small><strong>${escapeHtml(formatByUnit(row.area_intervenida_ha_mes,'ha',2))}</strong></div>
     <div class="exec-strip-card"><small>Estatus del reporte</small><strong>${escapeHtml(row.estatus_reporte || '—')}</strong></div>
-  `;
+  `);
 }
 
 function renderAlerts(row){
@@ -2706,8 +2726,8 @@ function renderAlerts(row){
   if (String(row.alertas_texto || '').trim()) alerts.push({tone:'yellow', text: row.alertas_texto});
   if (!alerts.length) alerts.push({tone:'green', text:'No se detectan alertas críticas en el período seleccionado.'});
   const html = alerts.map(a => `<div class="alert ${a.tone}">${escapeHtml(a.text)}</div>`).join('');
-  document.getElementById('alertPanel').innerHTML = html;
-  document.getElementById('execAlertPanel').innerHTML = html;
+  setHtml('alertPanel', html);
+  setHtml('execAlertPanel', html);
   document.getElementById('narrativePanel').innerHTML = `
     <div class="alert blue"><strong>Logros:</strong> ${escapeHtml(row.logros_texto || 'Sin narrativa registrada.')}</div>
     <div class="alert green"><strong>Fuentes:</strong> ${escapeHtml(sourceLabel(row.fuente_texto))}</div>
@@ -2729,8 +2749,8 @@ function renderDiagnostics(row){
     <p>El componente con mayor avance relativo es <strong>${escapeHtml(lead.title)}</strong>, con <strong>${escapeHtml(formatPercent(lead.pct))}</strong> de cumplimiento de su meta anual y un acumulado de <strong>${escapeHtml(lead.id === 'sig' ? formatPercent(lead.pct) + ' de avance' : formatByUnit(lead.value, lead.unit))}</strong>.</p>
     <p>El componente con mayor rezago relativo es <strong>${escapeHtml(lag.title)}</strong>, con <strong>${escapeHtml(formatPercent(lag.pct))}</strong> de avance. ${escapeHtml(row.alertas_texto || 'Se recomienda revisar el calendario operativo y reforzar la captura de evidencia del período.')}</p>
     <p>La lectura del mes reporta: <strong>${escapeHtml(row.logros_texto || 'Sin logros narrativos cargados')}</strong>. Fuente consolidada del tablero: <strong>${escapeHtml(sourceLabel(row.fuente_texto))}</strong>.</p>`;
-  document.getElementById('diagnosticPanel').innerHTML = html;
-  document.getElementById('execDiagnosticPanel').innerHTML = html;
+  setHtml('diagnosticPanel', html);
+  setHtml('execDiagnosticPanel', html);
 }
 
 function renderLineChart(){
@@ -2765,10 +2785,10 @@ function renderLineChart(){
     svg += `<line x1="${x(selectedIdx)}" y1="${pad.t}" x2="${x(selectedIdx)}" y2="${height-pad.b}" stroke="#145646" stroke-dasharray="5 5" stroke-width="1.5" opacity=".5"></line>`;
   }
   svg += '</svg>';
-  document.getElementById('lineChart').innerHTML = svg;
+  setHtml('lineChart', svg);
 
   const row = getSelectedRow();
-  document.getElementById('lineInterp').innerHTML = `<strong>${escapeHtml(row.mes_label)} ${escapeHtml(row.anio)}</strong> muestra un avance de ${escapeHtml(formatPercent(row.pct_meta_ha))} en monitoreo, ${escapeHtml(formatPercent(row.pct_meta_arboles))} en siembras, ${escapeHtml(formatPercent(row.pct_meta_sig))} en sistema digital y ${escapeHtml(formatPercent(row.pct_meta_plantas))} en vivero.`;
+  setHtml('lineInterp', `<strong>${escapeHtml(row.mes_label)} ${escapeHtml(row.anio)}</strong> muestra un avance de ${escapeHtml(formatPercent(row.pct_meta_ha))} en monitoreo, ${escapeHtml(formatPercent(row.pct_meta_arboles))} en siembras, ${escapeHtml(formatPercent(row.pct_meta_sig))} en sistema digital y ${escapeHtml(formatPercent(row.pct_meta_plantas))} en vivero.`);
 }
 
 function renderBarChart(){
@@ -2803,12 +2823,12 @@ function renderBarChart(){
     svg += `<text x="${pad.l + idx*xStep + xStep/2}" y="${height-18}" text-anchor="middle" font-size="11" fill="#5e7d69">${g.label}</text>`;
   });
   svg += '</svg>';
-  document.getElementById('barChart').innerHTML = svg;
-  document.getElementById('execBarChart').innerHTML = svg;
+  setHtml('barChart', svg);
+  setHtml('execBarChart', svg);
   const row = getSelectedRow();
   const interp = `En ${row.mes_label.toLowerCase()} registramos ${formatByUnit(row.ha_monitoreadas_kpi_mes,'ha')} de monitoreo válido para el indicador, ${formatByUnit(row.arboles_sembrados_kpi_mes,'árboles')} establecidos en campo, ${formatPercent(row.aporte_sig_mes)} de avance del sistema digital y ${formatByUnit(row.plantas_netas_mes,'plantas')} en vivero.`;
-  document.getElementById('barInterp').textContent = interp;
-  document.getElementById('execBarInterp').textContent = interp;
+  setText('barInterp', interp);
+  setText('execBarInterp', interp);
 }
 
 
