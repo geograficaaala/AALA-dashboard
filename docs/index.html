@@ -1498,6 +1498,54 @@
       border-color: transparent;
       box-shadow: 0 14px 26px rgba(18,42,66,.16);
     }
+    .coverage-team-card {
+      position: absolute;
+      bottom: 24px;
+      right: 16px;
+      width: 220px;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+      display: none;
+      z-index: 800;
+      background: #1a3a4a;
+    }
+    .coverage-team-card.visible {
+      display: block;
+      animation: teamCardIn 0.25s ease;
+    }
+    @keyframes teamCardIn {
+      from { opacity: 0; transform: translateY(12px) scale(0.96); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .coverage-team-card img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .coverage-team-close {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(0,0,0,0.45);
+      color: #fff;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      line-height: 1;
+    }
+    .coverage-team-close:hover {
+      background: rgba(0,0,0,0.7);
+    }
     .coverage-map-wrapper {
       display: flex;
       gap: 16px;
@@ -1528,12 +1576,10 @@
       transition: opacity 0.3s ease;
     }
     @media (max-width: 768px) {
-      .coverage-map-wrapper {
-        flex-direction: column;
-      }
-      .coverage-team-photo {
-        flex: none;
-        min-height: 220px;
+      .coverage-team-card {
+        width: 160px;
+        bottom: 16px;
+        right: 10px;
       }
     }
     .coverage-map-frame {
@@ -1819,11 +1865,10 @@
         <div class="coverage-filter-group" id="coverageFilters">
           <button class="coverage-filter" type="button" disabled>Cargando filtros…</button>
         </div>
-        <div class="coverage-map-wrapper">
-          <div class="coverage-map-frame">
-            <div id="coverageMap" class="coverage-map" aria-label="Mapa de cobertura territorial institucional"></div>
-          </div>
-          <div class="coverage-team-photo" id="coverageTeamPhoto">
+        <div class="coverage-map-frame">
+          <div id="coverageMap" class="coverage-map" aria-label="Mapa de cobertura territorial institucional"></div>
+          <div class="coverage-team-card" id="coverageTeamCard">
+            <button class="coverage-team-close" id="coverageTeamClose" aria-label="Cerrar foto">✕</button>
             <img id="coverageTeamImg" src="" alt="Equipo del programa" />
           </div>
         </div>
@@ -1970,22 +2015,21 @@ const COVERAGE_TEAM_PHOTOS = {
   'Conservando Atitlan':     './equipo_conservando.jpg',
   'Fortalecimiento':         './equipo_fortalecimiento.jpg',
   'Reforestando Atitlan':    './equipo_reforestandando.jpg',
-  'Siembra de tul':          './equipo_tul.jpeg'
+  'Siembra de tul':          './Equipo_tul.jpeg',
+  'Educando Para Conservar': './Equipo_EPC.jpg'
 };
 
 function updateTeamPhoto(field) {
-  const panel = document.getElementById('coverageTeamPhoto');
-  const img   = document.getElementById('coverageTeamImg');
-  if (!panel || !img) return;
+  const card = document.getElementById('coverageTeamCard');
+  const img  = document.getElementById('coverageTeamImg');
+  if (!card || !img) return;
   const src = COVERAGE_TEAM_PHOTOS[field] || null;
   if (src) {
-    img.style.opacity = '0';
-    img.onload = () => { img.style.opacity = '1'; };
     img.src = src;
     img.alt = 'Equipo ' + coverageFieldLabel(field);
-    panel.classList.add('visible');
+    card.classList.add('visible');
   } else {
-    panel.classList.remove('visible');
+    card.classList.remove('visible');
   }
   setTimeout(() => { if (coverageMap) coverageMap.invalidateSize(); }, 50);
 }
@@ -3108,6 +3152,15 @@ async function init(){
     }
     renderSummary(programs);
     await initCoverageMap();
+    const closeBtn = document.getElementById('coverageTeamClose');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        document.getElementById('coverageTeamCard')?.classList.remove('visible');
+        activeCoverageField = '';
+        clearCoverageLayer(true);
+        updateCoverageButtons();
+      });
+    }
   } catch(err){
     console.error(err);
     const grid = document.getElementById('programGrid');
