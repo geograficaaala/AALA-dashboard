@@ -1498,34 +1498,33 @@
       border-color: transparent;
       box-shadow: 0 14px 26px rgba(18,42,66,.16);
     }
-    .coverage-team-card {
-      position: absolute;
-      bottom: 32px;
-      right: 16px;
-      width: 200px;
+    .leaflet-team-control {
+      background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+    .team-photo-card {
+      width: 190px;
       border-radius: 14px;
       overflow: hidden;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.28);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.32);
       display: none;
-      z-index: 800;
       background: #1a3a4a;
-    }
-    .coverage-team-card.visible {
-      display: block;
       animation: teamCardIn 0.25s ease;
     }
+    .team-photo-card.visible { display: block; }
     @keyframes teamCardIn {
-      from { opacity: 0; transform: translateY(10px) scale(0.97); }
+      from { opacity: 0; transform: translateY(8px) scale(0.97); }
       to   { opacity: 1; transform: translateY(0) scale(1); }
     }
-    .coverage-team-card img {
+    .team-photo-card img {
       width: 100%;
       display: block;
       aspect-ratio: 3/4;
       object-fit: cover;
       object-position: center top;
     }
-    .coverage-team-close {
+    .team-photo-close {
       position: absolute;
       top: 8px;
       right: 8px;
@@ -1533,20 +1532,20 @@
       height: 24px;
       border-radius: 50%;
       border: none;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.55);
       color: #fff;
-      font-size: 12px;
+      font-size: 13px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 1;
       line-height: 1;
+      padding: 0;
     }
-    .coverage-team-close:hover { background: rgba(0,0,0,0.75); }
-    @media (max-width: 768px) {
-      .coverage-team-card { width: 140px; bottom: 20px; right: 10px; }
-    }
+    .team-photo-close:hover { background: rgba(0,0,0,0.8); }
+    .team-photo-wrap { position: relative; }
+    @media (max-width: 600px) { .team-photo-card { width: 130px; } }
     .coverage-map-frame {
       min-height: 600px;
       border-radius: 18px;
@@ -1834,10 +1833,6 @@
           <div class="coverage-map-frame">
             <div id="coverageMap" class="coverage-map" aria-label="Mapa de cobertura territorial institucional"></div>
           </div>
-          <div class="coverage-team-card" id="coverageTeamCard">
-            <button class="coverage-team-close" id="coverageTeamClose" aria-label="Cerrar foto">✕</button>
-            <img id="coverageTeamImg" src="" alt="Equipo del programa" />
-          </div>
         </div>
       </div>
     </section>
@@ -1986,19 +1981,43 @@ const COVERAGE_TEAM_PHOTOS = {
   'Educando Para Conservar': './Equipo_EPC.jpg'
 };
 
+let teamPhotoControl = null;
+
 function updateTeamPhoto(field) {
-  const card = document.getElementById('coverageTeamCard');
-  const img  = document.getElementById('coverageTeamImg');
-  if (!card || !img) return;
-  const src = COVERAGE_TEAM_PHOTOS[field] || null;
-  if (src) {
-    img.src = src;
-    img.alt = 'Equipo ' + coverageFieldLabel(field);
-    card.classList.add('visible');
-  } else {
-    card.classList.remove('visible');
+  // Si ya existe el control, quitarlo primero
+  if (teamPhotoControl) {
+    coverageMap.removeControl(teamPhotoControl);
+    teamPhotoControl = null;
   }
-  setTimeout(() => { if (coverageMap) coverageMap.invalidateSize(); }, 50);
+  const src = COVERAGE_TEAM_PHOTOS[field] || null;
+  if (!src || !coverageMap) return;
+
+  const TeamControl = L.Control.extend({
+    options: { position: 'bottomright' },
+    onAdd() {
+      const wrap = L.DomUtil.create('div', 'team-photo-wrap');
+      const card = L.DomUtil.create('div', 'team-photo-card visible', wrap);
+      const closeBtn = L.DomUtil.create('button', 'team-photo-close', card);
+      closeBtn.innerHTML = '✕';
+      closeBtn.setAttribute('aria-label', 'Cerrar foto');
+      const img = L.DomUtil.create('img', '', card);
+      img.src = src;
+      img.alt = 'Equipo ' + coverageFieldLabel(field);
+      // Evitar que clics en la tarjeta muevan el mapa
+      L.DomEvent.disableClickPropagation(wrap);
+      L.DomEvent.on(closeBtn, 'click', () => {
+        coverageMap.removeControl(teamPhotoControl);
+        teamPhotoControl = null;
+        activeCoverageField = '';
+        clearCoverageLayer(true);
+        updateCoverageButtons();
+      });
+      return wrap;
+    }
+  });
+
+  teamPhotoControl = new TeamControl();
+  teamPhotoControl.addTo(coverageMap);
 }
 
 const COVERAGE_GEOJSON_URL = './Cobertura_programas_y_proyectos_AALA_01.geojson';
@@ -3119,15 +3138,6 @@ async function init(){
     }
     renderSummary(programs);
     await initCoverageMap();
-    const closeBtn = document.getElementById('coverageTeamClose');
-    if (closeBtn) {
-      closeBtn.addEventListener('click', () => {
-        document.getElementById('coverageTeamCard')?.classList.remove('visible');
-        activeCoverageField = '';
-        clearCoverageLayer(true);
-        updateCoverageButtons();
-      });
-    }
   } catch(err){
     console.error(err);
     const grid = document.getElementById('programGrid');
