@@ -1502,14 +1502,18 @@
       display: flex;
       gap: 16px;
       align-items: stretch;
+      width: 100%;
+    }
+    .coverage-map-wrapper .coverage-map-frame {
+      flex: 1 1 0;
+      min-width: 0;
     }
     .coverage-team-photo {
-      flex: 0 0 320px;
+      flex: 0 0 300px;
       border-radius: 16px;
       overflow: hidden;
       background: #e8eef2;
       display: none;
-      position: relative;
       min-height: 320px;
     }
     .coverage-team-photo.visible {
@@ -1983,6 +1987,7 @@ function updateTeamPhoto(field) {
   } else {
     panel.classList.remove('visible');
   }
+  setTimeout(() => { if (coverageMap) coverageMap.invalidateSize(); }, 50);
 }
 
 const COVERAGE_GEOJSON_URL = './Cobertura_programas_y_proyectos_AALA_01.geojson';
