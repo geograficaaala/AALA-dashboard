@@ -54,10 +54,22 @@
       aliases: [
         'reforestacion', 'reforestación', 'reforestando atitlan',
         'reforestando atitlán', 'ra', 'reforestar', 'reforestando',
-        'arboles', 'árboles', 'siembra', 'siembras', 'plantas',
-        'vivero', 'bosque', 'hectareas', 'hectáreas',
-        'hectareas monitoreadas', 'area intervenida', 'área intervenida',
+        'arboles', 'árboles', 'plantas', 'vivero', 'bosque',
+        'hectareas', 'hectáreas', 'hectareas monitoreadas',
+        'area intervenida', 'área intervenida',
         'especies nativas', 'plantas nativas'
+      ]
+    },
+    siembra_tul: {
+      id: 'siembra_tul',
+      name: 'Siembra de Tul',
+      shortName: 'ST',
+      aliases: [
+        'tul', 'siembra de tul', 'siembra tul', 'siembras de tul',
+        'macollas', 'macolla', 'metros lineales', 'jornadas de siembra',
+        'restauracion tul', 'restauración tul', 'vegetacion lacustre',
+        'vegetación lacustre', 'tular', 'litoral lago', 'st',
+        'programa tul', 'tules'
       ]
     }
   };
@@ -234,6 +246,13 @@
       intent: 'resumen'
     },
     {
+      id: 'q-tul-resumen',
+      text: '¿Cómo va Siembra de Tul?',
+      scope: 'program',
+      programId: 'siembra_tul',
+      intent: 'resumen'
+    },
+    {
       id: 'q-global-comparacion',
       text: 'Comparar todos los programas',
       scope: 'all_programs',
@@ -243,10 +262,10 @@
   ];
 
   const FALLBACKS = {
-    noData: 'No encontré información en el dashboard para responder eso con confianza. Puedes preguntarme por resultados, metas, alertas o tendencias de cualquiera de nuestros 5 programas.',
+    noData: 'No encontré información en el dashboard para responder eso con confianza. Puedes preguntarme por resultados, metas, alertas o tendencias de cualquiera de nuestros 6 programas.',
     offTopic: 'Solo puedo ayudarte con datos de los programas de AALA: resultados, metas, indicadores y avances del dashboard. ¿Sobre qué programa quieres saber?',
     ambiguous: 'Puedo explicarlo mejor si me dices por qué programa, indicador o mes quieres preguntar. ¿Empezamos por alguno?',
-    stale: 'Mis datos vienen de los CSV publicados más recientemente en el dashboard.'
+    stale: 'Mis datos vienen de los datos publicados más recientemente en el dashboard.'
   };
 
   function stripAccents(value) {
@@ -300,39 +319,35 @@
 ═══════════════════════════════
 REGLAS ABSOLUTAS — NUNCA VIOLAR
 ═══════════════════════════════
-1. SOLO usas datos del contexto JSON que recibes. Jamás inventas, estimas ni asumes cifras.
-2. El último mes con datos reales es MARZO 2026. Nunca menciones abril, mayo ni ningún mes posterior a marzo 2026 como si tuviera datos. Si el usuario pregunta por abril o meses futuros, indícale claramente que los datos más recientes disponibles son de marzo 2026.
-3. Si un campo en el JSON vale 0.0 o está vacío para un período, ese período NO tiene datos reales. No lo presentes como un resultado — ignóralo o explica que no hay reporte.
-4. Nunca uses la fecha de hoy ni el calendario real para inferir qué período es el más reciente. El período más reciente con datos siempre lo determinas leyendo los datos del contexto.
-5. Si no hay información suficiente en el contexto para responder, di claramente: "No tengo datos suficientes en el dashboard para responder eso."
+1. SOLO usas datos del contexto que recibes. Jamás inventas, estimas ni asumes cifras.
+2. Si un campo vale 0 o está vacío para un período, ese período NO tiene datos reales. No lo presentes como resultado.
+3. Nunca uses la fecha de hoy para inferir qué período es el más reciente. Lo determinas leyendo los datos del contexto.
+4. Si no hay información suficiente en el contexto para responder, di: "No tengo datos suficientes para responder eso."
+5. Sin emojis. Tono frío, directo y profesional.
 
 ═══════════════════════════════
 PROGRAMAS DISPONIBLES
 ═══════════════════════════════
 ${programList}
 
-Todos los programas tienen datos de enero, febrero y marzo 2026 (salvo los que se indique en el contexto).
-
 ═══════════════════════════════
 CÓMO ANALIZAR Y RESPONDER
 ═══════════════════════════════
-• Tono: cálido, profesional, directo. Responde en español.
-• Cifras: siempre destaca los números clave en negrita. Incluye unidades (qq, GTQ, litros, árboles, etc.).
-• Período: siempre menciona explícitamente el mes al que corresponden los datos que citas.
-• Alertas: cuando un indicador está por debajo de su meta mensual, dilo claramente con el valor real vs la meta.
-• Tendencias: si tienes datos de varios meses, compara y señala si el indicador subió, bajó o se mantuvo.
-• Comparaciones entre programas: sé justo y específico — cada programa tiene indicadores distintos, no los mezcles.
-• Resúmenes: estructura la respuesta con los puntos más importantes primero. Usa un párrafo por programa cuando sean varios.
-• Territorio/sector: si hay datos desagregados por municipio, zona o material, úsalos para enriquecer la respuesta.
+• Tono: frío, profesional, directo. Sin saludos efusivos ni frases de relleno. Ve al dato.
+• Cifras: números clave en negrita. Incluye unidades (qq, Q, litros, árboles, ha, metros, macollas).
+• Período: menciona siempre el mes al que corresponden los datos que citas.
+• Alertas: cuando un indicador está por debajo de su meta, dilo con el valor real vs la meta.
+• Tendencias: si tienes datos de varios meses, compara y señala si subió, bajó o se mantuvo.
+• Siembra de Tul: sus indicadores son jornadas, metros lineales de tul sembrado, macollas establecidas y municipios atendidos.
 
 ═══════════════════════════════
 FORMATO DE RESPUESTA
 ═══════════════════════════════
-• Usa markdown: **negrita** para cifras clave, listas con guiones para varios puntos.
-• Máximo 4-5 párrafos o bullets por respuesta. Sé conciso pero completo.
-• Si la pregunta es simple (un indicador, un mes), responde en 2-3 líneas máximo.
-• Si la pregunta es compleja (resumen global, comparación), sé más detallado pero sin repetir información.
-• Nunca empieces la respuesta con "Claro que sí" o frases de relleno. Ve directo al dato.`;
+• Markdown: **negrita** para cifras clave, guiones para listas.
+• Máximo 4 párrafos o una lista corta. Conciso pero completo.
+• Pregunta simple (un indicador, un mes): 2-3 líneas máximo.
+• Pregunta compleja (resumen global, comparación): más detalle, sin repetir.
+• Nunca empieces con "Claro que sí" ni frases de relleno. Ve directo al dato.`;
   }
 
   function clone(value) {
