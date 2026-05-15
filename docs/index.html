@@ -1500,12 +1500,12 @@
     }
     .coverage-team-card {
       position: absolute;
-      bottom: 24px;
+      bottom: 32px;
       right: 16px;
-      width: 220px;
+      width: 200px;
       border-radius: 14px;
       overflow: hidden;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.28);
       display: none;
       z-index: 800;
       background: #1a3a4a;
@@ -1515,7 +1515,7 @@
       animation: teamCardIn 0.25s ease;
     }
     @keyframes teamCardIn {
-      from { opacity: 0; transform: translateY(12px) scale(0.96); }
+      from { opacity: 0; transform: translateY(10px) scale(0.97); }
       to   { opacity: 1; transform: translateY(0) scale(1); }
     }
     .coverage-team-card img {
@@ -1529,13 +1529,13 @@
       position: absolute;
       top: 8px;
       right: 8px;
-      width: 26px;
-      height: 26px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
       border: none;
-      background: rgba(0,0,0,0.45);
+      background: rgba(0,0,0,0.5);
       color: #fff;
-      font-size: 13px;
+      font-size: 12px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -1543,44 +1543,9 @@
       z-index: 1;
       line-height: 1;
     }
-    .coverage-team-close:hover {
-      background: rgba(0,0,0,0.7);
-    }
-    .coverage-map-wrapper {
-      display: flex;
-      gap: 16px;
-      align-items: stretch;
-      width: 100%;
-    }
-    .coverage-map-wrapper .coverage-map-frame {
-      flex: 1 1 0;
-      min-width: 0;
-    }
-    .coverage-team-photo {
-      flex: 0 0 300px;
-      border-radius: 16px;
-      overflow: hidden;
-      background: #e8eef2;
-      display: none;
-      min-height: 320px;
-    }
-    .coverage-team-photo.visible {
-      display: block;
-    }
-    .coverage-team-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-      transition: opacity 0.3s ease;
-    }
+    .coverage-team-close:hover { background: rgba(0,0,0,0.75); }
     @media (max-width: 768px) {
-      .coverage-team-card {
-        width: 160px;
-        bottom: 16px;
-        right: 10px;
-      }
+      .coverage-team-card { width: 140px; bottom: 20px; right: 10px; }
     }
     .coverage-map-frame {
       min-height: 600px;
@@ -1865,8 +1830,10 @@
         <div class="coverage-filter-group" id="coverageFilters">
           <button class="coverage-filter" type="button" disabled>Cargando filtros…</button>
         </div>
-        <div class="coverage-map-frame">
-          <div id="coverageMap" class="coverage-map" aria-label="Mapa de cobertura territorial institucional"></div>
+        <div style="position:relative;">
+          <div class="coverage-map-frame">
+            <div id="coverageMap" class="coverage-map" aria-label="Mapa de cobertura territorial institucional"></div>
+          </div>
           <div class="coverage-team-card" id="coverageTeamCard">
             <button class="coverage-team-close" id="coverageTeamClose" aria-label="Cerrar foto">✕</button>
             <img id="coverageTeamImg" src="" alt="Equipo del programa" />
@@ -2015,7 +1982,7 @@ const COVERAGE_TEAM_PHOTOS = {
   'Conservando Atitlan':     './equipo_conservando.jpg',
   'Fortalecimiento':         './equipo_fortalecimiento.jpg',
   'Reforestando Atitlan':    './equipo_reforestandando.jpg',
-  'Siembra de tul':          './Equipo_tul.jpeg',
+  'Siembra y poda de Tul':   './Equipo_tul.jpeg',
   'Educando Para Conservar': './Equipo_EPC.jpg'
 };
 
