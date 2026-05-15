@@ -1498,6 +1498,40 @@
       border-color: transparent;
       box-shadow: 0 14px 26px rgba(18,42,66,.16);
     }
+    .coverage-map-wrapper {
+      display: flex;
+      gap: 16px;
+      align-items: stretch;
+    }
+    .coverage-team-photo {
+      flex: 0 0 320px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #e8eef2;
+      display: none;
+      position: relative;
+      min-height: 320px;
+    }
+    .coverage-team-photo.visible {
+      display: block;
+    }
+    .coverage-team-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transition: opacity 0.3s ease;
+    }
+    @media (max-width: 768px) {
+      .coverage-map-wrapper {
+        flex-direction: column;
+      }
+      .coverage-team-photo {
+        flex: none;
+        min-height: 220px;
+      }
+    }
     .coverage-map-frame {
       min-height: 600px;
       border-radius: 18px;
@@ -1781,8 +1815,13 @@
         <div class="coverage-filter-group" id="coverageFilters">
           <button class="coverage-filter" type="button" disabled>Cargando filtros…</button>
         </div>
-        <div class="coverage-map-frame">
-          <div id="coverageMap" class="coverage-map" aria-label="Mapa de cobertura territorial institucional"></div>
+        <div class="coverage-map-wrapper">
+          <div class="coverage-map-frame">
+            <div id="coverageMap" class="coverage-map" aria-label="Mapa de cobertura territorial institucional"></div>
+          </div>
+          <div class="coverage-team-photo" id="coverageTeamPhoto">
+            <img id="coverageTeamImg" src="" alt="Equipo del programa" />
+          </div>
         </div>
       </div>
     </section>
@@ -1922,6 +1961,30 @@ function barClass(pct){
 /* ────────────────────────────────
    MAPA DE COBERTURA TERRITORIAL
 ──────────────────────────────── */
+const COVERAGE_TEAM_PHOTOS = {
+  'Atitlan Recicla':         './equipo_AR.jpg',
+  'Conservando Atitlan':     './equipo_conservando.jpg',
+  'Fortalecimiento':         './equipo_fortalecimiento.jpg',
+  'Reforestando Atitlan':    './equipo_reforestandando.jpg',
+  'Siembra de tul':          './equipo_tul.jpeg'
+};
+
+function updateTeamPhoto(field) {
+  const panel = document.getElementById('coverageTeamPhoto');
+  const img   = document.getElementById('coverageTeamImg');
+  if (!panel || !img) return;
+  const src = COVERAGE_TEAM_PHOTOS[field] || null;
+  if (src) {
+    img.style.opacity = '0';
+    img.onload = () => { img.style.opacity = '1'; };
+    img.src = src;
+    img.alt = 'Equipo ' + coverageFieldLabel(field);
+    panel.classList.add('visible');
+  } else {
+    panel.classList.remove('visible');
+  }
+}
+
 const COVERAGE_GEOJSON_URL = './Cobertura_programas_y_proyectos_AALA_01.geojson';
 const COVERAGE_DEFAULT_VIEW = { center: [14.77, -91.18], zoom: 10 };
 const COVERAGE_COLORS = ['#1c6084', '#2e6a57', '#d5a34b', '#7b5cc7', '#c45f2d', '#1c7c86', '#a24760'];
@@ -1992,6 +2055,7 @@ function renderCoverageFilters(fields){
         activeCoverageField = '';
         clearCoverageLayer(true);
         updateCoverageButtons();
+        updateTeamPhoto('');
         return;
       }
       applyCoverageField(field);
@@ -2039,6 +2103,7 @@ function applyCoverageField(field){
   }
 
   updateCoverageButtons();
+  updateTeamPhoto(field);
 }
 async function initCoverageMap(){
   const mapNode = document.getElementById('coverageMap');
