@@ -7,7 +7,6 @@
   <meta name="description" content="Tablero dinámico institucional de avances de programas y proyectos — Asociación Amigos del Lago de Atitlán">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <style>
@@ -1665,6 +1664,26 @@
   content:'';
 }
 
+
+/* Ajuste: se eliminó la sección de gráficas comparativas y la tarjeta narrativa ocupa todo el ancho */
+.panorama-stage {
+  grid-template-columns: 1fr !important;
+}
+.narrative-stage {
+  min-height: 420px;
+}
+.narrative-stage .prose {
+  max-width: 90ch;
+}
+.narrative-stage .capsule-stack {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+@media (max-width: 760px) {
+  .narrative-stage .capsule-stack {
+    grid-template-columns: 1fr;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1681,7 +1700,6 @@
   <nav class="nav-tabs" role="tablist" aria-label="Secciones del tablero dinámico">
     <button class="nav-tab active" data-page="resumen" role="tab">Resumen</button>
     <button class="nav-tab" data-page="programas" role="tab">Programas y proyectos</button>
-    <button class="nav-tab" data-page="grafica" role="tab">Comparativo</button>
   </nav>
 </header>
 
@@ -1744,7 +1762,7 @@
             </article>
             <article class="story-point">
               <span>Lectura rápida</span>
-              <p>El comparativo ayuda a ver avances y prioridades.</p>
+              <p>La lectura del tablero ayuda a ver avances y prioridades.</p>
             </article>
           </div>
         </div>
@@ -1761,17 +1779,9 @@
         </p>
         <div class="capsule-stack" aria-label="Guía rápida de lectura">
           <div class="capsule">El resumen ejecutivo condensa el estado actual de los programas y proyectos.</div>
-          <div class="capsule">El comparativo permite ver diferencias de avance de forma inmediata.</div>
+          <div class="capsule">La lectura institucional permite ver diferencias de avance de forma inmediata.</div>
         </div>
       </article>
-
-      <article class="chart-stage stagger-6">
-        <h2 class="section-title">Lectura porcentual del avance mensual de cada programa y proyecto de la Asociación Amigos del Lago de Atitlán</h2>
-        <div class="chart-wrap">
-          <canvas id="programChartMini"></canvas>
-        </div>
-      </article>
-
     </section>
 
     <section class="coverage-section">
@@ -1797,18 +1807,6 @@
         <span>Cargando programas y proyectos...</span>
       </div>
     </div>
-  </div>
-</div>
-
-<div class="page" id="page-grafica">
-  <div class="wrap">
-    <article class="card chart-full">
-      <div class="section-kicker">Comparación ejecutiva</div>
-      <h2 class="section-title">Comparativo institucional del avance de programas y proyectos</h2>
-      <div class="chart-wrap">
-        <canvas id="programChart"></canvas>
-      </div>
-    </article>
   </div>
 </div>
 
@@ -2819,203 +2817,6 @@ function renderSummary(programs){
   if (healthMeterFill) healthMeterFill.style.width = `${Math.max(0, Math.min(avgScore, 100))}%`;
 
   document.getElementById('programGrid').innerHTML = programs.map(programCard).join('');
-  renderCharts(programs);
-}
-
-/* ────────────────────────────────
-   RENDER GRÁFICAS
-──────────────────────────────── */
-const CHART_COLORS = {
-  lakeDeep: '#163a5f',
-  lake: '#1c6084',
-  lakeSoft: 'rgba(28, 96, 132, .12)',
-  teal: '#409b9c',
-  mint: '#6cc6ba',
-  line80: 'rgba(213, 163, 75, .9)',
-  line100: 'rgba(46, 106, 87, .95)',
-  grid: 'rgba(22, 58, 95, .08)',
-  text: '#17314f'
-};
-
-const benchmarkBandPlugin = {
-  id: 'benchmarkBandPlugin',
-  beforeDatasetsDraw(chart){
-    const {ctx, chartArea, scales} = chart;
-    if (!chartArea || !scales.x || !scales.y) return;
-    const {left, right, top, bottom} = chartArea;
-    const x80 = Math.max(left, Math.min(right, scales.x.getPixelForValue(80)));
-    const x100 = Math.max(left, Math.min(right, scales.x.getPixelForValue(100)));
-    ctx.save();
-    ctx.fillStyle = 'rgba(213, 163, 75, .08)';
-    ctx.fillRect(left, top, Math.max(0, x80 - left), bottom - top);
-    ctx.fillStyle = 'rgba(46, 106, 87, .08)';
-    ctx.fillRect(x80, top, Math.max(0, x100 - x80), bottom - top);
-    ctx.restore();
-  }
-};
-
-const endLabelPlugin = {
-  id: 'endLabelPlugin',
-  afterDatasetsDraw(chart, args, pluginOptions){
-    const datasetIndex = pluginOptions?.datasetIndex ?? 1;
-    const dataset = chart.data.datasets[datasetIndex];
-    const meta = chart.getDatasetMeta(datasetIndex);
-    if (!dataset || !meta || meta.hidden) return;
-    const {ctx, chartArea, scales} = chart;
-    ctx.save();
-    ctx.font = `700 ${pluginOptions?.fontSize || 11}px Sora, sans-serif`;
-    ctx.fillStyle = CHART_COLORS.lakeDeep;
-    ctx.textBaseline = 'middle';
-    meta.data.forEach((element, index) => {
-      const value = Number(dataset.data[index] || 0);
-      const y = element.y;
-      const x = Math.min(chartArea.right - 4, scales.x.getPixelForValue(value) + 10);
-      ctx.fillText(`${fmt(value,1)}%`, x, y);
-    });
-    ctx.restore();
-  }
-};
-
-function chartGradient(context){
-  const {chart} = context;
-  const {ctx, chartArea} = chart;
-  if (!chartArea) return 'rgba(28, 96, 132, .75)';
-  const gradient = ctx.createLinearGradient(chartArea.left, 0, chartArea.right, 0);
-  gradient.addColorStop(0, 'rgba(28, 96, 132, .92)');
-  gradient.addColorStop(.55, 'rgba(64, 155, 156, .88)');
-  gradient.addColorStop(1, 'rgba(108, 198, 186, .92)');
-  return gradient;
-}
-
-function chartOptions(mini = false){
-  return {
-    responsive: true,
-    maintainAspectRatio: false,
-    indexAxis: 'y',
-    interaction: { mode: 'nearest', intersect: false },
-    animation: { duration: 900, easing: 'easeOutQuart' },
-    layout: { padding: { right: mini ? 54 : 66, left: 4, top: 6, bottom: 4 } },
-    scales: {
-      x: {
-        beginAtZero: true,
-        suggestedMax: 120,
-        grid: { color: CHART_COLORS.grid, drawBorder: false },
-        ticks: {
-          callback: v => `${v}%`,
-          color: 'rgba(23,49,79,.7)',
-          font: { family: "'Sora', sans-serif", size: mini ? 10 : 12, weight: '600' }
-        }
-      },
-      y: {
-        grid: { display: false, drawBorder: false },
-        ticks: {
-          color: CHART_COLORS.text,
-          font: { family: "'Sora', sans-serif", size: mini ? 10 : 12, weight: '700' }
-        }
-      }
-    },
-    plugins: {
-      legend: { display: false },
-      tooltip: {
-        backgroundColor: 'rgba(18, 42, 66, .94)',
-        padding: 12,
-        titleFont: { family: "'Sora', sans-serif", weight: '700', size: 12 },
-        bodyFont: { family: "'Sora', sans-serif", size: 12 },
-        displayColors: false,
-        callbacks: {
-          title: items => items[0]?.label || '',
-          label: ctx => ctx.dataset.role === 'actual'
-            ? `Promedio observado: ${fmt(ctx.parsed.x,1)}%`
-            : (ctx.dataset.role === 'attention' ? 'Umbral de seguimiento: 80%' : 'Meta de referencia: 100%')
-        }
-      },
-      endLabelPlugin: { datasetIndex: 1, fontSize: mini ? 10 : 11 }
-    }
-  };
-}
-
-let chartRef = null, chartMiniRef = null;
-
-function createChartConfig(labels, data, mini = false){
-  return {
-    type: 'bar',
-    data: {
-      labels,
-      datasets: [
-        {
-          type: 'bar',
-          label: 'Trayectoria esperada',
-          role: 'track',
-          data: labels.map(() => 100),
-          backgroundColor: 'rgba(22, 58, 95, .08)',
-          borderRadius: 999,
-          borderSkipped: false,
-          barThickness: mini ? 18 : 26,
-          categoryPercentage: .72,
-          grouped: false,
-          order: 3
-        },
-        {
-          type: 'bar',
-          label: 'Promedio observado',
-          role: 'actual',
-          data,
-          backgroundColor: chartGradient,
-          borderColor: 'rgba(22, 58, 95, .18)',
-          borderWidth: 1,
-          borderRadius: 999,
-          borderSkipped: false,
-          barThickness: mini ? 18 : 26,
-          categoryPercentage: .72,
-          grouped: false,
-          order: 2
-        },
-        {
-          type: 'line',
-          label: 'Seguimiento 80%',
-          role: 'attention',
-          data: labels.map(() => 80),
-          borderColor: CHART_COLORS.line80,
-          borderWidth: 1.5,
-          borderDash: [4, 5],
-          pointRadius: 0,
-          tension: 0,
-          order: 1
-        },
-        {
-          type: 'line',
-          label: 'Meta 100%',
-          role: 'target',
-          data: labels.map(() => 100),
-          borderColor: CHART_COLORS.line100,
-          borderWidth: 1.8,
-          borderDash: [7, 5],
-          pointRadius: 0,
-          tension: 0,
-          order: 1
-        }
-      ]
-    },
-    options: chartOptions(mini),
-    plugins: [benchmarkBandPlugin, endLabelPlugin]
-  };
-}
-
-function renderCharts(programs){
-  const labels = programs.map(p => p.name);
-  const data   = programs.map(p => Number(p.score || 0));
-
-  const ctxMini = document.getElementById('programChartMini');
-  if (ctxMini){
-    if (chartMiniRef) chartMiniRef.destroy();
-    chartMiniRef = new Chart(ctxMini, createChartConfig(labels, data, true));
-  }
-
-  const ctx = document.getElementById('programChart');
-  if (ctx){
-    if (chartRef) chartRef.destroy();
-    chartRef = new Chart(ctx, createChartConfig(labels, data, false));
-  }
 }
 
 /* ────────────────────────────────
