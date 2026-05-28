@@ -5877,37 +5877,30 @@ function renderIncomeMaterialCards(state, ctx){
 })();
 </script>
 
-<!-- PATCH QUIRÚRGICO · REASIGNACIÓN DE ZONAS, RECÁLCULO Y POPUPS TERRITORIALES -->
-<script id="aala-patch-zonas-recalculadas-2026">
+
+
+<!-- FIX QUIRÚRGICO · ZONAS NUEVAS SIN OBSERVADOR GLOBAL NI FREEZE -->
+<style id="aala-zone-fix-styles-2026">
+  .aala-zone-info-target{cursor:help;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;text-decoration-color:rgba(31,111,141,.45)}
+  .aala-zone-tooltip{position:fixed;z-index:5000;max-width:min(380px,calc(100vw - 32px));padding:14px 16px;border-radius:16px;background:linear-gradient(135deg,#ffffff 0%,var(--blue-pale,#edf8fb) 100%);border:1.5px solid var(--blue-soft,#caeaf0);box-shadow:0 18px 50px rgba(23,50,58,.20);color:var(--text-2,#2f5961);font-family:var(--font-body,'Sora',system-ui,sans-serif);font-size:.82rem;line-height:1.55;pointer-events:none;opacity:0;transform:translateY(4px);transition:opacity .14s ease,transform .14s ease}
+  .aala-zone-tooltip.open{opacity:1;transform:translateY(0)}
+  .aala-zone-tooltip strong{display:block;margin-bottom:5px;color:var(--blue,#1f6f8d);font-size:.78rem;text-transform:uppercase;letter-spacing:.08em}
+  .aala-zone-tooltip span{display:block;color:var(--text-2,#2f5961)}
+  .aala-impact-territory-note{margin:-4px 0 18px;padding:14px 17px;border-radius:16px;background:linear-gradient(135deg,var(--blue-pale,#edf8fb),#ffffff);border:1.5px solid var(--blue-soft,#caeaf0);box-shadow:var(--shadow-sm,0 1px 4px rgba(23,50,58,.05));font-family:var(--font-body,'Sora',system-ui,sans-serif);color:var(--blue,#1f6f8d);font-size:.87rem;line-height:1.65}
+  .aala-impact-territory-note strong{color:var(--blue,#1f6f8d);font-weight:800}
+  .aala-impact-territory-note .aala-note-kicker{display:inline-flex;align-items:center;gap:7px;margin-bottom:5px;font-size:.68rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--blue-mid,#2b87a6)}
+  .aala-impact-territory-note .aala-note-kicker::before{content:'';width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,var(--green,#187a5a),var(--blue-mid,#2b87a6))}
+</style>
+<script id="aala-zone-fix-safe-2026">
 (function(){
   'use strict';
 
   const ZONE_MUNICIPIOS = {
-    'Kaqchikel': [
-      'Panajachel',
-      'Santa Catarina Palopó',
-      'San Antonio Palopó',
-      'San Juan La Laguna'
-    ],
-    'Las Lagunas': [
-      'Santa Cruz La Laguna',
-      'Tzununá',
-      'Jaibalito',
-      'San Marcos La Laguna'
-    ],
-    'Tzolojya': [
-      'Sololá',
-      'San Andrés Semetabaj',
-      'Santa Clara La Laguna',
-      'Santa Lucía Utatlán',
-      'Santa María Visitación'
-    ],
-    'Zona Sur': [
-      'San Lucas Tolimán',
-      'Santiago Atitlán'
-    ]
+    'Zona Sur': ['San Lucas Tolimán','Santiago Atitlán'],
+    'Las Lagunas': ['Santa Cruz La Laguna','Tzununá','Jaibalito','San Marcos La Laguna'],
+    'Kaqchikel': ['Panajachel','Santa Catarina Palopó','San Antonio Palopó','San Juan La Laguna'],
+    'Tzolojya': ['Sololá','San Andrés Semetabaj','Santa Clara La Laguna','Santa Lucía Utatlán','Santa María Visitación']
   };
-
   const ZONE_ORDER = ['Kaqchikel','Las Lagunas','Tzolojya','Zona Sur'];
   const AVG_COLS = ['mujeres_activas','mujeres_actividades','mujeres_comercializacion','mujeres_comercializacion_no_inscritas','ingreso_diario_lideresa'];
   const MAX_COLS = ['mujeres_inscritas_total'];
@@ -5921,34 +5914,37 @@ function renderIncomeMaterialCards(state, ctx){
   ];
 
   function norm(value){
-    return String(value || '')
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g,'')
-      .replace(/\s+/g,' ')
-      .trim()
-      .toLowerCase();
+    return String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,' ').trim().toLowerCase();
   }
-  function finiteNumber(value){
-    const n = Number(value);
-    return Number.isFinite(n) ? n : null;
+  function esc(value){
+    if(typeof escapeHtml === 'function') return escapeHtml(value);
+    return String(value ?? '').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;');
   }
-  function localSafeNumber(value){
+  function num(value){
     const n = Number(value);
     return Number.isFinite(n) ? n : 0;
   }
-  function mean(values){
-    const nums = values.map(finiteNumber).filter(v => v !== null);
-    return nums.length ? nums.reduce((a,b)=>a+b,0) / nums.length : NaN;
+  function finite(value){
+    const n = Number(value);
+    return Number.isFinite(n) ? n : null;
   }
   function sum(values){
-    return values.reduce((acc,value)=>acc + localSafeNumber(value), 0);
+    return values.reduce((acc, v) => acc + num(v), 0);
+  }
+  function avg(values){
+    const valid = values.map(finite).filter(v => v !== null);
+    return valid.length ? valid.reduce((a,b)=>a+b,0) / valid.length : '';
   }
   function max(values){
-    const nums = values.map(finiteNumber).filter(v => v !== null);
-    return nums.length ? Math.max(...nums) : NaN;
+    const valid = values.map(finite).filter(v => v !== null);
+    return valid.length ? Math.max(...valid) : '';
   }
-  function roundMetric(value){
-    return Number.isFinite(Number(value)) ? Math.round(Number(value) * 1000000) / 1000000 : value;
+  function round(value){
+    const n = Number(value);
+    return Number.isFinite(n) ? Math.round(n * 1000000) / 1000000 : value;
+  }
+  function hasActivity(row){
+    return ['total_materiales_qq','ingreso_bruto_total','pet_qq','vidrio_total_qq','materiales_lideresas_qq','materiales_municipalidad_qq'].some(col => num(row && row[col]) > 0);
   }
 
   const MUNICIPIO_TO_ZONE = {};
@@ -5960,54 +5956,48 @@ function renderIncomeMaterialCards(state, ctx){
     });
   });
 
-  function canonicalZone(zone){
-    const z = norm(zone);
+  function canonicalMunicipio(value){
+    return MUNICIPIO_CANON[norm(value)] || String(value || '').trim();
+  }
+  function canonicalZone(value){
+    const z = norm(value);
     if(z === 'kaqchiquel' || z === 'kaqchikel' || z === 'k') return 'Kaqchikel';
     if(z === 'las lagunas' || z === 'lagunas' || z === 'll' || z === 'l') return 'Las Lagunas';
     if(z === 'tzolojya' || z === 't') return 'Tzolojya';
     if(z === 'zona sur' || z === 'sur' || z === 'zs' || z === 's') return 'Zona Sur';
-    return ZONE_ORDER.find(item => norm(item) === z) || '';
+    return ZONE_ORDER.find(zone => norm(zone) === z) || '';
   }
-  function canonicalMunicipio(municipio){
-    const key = norm(municipio);
-    return MUNICIPIO_CANON[key] || String(municipio || '').trim();
+  function zoneForMunicipio(value){
+    return MUNICIPIO_TO_ZONE[norm(value)] || '';
   }
-  function zoneForMunicipio(municipio){
-    return MUNICIPIO_TO_ZONE[norm(municipio)] || '';
+  function municipiosForZone(value){
+    const zone = canonicalZone(value);
+    return zone ? (ZONE_MUNICIPIOS[zone] || []) : [];
   }
-  function municipiosForZone(zone){
-    return ZONE_MUNICIPIOS[canonicalZone(zone)] || [];
+  function zoneDescription(value){
+    const zone = canonicalZone(value);
+    const municipios = municipiosForZone(zone);
+    return zone && municipios.length ? `La zona ${zone} está compuesta por los siguientes municipios: ${municipios.join(', ')}.` : '';
   }
-  function zoneDescription(zone){
-    const canonical = canonicalZone(zone);
-    const municipios = municipiosForZone(canonical);
-    return canonical && municipios.length
-      ? `La zona ${canonical} está compuesta por: ${municipios.join(', ')}.`
-      : '';
-  }
-  function municipioFromMaterialRow(row){
-    const direct = row?.territorio || row?.municipio || row?.centro_acopio || row?.centro || row?.sede || '';
-    let text = String(direct || '').trim();
+  function materialMunicipio(row){
+    let text = String((row && (row.territorio || row.municipio || row.centro_acopio || row.centro || row.sede)) || '').trim();
     text = text.replace(/^[A-Z]{1,3}\s*-\s*/i,'').trim();
     return canonicalMunicipio(text);
   }
-  function rowHasActivity(row){
-    return ['total_materiales_qq','ingreso_bruto_total','pet_qq','vidrio_total_qq','materiales_lideresas_qq','materiales_municipalidad_qq']
-      .some(col => localSafeNumber(row?.[col]) > 0);
-  }
 
   window.ATITLAN_ZONE_MUNICIPIOS = ZONE_MUNICIPIOS;
-  window.ATITLAN_MUNICIPIO_ZONE = Object.fromEntries(Object.entries(MUNICIPIO_CANON).map(([key, municipio]) => [municipio, zoneForMunicipio(municipio)]));
+  window.ATITLAN_MUNICIPIO_ZONE = Object.fromEntries(Object.values(MUNICIPIO_CANON).map(m => [m, zoneForMunicipio(m)]));
 
   function aggregateZonaMes(territorioRows){
     const groups = new Map();
-    (territorioRows || []).forEach(row => {
-      const territorio = canonicalMunicipio(row.territorio || row.municipio || '');
-      const newZone = zoneForMunicipio(territorio);
-      if(!newZone) return;
-      row.territorio = territorio;
-      row.zona = newZone;
-      const key = [row.programa || 'atitlan_recicla', row.anio, row.mes_num, row.mes || '', newZone].join('|');
+    (territorioRows || []).forEach(original => {
+      const row = original || {};
+      const municipio = canonicalMunicipio(row.territorio || row.municipio || '');
+      const zone = zoneForMunicipio(municipio);
+      if(!zone) return;
+      row.territorio = municipio;
+      row.zona = zone;
+      const key = [row.programa || 'atitlan_recicla', row.anio, row.mes_num, row.mes || '', zone].join('|');
       if(!groups.has(key)) groups.set(key, []);
       groups.get(key).push(row);
     });
@@ -6023,46 +6013,43 @@ function renderIncomeMaterialCards(state, ctx){
         zona: first.zona
       };
       AVG_COLS.forEach(col => {
-        if(rows.some(r => Object.prototype.hasOwnProperty.call(r,col))) row[col] = mean(rows.map(r => r[col]));
+        if(rows.some(r => Object.prototype.hasOwnProperty.call(r, col))) row[col] = avg(rows.map(r => r[col]));
       });
       MAX_COLS.forEach(col => {
-        if(rows.some(r => Object.prototype.hasOwnProperty.call(r,col))) row[col] = max(rows.map(r => r[col]));
+        if(rows.some(r => Object.prototype.hasOwnProperty.call(r, col))) row[col] = max(rows.map(r => r[col]));
       });
       SUM_COLS.forEach(col => {
-        if(rows.some(r => Object.prototype.hasOwnProperty.call(r,col))) row[col] = sum(rows.map(r => r[col]));
+        if(rows.some(r => Object.prototype.hasOwnProperty.call(r, col))) row[col] = sum(rows.map(r => r[col]));
       });
       row.territorios_reportados = new Set(rows.map(r => canonicalMunicipio(r.territorio)).filter(Boolean)).size;
-      if(row.mujeres_activas){
-        row.pct_participacion_actividades = localSafeNumber(row.mujeres_actividades) / localSafeNumber(row.mujeres_activas);
-        row.pct_participacion_comercializacion = (localSafeNumber(row.mujeres_comercializacion) + localSafeNumber(row.mujeres_comercializacion_no_inscritas)) / localSafeNumber(row.mujeres_activas);
-      }
+      const activas = num(row.mujeres_activas);
+      row.pct_participacion_actividades = activas ? num(row.mujeres_actividades) / activas : '';
+      row.pct_participacion_comercializacion = activas ? (num(row.mujeres_comercializacion) + num(row.mujeres_comercializacion_no_inscritas)) / activas : '';
       out.push(row);
     });
-
     return out.sort((a,b) => {
-      const ya = localSafeNumber(a.anio), yb = localSafeNumber(b.anio);
-      if(ya !== yb) return ya - yb;
-      const ma = localSafeNumber(a.mes_num), mb = localSafeNumber(b.mes_num);
-      if(ma !== mb) return ma - mb;
+      const y = num(a.anio) - num(b.anio);
+      if(y) return y;
+      const m = num(a.mes_num) - num(b.mes_num);
+      if(m) return m;
       return ZONE_ORDER.indexOf(a.zona) - ZONE_ORDER.indexOf(b.zona);
     });
   }
 
   function patchMaterialRows(rows){
     (rows || []).forEach(row => {
-      const municipio = municipioFromMaterialRow(row);
+      const municipio = materialMunicipio(row);
       const zone = zoneForMunicipio(municipio);
-      if(zone){
-        row.municipio = municipio;
-        row.territorio = row.territorio || municipio;
-        row.zona = zone;
-        row.zona_codigo = zone;
-      }
+      if(!zone) return;
+      row.municipio = municipio;
+      row.territorio = row.territorio || municipio;
+      row.zona = zone;
+      row.zona_codigo = zone;
     });
   }
 
-  function patchLoadedData(data){
-    if(!data || data.__aalaNewZonesApplied) return data;
+  function patchRuntimeData(data){
+    if(!data || data.__aalaZonesFixed2026) return data;
     (data.territorioMes || []).forEach(row => {
       const municipio = canonicalMunicipio(row.territorio || row.municipio || '');
       const zone = zoneForMunicipio(municipio);
@@ -6076,79 +6063,26 @@ function renderIncomeMaterialCards(state, ctx){
     if(Array.isArray(data.territorioMes) && data.territorioMes.length){
       data.zonaMes = aggregateZonaMes(data.territorioMes);
     }
-    data.__aalaNewZonesApplied = true;
-    recalcPrecalcByZoneFromRows(data);
+    data.__aalaZonesFixed2026 = true;
     return data;
   }
 
-  function valueFromMetricRow(row, metricId, cfg){
+  function metricValue(row, metricId, cfg){
     if(!row) return 0;
     if(metricId === 'participacion_actividades'){
-      const active = localSafeNumber(row.mujeres_activas);
-      return active ? localSafeNumber(row.mujeres_actividades) / active : localSafeNumber(row.pct_participacion_actividades);
+      const active = num(row.mujeres_activas);
+      return active ? num(row.mujeres_actividades) / active : num(row.pct_participacion_actividades);
     }
     if(metricId === 'participacion_comercializacion'){
-      const active = localSafeNumber(row.mujeres_activas);
-      return active ? (localSafeNumber(row.mujeres_comercializacion) + localSafeNumber(row.mujeres_comercializacion_no_inscritas)) / active : localSafeNumber(row.pct_participacion_comercializacion);
+      const active = num(row.mujeres_activas);
+      return active ? (num(row.mujeres_comercializacion) + num(row.mujeres_comercializacion_no_inscritas)) / active : num(row.pct_participacion_comercializacion);
     }
-    return localSafeNumber(row[cfg?.column]);
+    return num(row[cfg && cfg.column]);
   }
 
-  function recalcPrecalcByZoneFromRows(data){
+  function recalcPrecalcFromMunicipios(){
     const precalc = window.ATITLAN_PRECALC;
-    if(!precalc || !precalc.metrics || !Array.isArray(data?.zonaMes)) return;
-    const metrics = precalc.metrics || {};
-    const metricIds = Object.keys(metrics);
-    const program = precalc.program || {};
-    const byZone = {};
-    const periods = (precalc.periods || []).map(p => ({anio:Number(p.anio), mes_num:Number(p.mes_num), mes:p.mes}));
-
-    ZONE_ORDER.forEach(zone => {
-      byZone[zone] = {};
-      periods.forEach(period => {
-        const key = `${period.anio}|${period.mes_num}`;
-        const monthlyRow = (data.zonaMes || []).find(row => Number(row.anio) === period.anio && Number(row.mes_num) === period.mes_num && canonicalZone(row.zona) === zone);
-        const annualRows = (data.zonaMes || []).filter(row => Number(row.anio) === period.anio && Number(row.mes_num) <= period.mes_num && canonicalZone(row.zona) === zone && rowHasActivity(row));
-        const bundle = {monthly:{}, annual:{}, shareMonthly:{}, shareAnnual:{}, progressMonthly:{}, progressAnnual:{}};
-        metricIds.forEach(metricId => {
-          const cfg = metrics[metricId] || {};
-          const meta = localSafeNumber(cfg.meta);
-          if(cfg.surusic){
-            bundle.monthly[metricId] = 0;
-            bundle.annual[metricId] = 0;
-            bundle.shareMonthly[metricId] = 0;
-            bundle.shareAnnual[metricId] = 0;
-            bundle.progressMonthly[metricId] = null;
-            bundle.progressAnnual[metricId] = null;
-            return;
-          }
-          const monthlyValue = valueFromMetricRow(monthlyRow, metricId, cfg);
-          let annualValue = 0;
-          if(cfg.agg === 'avg'){
-            const vals = annualRows.map(row => valueFromMetricRow(row, metricId, cfg)).filter(v => Number.isFinite(Number(v)) && (Number(v) !== 0 || rowHasActivity(row)));
-            annualValue = vals.length ? vals.reduce((a,b)=>a+Number(b),0) / vals.length : 0;
-          }else{
-            annualValue = annualRows.reduce((acc,row)=>acc + valueFromMetricRow(row, metricId, cfg), 0);
-          }
-          const programMonthly = localSafeNumber(program?.[key]?.monthly?.[metricId]);
-          const programAnnual = localSafeNumber(program?.[key]?.annual?.[metricId]);
-          bundle.monthly[metricId] = roundMetric(monthlyValue);
-          bundle.annual[metricId] = roundMetric(annualValue);
-          bundle.shareMonthly[metricId] = cfg.agg === 'avg' ? null : (programMonthly ? roundMetric(monthlyValue / programMonthly) : 0);
-          bundle.shareAnnual[metricId] = cfg.agg === 'avg' ? null : (programAnnual ? roundMetric(annualValue / programAnnual) : 0);
-          bundle.progressMonthly[metricId] = meta ? roundMetric(monthlyValue / meta) : null;
-          bundle.progressAnnual[metricId] = meta ? roundMetric(annualValue / (cfg.agg === 'avg' ? meta : meta * Math.max(1, period.mes_num))) : null;
-        });
-        byZone[zone][key] = bundle;
-      });
-    });
-    precalc.zones = ZONE_ORDER.slice();
-    precalc.byZone = byZone;
-  }
-
-  function recalcPrecalcByZoneFromMunicipios(){
-    const precalc = window.ATITLAN_PRECALC;
-    if(!precalc || !precalc.byMunicipio || !precalc.metrics) return;
+    if(!precalc || !precalc.byMunicipio || !precalc.metrics || precalc.__aalaZonesFixed2026) return;
     const metricIds = Object.keys(precalc.metrics || {});
     const byZone = {};
     ZONE_ORDER.forEach(zone => {
@@ -6158,38 +6092,46 @@ function renderIncomeMaterialCards(state, ctx){
         const bundle = {monthly:{}, annual:{}, shareMonthly:{}, shareAnnual:{}, progressMonthly:{}, progressAnnual:{}};
         metricIds.forEach(metricId => {
           const cfg = precalc.metrics[metricId] || {};
-          const meta = localSafeNumber(cfg.meta);
+          const meta = num(cfg.meta);
           if(cfg.surusic){
-            bundle.monthly[metricId]=0; bundle.annual[metricId]=0; bundle.shareMonthly[metricId]=0; bundle.shareAnnual[metricId]=0; bundle.progressMonthly[metricId]=null; bundle.progressAnnual[metricId]=null;
+            bundle.monthly[metricId] = 0;
+            bundle.annual[metricId] = 0;
+            bundle.shareMonthly[metricId] = 0;
+            bundle.shareAnnual[metricId] = 0;
+            bundle.progressMonthly[metricId] = null;
+            bundle.progressAnnual[metricId] = null;
             return;
           }
-          const monthlyVals = municipiosForZone(zone).map(m => localSafeNumber(precalc.byMunicipio?.[m]?.[key]?.monthly?.[metricId]));
-          const annualVals = municipiosForZone(zone).map(m => localSafeNumber(precalc.byMunicipio?.[m]?.[key]?.annual?.[metricId]));
-          const monthlyValue = cfg.agg === 'avg' ? mean(monthlyVals.filter(v => v !== 0)) : sum(monthlyVals);
-          const annualValue = cfg.agg === 'avg' ? mean(annualVals.filter(v => v !== 0)) : sum(annualVals);
-          const programMonthly = localSafeNumber(precalc.program?.[key]?.monthly?.[metricId]);
-          const programAnnual = localSafeNumber(precalc.program?.[key]?.annual?.[metricId]);
-          bundle.monthly[metricId]=roundMetric(monthlyValue || 0);
-          bundle.annual[metricId]=roundMetric(annualValue || 0);
-          bundle.shareMonthly[metricId]=cfg.agg === 'avg' ? null : (programMonthly ? roundMetric((monthlyValue || 0)/programMonthly) : 0);
-          bundle.shareAnnual[metricId]=cfg.agg === 'avg' ? null : (programAnnual ? roundMetric((annualValue || 0)/programAnnual) : 0);
-          bundle.progressMonthly[metricId]=meta ? roundMetric((monthlyValue || 0)/meta) : null;
-          bundle.progressAnnual[metricId]=meta ? roundMetric((annualValue || 0)/(cfg.agg === 'avg' ? meta : meta * Math.max(1, Number(period.mes_num)||1))) : null;
+          const monthlyVals = municipiosForZone(zone).map(m => num(precalc.byMunicipio?.[m]?.[key]?.monthly?.[metricId]));
+          const annualVals = municipiosForZone(zone).map(m => num(precalc.byMunicipio?.[m]?.[key]?.annual?.[metricId]));
+          const monthlyValue = cfg.agg === 'avg' ? avg(monthlyVals.filter(v => Number.isFinite(Number(v)) && Number(v) !== 0)) : sum(monthlyVals);
+          const annualValue = cfg.agg === 'avg' ? avg(annualVals.filter(v => Number.isFinite(Number(v)) && Number(v) !== 0)) : sum(annualVals);
+          const mVal = num(monthlyValue);
+          const aVal = num(annualValue);
+          const programMonthly = num(precalc.program?.[key]?.monthly?.[metricId]);
+          const programAnnual = num(precalc.program?.[key]?.annual?.[metricId]);
+          bundle.monthly[metricId] = round(mVal);
+          bundle.annual[metricId] = round(aVal);
+          bundle.shareMonthly[metricId] = cfg.agg === 'avg' ? null : (programMonthly ? round(mVal / programMonthly) : 0);
+          bundle.shareAnnual[metricId] = cfg.agg === 'avg' ? null : (programAnnual ? round(aVal / programAnnual) : 0);
+          bundle.progressMonthly[metricId] = meta ? round(mVal / meta) : null;
+          bundle.progressAnnual[metricId] = meta ? round(aVal / (cfg.agg === 'avg' ? meta : meta * Math.max(1, num(period.mes_num)))) : null;
         });
         byZone[zone][key] = bundle;
       });
     });
     precalc.zones = ZONE_ORDER.slice();
     precalc.byZone = byZone;
+    precalc.__aalaZonesFixed2026 = true;
   }
 
-  recalcPrecalcByZoneFromMunicipios();
+  recalcPrecalcFromMunicipios();
 
   if(typeof buildState === 'function'){
-    const previousBuildState = buildState;
+    const originalBuildState = buildState;
     buildState = function(data){
-      patchLoadedData(data);
-      const state = previousBuildState(data);
+      patchRuntimeData(data);
+      const state = originalBuildState(data);
       if(state && Array.isArray(state.zones)){
         state.zones = ['__all__'].concat(ZONE_ORDER);
         if(state.selectedZone && state.selectedZone !== '__all__') state.selectedZone = canonicalZone(state.selectedZone) || '__all__';
@@ -6200,175 +6142,145 @@ function renderIncomeMaterialCards(state, ctx){
 
   if(typeof sameZone === 'function'){
     sameZone = function(row, zone){
-      return canonicalZone(row?.zona) === canonicalZone(zone);
+      return canonicalZone(row && row.zona) === canonicalZone(zone);
     };
   }
   if(typeof sameZoneMaterial === 'function'){
-    const previousSameZoneMaterial = sameZoneMaterial;
     sameZoneMaterial = function(row, zone){
-      const municipio = municipioFromMaterialRow(row);
-      const mappedZone = zoneForMunicipio(municipio) || canonicalZone(row?.zona_codigo || row?.zona);
-      if(mappedZone && canonicalZone(zone)) return mappedZone === canonicalZone(zone);
-      return previousSameZoneMaterial(row, zone);
+      const mapped = zoneForMunicipio(materialMunicipio(row)) || canonicalZone(row && (row.zona_codigo || row.zona));
+      return mapped && canonicalZone(zone) ? mapped === canonicalZone(zone) : false;
     };
   }
 
-  function injectZoneStyles(){
-    if(document.getElementById('aala-zone-tooltip-styles')) return;
-    const style = document.createElement('style');
-    style.id = 'aala-zone-tooltip-styles';
-    style.textContent = `
-      .aala-zone-tip-trigger{cursor:help;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;text-decoration-color:rgba(31,111,141,.45)}
-      .aala-zone-floating-tip{position:fixed;z-index:5000;max-width:min(360px,calc(100vw - 32px));padding:14px 16px;border-radius:16px;background:linear-gradient(135deg,#ffffff 0%,var(--blue-pale,#edf8fb) 100%);border:1.5px solid var(--blue-soft,#caeaf0);box-shadow:0 18px 50px rgba(23,50,58,.20);color:var(--text-2,#2f5961);font-family:var(--font-body,'Sora',system-ui,sans-serif);font-size:.82rem;line-height:1.55;pointer-events:none;opacity:0;transform:translateY(4px);transition:opacity .14s ease,transform .14s ease}
-      .aala-zone-floating-tip.open{opacity:1;transform:translateY(0)}
-      .aala-zone-floating-tip strong{display:block;margin-bottom:5px;color:var(--blue,#1f6f8d);font-size:.78rem;text-transform:uppercase;letter-spacing:.08em}
-      .aala-zone-floating-tip span{display:block;color:var(--text-2,#2f5961)}
-      .aala-impact-context{margin:-4px 0 18px;padding:14px 17px;border-radius:16px;background:linear-gradient(135deg,var(--blue-pale,#edf8fb),#ffffff);border:1.5px solid var(--blue-soft,#caeaf0);box-shadow:var(--shadow-sm,0 1px 4px rgba(23,50,58,.05));font-family:var(--font-body,'Sora',system-ui,sans-serif);color:var(--blue,#1f6f8d);font-size:.87rem;line-height:1.65}
-      .aala-impact-context strong{color:var(--blue,#1f6f8d);font-weight:800}
-      .aala-impact-context .aala-context-kicker{display:inline-flex;align-items:center;gap:7px;margin-bottom:5px;font-size:.68rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--blue-mid,#2b87a6)}
-      .aala-impact-context .aala-context-kicker::before{content:'';width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,var(--green,#187a5a),var(--blue-mid,#2b87a6))}
-    `;
-    document.head.appendChild(style);
+  let tooltip;
+  function getTooltip(){
+    if(tooltip) return tooltip;
+    tooltip = document.createElement('div');
+    tooltip.className = 'aala-zone-tooltip';
+    document.body.appendChild(tooltip);
+    return tooltip;
   }
-
-  let floatingTip = null;
-  function getFloatingTip(){
-    if(floatingTip) return floatingTip;
-    floatingTip = document.createElement('div');
-    floatingTip.className = 'aala-zone-floating-tip';
-    document.body.appendChild(floatingTip);
-    return floatingTip;
-  }
-  function showZoneTip(target, zone){
+  function showTooltip(target, zone){
     const canonical = canonicalZone(zone);
-    const description = zoneDescription(canonical);
-    if(!canonical || !description || !target?.getBoundingClientRect) return;
-    const tip = getFloatingTip();
-    tip.innerHTML = `<strong>${escapeHtmlSafe(canonical)}</strong><span>${escapeHtmlSafe(description.replace(/^La zona [^:]+ está compuesta por:\s*/,'Municipios: '))}</span>`;
+    const municipios = municipiosForZone(canonical);
+    if(!target || !canonical || !municipios.length) return;
+    const tip = getTooltip();
+    tip.innerHTML = `<strong>${esc(canonical)}</strong><span>Municipios: ${esc(municipios.join(', '))}</span>`;
     tip.classList.add('open');
     const rect = target.getBoundingClientRect();
-    const width = Math.min(360, window.innerWidth - 32);
+    const width = Math.min(380, window.innerWidth - 32);
     tip.style.width = width + 'px';
     let left = rect.right + 12;
     let top = rect.top;
     if(left + width > window.innerWidth - 12) left = rect.left - width - 12;
-    if(left < 12) left = Math.min(12, window.innerWidth - width - 12);
-    const height = tip.offsetHeight || 120;
+    if(left < 12) left = 12;
+    const height = tip.offsetHeight || 110;
     if(top + height > window.innerHeight - 12) top = Math.max(12, window.innerHeight - height - 12);
     tip.style.left = left + 'px';
     tip.style.top = top + 'px';
   }
-  function hideZoneTip(){
-    if(floatingTip) floatingTip.classList.remove('open');
-  }
-  function escapeHtmlSafe(value){
-    if(typeof escapeHtml === 'function') return escapeHtml(value);
-    return String(value ?? '').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;');
+  function hideTooltip(){
+    if(tooltip) tooltip.classList.remove('open');
   }
 
-  function decorateZoneElements(root){
-    injectZoneStyles();
-    const scope = root || document;
-    scope.querySelectorAll('option').forEach(option => {
-      const zone = canonicalZone(option.value || option.textContent);
-      if(zone) option.title = zoneDescription(zone);
-    });
-    scope.querySelectorAll('td,th,strong,span,text').forEach(el => {
-      if(el.dataset?.aalaZone) return;
-      const text = (el.textContent || '').trim();
-      const zone = canonicalZone(text);
-      if(zone && text.length <= 24){
-        el.dataset.aalaZone = zone;
-        el.classList.add('aala-zone-tip-trigger');
-        el.setAttribute('title', zoneDescription(zone));
-      }
-    });
-    ['zoneSelect','incomeZoneSelect','impactZoneSelect'].forEach(id => {
+  function annotateZoneElements(){
+    const selectIds = ['zoneSelect','impactZoneSelect','incomeZoneSelect'];
+    selectIds.forEach(id => {
       const select = document.getElementById(id);
       if(!select) return;
       const zone = canonicalZone(select.value);
       if(zone){
-        select.dataset.aalaZone = zone;
-        select.setAttribute('title', zoneDescription(zone));
+        select.dataset.aalaZoneInfo = zone;
+        select.title = zoneDescription(zone);
       }else{
-        select.removeAttribute('data-aala-zone');
+        delete select.dataset.aalaZoneInfo;
         select.removeAttribute('title');
       }
+      Array.from(select.options || []).forEach(option => {
+        const optionZone = canonicalZone(option.value || option.textContent);
+        if(optionZone) option.title = zoneDescription(optionZone);
+      });
+    });
+
+    const zoneCells = document.querySelectorAll('#zonePanel td:first-child, #zonePanel text, #incomeSection .kpi-meta strong');
+    zoneCells.forEach(el => {
+      const zone = canonicalZone(el.textContent || '');
+      if(!zone) return;
+      el.dataset.aalaZoneInfo = zone;
+      el.classList.add('aala-zone-info-target');
+      el.title = zoneDescription(zone);
     });
   }
 
-  function renderImpactContext(){
-    injectZoneStyles();
-    const section = document.getElementById('incomeSection');
-    const toolbar = section?.querySelector('.impact-toolbar');
-    if(!section || !toolbar) return;
-    let note = section.querySelector('#impactTerritoryContext');
+  function impactContextHtml(){
     const f = window.AT_ANALYSIS_FILTER || {zone:'__none__', municipio:'__none__'};
-    let html = '';
     const selectedZone = canonicalZone(f.zone);
-    const selectedMunicipio = canonicalMunicipio(f.municipio && f.municipio !== '__none__' ? f.municipio : '');
+    const selectedMunicipio = f.municipio && f.municipio !== '__none__' ? canonicalMunicipio(f.municipio) : '';
     if(selectedZone){
-      html = `<div class="aala-context-kicker">Composición territorial</div>La zona <strong>${escapeHtmlSafe(selectedZone)}</strong> está compuesta por los siguientes municipios: <strong>${escapeHtmlSafe(municipiosForZone(selectedZone).join(', '))}</strong>.`;
-    }else if(selectedMunicipio && zoneForMunicipio(selectedMunicipio)){
-      html = `<div class="aala-context-kicker">Ubicación territorial</div>Este municipio pertenece a: <strong>${escapeHtmlSafe(zoneForMunicipio(selectedMunicipio))}</strong>.`;
+      return `<div class="aala-note-kicker">Composición territorial</div>La zona <strong>${esc(selectedZone)}</strong> está compuesta por los siguientes municipios: <strong>${esc(municipiosForZone(selectedZone).join(', '))}</strong>.`;
     }
+    if(selectedMunicipio && zoneForMunicipio(selectedMunicipio)){
+      return `<div class="aala-note-kicker">Ubicación territorial</div>Este municipio pertenece a: <strong>${esc(zoneForMunicipio(selectedMunicipio))}</strong>.`;
+    }
+    return '';
+  }
+
+  function applyImpactContext(){
+    const section = document.getElementById('incomeSection');
+    const toolbar = section && section.querySelector('.impact-toolbar');
+    if(!section || !toolbar) return;
+    let note = section.querySelector('#aalaImpactTerritoryNote');
+    const html = impactContextHtml();
     if(!html){
-      note?.remove();
+      if(note) note.remove();
       return;
     }
     if(!note){
       note = document.createElement('div');
-      note.id = 'impactTerritoryContext';
-      note.className = 'aala-impact-context';
+      note.id = 'aalaImpactTerritoryNote';
+      note.className = 'aala-impact-territory-note';
       toolbar.insertAdjacentElement('afterend', note);
     }
-    note.innerHTML = html;
+    if(note.innerHTML !== html) note.innerHTML = html;
   }
 
-  document.addEventListener('mouseover', event => {
-    const target = event.target.closest?.('[data-aala-zone]');
-    if(target) showZoneTip(target, target.dataset.aalaZone || target.value || target.textContent);
-  });
-  document.addEventListener('mouseout', event => {
-    if(event.target.closest?.('[data-aala-zone]')) hideZoneTip();
-  });
-  document.addEventListener('focusin', event => {
-    const target = event.target.closest?.('[data-aala-zone]');
-    if(target) showZoneTip(target, target.dataset.aalaZone || target.value || target.textContent);
-  });
-  document.addEventListener('focusout', hideZoneTip);
-  document.addEventListener('change', event => {
-    if(event.target && ['zoneSelect','incomeZoneSelect','impactZoneSelect'].includes(event.target.id)){
-      decorateZoneElements(document);
-      renderImpactContext();
-    }
-  });
+  function postRender(){
+    patchRuntimeData(window.currentData || (typeof currentData !== 'undefined' ? currentData : null));
+    annotateZoneElements();
+    applyImpactContext();
+  }
 
   if(typeof render === 'function'){
-    const previousRender = render;
+    const originalRender = render;
     render = function(state){
-      const out = previousRender(state);
-      decorateZoneElements(document);
-      renderImpactContext();
-      return out;
+      const result = originalRender(state);
+      requestAnimationFrame(postRender);
+      return result;
     };
   }
 
-  const observer = new MutationObserver(() => {
-    decorateZoneElements(document);
-    renderImpactContext();
+  document.addEventListener('mouseover', function(event){
+    const target = event.target.closest && event.target.closest('[data-aala-zone-info]');
+    if(target) showTooltip(target, target.dataset.aalaZoneInfo || target.value || target.textContent);
   });
-  function startZoneObserver(){
-    injectZoneStyles();
-    decorateZoneElements(document);
-    renderImpactContext();
-    observer.observe(document.body, {childList:true, subtree:true});
-  }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', startZoneObserver);
-  else startZoneObserver();
+  document.addEventListener('mouseout', function(event){
+    if(event.target.closest && event.target.closest('[data-aala-zone-info]')) hideTooltip();
+  });
+  document.addEventListener('focusin', function(event){
+    const target = event.target.closest && event.target.closest('[data-aala-zone-info]');
+    if(target) showTooltip(target, target.dataset.aalaZoneInfo || target.value || target.textContent);
+  });
+  document.addEventListener('focusout', hideTooltip);
+  document.addEventListener('change', function(event){
+    if(event.target && ['zoneSelect','impactZoneSelect','impactMunicipioSelect','incomeZoneSelect'].includes(event.target.id)){
+      requestAnimationFrame(postRender);
+    }
+  }, true);
+  document.addEventListener('DOMContentLoaded', function(){
+    requestAnimationFrame(postRender);
+  });
 })();
 </script>
-
 
 </body>
 </html>
