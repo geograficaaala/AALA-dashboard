@@ -1,43 +1,49 @@
 programa_id,programa_nombre,anio,mes_num,mes,nivel_agregacion,territorio,indicador_id,indicador_nombre,valor,meta_mensual,unidad,fuente
 atitlan_recicla,Atitlán Recicla,2026,1,ENE,programa,TOTAL,materiales_generales,Materiales reciclables recolectados,1893.3,1630.0,qq,CDM
 atitlan_recicla,Atitlán Recicla,2026,1,ENE,programa,TOTAL,pet,PET recolectado,141.2,153.0,qq,CDM
-atitlan_recicla,Atitlán Recicla,2026,1,ENE,programa,TOTAL,vidrio,Vidrio recolectado,1126.91,1018.0,qq,CDM
+atitlan_recicla,Atitlán Recicla,2026,1,ENE,programa,TOTAL,vidrio,Vidrio recolectado,0.0,1018.0,qq,CDM
 atitlan_recicla,Atitlán Recicla,2026,1,ENE,programa,TOTAL,ingreso_bruto_total,Ingresos brutos totales,41658.69,40727.0,GTQ,CDM
 atitlan_recicla,Atitlán Recicla,2026,1,ENE,programa,TOTAL,ingreso_bruto_mujeres,Ingresos brutos por mujeres,40097.61,36655.0,GTQ,CDM
 atitlan_recicla,Atitlán Recicla,2026,1,ENE,programa,TOTAL,ingreso_bruto_municipalidades,Ingresos brutos por municipalidades,1561.08,4073.0,GTQ,CDM
-atitlan_recicla,Atitlán Recicla,2026,1,ENE,programa,TOTAL,ingreso_diario_lideresa,Ingreso diario por lideresa,201.3789027777778,135.0,GTQ/día,CDM
+atitlan_recicla,Atitlán Recicla,2026,1,ENE,programa,TOTAL,ingreso_diario_lideresa,Ingreso diario por lideresa,179.3371527777778,135.0,GTQ/día,CDM
 atitlan_recicla,Atitlán Recicla,2026,1,ENE,programa,TOTAL,participacion_actividades,Participación activa en actividades,0.9016393442622951,0.75,proporción,CDM
 atitlan_recicla,Atitlán Recicla,2026,1,ENE,programa,TOTAL,participacion_comercializacion,Participación en comercialización,0.639344262295082,0.6,proporción,CDM
 atitlan_recicla,Atitlán Recicla,2026,2,FEB,programa,TOTAL,materiales_generales,Materiales reciclables recolectados,1563.09,1630.0,qq,CDM
 atitlan_recicla,Atitlán Recicla,2026,2,FEB,programa,TOTAL,pet,PET recolectado,95.12,153.0,qq,CDM
-atitlan_recicla,Atitlán Recicla,2026,2,FEB,programa,TOTAL,vidrio,Vidrio recolectado,978.13,1018.0,qq,CDM
+atitlan_recicla,Atitlán Recicla,2026,2,FEB,programa,TOTAL,vidrio,Vidrio recolectado,0.0,1018.0,qq,CDM
 atitlan_recicla,Atitlán Recicla,2026,2,FEB,programa,TOTAL,ingreso_bruto_total,Ingresos brutos totales,32122.02,40727.0,GTQ,CDM
 atitlan_recicla,Atitlán Recicla,2026,2,FEB,programa,TOTAL,ingreso_bruto_mujeres,Ingresos brutos por mujeres,29192.43,36655.0,GTQ,CDM
 atitlan_recicla,Atitlán Recicla,2026,2,FEB,programa,TOTAL,ingreso_bruto_municipalidades,Ingresos brutos por municipalidades,2929.59,4073.0,GTQ,CDM
-atitlan_recicla,Atitlán Recicla,2026,2,FEB,programa,TOTAL,ingreso_diario_lideresa,Ingreso diario por lideresa,151.2883658008658,135.0,GTQ/día,CDM
+atitlan_recicla,Atitlán Recicla,2026,2,FEB,programa,TOTAL,ingreso_diario_lideresa,Ingreso diario por lideresa,124.33918398268398,135.0,GTQ/día,CDM
 atitlan_recicla,Atitlán Recicla,2026,2,FEB,programa,TOTAL,participacion_actividades,Participación activa en actividades,0.7586206896551724,0.75,proporción,CDM
 atitlan_recicla,Atitlán Recicla,2026,2,FEB,programa,TOTAL,participacion_comercializacion,Participación en comercialización,0.6206896551724138,0.6,proporción,CDM
 atitlan_recicla,Atitlán Recicla,2026,3,MAR,programa,TOTAL,materiales_generales,Materiales reciclables recolectados,1779.9,1630.0,qq,CDM
 atitlan_recicla,Atitlán Recicla,2026,3,MAR,programa,TOTAL,pet,PET recolectado,115.4,153.0,qq,CDM
-atitlan_recicla,Atitlán Recicla,2026,3,MAR,programa,TOTAL,vidrio,Vidrio recolectado,995.21,1018.0,qq,CDM
+atitlan_recicla,Atitlán Recicla,2026,3,MAR,programa,TOTAL,vidrio,Vidrio recolectado,0.0,1018.0,qq,CDM
 atitlan_recicla,Atitlán Recicla,2026,3,MAR,programa,TOTAL,ingreso_bruto_total,Ingresos brutos totales,34372.979999999996,40727.0,GTQ,CDM
-atitlan_recicla,Atitlán Recicla,2026,3,MAR,programa,TOTAL,ingreso_bruto_mujeres,Ingresos brutos por mujeres,28149.27,36655.0,GTQ,CDM
+atitlan_recicla,Atitlán Recicla,2026,3,MAR,programa,TOTAL,ingreso_bruto_mujeres,Ingresos brutos por mujeres,28149.269999999997,36655.0,GTQ,CDM
 atitlan_recicla,Atitlán Recicla,2026,3,MAR,programa,TOTAL,ingreso_bruto_municipalidades,Ingresos brutos por municipalidades,6223.71,4073.0,GTQ,CDM
-atitlan_recicla,Atitlán Recicla,2026,3,MAR,programa,TOTAL,ingreso_diario_lideresa,Ingreso diario por lideresa,138.51091255411254,135.0,GTQ/día,CDM
+atitlan_recicla,Atitlán Recicla,2026,3,MAR,programa,TOTAL,ingreso_diario_lideresa,Ingreso diario por lideresa,131.29136709956708,135.0,GTQ/día,CDM
 atitlan_recicla,Atitlán Recicla,2026,3,MAR,programa,TOTAL,participacion_actividades,Participación activa en actividades,0.7586206896551724,0.75,proporción,CDM
 atitlan_recicla,Atitlán Recicla,2026,3,MAR,programa,TOTAL,participacion_comercializacion,Participación en comercialización,0.6206896551724139,0.6,proporción,CDM
-atitlan_recicla,Atitlán Recicla,2026,4,ABR,programa,TOTAL,materiales_generales,Materiales reciclables recolectados,0.0,1630.0,qq,CDM
-atitlan_recicla,Atitlán Recicla,2026,4,ABR,programa,TOTAL,pet,PET recolectado,0.0,153.0,qq,CDM
+atitlan_recicla,Atitlán Recicla,2026,4,ABR,programa,TOTAL,materiales_generales,Materiales reciclables recolectados,1683.5,1630.0,qq,CDM
+atitlan_recicla,Atitlán Recicla,2026,4,ABR,programa,TOTAL,pet,PET recolectado,95.59,153.0,qq,CDM
 atitlan_recicla,Atitlán Recicla,2026,4,ABR,programa,TOTAL,vidrio,Vidrio recolectado,0.0,1018.0,qq,CDM
-atitlan_recicla,Atitlán Recicla,2026,4,ABR,programa,TOTAL,ingreso_bruto_total,Ingresos brutos totales,0.0,40727.0,GTQ,CDM
-atitlan_recicla,Atitlán Recicla,2026,4,ABR,programa,TOTAL,ingreso_bruto_mujeres,Ingresos brutos por mujeres,0.0,36655.0,GTQ,CDM
-atitlan_recicla,Atitlán Recicla,2026,4,ABR,programa,TOTAL,ingreso_bruto_municipalidades,Ingresos brutos por municipalidades,0.0,4073.0,GTQ,CDM
-atitlan_recicla,Atitlán Recicla,2026,5,MAY,programa,TOTAL,materiales_generales,Materiales reciclables recolectados,0.0,1630.0,qq,CDM
-atitlan_recicla,Atitlán Recicla,2026,5,MAY,programa,TOTAL,pet,PET recolectado,0.0,153.0,qq,CDM
+atitlan_recicla,Atitlán Recicla,2026,4,ABR,programa,TOTAL,ingreso_bruto_total,Ingresos brutos totales,32463.9,40727.0,GTQ,CDM
+atitlan_recicla,Atitlán Recicla,2026,4,ABR,programa,TOTAL,ingreso_bruto_mujeres,Ingresos brutos por mujeres,30241.27,36655.0,GTQ,CDM
+atitlan_recicla,Atitlán Recicla,2026,4,ABR,programa,TOTAL,ingreso_bruto_municipalidades,Ingresos brutos por municipalidades,2222.63,4073.0,GTQ,CDM
+atitlan_recicla,Atitlán Recicla,2026,4,ABR,programa,TOTAL,ingreso_diario_lideresa,Ingreso diario por lideresa,138.36612575757576,135.0,GTQ/día,CDM
+atitlan_recicla,Atitlán Recicla,2026,4,ABR,programa,TOTAL,participacion_actividades,Participación activa en actividades,0.7241379310344828,0.75,proporción,CDM
+atitlan_recicla,Atitlán Recicla,2026,4,ABR,programa,TOTAL,participacion_comercializacion,Participación en comercialización,0.5689655172413793,0.6,proporción,CDM
+atitlan_recicla,Atitlán Recicla,2026,5,MAY,programa,TOTAL,materiales_generales,Materiales reciclables recolectados,1708.31,1630.0,qq,CDM
+atitlan_recicla,Atitlán Recicla,2026,5,MAY,programa,TOTAL,pet,PET recolectado,140.27,153.0,qq,CDM
 atitlan_recicla,Atitlán Recicla,2026,5,MAY,programa,TOTAL,vidrio,Vidrio recolectado,0.0,1018.0,qq,CDM
-atitlan_recicla,Atitlán Recicla,2026,5,MAY,programa,TOTAL,ingreso_bruto_total,Ingresos brutos totales,0.0,40727.0,GTQ,CDM
-atitlan_recicla,Atitlán Recicla,2026,5,MAY,programa,TOTAL,ingreso_bruto_mujeres,Ingresos brutos por mujeres,0.0,36655.0,GTQ,CDM
-atitlan_recicla,Atitlán Recicla,2026,5,MAY,programa,TOTAL,ingreso_bruto_municipalidades,Ingresos brutos por municipalidades,0.0,4073.0,GTQ,CDM
+atitlan_recicla,Atitlán Recicla,2026,5,MAY,programa,TOTAL,ingreso_bruto_total,Ingresos brutos totales,38314.5,40727.0,GTQ,CDM
+atitlan_recicla,Atitlán Recicla,2026,5,MAY,programa,TOTAL,ingreso_bruto_mujeres,Ingresos brutos por mujeres,36455.14,36655.0,GTQ,CDM
+atitlan_recicla,Atitlán Recicla,2026,5,MAY,programa,TOTAL,ingreso_bruto_municipalidades,Ingresos brutos por municipalidades,1859.3600000000001,4073.0,GTQ,CDM
+atitlan_recicla,Atitlán Recicla,2026,5,MAY,programa,TOTAL,ingreso_diario_lideresa,Ingreso diario por lideresa,166.3362409090909,135.0,GTQ/día,CDM
+atitlan_recicla,Atitlán Recicla,2026,5,MAY,programa,TOTAL,participacion_actividades,Participación activa en actividades,0.7068965517241379,0.75,proporción,CDM
+atitlan_recicla,Atitlán Recicla,2026,5,MAY,programa,TOTAL,participacion_comercializacion,Participación en comercialización,0.5689655172413793,0.6,proporción,CDM
 atitlan_recicla,Atitlán Recicla,2026,6,JUN,programa,TOTAL,materiales_generales,Materiales reciclables recolectados,0.0,1630.0,qq,CDM
 atitlan_recicla,Atitlán Recicla,2026,6,JUN,programa,TOTAL,pet,PET recolectado,0.0,153.0,qq,CDM
 atitlan_recicla,Atitlán Recicla,2026,6,JUN,programa,TOTAL,vidrio,Vidrio recolectado,0.0,1018.0,qq,CDM
