@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-05-28T08:46:10.160502-06:00",
+  "generated_at": "2026-05-28T19:16:42.539972-06:00",
   "cutoff": {
     "institutional_cutoff_period": "2026-04",
     "timezone": "America/Guatemala",
@@ -69,42 +69,42 @@
         {
           "field": "total_materiales_qq",
           "label": "Materiales reciclables recolectados",
-          "value": 0.0
+          "value": 1683.5
         },
         {
           "field": "ingreso_bruto_total",
           "label": "Ingresos brutos totales",
-          "value": 0.0
+          "value": 32463.9
         },
         {
           "field": "ingreso_diario_lideresa",
           "label": "Ingreso diario por lideresa",
-          "value": null
+          "value": 138.366126
         },
         {
           "field": "mujeres_activas",
           "label": "Mujeres activas",
-          "value": 0.0
+          "value": 3.866667
         },
         {
           "field": "mujeres_comercializacion",
           "label": "Mujeres en comercialización",
-          "value": 0.0
+          "value": 2.066667
         },
         {
           "field": "pct_participacion_actividades",
           "label": "Participación en actividades",
-          "value": null
+          "value": 0.724138
         },
         {
           "field": "pct_participacion_comercializacion",
           "label": "Participación en comercialización",
-          "value": null
+          "value": 0.568966
         },
         {
           "field": "pet_qq",
           "label": "PET recolectado",
-          "value": 0.0
+          "value": 95.59
         },
         {
           "field": "vidrio_total_qq",
@@ -117,48 +117,66 @@
         "anio": 2026,
         "mes_num": 4,
         "mes": "ABR",
-        "mujeres_activas": 0.0,
-        "mujeres_actividades": 0.0,
-        "mujeres_comercializacion": 0.0,
-        "mujeres_comercializacion_no_inscritas": 0.0,
-        "ingreso_diario_lideresa": null,
-        "mujeres_inscritas_total": null,
+        "mujeres_activas": 3.866667,
+        "mujeres_actividades": 2.8,
+        "mujeres_comercializacion": 2.066667,
+        "mujeres_comercializacion_no_inscritas": 0.133333,
+        "ingreso_diario_lideresa": 138.366126,
+        "mujeres_inscritas_total": 11.0,
         "mujeres_nuevas_inscritas": 0.0,
-        "materiales_lideresas_qq": 0.0,
-        "materiales_municipalidad_qq": 0.0,
-        "total_materiales_qq": 0.0,
-        "ingreso_bruto_lideresas": 0.0,
-        "gasto_transporte": 0.0,
-        "pago_coop_lideresas": 0.0,
-        "ingreso_neto_lideresas": 0.0,
-        "ingreso_bruto_municipalidad": 0.0,
-        "pago_coop_municipalidad": 0.0,
-        "ingreso_neto_municipalidad": 0.0,
-        "ingreso_bruto_total": 0.0,
-        "ingreso_neto_total_territorio": 0.0,
-        "ingreso_neto_cooperativa": 0.0,
-        "horas_trabajadas_lideresas": 0.0,
-        "pet_qq": 0.0,
+        "materiales_lideresas_qq": 1574.4,
+        "materiales_municipalidad_qq": 109.1,
+        "total_materiales_qq": 1683.5,
+        "ingreso_bruto_lideresas": 30241.27,
+        "gasto_transporte": 2300.0,
+        "pago_coop_lideresas": 130.5,
+        "ingreso_neto_lideresas": 30110.77,
+        "ingreso_bruto_municipalidad": 2222.63,
+        "pago_coop_municipalidad": 322.43,
+        "ingreso_neto_municipalidad": 1900.2,
+        "ingreso_bruto_total": 32463.9,
+        "ingreso_neto_total_territorio": 32010.97,
+        "ingreso_neto_cooperativa": 452.93,
+        "horas_trabajadas_lideresas": 2058.1,
+        "pet_qq": 95.59,
         "vidrio_cerveza_gronn_unid": 0.0,
         "vidrio_vino_gronn_unid": 0.0,
         "vidrio_cerveza_surusic_unid": 0.0,
         "vidrio_vino_surusic_unid": 0.0,
-        "vidrio_peso_qq": 0.0,
+        "vidrio_peso_qq": 876.71,
         "vidrio_total_qq": 0.0,
-        "ingreso_pet": 0.0,
-        "ingreso_vidrio_peso": 0.0,
+        "ingreso_pet": 3623.35,
+        "ingreso_vidrio_peso": 16901.86,
         "ingreso_vidrio_gronn": 0.0,
-        "ingreso_vidrio_surusic": 0.0,
+        "ingreso_vidrio_surusic": 142.0,
         "zona": "TOTAL",
-        "pct_participacion_actividades": null,
-        "pct_participacion_comercializacion": null,
+        "pct_participacion_actividades": 0.724138,
+        "pct_participacion_comercializacion": 0.568966,
         "periodo_clave": "2026-04",
         "mes_label": "Abril",
-        "tiene_datos_mes": false,
+        "tiene_datos_mes": true,
         "is_latest_data_month": false
       },
       "indicators": {
         "all": [
+          {
+            "indicator_id": "ingreso_diario_lideresa",
+            "indicator_name": "Ingreso diario por lideresa",
+            "unit": "GTQ/día",
+            "category": "",
+            "status": "verde",
+            "bucket": "positivo",
+            "is_required": true,
+            "value_month": 138.366126,
+            "value_accumulated": null,
+            "target_month": 135.0,
+            "target_year": null,
+            "expected_to_date": null,
+            "pct_vs_expected": 1.024934,
+            "pct_meta_year": null,
+            "note": "",
+            "human_summary": "Ingreso diario por lideresa superó la meta mensual con 138,37 GTQ/día frente a 135 GTQ/día."
+          },
           {
             "indicator_id": "ingreso_bruto_mujeres",
             "indicator_name": "Ingresos brutos por mujeres",
@@ -167,15 +185,15 @@
             "status": "rojo",
             "bucket": "alerta",
             "is_required": true,
-            "value_month": 0.0,
+            "value_month": 30241.27,
             "value_accumulated": null,
             "target_month": 36655.0,
             "target_year": null,
             "expected_to_date": null,
-            "pct_vs_expected": 0.0,
+            "pct_vs_expected": 0.825024,
             "pct_meta_year": null,
             "note": "",
-            "human_summary": "Ingresos brutos por mujeres quedó por debajo de la meta mensual: 0 GTQ frente a 36.655,00 GTQ; la brecha es de 36.655,00 GTQ."
+            "human_summary": "Ingresos brutos por mujeres quedó por debajo de la meta mensual: 30.241,27 GTQ frente a 36.655,00 GTQ; la brecha es de 6.413,73 GTQ."
           },
           {
             "indicator_id": "ingreso_bruto_municipalidades",
@@ -185,15 +203,15 @@
             "status": "rojo",
             "bucket": "alerta",
             "is_required": true,
-            "value_month": 0.0,
+            "value_month": 2222.63,
             "value_accumulated": null,
             "target_month": 4073.0,
             "target_year": null,
             "expected_to_date": null,
-            "pct_vs_expected": 0.0,
+            "pct_vs_expected": 0.545699,
             "pct_meta_year": null,
             "note": "",
-            "human_summary": "Ingresos brutos por municipalidades quedó por debajo de la meta mensual: 0 GTQ frente a 4.073,00 GTQ; la brecha es de 4.073,00 GTQ."
+            "human_summary": "Ingresos brutos por municipalidades quedó por debajo de la meta mensual: 2.222,63 GTQ frente a 4.073,00 GTQ; la brecha es de 1.850,37 GTQ."
           },
           {
             "indicator_id": "ingreso_bruto_total",
@@ -203,33 +221,33 @@
             "status": "rojo",
             "bucket": "alerta",
             "is_required": true,
-            "value_month": 0.0,
+            "value_month": 32463.9,
             "value_accumulated": null,
             "target_month": 40727.0,
             "target_year": null,
             "expected_to_date": null,
-            "pct_vs_expected": 0.0,
+            "pct_vs_expected": 0.79711,
             "pct_meta_year": null,
             "note": "",
-            "human_summary": "Ingresos brutos totales quedó por debajo de la meta mensual: 0 GTQ frente a 40.727,00 GTQ; la brecha es de 40.727,00 GTQ."
+            "human_summary": "Ingresos brutos totales quedó por debajo de la meta mensual: 32.463,90 GTQ frente a 40.727,00 GTQ; la brecha es de 8.263,10 GTQ."
           },
           {
             "indicator_id": "materiales_generales",
             "indicator_name": "Materiales reciclables recolectados",
             "unit": "qq",
             "category": "",
-            "status": "rojo",
-            "bucket": "alerta",
+            "status": "verde",
+            "bucket": "positivo",
             "is_required": true,
-            "value_month": 0.0,
+            "value_month": 1683.5,
             "value_accumulated": null,
             "target_month": 1630.0,
             "target_year": null,
             "expected_to_date": null,
-            "pct_vs_expected": 0.0,
+            "pct_vs_expected": 1.032822,
             "pct_meta_year": null,
             "note": "",
-            "human_summary": "Materiales reciclables recolectados quedó por debajo de la meta mensual: 0 qq frente a 1.630,00 qq; la brecha es de 1.630,00 qq."
+            "human_summary": "Materiales reciclables recolectados superó la meta mensual con 1.683,50 qq frente a 1.630,00 qq."
           },
           {
             "indicator_id": "pet",
@@ -239,15 +257,51 @@
             "status": "rojo",
             "bucket": "alerta",
             "is_required": true,
-            "value_month": 0.0,
+            "value_month": 95.59,
             "value_accumulated": null,
             "target_month": 153.0,
             "target_year": null,
             "expected_to_date": null,
-            "pct_vs_expected": 0.0,
+            "pct_vs_expected": 0.624771,
             "pct_meta_year": null,
             "note": "",
-            "human_summary": "PET recolectado quedó por debajo de la meta mensual: 0 qq frente a 153 qq; la brecha es de 153 qq."
+            "human_summary": "PET recolectado quedó por debajo de la meta mensual: 95,59 qq frente a 153 qq; la brecha es de 57,41 qq."
+          },
+          {
+            "indicator_id": "participacion_actividades",
+            "indicator_name": "Participación activa en actividades",
+            "unit": "proporción",
+            "category": "",
+            "status": "amarillo",
+            "bucket": "alerta",
+            "is_required": true,
+            "value_month": 0.724138,
+            "value_accumulated": null,
+            "target_month": 0.75,
+            "target_year": null,
+            "expected_to_date": null,
+            "pct_vs_expected": 0.965517,
+            "pct_meta_year": null,
+            "note": "",
+            "human_summary": "Participación activa en actividades quedó por debajo de la meta mensual: 0,72 proporción frente a 0,75 proporción; la brecha es de 0,03 proporción."
+          },
+          {
+            "indicator_id": "participacion_comercializacion",
+            "indicator_name": "Participación en comercialización",
+            "unit": "proporción",
+            "category": "",
+            "status": "amarillo",
+            "bucket": "alerta",
+            "is_required": true,
+            "value_month": 0.568966,
+            "value_accumulated": null,
+            "target_month": 0.6,
+            "target_year": null,
+            "expected_to_date": null,
+            "pct_vs_expected": 0.948276,
+            "pct_meta_year": null,
+            "note": "",
+            "human_summary": "Participación en comercialización quedó por debajo de la meta mensual: 0,57 proporción frente a 0,60 proporción; la brecha es de 0,03 proporción."
           },
           {
             "indicator_id": "vidrio",
@@ -277,15 +331,15 @@
             "status": "rojo",
             "bucket": "alerta",
             "is_required": true,
-            "value_month": 0.0,
+            "value_month": 30241.27,
             "value_accumulated": null,
             "target_month": 36655.0,
             "target_year": null,
             "expected_to_date": null,
-            "pct_vs_expected": 0.0,
+            "pct_vs_expected": 0.825024,
             "pct_meta_year": null,
             "note": "",
-            "human_summary": "Ingresos brutos por mujeres quedó por debajo de la meta mensual: 0 GTQ frente a 36.655,00 GTQ; la brecha es de 36.655,00 GTQ."
+            "human_summary": "Ingresos brutos por mujeres quedó por debajo de la meta mensual: 30.241,27 GTQ frente a 36.655,00 GTQ; la brecha es de 6.413,73 GTQ."
           },
           {
             "indicator_id": "ingreso_bruto_municipalidades",
@@ -295,15 +349,15 @@
             "status": "rojo",
             "bucket": "alerta",
             "is_required": true,
-            "value_month": 0.0,
+            "value_month": 2222.63,
             "value_accumulated": null,
             "target_month": 4073.0,
             "target_year": null,
             "expected_to_date": null,
-            "pct_vs_expected": 0.0,
+            "pct_vs_expected": 0.545699,
             "pct_meta_year": null,
             "note": "",
-            "human_summary": "Ingresos brutos por municipalidades quedó por debajo de la meta mensual: 0 GTQ frente a 4.073,00 GTQ; la brecha es de 4.073,00 GTQ."
+            "human_summary": "Ingresos brutos por municipalidades quedó por debajo de la meta mensual: 2.222,63 GTQ frente a 4.073,00 GTQ; la brecha es de 1.850,37 GTQ."
           },
           {
             "indicator_id": "ingreso_bruto_total",
@@ -313,33 +367,15 @@
             "status": "rojo",
             "bucket": "alerta",
             "is_required": true,
-            "value_month": 0.0,
+            "value_month": 32463.9,
             "value_accumulated": null,
             "target_month": 40727.0,
             "target_year": null,
             "expected_to_date": null,
-            "pct_vs_expected": 0.0,
+            "pct_vs_expected": 0.79711,
             "pct_meta_year": null,
             "note": "",
-            "human_summary": "Ingresos brutos totales quedó por debajo de la meta mensual: 0 GTQ frente a 40.727,00 GTQ; la brecha es de 40.727,00 GTQ."
-          },
-          {
-            "indicator_id": "materiales_generales",
-            "indicator_name": "Materiales reciclables recolectados",
-            "unit": "qq",
-            "category": "",
-            "status": "rojo",
-            "bucket": "alerta",
-            "is_required": true,
-            "value_month": 0.0,
-            "value_accumulated": null,
-            "target_month": 1630.0,
-            "target_year": null,
-            "expected_to_date": null,
-            "pct_vs_expected": 0.0,
-            "pct_meta_year": null,
-            "note": "",
-            "human_summary": "Materiales reciclables recolectados quedó por debajo de la meta mensual: 0 qq frente a 1.630,00 qq; la brecha es de 1.630,00 qq."
+            "human_summary": "Ingresos brutos totales quedó por debajo de la meta mensual: 32.463,90 GTQ frente a 40.727,00 GTQ; la brecha es de 8.263,10 GTQ."
           },
           {
             "indicator_id": "pet",
@@ -349,15 +385,51 @@
             "status": "rojo",
             "bucket": "alerta",
             "is_required": true,
-            "value_month": 0.0,
+            "value_month": 95.59,
             "value_accumulated": null,
             "target_month": 153.0,
             "target_year": null,
             "expected_to_date": null,
-            "pct_vs_expected": 0.0,
+            "pct_vs_expected": 0.624771,
             "pct_meta_year": null,
             "note": "",
-            "human_summary": "PET recolectado quedó por debajo de la meta mensual: 0 qq frente a 153 qq; la brecha es de 153 qq."
+            "human_summary": "PET recolectado quedó por debajo de la meta mensual: 95,59 qq frente a 153 qq; la brecha es de 57,41 qq."
+          },
+          {
+            "indicator_id": "participacion_actividades",
+            "indicator_name": "Participación activa en actividades",
+            "unit": "proporción",
+            "category": "",
+            "status": "amarillo",
+            "bucket": "alerta",
+            "is_required": true,
+            "value_month": 0.724138,
+            "value_accumulated": null,
+            "target_month": 0.75,
+            "target_year": null,
+            "expected_to_date": null,
+            "pct_vs_expected": 0.965517,
+            "pct_meta_year": null,
+            "note": "",
+            "human_summary": "Participación activa en actividades quedó por debajo de la meta mensual: 0,72 proporción frente a 0,75 proporción; la brecha es de 0,03 proporción."
+          },
+          {
+            "indicator_id": "participacion_comercializacion",
+            "indicator_name": "Participación en comercialización",
+            "unit": "proporción",
+            "category": "",
+            "status": "amarillo",
+            "bucket": "alerta",
+            "is_required": true,
+            "value_month": 0.568966,
+            "value_accumulated": null,
+            "target_month": 0.6,
+            "target_year": null,
+            "expected_to_date": null,
+            "pct_vs_expected": 0.948276,
+            "pct_meta_year": null,
+            "note": "",
+            "human_summary": "Participación en comercialización quedó por debajo de la meta mensual: 0,57 proporción frente a 0,60 proporción; la brecha es de 0,03 proporción."
           },
           {
             "indicator_id": "vidrio",
@@ -378,17 +450,57 @@
             "human_summary": "Vidrio recolectado quedó por debajo de la meta mensual: 0 qq frente a 1.018,00 qq; la brecha es de 1.018,00 qq."
           }
         ],
-        "positives": [],
+        "positives": [
+          {
+            "indicator_id": "ingreso_diario_lideresa",
+            "indicator_name": "Ingreso diario por lideresa",
+            "unit": "GTQ/día",
+            "category": "",
+            "status": "verde",
+            "bucket": "positivo",
+            "is_required": true,
+            "value_month": 138.366126,
+            "value_accumulated": null,
+            "target_month": 135.0,
+            "target_year": null,
+            "expected_to_date": null,
+            "pct_vs_expected": 1.024934,
+            "pct_meta_year": null,
+            "note": "",
+            "human_summary": "Ingreso diario por lideresa superó la meta mensual con 138,37 GTQ/día frente a 135 GTQ/día."
+          },
+          {
+            "indicator_id": "materiales_generales",
+            "indicator_name": "Materiales reciclables recolectados",
+            "unit": "qq",
+            "category": "",
+            "status": "verde",
+            "bucket": "positivo",
+            "is_required": true,
+            "value_month": 1683.5,
+            "value_accumulated": null,
+            "target_month": 1630.0,
+            "target_year": null,
+            "expected_to_date": null,
+            "pct_vs_expected": 1.032822,
+            "pct_meta_year": null,
+            "note": "",
+            "human_summary": "Materiales reciclables recolectados superó la meta mensual con 1.683,50 qq frente a 1.630,00 qq."
+          }
+        ],
         "neutral": []
       },
       "narratives": {
-        "executive_summary": "Para Abril de 2026, Atitlán Recicla muestra 6 indicador(es) que requieren atención prioritaria. El chatbot debería explicar esos rezagos usando solo este corte válido.",
-        "what_is_going_well": [],
+        "executive_summary": "En Abril de 2026, Atitlán Recicla sí reportó operación real: 1.683,50 qq de materiales reciclables y Q32.463,90 en ingresos brutos. Las alertas del mes deben leerse sobre este corte, no sobre meses futuros placeholder.",
+        "what_is_going_well": [
+          "Ingreso diario por lideresa superó la meta mensual con 138,37 GTQ/día frente a 135 GTQ/día.",
+          "Materiales reciclables recolectados superó la meta mensual con 1.683,50 qq frente a 1.630,00 qq."
+        ],
         "what_needs_attention": [
-          "Ingresos brutos por mujeres quedó por debajo de la meta mensual: 0 GTQ frente a 36.655,00 GTQ; la brecha es de 36.655,00 GTQ.",
-          "Ingresos brutos por municipalidades quedó por debajo de la meta mensual: 0 GTQ frente a 4.073,00 GTQ; la brecha es de 4.073,00 GTQ.",
-          "Ingresos brutos totales quedó por debajo de la meta mensual: 0 GTQ frente a 40.727,00 GTQ; la brecha es de 40.727,00 GTQ.",
-          "Materiales reciclables recolectados quedó por debajo de la meta mensual: 0 qq frente a 1.630,00 qq; la brecha es de 1.630,00 qq."
+          "Ingresos brutos por mujeres quedó por debajo de la meta mensual: 30.241,27 GTQ frente a 36.655,00 GTQ; la brecha es de 6.413,73 GTQ.",
+          "Ingresos brutos por municipalidades quedó por debajo de la meta mensual: 2.222,63 GTQ frente a 4.073,00 GTQ; la brecha es de 1.850,37 GTQ.",
+          "Ingresos brutos totales quedó por debajo de la meta mensual: 32.463,90 GTQ frente a 40.727,00 GTQ; la brecha es de 8.263,10 GTQ.",
+          "PET recolectado quedó por debajo de la meta mensual: 95,59 qq frente a 153 qq; la brecha es de 57,41 qq."
         ],
         "context_notes": []
       }
@@ -3015,8 +3127,8 @@
         "program_id": "atitlan_recicla",
         "program_name": "Atitlán Recicla",
         "latest_valid_period": "2026-04",
-        "alerts_count": 6,
-        "positives_count": 0,
+        "alerts_count": 7,
+        "positives_count": 2,
         "valid_periods_count": 4
       },
       {
