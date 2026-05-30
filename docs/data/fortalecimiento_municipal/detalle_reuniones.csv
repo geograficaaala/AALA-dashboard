@@ -23,12 +23,12 @@ row_number,module_name,fecha,anio,mes_num,mes_nombre,periodo,registro_valido,est
 22,reuniones,2026-04-10 00:00:00.000000000,2026,4,Abril,2026-04,True,OK,False,Otro,Programa de pequeñas donaciones Fondo patrimonial,FCA,Socialización informativa para participar en la postulacion de proyectos forestales,False,False,False,
 23,reuniones,2026-04-08 00:00:00.000000000,2026,4,Abril,2026-04,True,OK,False,Mesa técnica municipal,Estrategia de reduccion de desechos de un solo uso en el municipio de San Marcos La Laguna.,"Municipalidad, MARN, AALA, Area de Salud","Establecer la estrategia de comunicacion para la reduccion de productos de un solo uso, socialización del acuerdo municipal, construccion de PIRDS y actualizacion del estudio de caracterizacion de residuos y desechos solidos del sector domiciliar, comercial y de mercado.",False,False,True,San Marcos La Laguna
 24,reuniones,2026-04-24 00:00:00.000000000,2026,4,Abril,2026-04,True,OK,False,Otro,Programa de pequeñas donaciones Fondo patrimonial,AALA,Revisión de lineamiento de postulacion para proyectos del programa de pequeñas donaciones del fondo patrimonial FCA,False,False,False,
-25,reuniones,,,,,,False,,False,,,,,False,False,False,
-26,reuniones,,,,,,False,,False,,,,,False,False,False,
-27,reuniones,,,,,,False,,False,,,,,False,False,False,
-28,reuniones,,,,,,False,,False,,,,,False,False,False,
-29,reuniones,,,,,,False,,False,,,,,False,False,False,
-30,reuniones,,,,,,False,,False,,,,,False,False,False,
+25,reuniones,2026-04-29 00:00:00.000000000,2026,4,Abril,2026-04,True,OK,False,Otro,Diplomado de gestion ambiental municipal ,"AALA, MARN, VM, DIDEDUC, Agua para la vida",Ponencias de 5 modulos del diplomado,False,False,False,
+26,reuniones,2026-05-11 00:00:00.000000000,2026,5,Mayo,2026-05,True,OK,False,Mesa técnica municipal,Avances de proyecto de alcantarillado pluvial y socializacion de reglamento de regulacion de prodcutos de plastico y de un solo uso.,"COCODE, Municipalidad, AALA, MARN, CONAP, MAGA",Apoyo institucional para divulgacion del reglamento.,False,False,True,San Marcos La Laguna
+27,reuniones,2026-05-14 00:00:00.000000000,2026,5,Mayo,2026-05,True,OK,False,Otro,Planificación de segundo módulo del diplomado de gestion ambiental municipal,"AALA, VM, CEA-UVG y Agua para la vida.",AALA desarrollara el tema de estudio técnico de aguas residuales en el segundo módulo dirigido a tecnicos municipales y lideres comunitarios.,False,False,False,
+28,reuniones,2026-05-27 00:00:00.000000000,2026,5,Mayo,2026-05,True,OK,False,Eje de agua y saneamiento / CODEMA,Plan de trabajo institucional ,"Salud, CEA-UVG, ACH, AMSCLAE, AALA, Agua para la vida, MARN",Revisión y observaciónes al plan de fortalecimiento de coordinación de la CODEMA,True,False,False,
+29,reuniones,2026-05-06 00:00:00.000000000,2026,5,Mayo,2026-05,True,OK,False,Otro,Desarollo primer módulo del diplamdo de gestion ambiental municipal con primer grupo de técnicos municipales.,"Panajachel, San Antonio Palopó, San Lucas Tolimán, San Andrés Semetabaj, Santa Cruz La Laguna",Incidencia municipal en la gestion ambiental municipal y practicas de adaptacion al cambio climático,False,False,False,
+30,reuniones,2026-05-13 00:00:00.000000000,2026,5,Mayo,2026-05,True,OK,False,Otro,Desarollo primer módulo del diplamdo de gestion ambiental municipal con segundo grupo de técnicos municipales.,"Panajachel, Sololá, Santa María Visitación, San José Chacaya, Santa Lucia Utatlán y lideres comunitarios de Nahualá, Santa Lucia Utatlán",Incidencia municipal en la gestion ambiental municipal y practicas de adaptacion al cambio climático,False,False,False,
 31,reuniones,,,,,,False,,False,,,,,False,False,False,
 32,reuniones,,,,,,False,,False,,,,,False,False,False,
 33,reuniones,,,,,,False,,False,,,,,False,False,False,

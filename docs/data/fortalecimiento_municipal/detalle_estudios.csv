@@ -11,7 +11,7 @@ row_number,module_name,fecha,anio,mes_num,mes_nombre,periodo,registro_valido,est
 10,estudios,2026-04-07,2026,4,Abril,2026-04,True,OK,False,Sololá,Caracterización de residuos sólidos,Finalizado,True,False,False,Domiciliar,AMSCLAE,"Revisión y entrega en conjunto el estudio de caracterizacion de aldes Argueta, Sololá"
 11,estudios,2026-04-22,2026,4,Abril,2026-04,True,OK,False,San Antonio Palopó,Caracterización de aguas residuales,Análisis,True,False,False,Mixto,,Se análizo los resultados del estudio de descarga de aguas residuales del municipio.
 12,estudios,2026-03-31,2026,3,Marzo,2026-03,True,OK,False,Panajachel,Caracterización de residuos sólidos,Finalizado,True,True,True,Comercial,AALA-INTERCOP,Entrega informe técnico estudio de caracterización de residuos y desechos solidos agencias INTERCOP
-13,estudios,,,,,,False,,False,,,,False,False,False,,,
+13,estudios,2026-05-29,2026,5,Mayo,2026-05,True,OK,False,San Juan La Laguna,Caracterización de residuos sólidos,Planificación,True,True,True,Comercial | Mercados,AALA,Entrega del plan del estudio de caracterizacion de residuos y desechos solidos del sector comercial y de mercados para su presentacion y aprobación del alcalde y concejo municipal.
 14,estudios,,,,,,False,,False,,,,False,False,False,,,
 15,estudios,,,,,,False,,False,,,,False,False,False,,,
 16,estudios,,,,,,False,,False,,,,False,False,False,,,
