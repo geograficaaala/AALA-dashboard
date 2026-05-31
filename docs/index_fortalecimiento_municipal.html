@@ -1373,6 +1373,85 @@ th{background:#f3f7f3;color:#547089}
   cursor:default !important;
 }
 
+
+/* === Corrección v4: meses exactamente como Atitlán Recicla === */
+.header .period-rack{
+  display:flex !important;
+  align-items:center !important;
+  gap:10px !important;
+  min-width:0 !important;
+  flex:1 1 560px !important;
+  justify-content:flex-end !important;
+  background:transparent !important;
+  border:none !important;
+  border-radius:0 !important;
+  padding:0 !important;
+  box-shadow:none !important;
+}
+.header .period-rack-label{
+  font-size:.68rem !important;
+  font-weight:800 !important;
+  letter-spacing:.12em !important;
+  text-transform:uppercase !important;
+  color:rgba(255,255,255,.68) !important;
+  white-space:nowrap !important;
+}
+.header .month-pills{
+  display:flex !important;
+  gap:6px !important;
+  align-items:center !important;
+  flex-wrap:nowrap !important;
+  background:rgba(255,255,255,.12) !important;
+  border:1px solid rgba(255,255,255,.18) !important;
+  border-radius:999px !important;
+  padding:5px !important;
+  box-shadow:none !important;
+  overflow:auto !important;
+  max-width:100% !important;
+  scrollbar-width:none !important;
+}
+.header .month-pills::-webkit-scrollbar{display:none !important;}
+.header .month-pill{
+  width:auto !important;
+  min-width:44px !important;
+  text-align:center !important;
+  padding:8px 12px !important;
+  border-radius:999px !important;
+  border:none !important;
+  background:transparent !important;
+  color:rgba(255,255,255,.74) !important;
+  font-family:var(--font-body) !important;
+  font-size:.8rem !important;
+  font-weight:700 !important;
+  line-height:1 !important;
+  letter-spacing:.02em !important;
+  cursor:pointer !important;
+  white-space:nowrap !important;
+  transition:background .2s ease,color .2s ease,transform .2s ease,box-shadow .2s ease !important;
+}
+.header .month-pill:hover:not(:disabled){
+  background:rgba(255,255,255,.14) !important;
+  color:#fff !important;
+  transform:translateY(-1px) !important;
+}
+.header .month-pill.active{
+  background:rgba(255,255,255,.94) !important;
+  color:#163a5f !important;
+  box-shadow:0 10px 18px rgba(6,24,42,.16) !important;
+  font-weight:800 !important;
+}
+.header .month-pill:disabled{
+  opacity:.28 !important;
+  cursor:default !important;
+}
+@media(max-width:1180px){
+  .header .period-rack{flex-basis:100% !important;justify-content:flex-start !important;}
+}
+@media(max-width:900px){
+  .header .period-rack{display:grid !important;justify-content:stretch !important;}
+  .header .month-pills{width:100% !important;}
+}
+
 </style>
 </head>
 <body class="view-full">
@@ -1403,7 +1482,7 @@ th{background:#f3f7f3;color:#547089}
         Presentación
       </button>
       <div class="period-rack">
-        <span class="period-rack-label">Período</span>
+        <span class="period-rack-label">Mes de lectura</span>
         <div class="month-pills" id="monthPills" role="group" aria-label="Seleccionar período"></div>
       </div>
     </div>
@@ -1714,10 +1793,25 @@ function metricById(id){
 }
 function buildMonthPills(){
   const container=document.getElementById('monthPills');
-  container.innerHTML=EMBEDDED_DATA.periods.map(p=>{
-    const [y,m]=p.split('-'); const label=`${MONTH_SHORT[(+m||1)-1]} ${y}`;
-    return `<button class="month-pill ${p===state.periodo?'active':''}" onclick="selectPeriod('${p}')">${label}</button>`;
-  }).join('');
+  if(!container) return;
+  const availablePeriods = Array.isArray(EMBEDDED_DATA.periods) ? EMBEDDED_DATA.periods : [];
+  const basePeriod = state.periodo || EMBEDDED_DATA.defaultPeriod || availablePeriods[availablePeriods.length - 1] || '';
+  const year = String(basePeriod).split('-')[0] || '2026';
+  const validPeriods = new Set(availablePeriods.filter(p => String(p).startsWith(`${year}-`)));
+  container.innerHTML='';
+  Array.from({length:12},(_,i)=>i+1).forEach(month=>{
+    const key = `${year}-${String(month).padStart(2,'0')}`;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'month-pill' + (key === state.periodo ? ' active' : '');
+    btn.textContent = MONTH_SHORT[month - 1];
+    btn.title = `${MESES[month - 1]} ${year}`;
+    btn.disabled = !validPeriods.has(key);
+    if(!btn.disabled){
+      btn.onclick = () => selectPeriod(key);
+    }
+    container.appendChild(btn);
+  });
 }
 function selectPeriod(p){ state.periodo=p; buildMonthPills(); render(); }
 function renderKpis(){
