@@ -1684,6 +1684,29 @@
   }
 }
 
+
+/* Ajuste solicitado: textos introductorios justificados y a ancho completo */
+.story-panel .story-lead,
+.story-panel .story-columns .prose,
+.narrative-stage .prose {
+  width: 100%;
+  max-width: none !important;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.story-panel .story-columns {
+  grid-template-columns: 1fr !important;
+}
+
+.story-panel .story-points {
+  width: 100%;
+}
+
+.narrative-stage {
+  width: 100%;
+}
+
 </style>
 </head>
 <body>
