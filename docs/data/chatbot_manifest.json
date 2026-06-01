@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-05-31T06:51:55.370139-06:00",
+  "generated_at": "2026-06-01T10:47:36.807348-06:00",
   "cutoff": {
-    "institutional_cutoff_period": "2026-04",
+    "institutional_cutoff_period": "2026-05",
     "timezone": "America/Guatemala",
     "reason": "Se excluyen meses posteriores al corte y filas placeholder para el chatbot."
   },
@@ -17,7 +17,8 @@
     "2026-01",
     "2026-02",
     "2026-03",
-    "2026-04"
+    "2026-04",
+    "2026-05"
   ],
   "programs": {
     "atitlan_recicla": {
@@ -29,7 +30,7 @@
         "indicators": "docs/data/institucional_indicadores.csv",
         "metadata": null
       },
-      "cutoff_period": "2026-04",
+      "cutoff_period": "2026-05",
       "available_periods_total": [
         "2026-01",
         "2026-02",
@@ -60,26 +61,27 @@
         "2026-01",
         "2026-02",
         "2026-03",
-        "2026-04"
+        "2026-04",
+        "2026-05"
       ],
-      "latest_valid_period": "2026-04",
-      "latest_valid_month_label": "Abril",
+      "latest_valid_period": "2026-05",
+      "latest_valid_month_label": "Mayo",
       "metadata": null,
       "summary_metrics": [
         {
           "field": "total_materiales_qq",
           "label": "Materiales reciclables recolectados",
-          "value": 1683.5
+          "value": 1708.31
         },
         {
           "field": "ingreso_bruto_total",
           "label": "Ingresos brutos totales",
-          "value": 32463.9
+          "value": 38314.5
         },
         {
           "field": "ingreso_diario_lideresa",
           "label": "Ingreso diario por lideresa",
-          "value": 138.366126
+          "value": 166.336241
         },
         {
           "field": "mujeres_activas",
@@ -94,7 +96,7 @@
         {
           "field": "pct_participacion_actividades",
           "label": "Participación en actividades",
-          "value": 0.724138
+          "value": 0.706897
         },
         {
           "field": "pct_participacion_comercializacion",
@@ -104,7 +106,7 @@
         {
           "field": "pet_qq",
           "label": "PET recolectado",
-          "value": 95.59
+          "value": 140.27
         },
         {
           "field": "vidrio_total_qq",
@@ -115,45 +117,45 @@
       "latest_total": {
         "programa": "atitlan_recicla",
         "anio": 2026,
-        "mes_num": 4,
-        "mes": "ABR",
+        "mes_num": 5,
+        "mes": "MAY",
         "mujeres_activas": 3.866667,
-        "mujeres_actividades": 2.8,
+        "mujeres_actividades": 2.733333,
         "mujeres_comercializacion": 2.066667,
         "mujeres_comercializacion_no_inscritas": 0.133333,
-        "ingreso_diario_lideresa": 138.366126,
+        "ingreso_diario_lideresa": 166.336241,
         "mujeres_inscritas_total": 11.0,
         "mujeres_nuevas_inscritas": 0.0,
-        "materiales_lideresas_qq": 1574.4,
-        "materiales_municipalidad_qq": 109.1,
-        "total_materiales_qq": 1683.5,
-        "ingreso_bruto_lideresas": 30241.27,
-        "gasto_transporte": 2300.0,
-        "pago_coop_lideresas": 130.5,
-        "ingreso_neto_lideresas": 30110.77,
-        "ingreso_bruto_municipalidad": 2222.63,
-        "pago_coop_municipalidad": 322.43,
-        "ingreso_neto_municipalidad": 1900.2,
-        "ingreso_bruto_total": 32463.9,
-        "ingreso_neto_total_territorio": 32010.97,
-        "ingreso_neto_cooperativa": 452.93,
-        "horas_trabajadas_lideresas": 2058.1,
-        "pet_qq": 95.59,
+        "materiales_lideresas_qq": 1607.8,
+        "materiales_municipalidad_qq": 100.51,
+        "total_materiales_qq": 1708.31,
+        "ingreso_bruto_lideresas": 36455.14,
+        "gasto_transporte": 2285.0,
+        "pago_coop_lideresas": 718.1,
+        "ingreso_neto_lideresas": 35737.04,
+        "ingreso_bruto_municipalidad": 1859.36,
+        "pago_coop_municipalidad": 175.67,
+        "ingreso_neto_municipalidad": 1683.69,
+        "ingreso_bruto_total": 38314.5,
+        "ingreso_neto_total_territorio": 37420.73,
+        "ingreso_neto_cooperativa": 893.77,
+        "horas_trabajadas_lideresas": 2009.8,
+        "pet_qq": 140.27,
         "vidrio_cerveza_gronn_unid": 0.0,
-        "vidrio_vino_gronn_unid": 0.0,
+        "vidrio_vino_gronn_unid": 1256.0,
         "vidrio_cerveza_surusic_unid": 0.0,
         "vidrio_vino_surusic_unid": 0.0,
-        "vidrio_peso_qq": 876.71,
+        "vidrio_peso_qq": 927.32,
         "vidrio_total_qq": 0.0,
-        "ingreso_pet": 3623.35,
-        "ingreso_vidrio_peso": 16901.86,
-        "ingreso_vidrio_gronn": 0.0,
-        "ingreso_vidrio_surusic": 142.0,
+        "ingreso_pet": 5364.15,
+        "ingreso_vidrio_peso": 18485.12,
+        "ingreso_vidrio_gronn": 565.2,
+        "ingreso_vidrio_surusic": 110.0,
         "zona": "TOTAL",
-        "pct_participacion_actividades": 0.724138,
+        "pct_participacion_actividades": 0.706897,
         "pct_participacion_comercializacion": 0.568966,
-        "periodo_clave": "2026-04",
-        "mes_label": "Abril",
+        "periodo_clave": "2026-05",
+        "mes_label": "Mayo",
         "tiene_datos_mes": true,
         "is_latest_data_month": false
       },
@@ -167,33 +169,33 @@
             "status": "verde",
             "bucket": "positivo",
             "is_required": true,
-            "value_month": 138.366126,
+            "value_month": 166.336241,
             "value_accumulated": null,
             "target_month": 135.0,
             "target_year": null,
             "expected_to_date": null,
-            "pct_vs_expected": 1.024934,
+            "pct_vs_expected": 1.23212,
             "pct_meta_year": null,
             "note": "",
-            "human_summary": "Ingreso diario por lideresa superó la meta mensual con 138,37 GTQ/día frente a 135 GTQ/día."
+            "human_summary": "Ingreso diario por lideresa superó la meta mensual con 166,34 GTQ/día frente a 135 GTQ/día."
           },
           {
             "indicator_id": "ingreso_bruto_mujeres",
             "indicator_name": "Ingresos brutos por mujeres",
             "unit": "GTQ",
             "category": "",
-            "status": "rojo",
+            "status": "amarillo",
             "bucket": "alerta",
             "is_required": true,
-            "value_month": 30241.27,
+            "value_month": 36455.14,
             "value_accumulated": null,
             "target_month": 36655.0,
             "target_year": null,
             "expected_to_date": null,
-            "pct_vs_expected": 0.825024,
+            "pct_vs_expected": 0.994548,
             "pct_meta_year": null,
             "note": "",
-            "human_summary": "Ingresos brutos por mujeres quedó por debajo de la meta mensual: 30.241,27 GTQ frente a 36.655,00 GTQ; la brecha es de 6.413,73 GTQ."
+            "human_summary": "Ingresos brutos por mujeres quedó por debajo de la meta mensual: 36.455,14 GTQ frente a 36.655,00 GTQ; la brecha es de 199,86 GTQ."
           },
           {
             "indicator_id": "ingreso_bruto_municipalidades",
@@ -203,33 +205,33 @@
             "status": "rojo",
             "bucket": "alerta",
             "is_required": true,
-            "value_month": 2222.63,
+            "value_month": 1859.36,
             "value_accumulated": null,
             "target_month": 4073.0,
             "target_year": null,
             "expected_to_date": null,
-            "pct_vs_expected": 0.545699,
+            "pct_vs_expected": 0.456509,
             "pct_meta_year": null,
             "note": "",
-            "human_summary": "Ingresos brutos por municipalidades quedó por debajo de la meta mensual: 2.222,63 GTQ frente a 4.073,00 GTQ; la brecha es de 1.850,37 GTQ."
+            "human_summary": "Ingresos brutos por municipalidades quedó por debajo de la meta mensual: 1.859,36 GTQ frente a 4.073,00 GTQ; la brecha es de 2.213,64 GTQ."
           },
           {
             "indicator_id": "ingreso_bruto_total",
             "indicator_name": "Ingresos brutos totales",
             "unit": "GTQ",
             "category": "",
-            "status": "rojo",
+            "status": "amarillo",
             "bucket": "alerta",
             "is_required": true,
-            "value_month": 32463.9,
+            "value_month": 38314.5,
             "value_accumulated": null,
             "target_month": 40727.0,
             "target_year": null,
             "expected_to_date": null,
-            "pct_vs_expected": 0.79711,
+            "pct_vs_expected": 0.940764,
             "pct_meta_year": null,
             "note": "",
-            "human_summary": "Ingresos brutos totales quedó por debajo de la meta mensual: 32.463,90 GTQ frente a 40.727,00 GTQ; la brecha es de 8.263,10 GTQ."
+            "human_summary": "Ingresos brutos totales quedó por debajo de la meta mensual: 38.314,50 GTQ frente a 40.727,00 GTQ; la brecha es de 2.412,50 GTQ."
           },
           {
             "indicator_id": "materiales_generales",
@@ -239,33 +241,33 @@
             "status": "verde",
             "bucket": "positivo",
             "is_required": true,
-            "value_month": 1683.5,
+            "value_month": 1708.31,
             "value_accumulated": null,
             "target_month": 1630.0,
             "target_year": null,
             "expected_to_date": null,
-            "pct_vs_expected": 1.032822,
+            "pct_vs_expected": 1.048043,
             "pct_meta_year": null,
             "note": "",
-            "human_summary": "Materiales reciclables recolectados superó la meta mensual con 1.683,50 qq frente a 1.630,00 qq."
+            "human_summary": "Materiales reciclables recolectados superó la meta mensual con 1.708,31 qq frente a 1.630,00 qq."
           },
           {
             "indicator_id": "pet",
             "indicator_name": "PET recolectado",
             "unit": "qq",
             "category": "",
-            "status": "rojo",
+            "status": "amarillo",
             "bucket": "alerta",
             "is_required": true,
-            "value_month": 95.59,
+            "value_month": 140.27,
             "value_accumulated": null,
             "target_month": 153.0,
             "target_year": null,
             "expected_to_date": null,
-            "pct_vs_expected": 0.624771,
+            "pct_vs_expected": 0.916797,
             "pct_meta_year": null,
             "note": "",
-            "human_summary": "PET recolectado quedó por debajo de la meta mensual: 95,59 qq frente a 153 qq; la brecha es de 57,41 qq."
+            "human_summary": "PET recolectado quedó por debajo de la meta mensual: 140,27 qq frente a 153 qq; la brecha es de 12,73 qq."
           },
           {
             "indicator_id": "participacion_actividades",
@@ -275,15 +277,15 @@
             "status": "amarillo",
             "bucket": "alerta",
             "is_required": true,
-            "value_month": 0.724138,
+            "value_month": 0.706897,
             "value_accumulated": null,
             "target_month": 0.75,
             "target_year": null,
             "expected_to_date": null,
-            "pct_vs_expected": 0.965517,
+            "pct_vs_expected": 0.942529,
             "pct_meta_year": null,
             "note": "",
-            "human_summary": "Participación activa en actividades quedó por debajo de la meta mensual: 0,72 proporción frente a 0,75 proporción; la brecha es de 0,03 proporción."
+            "human_summary": "Participación activa en actividades quedó por debajo de la meta mensual: 0,71 proporción frente a 0,75 proporción; la brecha es de 0,04 proporción."
           },
           {
             "indicator_id": "participacion_comercializacion",
@@ -328,18 +330,18 @@
             "indicator_name": "Ingresos brutos por mujeres",
             "unit": "GTQ",
             "category": "",
-            "status": "rojo",
+            "status": "amarillo",
             "bucket": "alerta",
             "is_required": true,
-            "value_month": 30241.27,
+            "value_month": 36455.14,
             "value_accumulated": null,
             "target_month": 36655.0,
             "target_year": null,
             "expected_to_date": null,
-            "pct_vs_expected": 0.825024,
+            "pct_vs_expected": 0.994548,
             "pct_meta_year": null,
             "note": "",
-            "human_summary": "Ingresos brutos por mujeres quedó por debajo de la meta mensual: 30.241,27 GTQ frente a 36.655,00 GTQ; la brecha es de 6.413,73 GTQ."
+            "human_summary": "Ingresos brutos por mujeres quedó por debajo de la meta mensual: 36.455,14 GTQ frente a 36.655,00 GTQ; la brecha es de 199,86 GTQ."
           },
           {
             "indicator_id": "ingreso_bruto_municipalidades",
@@ -349,51 +351,51 @@
             "status": "rojo",
             "bucket": "alerta",
             "is_required": true,
-            "value_month": 2222.63,
+            "value_month": 1859.36,
             "value_accumulated": null,
             "target_month": 4073.0,
             "target_year": null,
             "expected_to_date": null,
-            "pct_vs_expected": 0.545699,
+            "pct_vs_expected": 0.456509,
             "pct_meta_year": null,
             "note": "",
-            "human_summary": "Ingresos brutos por municipalidades quedó por debajo de la meta mensual: 2.222,63 GTQ frente a 4.073,00 GTQ; la brecha es de 1.850,37 GTQ."
+            "human_summary": "Ingresos brutos por municipalidades quedó por debajo de la meta mensual: 1.859,36 GTQ frente a 4.073,00 GTQ; la brecha es de 2.213,64 GTQ."
           },
           {
             "indicator_id": "ingreso_bruto_total",
             "indicator_name": "Ingresos brutos totales",
             "unit": "GTQ",
             "category": "",
-            "status": "rojo",
+            "status": "amarillo",
             "bucket": "alerta",
             "is_required": true,
-            "value_month": 32463.9,
+            "value_month": 38314.5,
             "value_accumulated": null,
             "target_month": 40727.0,
             "target_year": null,
             "expected_to_date": null,
-            "pct_vs_expected": 0.79711,
+            "pct_vs_expected": 0.940764,
             "pct_meta_year": null,
             "note": "",
-            "human_summary": "Ingresos brutos totales quedó por debajo de la meta mensual: 32.463,90 GTQ frente a 40.727,00 GTQ; la brecha es de 8.263,10 GTQ."
+            "human_summary": "Ingresos brutos totales quedó por debajo de la meta mensual: 38.314,50 GTQ frente a 40.727,00 GTQ; la brecha es de 2.412,50 GTQ."
           },
           {
             "indicator_id": "pet",
             "indicator_name": "PET recolectado",
             "unit": "qq",
             "category": "",
-            "status": "rojo",
+            "status": "amarillo",
             "bucket": "alerta",
             "is_required": true,
-            "value_month": 95.59,
+            "value_month": 140.27,
             "value_accumulated": null,
             "target_month": 153.0,
             "target_year": null,
             "expected_to_date": null,
-            "pct_vs_expected": 0.624771,
+            "pct_vs_expected": 0.916797,
             "pct_meta_year": null,
             "note": "",
-            "human_summary": "PET recolectado quedó por debajo de la meta mensual: 95,59 qq frente a 153 qq; la brecha es de 57,41 qq."
+            "human_summary": "PET recolectado quedó por debajo de la meta mensual: 140,27 qq frente a 153 qq; la brecha es de 12,73 qq."
           },
           {
             "indicator_id": "participacion_actividades",
@@ -403,15 +405,15 @@
             "status": "amarillo",
             "bucket": "alerta",
             "is_required": true,
-            "value_month": 0.724138,
+            "value_month": 0.706897,
             "value_accumulated": null,
             "target_month": 0.75,
             "target_year": null,
             "expected_to_date": null,
-            "pct_vs_expected": 0.965517,
+            "pct_vs_expected": 0.942529,
             "pct_meta_year": null,
             "note": "",
-            "human_summary": "Participación activa en actividades quedó por debajo de la meta mensual: 0,72 proporción frente a 0,75 proporción; la brecha es de 0,03 proporción."
+            "human_summary": "Participación activa en actividades quedó por debajo de la meta mensual: 0,71 proporción frente a 0,75 proporción; la brecha es de 0,04 proporción."
           },
           {
             "indicator_id": "participacion_comercializacion",
@@ -459,15 +461,15 @@
             "status": "verde",
             "bucket": "positivo",
             "is_required": true,
-            "value_month": 138.366126,
+            "value_month": 166.336241,
             "value_accumulated": null,
             "target_month": 135.0,
             "target_year": null,
             "expected_to_date": null,
-            "pct_vs_expected": 1.024934,
+            "pct_vs_expected": 1.23212,
             "pct_meta_year": null,
             "note": "",
-            "human_summary": "Ingreso diario por lideresa superó la meta mensual con 138,37 GTQ/día frente a 135 GTQ/día."
+            "human_summary": "Ingreso diario por lideresa superó la meta mensual con 166,34 GTQ/día frente a 135 GTQ/día."
           },
           {
             "indicator_id": "materiales_generales",
@@ -477,30 +479,30 @@
             "status": "verde",
             "bucket": "positivo",
             "is_required": true,
-            "value_month": 1683.5,
+            "value_month": 1708.31,
             "value_accumulated": null,
             "target_month": 1630.0,
             "target_year": null,
             "expected_to_date": null,
-            "pct_vs_expected": 1.032822,
+            "pct_vs_expected": 1.048043,
             "pct_meta_year": null,
             "note": "",
-            "human_summary": "Materiales reciclables recolectados superó la meta mensual con 1.683,50 qq frente a 1.630,00 qq."
+            "human_summary": "Materiales reciclables recolectados superó la meta mensual con 1.708,31 qq frente a 1.630,00 qq."
           }
         ],
         "neutral": []
       },
       "narratives": {
-        "executive_summary": "En Abril de 2026, Atitlán Recicla sí reportó operación real: 1.683,50 qq de materiales reciclables y Q32.463,90 en ingresos brutos. Las alertas del mes deben leerse sobre este corte, no sobre meses futuros placeholder.",
+        "executive_summary": "En Mayo de 2026, Atitlán Recicla sí reportó operación real: 1.708,31 qq de materiales reciclables y Q38.314,50 en ingresos brutos. Las alertas del mes deben leerse sobre este corte, no sobre meses futuros placeholder.",
         "what_is_going_well": [
-          "Ingreso diario por lideresa superó la meta mensual con 138,37 GTQ/día frente a 135 GTQ/día.",
-          "Materiales reciclables recolectados superó la meta mensual con 1.683,50 qq frente a 1.630,00 qq."
+          "Ingreso diario por lideresa superó la meta mensual con 166,34 GTQ/día frente a 135 GTQ/día.",
+          "Materiales reciclables recolectados superó la meta mensual con 1.708,31 qq frente a 1.630,00 qq."
         ],
         "what_needs_attention": [
-          "Ingresos brutos por mujeres quedó por debajo de la meta mensual: 30.241,27 GTQ frente a 36.655,00 GTQ; la brecha es de 6.413,73 GTQ.",
-          "Ingresos brutos por municipalidades quedó por debajo de la meta mensual: 2.222,63 GTQ frente a 4.073,00 GTQ; la brecha es de 1.850,37 GTQ.",
-          "Ingresos brutos totales quedó por debajo de la meta mensual: 32.463,90 GTQ frente a 40.727,00 GTQ; la brecha es de 8.263,10 GTQ.",
-          "PET recolectado quedó por debajo de la meta mensual: 95,59 qq frente a 153 qq; la brecha es de 57,41 qq."
+          "Ingresos brutos por mujeres quedó por debajo de la meta mensual: 36.455,14 GTQ frente a 36.655,00 GTQ; la brecha es de 199,86 GTQ.",
+          "Ingresos brutos por municipalidades quedó por debajo de la meta mensual: 1.859,36 GTQ frente a 4.073,00 GTQ; la brecha es de 2.213,64 GTQ.",
+          "Ingresos brutos totales quedó por debajo de la meta mensual: 38.314,50 GTQ frente a 40.727,00 GTQ; la brecha es de 2.412,50 GTQ.",
+          "PET recolectado quedó por debajo de la meta mensual: 140,27 qq frente a 153 qq; la brecha es de 12,73 qq."
         ],
         "context_notes": []
       }
@@ -514,7 +516,7 @@
         "indicators": "docs/data/conservando_atitlan/institucional_indicadores.csv",
         "metadata": "docs/data/conservando_atitlan/metadata_publicacion.csv"
       },
-      "cutoff_period": "2026-04",
+      "cutoff_period": "2026-05",
       "available_periods_total": [
         "2026-01",
         "2026-02",
@@ -1208,7 +1210,7 @@
         "indicators": "docs/data/educando_para_conservar/institucional_indicadores.csv",
         "metadata": "docs/data/educando_para_conservar/metadata_publicacion.csv"
       },
-      "cutoff_period": "2026-04",
+      "cutoff_period": "2026-05",
       "available_periods_total": [
         "2026-01",
         "2026-02",
@@ -2026,7 +2028,7 @@
         "indicators": "docs/data/fortalecimiento_municipal/institucional_indicadores.csv",
         "metadata": "docs/data/fortalecimiento_municipal/metadata_publicacion.csv"
       },
-      "cutoff_period": "2026-04",
+      "cutoff_period": "2026-05",
       "available_periods_total": [
         "2026-01",
         "2026-02",
@@ -2045,10 +2047,11 @@
         "2026-01",
         "2026-02",
         "2026-03",
-        "2026-04"
+        "2026-04",
+        "2026-05"
       ],
-      "latest_valid_period": "2026-04",
-      "latest_valid_month_label": "Abril",
+      "latest_valid_period": "2026-05",
+      "latest_valid_month_label": "Mayo",
       "metadata": {
         "programa_id": "fortalecimiento_municipal",
         "programa_nombre": "Fortalecimiento municipal",
@@ -2064,74 +2067,74 @@
         {
           "field": "eventos_capacitacion_mes",
           "label": "Eventos de capacitación",
-          "value": 2.0
+          "value": 0.0
         },
         {
           "field": "municipios_capacitacion_nucleo_mes",
           "label": "Municipios con capacitación núcleo",
-          "value": 1.0
+          "value": 0.0
         },
         {
           "field": "personas_capacitadas_nucleo_mes",
           "label": "Personas capacitadas núcleo",
-          "value": 6.0
+          "value": 0.0
         },
         {
           "field": "asistencias_priorizadas_proxy_mes",
           "label": "Asistencias priorizadas",
-          "value": 3.0
+          "value": 2.0
         },
         {
           "field": "reuniones_totales_mes",
           "label": "Reuniones totales",
-          "value": 4.0
+          "value": 5.0
         }
       ],
       "latest_total": {
         "programa_id": "fortalecimiento_municipal",
         "programa_nombre": "Fortalecimiento municipal",
-        "periodo": "2026-04",
+        "periodo": "2026-05",
         "anio": 2026,
-        "mes_num": 4,
-        "mes_nombre": "Abril",
-        "cohorte_mes_indice": 4,
-        "fecha_min_periodo": "2026-04-01",
-        "fecha_max_periodo": "2026-04-30",
-        "eventos_capacitacion_mes": 2.0,
+        "mes_num": 5,
+        "mes_nombre": "Mayo",
+        "cohorte_mes_indice": 5,
+        "fecha_min_periodo": "2026-05-01",
+        "fecha_max_periodo": "2026-05-31",
+        "eventos_capacitacion_mes": 0.0,
         "eventos_capacitacion_acum": 3.0,
-        "municipios_capacitacion_nucleo_mes": 1.0,
+        "municipios_capacitacion_nucleo_mes": 0.0,
         "municipios_capacitacion_nucleo_acum": 2.0,
-        "personas_capacitadas_nucleo_mes": 6.0,
+        "personas_capacitadas_nucleo_mes": 0.0,
         "personas_capacitadas_nucleo_acum": 11.0,
-        "personas_capacitadas_total_mes": 6.0,
+        "personas_capacitadas_total_mes": 0.0,
         "personas_capacitadas_total_acum": 11.0,
-        "tecnicos_capacitados_mes": 4.0,
+        "tecnicos_capacitados_mes": 0.0,
         "tecnicos_capacitados_acum": 9.0,
-        "operarios_capacitados_mes": 2.0,
+        "operarios_capacitados_mes": 0.0,
         "operarios_capacitados_acum": 2.0,
         "otro_personal_capacitado_mes": 0.0,
         "otro_personal_capacitado_acum": 0.0,
-        "temas_nucleo_cubiertos_mes": 2.0,
-        "asistencias_priorizadas_proxy_mes": 3.0,
-        "asistencias_priorizadas_proxy_acum": 13.0,
+        "temas_nucleo_cubiertos_mes": 0.0,
+        "asistencias_priorizadas_proxy_mes": 2.0,
+        "asistencias_priorizadas_proxy_acum": 15.0,
         "asistencias_nuevas_total_mes": 3.0,
-        "asistencias_nuevas_total_acum": 15.0,
-        "estudios_rs_comercial_mercados_mes": 0.0,
-        "estudios_rs_comercial_mercados_acum": 1.0,
+        "asistencias_nuevas_total_acum": 18.0,
+        "estudios_rs_comercial_mercados_mes": 1.0,
+        "estudios_rs_comercial_mercados_acum": 2.0,
         "estudios_finalizados_total_mes": 1.0,
-        "estudios_finalizados_total_acum": 5.0,
-        "pirdes_implementados_mes": 2.0,
+        "estudios_finalizados_total_acum": 6.0,
+        "pirdes_implementados_mes": 0.0,
         "pirdes_implementados_acum": 4.0,
-        "reuniones_codema_mes": 0.0,
-        "reuniones_codema_acum": 3.0,
+        "reuniones_codema_mes": 1.0,
+        "reuniones_codema_acum": 4.0,
         "mesas_tecnicas_departamentales_mes": 0.0,
         "mesas_tecnicas_departamentales_acum": 0.0,
         "mesas_tecnicas_municipales_mes": 1.0,
-        "mesas_tecnicas_municipales_acum": 10.0,
-        "reuniones_totales_mes": 4.0,
-        "reuniones_totales_acum": 25.0,
-        "periodo_clave": "2026-04",
-        "mes_label": "Abril",
+        "mesas_tecnicas_municipales_acum": 11.0,
+        "reuniones_totales_mes": 5.0,
+        "reuniones_totales_acum": 30.0,
+        "periodo_clave": "2026-05",
+        "mes_label": "Mayo",
         "tiene_datos_mes": true,
         "is_latest_data_month": false
       },
@@ -2145,15 +2148,15 @@
             "status": "rojo",
             "bucket": "alerta",
             "is_required": true,
-            "value_month": 1.0,
+            "value_month": 0.0,
             "value_accumulated": 2.0,
-            "target_month": 5.0,
+            "target_month": 6.25,
             "target_year": 15.0,
-            "expected_to_date": 5.0,
-            "pct_vs_expected": 0.4,
+            "expected_to_date": 6.25,
+            "pct_vs_expected": 0.32,
             "pct_meta_year": 0.133333,
             "note": "",
-            "human_summary": "Municipios alcanzados por capacitaciones núcleo está por debajo del ritmo esperado: alcanza 40% del avance esperado al corte."
+            "human_summary": "Municipios alcanzados por capacitaciones núcleo está por debajo del ritmo esperado: alcanza 32% del avance esperado al corte."
           },
           {
             "indicator_id": "personas_capacitadas_nucleo",
@@ -2163,15 +2166,15 @@
             "status": "rojo",
             "bucket": "alerta",
             "is_required": true,
-            "value_month": 6.0,
+            "value_month": 0.0,
             "value_accumulated": 11.0,
-            "target_month": 25.0,
+            "target_month": 31.25,
             "target_year": 75.0,
-            "expected_to_date": 25.0,
-            "pct_vs_expected": 0.44,
+            "expected_to_date": 31.25,
+            "pct_vs_expected": 0.352,
             "pct_meta_year": 0.146667,
             "note": "",
-            "human_summary": "Personas capacitadas en temas núcleo está por debajo del ritmo esperado: alcanza 44% del avance esperado al corte."
+            "human_summary": "Personas capacitadas en temas núcleo está por debajo del ritmo esperado: alcanza 35% del avance esperado al corte."
           },
           {
             "indicator_id": "asistencias_priorizadas_proxy",
@@ -2181,15 +2184,15 @@
             "status": "verde",
             "bucket": "positivo",
             "is_required": true,
-            "value_month": 3.0,
-            "value_accumulated": 13.0,
-            "target_month": 1.0,
+            "value_month": 2.0,
+            "value_accumulated": 15.0,
+            "target_month": 1.25,
             "target_year": 3.0,
-            "expected_to_date": 1.0,
-            "pct_vs_expected": 13.0,
-            "pct_meta_year": 4.333333,
+            "expected_to_date": 1.25,
+            "pct_vs_expected": 12.0,
+            "pct_meta_year": 5.0,
             "note": "",
-            "human_summary": "Asistencias técnicas priorizadas de agua y saneamiento (proxy operativo) va bien: alcanza 1300% del esperado al corte."
+            "human_summary": "Asistencias técnicas priorizadas de agua y saneamiento (proxy operativo) va bien: alcanza 1200% del esperado al corte."
           },
           {
             "indicator_id": "estudios_rs_comercial_mercados",
@@ -2199,15 +2202,15 @@
             "status": "verde",
             "bucket": "positivo",
             "is_required": true,
-            "value_month": 0.0,
-            "value_accumulated": 1.0,
-            "target_month": 0.666667,
+            "value_month": 1.0,
+            "value_accumulated": 2.0,
+            "target_month": 0.833333,
             "target_year": 2.0,
-            "expected_to_date": 0.666667,
-            "pct_vs_expected": 1.5,
-            "pct_meta_year": 0.5,
+            "expected_to_date": 0.833333,
+            "pct_vs_expected": 2.4,
+            "pct_meta_year": 1.0,
             "note": "",
-            "human_summary": "Estudios de residuos sólidos sector comercial / mercados finalizados va bien: alcanza 150% del esperado al corte."
+            "human_summary": "Estudios de residuos sólidos sector comercial / mercados finalizados va bien: alcanza 240% del esperado al corte."
           },
           {
             "indicator_id": "pirdes_implementados",
@@ -2217,15 +2220,15 @@
             "status": "verde",
             "bucket": "positivo",
             "is_required": true,
-            "value_month": 2.0,
+            "value_month": 0.0,
             "value_accumulated": 4.0,
-            "target_month": 1.666667,
+            "target_month": 2.083333,
             "target_year": 5.0,
-            "expected_to_date": 1.666667,
-            "pct_vs_expected": 2.4,
+            "expected_to_date": 2.083333,
+            "pct_vs_expected": 1.92,
             "pct_meta_year": 0.8,
             "note": "",
-            "human_summary": "PIRDES implementados va bien: alcanza 240% del esperado al corte."
+            "human_summary": "PIRDES implementados va bien: alcanza 192% del esperado al corte."
           },
           {
             "indicator_id": "reuniones_codema",
@@ -2235,15 +2238,15 @@
             "status": "amarillo",
             "bucket": "alerta",
             "is_required": true,
-            "value_month": 0.0,
-            "value_accumulated": 3.0,
-            "target_month": 3.333333,
+            "value_month": 1.0,
+            "value_accumulated": 4.0,
+            "target_month": 4.166667,
             "target_year": 10.0,
-            "expected_to_date": 3.333333,
-            "pct_vs_expected": 0.9,
-            "pct_meta_year": 0.3,
+            "expected_to_date": 4.166667,
+            "pct_vs_expected": 0.96,
+            "pct_meta_year": 0.4,
             "note": "",
-            "human_summary": "Reuniones del eje de agua y saneamiento / CODEMA está por debajo del ritmo esperado: alcanza 90% del avance esperado al corte."
+            "human_summary": "Reuniones del eje de agua y saneamiento / CODEMA está por debajo del ritmo esperado: alcanza 96% del avance esperado al corte."
           },
           {
             "indicator_id": "mesas_tecnicas_departamentales",
@@ -2255,9 +2258,9 @@
             "is_required": true,
             "value_month": 0.0,
             "value_accumulated": 0.0,
-            "target_month": 0.666667,
+            "target_month": 0.833333,
             "target_year": 2.0,
-            "expected_to_date": 0.666667,
+            "expected_to_date": 0.833333,
             "pct_vs_expected": 0.0,
             "pct_meta_year": 0.0,
             "note": "",
@@ -2272,7 +2275,7 @@
             "bucket": "neutral",
             "is_required": false,
             "value_month": 3.0,
-            "value_accumulated": 15.0,
+            "value_accumulated": 18.0,
             "target_month": null,
             "target_year": null,
             "expected_to_date": null,
@@ -2290,7 +2293,7 @@
             "bucket": "neutral",
             "is_required": false,
             "value_month": 1.0,
-            "value_accumulated": 5.0,
+            "value_accumulated": 6.0,
             "target_month": null,
             "target_year": null,
             "expected_to_date": null,
@@ -2307,7 +2310,7 @@
             "status": "gris",
             "bucket": "neutral",
             "is_required": false,
-            "value_month": 2.0,
+            "value_month": 0.0,
             "value_accumulated": 3.0,
             "target_month": null,
             "target_year": null,
@@ -2326,7 +2329,7 @@
             "bucket": "neutral",
             "is_required": false,
             "value_month": 1.0,
-            "value_accumulated": 10.0,
+            "value_accumulated": 11.0,
             "target_month": null,
             "target_year": null,
             "expected_to_date": null,
@@ -2343,7 +2346,7 @@
             "status": "gris",
             "bucket": "neutral",
             "is_required": false,
-            "value_month": 2.0,
+            "value_month": 0.0,
             "value_accumulated": 2.0,
             "target_month": null,
             "target_year": null,
@@ -2379,7 +2382,7 @@
             "status": "gris",
             "bucket": "neutral",
             "is_required": false,
-            "value_month": 6.0,
+            "value_month": 0.0,
             "value_accumulated": 11.0,
             "target_month": null,
             "target_year": null,
@@ -2397,8 +2400,8 @@
             "status": "gris",
             "bucket": "neutral",
             "is_required": false,
-            "value_month": 4.0,
-            "value_accumulated": 25.0,
+            "value_month": 5.0,
+            "value_accumulated": 30.0,
             "target_month": null,
             "target_year": null,
             "expected_to_date": null,
@@ -2415,7 +2418,7 @@
             "status": "gris",
             "bucket": "neutral",
             "is_required": false,
-            "value_month": 4.0,
+            "value_month": 0.0,
             "value_accumulated": 9.0,
             "target_month": null,
             "target_year": null,
@@ -2435,15 +2438,15 @@
             "status": "rojo",
             "bucket": "alerta",
             "is_required": true,
-            "value_month": 1.0,
+            "value_month": 0.0,
             "value_accumulated": 2.0,
-            "target_month": 5.0,
+            "target_month": 6.25,
             "target_year": 15.0,
-            "expected_to_date": 5.0,
-            "pct_vs_expected": 0.4,
+            "expected_to_date": 6.25,
+            "pct_vs_expected": 0.32,
             "pct_meta_year": 0.133333,
             "note": "",
-            "human_summary": "Municipios alcanzados por capacitaciones núcleo está por debajo del ritmo esperado: alcanza 40% del avance esperado al corte."
+            "human_summary": "Municipios alcanzados por capacitaciones núcleo está por debajo del ritmo esperado: alcanza 32% del avance esperado al corte."
           },
           {
             "indicator_id": "personas_capacitadas_nucleo",
@@ -2453,15 +2456,15 @@
             "status": "rojo",
             "bucket": "alerta",
             "is_required": true,
-            "value_month": 6.0,
+            "value_month": 0.0,
             "value_accumulated": 11.0,
-            "target_month": 25.0,
+            "target_month": 31.25,
             "target_year": 75.0,
-            "expected_to_date": 25.0,
-            "pct_vs_expected": 0.44,
+            "expected_to_date": 31.25,
+            "pct_vs_expected": 0.352,
             "pct_meta_year": 0.146667,
             "note": "",
-            "human_summary": "Personas capacitadas en temas núcleo está por debajo del ritmo esperado: alcanza 44% del avance esperado al corte."
+            "human_summary": "Personas capacitadas en temas núcleo está por debajo del ritmo esperado: alcanza 35% del avance esperado al corte."
           },
           {
             "indicator_id": "reuniones_codema",
@@ -2471,15 +2474,15 @@
             "status": "amarillo",
             "bucket": "alerta",
             "is_required": true,
-            "value_month": 0.0,
-            "value_accumulated": 3.0,
-            "target_month": 3.333333,
+            "value_month": 1.0,
+            "value_accumulated": 4.0,
+            "target_month": 4.166667,
             "target_year": 10.0,
-            "expected_to_date": 3.333333,
-            "pct_vs_expected": 0.9,
-            "pct_meta_year": 0.3,
+            "expected_to_date": 4.166667,
+            "pct_vs_expected": 0.96,
+            "pct_meta_year": 0.4,
             "note": "",
-            "human_summary": "Reuniones del eje de agua y saneamiento / CODEMA está por debajo del ritmo esperado: alcanza 90% del avance esperado al corte."
+            "human_summary": "Reuniones del eje de agua y saneamiento / CODEMA está por debajo del ritmo esperado: alcanza 96% del avance esperado al corte."
           }
         ],
         "positives": [
@@ -2491,15 +2494,15 @@
             "status": "verde",
             "bucket": "positivo",
             "is_required": true,
-            "value_month": 3.0,
-            "value_accumulated": 13.0,
-            "target_month": 1.0,
+            "value_month": 2.0,
+            "value_accumulated": 15.0,
+            "target_month": 1.25,
             "target_year": 3.0,
-            "expected_to_date": 1.0,
-            "pct_vs_expected": 13.0,
-            "pct_meta_year": 4.333333,
+            "expected_to_date": 1.25,
+            "pct_vs_expected": 12.0,
+            "pct_meta_year": 5.0,
             "note": "",
-            "human_summary": "Asistencias técnicas priorizadas de agua y saneamiento (proxy operativo) va bien: alcanza 1300% del esperado al corte."
+            "human_summary": "Asistencias técnicas priorizadas de agua y saneamiento (proxy operativo) va bien: alcanza 1200% del esperado al corte."
           },
           {
             "indicator_id": "estudios_rs_comercial_mercados",
@@ -2509,15 +2512,15 @@
             "status": "verde",
             "bucket": "positivo",
             "is_required": true,
-            "value_month": 0.0,
-            "value_accumulated": 1.0,
-            "target_month": 0.666667,
+            "value_month": 1.0,
+            "value_accumulated": 2.0,
+            "target_month": 0.833333,
             "target_year": 2.0,
-            "expected_to_date": 0.666667,
-            "pct_vs_expected": 1.5,
-            "pct_meta_year": 0.5,
+            "expected_to_date": 0.833333,
+            "pct_vs_expected": 2.4,
+            "pct_meta_year": 1.0,
             "note": "",
-            "human_summary": "Estudios de residuos sólidos sector comercial / mercados finalizados va bien: alcanza 150% del esperado al corte."
+            "human_summary": "Estudios de residuos sólidos sector comercial / mercados finalizados va bien: alcanza 240% del esperado al corte."
           },
           {
             "indicator_id": "pirdes_implementados",
@@ -2527,15 +2530,15 @@
             "status": "verde",
             "bucket": "positivo",
             "is_required": true,
-            "value_month": 2.0,
+            "value_month": 0.0,
             "value_accumulated": 4.0,
-            "target_month": 1.666667,
+            "target_month": 2.083333,
             "target_year": 5.0,
-            "expected_to_date": 1.666667,
-            "pct_vs_expected": 2.4,
+            "expected_to_date": 2.083333,
+            "pct_vs_expected": 1.92,
             "pct_meta_year": 0.8,
             "note": "",
-            "human_summary": "PIRDES implementados va bien: alcanza 240% del esperado al corte."
+            "human_summary": "PIRDES implementados va bien: alcanza 192% del esperado al corte."
           }
         ],
         "neutral": [
@@ -2549,9 +2552,9 @@
             "is_required": true,
             "value_month": 0.0,
             "value_accumulated": 0.0,
-            "target_month": 0.666667,
+            "target_month": 0.833333,
             "target_year": 2.0,
-            "expected_to_date": 0.666667,
+            "expected_to_date": 0.833333,
             "pct_vs_expected": 0.0,
             "pct_meta_year": 0.0,
             "note": "",
@@ -2566,7 +2569,7 @@
             "bucket": "neutral",
             "is_required": false,
             "value_month": 3.0,
-            "value_accumulated": 15.0,
+            "value_accumulated": 18.0,
             "target_month": null,
             "target_year": null,
             "expected_to_date": null,
@@ -2584,7 +2587,7 @@
             "bucket": "neutral",
             "is_required": false,
             "value_month": 1.0,
-            "value_accumulated": 5.0,
+            "value_accumulated": 6.0,
             "target_month": null,
             "target_year": null,
             "expected_to_date": null,
@@ -2601,7 +2604,7 @@
             "status": "gris",
             "bucket": "neutral",
             "is_required": false,
-            "value_month": 2.0,
+            "value_month": 0.0,
             "value_accumulated": 3.0,
             "target_month": null,
             "target_year": null,
@@ -2620,7 +2623,7 @@
             "bucket": "neutral",
             "is_required": false,
             "value_month": 1.0,
-            "value_accumulated": 10.0,
+            "value_accumulated": 11.0,
             "target_month": null,
             "target_year": null,
             "expected_to_date": null,
@@ -2637,7 +2640,7 @@
             "status": "gris",
             "bucket": "neutral",
             "is_required": false,
-            "value_month": 2.0,
+            "value_month": 0.0,
             "value_accumulated": 2.0,
             "target_month": null,
             "target_year": null,
@@ -2673,7 +2676,7 @@
             "status": "gris",
             "bucket": "neutral",
             "is_required": false,
-            "value_month": 6.0,
+            "value_month": 0.0,
             "value_accumulated": 11.0,
             "target_month": null,
             "target_year": null,
@@ -2691,8 +2694,8 @@
             "status": "gris",
             "bucket": "neutral",
             "is_required": false,
-            "value_month": 4.0,
-            "value_accumulated": 25.0,
+            "value_month": 5.0,
+            "value_accumulated": 30.0,
             "target_month": null,
             "target_year": null,
             "expected_to_date": null,
@@ -2709,7 +2712,7 @@
             "status": "gris",
             "bucket": "neutral",
             "is_required": false,
-            "value_month": 4.0,
+            "value_month": 0.0,
             "value_accumulated": 9.0,
             "target_month": null,
             "target_year": null,
@@ -2722,16 +2725,16 @@
         ]
       },
       "narratives": {
-        "executive_summary": "Para Abril de 2026, Fortalecimiento Municipal muestra 3 indicador(es) que requieren atención prioritaria. El chatbot debería explicar esos rezagos usando solo este corte válido.",
+        "executive_summary": "Para Mayo de 2026, Fortalecimiento Municipal muestra 3 indicador(es) que requieren atención prioritaria. El chatbot debería explicar esos rezagos usando solo este corte válido.",
         "what_is_going_well": [
-          "Asistencias técnicas priorizadas de agua y saneamiento (proxy operativo) va bien: alcanza 1300% del esperado al corte.",
-          "Estudios de residuos sólidos sector comercial / mercados finalizados va bien: alcanza 150% del esperado al corte.",
-          "PIRDES implementados va bien: alcanza 240% del esperado al corte."
+          "Asistencias técnicas priorizadas de agua y saneamiento (proxy operativo) va bien: alcanza 1200% del esperado al corte.",
+          "Estudios de residuos sólidos sector comercial / mercados finalizados va bien: alcanza 240% del esperado al corte.",
+          "PIRDES implementados va bien: alcanza 192% del esperado al corte."
         ],
         "what_needs_attention": [
-          "Municipios alcanzados por capacitaciones núcleo está por debajo del ritmo esperado: alcanza 40% del avance esperado al corte.",
-          "Personas capacitadas en temas núcleo está por debajo del ritmo esperado: alcanza 44% del avance esperado al corte.",
-          "Reuniones del eje de agua y saneamiento / CODEMA está por debajo del ritmo esperado: alcanza 90% del avance esperado al corte."
+          "Municipios alcanzados por capacitaciones núcleo está por debajo del ritmo esperado: alcanza 32% del avance esperado al corte.",
+          "Personas capacitadas en temas núcleo está por debajo del ritmo esperado: alcanza 35% del avance esperado al corte.",
+          "Reuniones del eje de agua y saneamiento / CODEMA está por debajo del ritmo esperado: alcanza 96% del avance esperado al corte."
         ],
         "context_notes": []
       }
@@ -2745,7 +2748,7 @@
         "indicators": "docs/data/reforestacion/institucional_indicadores.csv",
         "metadata": "docs/data/reforestacion/metadata_publicacion.csv"
       },
-      "cutoff_period": "2026-04",
+      "cutoff_period": "2026-05",
       "available_periods_total": [
         "2026-01",
         "2026-02",
@@ -2778,10 +2781,11 @@
         "2026-01",
         "2026-02",
         "2026-03",
-        "2026-04"
+        "2026-04",
+        "2026-05"
       ],
-      "latest_valid_period": "2026-04",
-      "latest_valid_month_label": "Abril",
+      "latest_valid_period": "2026-05",
+      "latest_valid_month_label": "Mayo",
       "metadata": {
         "program_id": "reforestacion",
         "program_name": "Reforestación",
@@ -2822,11 +2826,11 @@
       "latest_total": {
         "program_id": "reforestacion",
         "program_name": "Reforestación",
-        "periodo_clave": "2026-04",
+        "periodo_clave": "2026-05",
         "anio": 2026,
-        "mes_num": 4,
-        "mes_label": "Abril",
-        "fecha_corte": "2026-04-30",
+        "mes_num": 5,
+        "mes_label": "Mayo",
+        "fecha_corte": "2026-05-31",
         "monitoreo_activo": true,
         "ha_monitoreadas_registradas_mes": 0.0,
         "ha_monitoreadas_kpi_mes": 0.0,
@@ -3098,7 +3102,7 @@
         ]
       },
       "narratives": {
-        "executive_summary": "Para Abril de 2026, Reforestación muestra 1 indicador(es) que requieren atención prioritaria. El chatbot debería explicar esos rezagos usando solo este corte válido.",
+        "executive_summary": "Para Mayo de 2026, Reforestación muestra 1 indicador(es) que requieren atención prioritaria. El chatbot debería explicar esos rezagos usando solo este corte válido.",
         "what_is_going_well": [
           "Ha monitoreadas va bien: alcanza 28% del esperado al corte.",
           "Cobertura cartográfica de monitoreos va bien: alcanza 100% del esperado al corte.",
@@ -3126,14 +3130,6 @@
         "valid_periods_count": 3
       },
       {
-        "program_id": "atitlan_recicla",
-        "program_name": "Atitlán Recicla",
-        "latest_valid_period": "2026-04",
-        "alerts_count": 7,
-        "positives_count": 2,
-        "valid_periods_count": 4
-      },
-      {
         "program_id": "conservando_atitlan",
         "program_name": "Conservando Atitlán",
         "latest_valid_period": "2026-04",
@@ -3142,20 +3138,28 @@
         "valid_periods_count": 4
       },
       {
+        "program_id": "atitlan_recicla",
+        "program_name": "Atitlán Recicla",
+        "latest_valid_period": "2026-05",
+        "alerts_count": 7,
+        "positives_count": 2,
+        "valid_periods_count": 5
+      },
+      {
         "program_id": "fortalecimiento_municipal",
         "program_name": "Fortalecimiento Municipal",
-        "latest_valid_period": "2026-04",
+        "latest_valid_period": "2026-05",
         "alerts_count": 3,
         "positives_count": 3,
-        "valid_periods_count": 4
+        "valid_periods_count": 5
       },
       {
         "program_id": "reforestacion",
         "program_name": "Reforestación",
-        "latest_valid_period": "2026-04",
+        "latest_valid_period": "2026-05",
         "alerts_count": 1,
         "positives_count": 4,
-        "valid_periods_count": 4
+        "valid_periods_count": 5
       }
     ]
   }
