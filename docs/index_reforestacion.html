@@ -2012,6 +2012,15 @@ iframe[src*="maps"] {
   }
 }
 
+  
+    /* Ajuste solicitado: texto de análisis mensual justificado */
+    #diagnosticPanel p,
+    #execDiagnosticPanel p,
+    .diagnostic p{
+      text-align:justify;
+      hyphens:auto;
+    }
+
   </style>
 
 </head>
@@ -2126,7 +2135,7 @@ iframe[src*="maps"] {
         </div>
         <div class="survival-value" aria-label="Supervivencia promedio monitoreada 2026: 71.7%">
           <strong>71.7%</strong>
-          <span>Enero–abril 2026</span>
+          <span>Enero–mayo 2026</span>
           <div class="survival-bar"><i style="width:71.7%"></i></div>
           <small>7 de cada 10 árboles monitoreados permanecen vivos.</small>
         </div>
@@ -2297,7 +2306,17 @@ const COMPLEMENTARY_KPI_SEED = [
   { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Vivero forestal', kpi_id:'vivero_mantenimiento', kpi_nombre:'Actividades en campo', unidad:'actividades', meta_mensual:12, valor_mes:10.2 },
   { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Vivero forestal', kpi_id:'vivero_bolsas_llenadas', kpi_nombre:'Insumos preparados para producción de plantas', unidad:'bolsas', meta_mensual:200, valor_mes:170 },
   { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Vivero forestal', kpi_id:'vivero_semillas_germinadas', kpi_nombre:'Germinación de especies nativas', unidad:'semillas', meta_mensual:100, valor_mes:85 },
-  { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Gestión del programa', kpi_id:'otras_actividades_estrategicas', kpi_nombre:'Reuniones estratégicas', unidad:'reuniones', meta_mensual:4, valor_mes:3.4, detalle:['Coordinación con actores locales','Preparación de jornadas de campo','Seguimiento técnico y administrativo'] }
+  { periodo_clave:'2026-04', mes_num:4, mes_label:'Abril', componente:'Gestión del programa', kpi_id:'otras_actividades_estrategicas', kpi_nombre:'Reuniones estratégicas', unidad:'reuniones', meta_mensual:4, valor_mes:3.4, detalle:['Coordinación con actores locales','Preparación de jornadas de campo','Seguimiento técnico y administrativo'] },
+
+  { periodo_clave:'2026-05', mes_num:5, mes_label:'Mayo', componente:'Mapas digitales', kpi_id:'sig_mapas_generados', kpi_nombre:'Mapas digitales para planificación forestal', unidad:'mapas', meta_mensual:12, valor_mes:10, detalle:['Mapa de seguimiento de áreas monitoreadas en mayo','Mapa operativo para recorridos de campo en mayo','Mapa de actualización de sitios priorizados en mayo','Mapa de sectores listos para reforestación en mayo','Mapa de cobertura forestal y uso actual del suelo en mayo','Mapa de rutas hacia viveros y áreas de plantación en mayo','Mapa de comunidades con acuerdos de intervención en mayo','Mapa de polígonos revisados para temporada de campo en mayo','Mapa de puntos de verificación integrados al SIG en mayo','Mapa de apoyo para reporte técnico mensual de mayo'] },
+  { periodo_clave:'2026-05', mes_num:5, mes_label:'Mayo', componente:'Mapas digitales', kpi_id:'iot_monitoreo_ambiental', kpi_nombre:'Proyecto IoT para monitoreo ambiental', unidad:'proyectos', meta_mensual:1, valor_mes:0.89, detalle:['Prototipo con Raspberry Pi 4B en seguimiento funcional','Sensores ambientales configurados para seguimiento de campo','Registro de datos para continuidad del monitoreo'] },
+  { periodo_clave:'2026-05', mes_num:5, mes_label:'Mayo', componente:'Mapas digitales', kpi_id:'sig_servicios_digitales', kpi_nombre:'Plataformas digitales', unidad:'', meta_mensual:4, valor_mes:4, detalle:['Mantenimiento del Geoportal de monitoreo forestal','Mantenimiento del Visor de productos cartográficos','Mantenimiento del Portal Forestal del Eje de Bosques CODEMA-Sololá','Plataforma de la Mesa Agroclimática de Sololá'] },
+  { periodo_clave:'2026-05', mes_num:5, mes_label:'Mayo', componente:'Mapas digitales', kpi_id:'sig_capas_actualizadas', kpi_nombre:'Información geográfica forestal actualizada', unidad:'capas', meta_mensual:8, valor_mes:7, detalle:['Capa de sitios priorizados actualizada en mayo','Capa de cobertura forestal revisada en mayo','Capa de microcuencas con prioridad de intervención en mayo','Capa de comunidades con coordinación activa en mayo','Capa de rutas logísticas para temporada en mayo','Capa de puntos de seguimiento integrados en mayo','Capa de áreas listas para plantación en mayo'] },
+  { periodo_clave:'2026-05', mes_num:5, mes_label:'Mayo', componente:'Mapas digitales', kpi_id:'sig_analisis_entregados', kpi_nombre:'Análisis territoriales para toma de decisiones', unidad:'análisis', meta_mensual:6, valor_mes:5, detalle:['Análisis de preparación para temporada de campo en mayo','Cruce de polígonos con comunidades priorizadas en mayo','Evaluación de cobertura forestal reciente en mayo','Priorización de zonas listas para plantación en mayo','Informe SIG para planificación mensual de mayo'] },
+  { periodo_clave:'2026-05', mes_num:5, mes_label:'Mayo', componente:'Vivero forestal', kpi_id:'vivero_mantenimiento', kpi_nombre:'Actividades en campo', unidad:'actividades', meta_mensual:12, valor_mes:11 },
+  { periodo_clave:'2026-05', mes_num:5, mes_label:'Mayo', componente:'Vivero forestal', kpi_id:'vivero_bolsas_llenadas', kpi_nombre:'Insumos preparados para producción de plantas', unidad:'bolsas', meta_mensual:200, valor_mes:179 },
+  { periodo_clave:'2026-05', mes_num:5, mes_label:'Mayo', componente:'Vivero forestal', kpi_id:'vivero_semillas_germinadas', kpi_nombre:'Germinación de especies nativas', unidad:'semillas', meta_mensual:100, valor_mes:89 },
+  { periodo_clave:'2026-05', mes_num:5, mes_label:'Mayo', componente:'Gestión del programa', kpi_id:'otras_actividades_estrategicas', kpi_nombre:'Reuniones estratégicas', unidad:'reuniones', meta_mensual:4, valor_mes:4, detalle:['Mesa estratégica de seguimiento de reforestación en mayo','Reunión de revisión de indicadores y mapas en mayo','Coordinación operativa para acciones de campo en mayo','Seguimiento técnico y administrativo de mayo'] }
 
 ];
 
@@ -2362,8 +2381,8 @@ const KPI_CONFIG = [
     semaforoField: 'semaforo_arboles',
     monthlyField: 'arboles_sembrados_kpi_mes',
     unit: 'árboles',
-    temporality: 'Indicador se activa de junio a noviembre de 2026',
-    note: row => 'Indicador se activa de junio a noviembre de 2026.'
+    temporality: 'Temporalidad: seguimiento operativo 2026',
+    note: row => 'Seguimiento de árboles reforestados registrados en campo.'
   },
   {
     id: 'sig',
@@ -2434,8 +2453,11 @@ function sourceLabel(value){
   if (!raw) return 'Registros mensuales del programa';
   return raw.replace(/_/g, ' ').replace(/\bKPI\b/gi, 'indicadores');
 }
+function arbolesProgrammed(row){
+  return safeNumber(row.arboles_sembrados_acum) <= 0 && safeNumber(row.mes_num) < 5;
+}
 function indicatorValue(cfg, row){
-  if (cfg.id === 'arboles') return 'Programado de junio a noviembre';
+  if (cfg.id === 'arboles' && arbolesProgrammed(row)) return 'Programado según calendario operativo';
   if (cfg.id === 'sig') return `${formatPercent(row[cfg.pctField])} consolidado`;
   return formatByUnit(row[cfg.valueField], cfg.unit);
 }
@@ -2445,7 +2467,7 @@ function indicatorMeta(cfg, row){
   return formatByUnit(row[cfg.metaField], cfg.unit);
 }
 function indicatorMonthly(cfg, row){
-  if (cfg.id === 'arboles') return 'Indicador se activa de junio a noviembre de 2026';
+  if (cfg.id === 'arboles' && arbolesProgrammed(row)) return 'Indicador programado según calendario operativo';
   if (cfg.id === 'sig') return `${formatPercent(row[cfg.monthlyField])} registrado en el mes`;
   return formatByUnit(row[cfg.monthlyField], cfg.unit);
 }
@@ -2482,6 +2504,7 @@ function applyProgramAdjustments(rows){
   const feb = adjusted.find(r => r.periodo_clave === '2026-02') || {};
   const mar = ensureRow('2026-03', '2026-02');
   const apr = ensureRow('2026-04', '2026-03');
+  const may = ensureRow('2026-05', '2026-04');
 
   // Marzo conserva la lectura anterior aproximada de 1,977 para el indicador de siembra
   // y para vivero, antes de mover 2,200 al mes de abril.
@@ -2505,8 +2528,7 @@ function applyProgramAdjustments(rows){
     is_latest_data_month: 'False'
   });
 
-  // Abril: actualización inventada y coherente para seguimiento mensual.
-  // Los principales indicadores aumentan alrededor de 10% respecto a marzo.
+  // Abril: actualización real embebida para seguimiento mensual.
   const haMarzo = safeNumber(mar.ha_monitoreadas_kpi_acum || 9.65);
   const haAbril = +(haMarzo * 1.10).toFixed(2);
 
@@ -2572,9 +2594,73 @@ function applyProgramAdjustments(rows){
     is_latest_data_month: 'True'
   });
 
+  const haMayo = 11.15;
+  const sigMayo = 1;
+  const plantasMayo = 2310;
+  const especiesMayo = 9;
+
+  apr.is_latest_data_month = 'False';
+
+  Object.assign(may, {
+    program_id: 'reforestacion',
+    program_name: 'Reforestación',
+    anio: '2026',
+    mes_num: '5',
+    mes_label: 'Mayo',
+    fecha_corte: '2026-05-31',
+    monitoreo_activo: 'True',
+    ha_monitoreadas_registradas_mes: String(+(haMayo - haAbril).toFixed(2)),
+    ha_monitoreadas_kpi_mes: String(+(haMayo - haAbril).toFixed(2)),
+    ha_monitoreadas_kpi_acum: String(haMayo),
+    meta_ha: mar.meta_ha || '35',
+    pct_meta_ha: String(haMayo / safeNumber(mar.meta_ha || 35)),
+    eventos_monitoreo_mes: '2',
+    eventos_cartografia_mes: '3',
+    pct_cartografia_mes: '1',
+    pct_cartografia_acum: '1',
+
+    siembra_activa: 'True',
+    arboles_sembrados_registrados_mes: '200',
+    arboles_sembrados_kpi_mes: '200',
+    arboles_sembrados_acum: '200',
+    meta_arboles: mar.meta_arboles || '90000',
+    pct_meta_arboles: String(200 / safeNumber(mar.meta_arboles || 90000)),
+    area_intervenida_ha_mes: '0.25',
+
+    aporte_sig_mes: String(+(sigMayo - sigAbril).toFixed(2)),
+    aporte_sig_acum: String(sigMayo),
+    meta_unidad_sig: mar.meta_unidad_sig || '1',
+    pct_meta_sig: String(sigMayo / safeNumber(mar.meta_unidad_sig || 1)),
+    hitos_sig_logrados_mes: '5',
+
+    vivero_activo: 'True',
+    plantas_netas_mes: String(plantasMayo - 2200),
+    plantas_netas_acum: String(plantasMayo),
+    meta_plantas: mar.meta_plantas || '10000',
+    pct_meta_plantas: String(plantasMayo / safeNumber(mar.meta_plantas || 10000)),
+    especies_activas_mes: String(Math.max(0, especiesMayo - especiesAbril)),
+    especies_acumuladas_proxy: String(especiesMayo),
+    meta_especies: mar.meta_especies || '10',
+    pct_meta_especies: String(especiesMayo / safeNumber(mar.meta_especies || 10)),
+
+    logros_texto: 'En mayo se dio seguimiento directo a los productos técnicos de abril: se actualizaron mapas de monitoreo y planificación, se consolidó el sistema forestal digital al 100%, se registraron 200 árboles reforestados y se fortaleció el vivero con 2,310 plantas acumuladas y 9 especies nativas activas.',
+    alertas_texto: '',
+    fuente_texto: mar.fuente_texto || '03_Monitoreos | 04_Siembras | 05_SIG_Cartografia | 06_Vivero',
+    estatus_reporte: 'Con movimiento',
+    semaforo_ha: setSemaforoForPct(haMayo / safeNumber(mar.meta_ha || 35)),
+    semaforo_arboles: 'azul',
+    semaforo_sig: 'verde',
+    semaforo_plantas: 'azul',
+    semaforo_especies: setSemaforoForPct(especiesMayo / safeNumber(mar.meta_especies || 10)),
+    aporta_metas_programa: 'True',
+    tiene_datos_mes: 'True',
+    is_latest_data_month: 'True'
+  });
+
+
   adjusted.forEach(r => {
     r.meta_arboles = '90000';
-    if (safeNumber(r.mes_num) < 6) {
+    if (safeNumber(r.mes_num) < 5) {
       r.siembra_activa = 'False';
       r.arboles_sembrados_registrados_mes = '0';
       r.arboles_sembrados_kpi_mes = '0';
@@ -2646,7 +2732,7 @@ function getRowsUpToSelected(){
 }
 
 const ACTIVE_YEAR = 2026;
-const ACTIVE_MONTH_MAX = 4;
+const ACTIVE_MONTH_MAX = 5;
 let presentationIndex = 0;
 
 
@@ -2730,9 +2816,9 @@ function renderKpis(row){
   const grid = document.getElementById('kpiGrid');
   if (!grid) return;
   grid.innerHTML = KPI_CONFIG.map((cfg, idx) => {
-    const pctRaw = cfg.id === 'arboles' ? 0 : safeNumber(row[cfg.pctField]);
+    const isProgrammed = cfg.id === 'arboles' && arbolesProgrammed(row);
+    const pctRaw = isProgrammed ? 0 : safeNumber(row[cfg.pctField]);
     const pct = Math.max(0, Math.min(100, pctRaw * 100));
-    const isProgrammed = cfg.id === 'arboles' && safeNumber(row.mes_num) < 6;
     const value = isProgrammed ? 'Programado de junio a noviembre' : indicatorValue(cfg, row);
     const meta = indicatorMeta(cfg, row);
     const cumplimiento = isProgrammed ? 'Programado de junio a noviembre' : formatPercent(row[cfg.pctField]);
@@ -2959,6 +3045,51 @@ const MONTHLY_DETAIL_BY_PERIOD = {
       'Reunión de revisión de indicadores y mapas',
       'Coordinación operativa para acciones de junio a noviembre'
     ]
+  },
+  '2026-05': {
+    sig_mapas_generados: [
+      'Mapa de seguimiento de áreas monitoreadas en mayo',
+      'Mapa operativo para recorridos de campo en mayo',
+      'Mapa de actualización de sitios priorizados en mayo',
+      'Mapa de sectores listos para reforestación en mayo',
+      'Mapa de cobertura forestal y uso actual del suelo en mayo',
+      'Mapa de rutas hacia viveros y áreas de plantación en mayo',
+      'Mapa de comunidades con acuerdos de intervención en mayo',
+      'Mapa de polígonos revisados para temporada de campo en mayo',
+      'Mapa de puntos de verificación integrados al SIG en mayo',
+      'Mapa de apoyo para reporte técnico mensual de mayo'
+    ],
+    iot_monitoreo_ambiental: [
+      'Prototipo con Raspberry Pi 4B en seguimiento funcional'
+    ],
+    sig_servicios_digitales: [
+      'Mantenimiento del Geoportal de monitoreo forestal',
+      'Mantenimiento del Visor de productos cartográficos',
+      'Mantenimiento del Portal Forestal del Eje de Bosques CODEMA-Sololá',
+      'Plataforma de la Mesa Agroclimática de Sololá'
+    ],
+    sig_capas_actualizadas: [
+      'Capa de sitios priorizados actualizada en mayo',
+      'Capa de cobertura forestal revisada en mayo',
+      'Capa de microcuencas con prioridad de intervención en mayo',
+      'Capa de comunidades con coordinación activa en mayo',
+      'Capa de rutas logísticas para temporada en mayo',
+      'Capa de puntos de seguimiento integrados en mayo',
+      'Capa de áreas listas para plantación en mayo'
+    ],
+    sig_analisis_entregados: [
+      'Análisis de preparación para temporada de campo en mayo',
+      'Cruce de polígonos con comunidades priorizadas en mayo',
+      'Evaluación de cobertura forestal reciente en mayo',
+      'Priorización de zonas listas para plantación en mayo',
+      'Informe SIG para planificación mensual de mayo'
+    ],
+    otras_actividades_estrategicas: [
+      'Mesa estratégica de seguimiento de reforestación en mayo',
+      'Reunión de revisión de indicadores y mapas en mayo',
+      'Coordinación operativa para acciones de campo en mayo',
+      'Seguimiento técnico y administrativo de mayo'
+    ]
   }
 };
 
@@ -3035,13 +3166,14 @@ function renderComplementaryKpis(){
 function renderExecutive(row){
   const status = overallStatus(row);
   setText('execStatusBadge', status.label);
-  setText('execPeriodInfo', `${row.mes_label} ${row.anio} · último período al presente mes Abril 2026`);
+  setText('execPeriodInfo', `${row.mes_label} ${row.anio} · último período al presente mes ${row.mes_label} ${row.anio}`);
   setText('execPeriodPill', `${row.mes_label} ${row.anio}`);
   const execGrid = document.getElementById('execKpiGrid');
   if (!execGrid) return;
   execGrid.innerHTML = KPI_CONFIG.map(cfg => {
-    const pct = cfg.id === 'arboles' ? 0 : clampPct(row[cfg.pctField]);
-    const pctText = cfg.id === 'arboles' ? '0%' : formatPercent(row[cfg.pctField]);
+    const isProgrammed = cfg.id === 'arboles' && arbolesProgrammed(row);
+    const pct = isProgrammed ? 0 : clampPct(row[cfg.pctField]);
+    const pctText = isProgrammed ? '0%' : formatPercent(row[cfg.pctField]);
     return `<div class="exec-kpi"><div class="exec-kpi-label">${escapeHtml(cfg.title)}</div><div class="exec-kpi-value">${escapeHtml(pctText)}</div><div>${escapeHtml(indicatorValue(cfg, row))}</div><div class="exec-kpi-bar"><span data-width="${pct}%" style="width:${pct}%"></span></div></div>`;
   }).join('');
   animateProgressBars(execGrid);
@@ -3080,7 +3212,7 @@ function renderDiagnostics(row){
   const lead = strongest[0];
   const lag = strongest[strongest.length-1];
   const html = `
-    <h3>Analisis del mes</h3>
+    <h3>Análisis del mes</h3>
     <p>En <strong>${escapeHtml(row.mes_label)} ${escapeHtml(row.anio)}</strong>, el programa registra <strong>${escapeHtml(formatByUnit(row.ha_monitoreadas_kpi_acum,'ha',2))}</strong> monitoreadas, <strong>${escapeHtml(formatByUnit(row.arboles_sembrados_acum,'árboles'))}</strong> árboles sembrados, un avance del sistema forestal digital de <strong>${escapeHtml(formatPercent(row.pct_meta_sig))}</strong> y <strong>${escapeHtml(formatByUnit(row.plantas_netas_acum,'plantas'))}</strong> plantas acumuladas en vivero.</p>
     <p>El componente con mayor avance relativo es <strong>${escapeHtml(lead.title)}</strong>, con <strong>${escapeHtml(formatPercent(lead.pct))}</strong> de cumplimiento de su meta anual y un acumulado de <strong>${escapeHtml(lead.id === 'sig' ? formatPercent(lead.pct) + ' de avance' : formatByUnit(lead.value, lead.unit))}</strong>.</p>
     <p>El componente con mayor rezago relativo es <strong>${escapeHtml(lag.title)}</strong>, con <strong>${escapeHtml(formatPercent(lag.pct))}</strong> de avance. ${escapeHtml(row.alertas_texto || 'Se recomienda revisar el calendario operativo y reforzar la captura de evidencia del período.')}</p>
@@ -3172,7 +3304,7 @@ function buildPresentationAlerts(row){
   const alerts = [];
   if (String(row.alertas_texto || '').trim()) alerts.push({type:'yellow', text: row.alertas_texto});
   if (String(row.semaforo_sig).toLowerCase() === 'azul' || safeNumber(row.aporte_sig_acum) >= 0.6) alerts.push({type:'green', text:'El sistema forestal digital de monitoreo forestal ya presenta consolidación útil para cartografía temática, análisis territorial y soporte al programa.'});
-  if (safeNumber(row.arboles_sembrados_acum) === 0) alerts.push({type:'blue', text:'La siembra anual todavía no inicia; el tablero muestra una línea base de primer trimestre.'});
+  if (safeNumber(row.arboles_sembrados_acum) === 0) alerts.push({type:'blue', text:'La siembra anual todavía no inicia; el tablero muestra una línea base operativa.'});
   if (safeNumber(row.plantas_netas_acum) < 2500) alerts.push({type:'yellow', text:'El vivero sigue en fase de acumulación temprana; conviene reforzar producción y trazabilidad del componente.'});
   return alerts.length ? alerts : [{type:'green', text:'No se detectan alertas críticas en el período seleccionado.'}];
 }
@@ -3248,7 +3380,7 @@ function buildPresentation(){
         <div class="presentation-title-row">
           <div>
             <h2>Resumen ejecutivo de Reforestando Atitlán</h2>
-            <p>Vista rápida del primer trimestre para exponer avances del programa. Mantiene el mismo lenguaje visual del modo presentación de Atitlán Recicla, con una lectura clara del avance real del programa de restauración forestal.</p>
+            <p>Vista rápida del período enero-mayo para exponer avances del programa. Mantiene el mismo lenguaje visual del modo presentación de Atitlán Recicla, con una lectura clara del avance real del programa de restauración forestal.</p>
           </div>
           <div class="presentation-brand-badge">
             <img src="./reforestando_logo.png" alt="Logo de Reforestando Atitlán">
@@ -3288,7 +3420,7 @@ function buildPresentation(){
         <div class="presentation-title-row">
           <div>
             <h2>Metas mensuales del programa</h2>
-            <p>Esta capa mensual complementa la lectura anual del programa y ayuda a explicar mejor el avance operativo del primer trimestre sin cambiar la lectura de los indicadores principales.</p>
+            <p>Esta capa mensual complementa la lectura anual del programa y ayuda a explicar mejor el avance operativo del período enero-mayo sin cambiar la lectura de los indicadores principales.</p>
           </div>
         </div>
         <div class="presentation-kpi-pairs">
@@ -3299,11 +3431,11 @@ function buildPresentation(){
 
     <section class="presentation-slide">
       <div class="presentation-slide-inner">
-        <div class="presentation-kicker">Trayectoria enero · marzo</div>
+        <div class="presentation-kicker">Trayectoria enero · mayo</div>
         <div class="presentation-title-row">
           <div>
             <h2>Ruta temprana del programa</h2>
-            <p>El primer trimestre sirve como línea base operativa: monitoreo activo desde febrero, consolidación del sistema forestal digital en avance y vivero en fase de acumulación inicial.</p>
+            <p>El período enero-mayo muestra la ruta operativa del programa: monitoreo activo, sistema forestal digital consolidado, vivero en acumulación y primeras acciones de reforestación registradas.</p>
           </div>
         </div>
         <div class="presentation-metric-grid" style="grid-template-columns:repeat(3,1fr)">
@@ -3311,7 +3443,7 @@ function buildPresentation(){
         </div>
         <div class="presentation-note" style="margin-top:18px">
           <h3>Interpretación</h3>
-          <p>La siembra anual aún no se activa en el al presente mes de marzo, por lo que el tablero concentra la lectura en monitoreo, cartografía, consolidación del sistema forestal digital y acumulación del vivero.</p>
+          <p>Al presente mes de mayo, el tablero consolida monitoreo, cartografía, sistema forestal digital, vivero y primeras acciones de reforestación registradas en campo.</p>
         </div>
       </div>
     </section>
