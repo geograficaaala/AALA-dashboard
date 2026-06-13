@@ -2243,11 +2243,11 @@ async function loadAtitlan(cfg){
   const materialesMetaMes = 1630;
   const ingresosMes = 38314.50;
   const ingresosMetaMes = 40727;
-  const ingresoLideresaMes = 166.34;
+  const ingresoLideresaMes = 220.940242;
   const ingresoLideresaMeta = META_DIARIA_LIDERESA;
 
-  const acumMateriales = 8629.10;
-  const acumIngresos = 186243.11;
+  const acumMateriales = 8628.10;
+  const acumIngresos = 178932.09;
 
   const pctMateriales = (acumMateriales / META_ANUAL_MATERIALES) * 100;
   const pctIngresos = (acumIngresos / META_ANUAL_INGRESOS) * 100;
@@ -2304,24 +2304,24 @@ async function loadAtitlan(cfg){
 }
 
 async function loadConservando(cfg){
-  // Sincronizado con index_conservando_atitlan.html · abril 2026.
-  const aceiteAcum = 27810.828;
-  const aguaAcum = 27810828;
-  const jabonesProdAcum = 26680;
-  const jabonesVendAcum = 7394;
+  // Sincronizado con index_conservando_atitlan.html · mayo 2026.
+  const aceiteAcum = 35108.828;
+  const aguaAcum = 35108828;
+  const jabonesProdAcum = 30980;
+  const jabonesVendAcum = 8401;
 
   const metaAceite = 80000;
   const metaAgua = 80000000;
   const metaJabonesProd = 65040;
   const metaJabonesVend = 51600;
 
-  const aceiteMes = 7340;
-  const aceiteMetaMes = 6666.67;
-  const aguaMes = 7340000;
-  const aguaMetaMes = 6666666.67;
-  const jabonesProdMes = 4850;
+  const aceiteMes = 7298;
+  const aceiteMetaMes = 6670;
+  const aguaMes = 7298000;
+  const aguaMetaMes = 6670000;
+  const jabonesProdMes = 4300;
   const jabonesProdMetaMes = 5420;
-  const jabonesVendMes = 2314;
+  const jabonesVendMes = 1007;
   const jabonesVendMetaMes = 4300;
 
   const pctAceite = (aceiteAcum / metaAceite) * 100;
@@ -2340,9 +2340,9 @@ async function loadConservando(cfg){
       label:'Recolección de 80,000 litros de aceite usado de cocina.',
       acumDisplay:`${fmt(aceiteAcum)} / ${fmt(metaAceite)} litros recolectados`,
       pct:pctAceite,
-      pctDisplay:`${fmtPct(pctAceite)} de avance acumulado hasta abril contra la meta anual`,
+      pctDisplay:`${fmtPct(pctAceite)} de avance acumulado hasta mayo contra la meta anual`,
       barPct:pctAceite,
-      monthlyDisplay:`${fmt(aceiteMes)} / ${fmt(aceiteMetaMes,2)} litros en abril · ${fmtPct(pctAceiteMes)}`,
+      monthlyDisplay:`${fmt(aceiteMes)} / ${fmt(aceiteMetaMes)} litros en mayo · ${fmtPct(pctAceiteMes)}`,
       monthlyPct:pctAceiteMes,
       temporality: 'Este indicador tiene por temporalidad desde enero a diciembre de 2026'
     },
@@ -2350,9 +2350,9 @@ async function loadConservando(cfg){
       label:'Protección de 80,000,000 litros de agua por manejo adecuado de aceite usado.',
       acumDisplay:`${fmt(aguaAcum)} / ${fmt(metaAgua)} litros de agua protegidos`,
       pct:pctAgua,
-      pctDisplay:`${fmtPct(pctAgua)} de avance acumulado hasta abril contra la meta anual`,
+      pctDisplay:`${fmtPct(pctAgua)} de avance acumulado hasta mayo contra la meta anual`,
       barPct:pctAgua,
-      monthlyDisplay:`${fmt(aguaMes)} / ${fmt(aguaMetaMes,2)} litros en abril · ${fmtPct(pctAguaMes)}`,
+      monthlyDisplay:`${fmt(aguaMes)} / ${fmt(aguaMetaMes)} litros en mayo · ${fmtPct(pctAguaMes)}`,
       monthlyPct:pctAguaMes,
       temporality: 'Este indicador tiene por temporalidad desde enero a diciembre de 2026'
     },
@@ -2360,9 +2360,9 @@ async function loadConservando(cfg){
       label:'Producción de 65,040 jabones durante 2026.',
       acumDisplay:`${fmt(jabonesProdAcum)} / ${fmt(metaJabonesProd)} jabones producidos`,
       pct:pctJabonesProd,
-      pctDisplay:`${fmtPct(pctJabonesProd)} de avance acumulado hasta abril contra la meta anual`,
+      pctDisplay:`${fmtPct(pctJabonesProd)} de avance acumulado hasta mayo contra la meta anual`,
       barPct:pctJabonesProd,
-      monthlyDisplay:`${fmt(jabonesProdMes)} / ${fmt(jabonesProdMetaMes)} jabones en abril · ${fmtPct(pctJabonesProdMes)}`,
+      monthlyDisplay:`${fmt(jabonesProdMes)} / ${fmt(jabonesProdMetaMes)} jabones en mayo · ${fmtPct(pctJabonesProdMes)}`,
       monthlyPct:pctJabonesProdMes,
       temporality: 'Este indicador tiene por temporalidad desde enero a diciembre de 2026'
     },
@@ -2370,9 +2370,9 @@ async function loadConservando(cfg){
       label:'Venta de 51,600 jabones durante 2026.',
       acumDisplay:`${fmt(jabonesVendAcum)} / ${fmt(metaJabonesVend)} jabones vendidos`,
       pct:pctJabonesVend,
-      pctDisplay:`${fmtPct(pctJabonesVend)} de avance acumulado hasta abril contra la meta anual`,
+      pctDisplay:`${fmtPct(pctJabonesVend)} de avance acumulado hasta mayo contra la meta anual`,
       barPct:pctJabonesVend,
-      monthlyDisplay:`${fmt(jabonesVendMes)} / ${fmt(jabonesVendMetaMes)} jabones en abril · ${fmtPct(pctJabonesVendMes)}`,
+      monthlyDisplay:`${fmt(jabonesVendMes)} / ${fmt(jabonesVendMetaMes)} jabones en mayo · ${fmtPct(pctJabonesVendMes)}`,
       monthlyPct:pctJabonesVendMes,
       temporality: 'Este indicador tiene por temporalidad desde enero a diciembre de 2026'
     }
@@ -2380,12 +2380,12 @@ async function loadConservando(cfg){
 
   return {
     ...cfg,
-    latestLabel:'Abril',
-    periodKey:'2026-04',
+    latestLabel:'Mayo',
+    periodKey:'2026-05',
     score:score || 0,
     scoreLabel:'Promedio vs metas mensuales',
     metrics:keyMetrics,
-    sourceSummary:'Kobo · abril 2026'
+    sourceSummary:'Kobo · mayo 2026'
   };
 }
 
