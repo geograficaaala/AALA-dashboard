@@ -697,8 +697,30 @@ async function init(){
     if(_abrilIdx>=0){ state.total[_abrilIdx]=ABRIL_2026; }
     else { state.total.push(ABRIL_2026); state.total.sort((a,b)=>String(a.mes_clave).localeCompare(String(b.mes_clave))); }
     state.periods = state.total.map(r=>String(r.mes_clave)).filter(Boolean);
-    state.period = '2026-04';
-    state.metadata.latest_period = '2026-04';
+
+    // ── PATCH: Datos correctos Mayo 2026 (pestaña nueva sin modificar los meses anteriores) ──
+    const MAYO_2026 = {
+      program_id:'conservando_atitlan', program_name:'Conservando Atitlán',
+      mes_clave:'2026-05', anio:2026, mes_num:5, mes_label:'Mayo',
+      aporta_metas_programa:true,
+      [JORNADA_RECOLECCION_FIELD]:1, jornadas_codigos_unicos_mes:10,
+      filas_recoleccion_validas_mes:10, municipios_visitados_mes:10,
+      inmuebles_atendidos_mes:88,
+      litros_aceite_recolectados_mes:7298, litros_agua_protegidos_mes:7298000,
+      clientes_recurrentes_atendidos_mes:0, filas_clientes_recurrentes_mes:0,
+      jabones_hotel_producidos_mes:4000, jabones_tocador_producidos_mes:300,
+      jabones_producidos_mes:4300,
+      jabones_hotel_vendidos_mes:1000, jabones_tocador_vendidos_mes:7,
+      jabones_vendidos_mes:1007, ingresos_ventas_q_mes:1250,
+      publicaciones_redes_mes:8, pruebas_jabon_liquido_mes:0,
+      tiene_datos_mes:true, is_latest_data_month:true
+    };
+    const _mayoIdx = state.total.findIndex(r=>String(r.mes_clave)==='2026-05');
+    if(_mayoIdx>=0){ state.total[_mayoIdx]=MAYO_2026; }
+    else { state.total.push(MAYO_2026); state.total.sort((a,b)=>String(a.mes_clave).localeCompare(String(b.mes_clave))); }
+    state.periods = state.total.map(r=>String(r.mes_clave)).filter(Boolean);
+    state.period = '2026-05';
+    state.metadata.latest_period = '2026-05';
     buildMonthPills();
     buildTrendOptions();
     document.getElementById('btnPresentation').addEventListener('click',openPresentation);
