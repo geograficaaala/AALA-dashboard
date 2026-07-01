@@ -2334,6 +2334,118 @@
        aporta_metas_epc:true,es_exigible:false,estatus:'gris',orden_dashboard:19,nota_metodologica:'Sin ventana mensual definida.',is_latest_data_month:true}
     ];
 
+
+    // ── PATCH: Datos correctos Junio 2026 EPC ─────────────────────────────────
+    const JUNIO_TOTAL = {
+      program_id:'educando_para_conservar', program_name:'Educando para Conservar',
+      periodo_clave:'2026-06', anio:2026, mes_num:6, mes_label:'Junio',
+      mes_ciclo_epc:4, aporta_metas_epc:true,
+      // Cobertura pedagógica – Módulo 4 "El Suelo"
+      docentes_mes:120, estudiantes_epc_mes:3436, centros_mes:49, municipios_mes:13,
+      // Actividades de campo documentadas en el informe de junio.
+      actividades_campo_mes:21, estudiantes_actividades_campo_mes:543,
+      act_reforestacion_mes:0, act_monitoreo_reforestadas_mes:0,
+      act_tul_mes:0,
+      act_ferias_mes:1,      // Feria ambiental en Santa Cruz La Laguna; 66 estudiantes.
+      act_huertos_mes:4,     // Seguimiento a 4 huertos escolares.
+      act_giras_mes:5,       // 5 giras educativas; 195 estudiantes.
+      act_murales_mes:3,     // 3 proyectos de murales escolares.
+      act_centros_acopio_mes:0, act_limpiezas_mes:3, act_proyectos_gestion_mes:5,
+      // Diplomado juvenil y gestión complementaria.
+      docentes_induccion_mes:0, centros_induccion_mes:0, estudiantes_diagnostico_mes:0,
+      diplomado_marzo_inscritos_mes:0,
+      diplomado_marzo_asistentes_mes:67,
+      diplomado_junio_inscritos_mes:0,
+      jovenes_formados_diplomado_mes:67, propuestas_juveniles_mes:5, capitales_semilla_mes:0,
+      coordinaciones_clave_mes:4,
+      coordinaciones_clave_texto:'4 actividades puntuales',
+      logros_texto:'Durante junio 2026 se desarrolló el Módulo 4: El Suelo. La cobertura pedagógica alcanzó 13 municipios, 49 centros educativos, 120 docentes y 3,436 estudiantes. Se cerró y clausuró el diplomado formativo con 67 estudiantes y presentación de 5 proyectos de gestión ambiental escolar y comunitaria. En actividades de campo se registraron 3 campañas de limpieza, 5 giras educativas, 1 feria ambiental, seguimiento a 4 huertos escolares y 3 murales escolares.',
+      alertas_texto:'',
+      fuente_texto:'Resumen junio 2026 EPC-Lisandro + Resumen para Junta Directiva AALA',
+      tiene_datos_mes:true, is_latest_data_month:true
+    };
+
+    // ── PATCH: Indicadores de Junio 2026 ──────────────────────────────────────
+    // Acumulados a Junio: marzo + abril + mayo + junio. Enero-febrero se mantiene sin cambios.
+    const JUNIO_INDICADORES = [
+      // Cobertura estratégica (monthly_recurrent)
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-06',mes_num:6,mes_label:'Junio',
+       indicator_id:'docentes_capacitados',indicador_nombre:'Docentes capacitados',unidad:'personas',categoria:'estrategico',modelo_medicion:'monthly_recurrent',
+       valor_mes:120,valor_acumulado:481,meta_mes:121,meta_anual:8,esperado_al_corte:121,pct_meta_anual:0.992,pct_vs_esperado:0.992,cumplio_mes:1,meses_cumplidos:4,meses_transcurridos:4,
+       aporta_metas_epc:true,es_exigible:true,estatus:'verde',orden_dashboard:1,nota_metodologica:'Mide cumplimiento mensual del estándar y sostenimiento del ciclo EPC.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-06',mes_num:6,mes_label:'Junio',
+       indicator_id:'centros_cobertura',indicador_nombre:'Centros alcanzados',unidad:'centros',categoria:'estrategico',modelo_medicion:'monthly_recurrent',
+       valor_mes:49,valor_acumulado:199,meta_mes:50,meta_anual:8,esperado_al_corte:50,pct_meta_anual:0.98,pct_vs_esperado:0.98,cumplio_mes:1,meses_cumplidos:4,meses_transcurridos:4,
+       aporta_metas_epc:true,es_exigible:true,estatus:'verde',orden_dashboard:2,nota_metodologica:'Mide cumplimiento mensual del estándar y sostenimiento del ciclo EPC.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-06',mes_num:6,mes_label:'Junio',
+       indicator_id:'municipios_actividad_pedagogica',indicador_nombre:'Municipios con actividad pedagógica',unidad:'municipios',categoria:'estrategico',modelo_medicion:'monthly_recurrent',
+       valor_mes:13,valor_acumulado:52,meta_mes:13,meta_anual:8,esperado_al_corte:13,pct_meta_anual:1.0,pct_vs_esperado:1.0,cumplio_mes:1,meses_cumplidos:4,meses_transcurridos:4,
+       aporta_metas_epc:true,es_exigible:true,estatus:'verde',orden_dashboard:3,nota_metodologica:'Mide cumplimiento mensual del estándar y sostenimiento del ciclo EPC.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-06',mes_num:6,mes_label:'Junio',
+       indicator_id:'estudiantes_epc',indicador_nombre:'Estudiantes EPC',unidad:'estudiantes',categoria:'estrategico',modelo_medicion:'monthly_recurrent',
+       valor_mes:3436,valor_acumulado:13924,meta_mes:3514,meta_anual:8,esperado_al_corte:3514,pct_meta_anual:0.9778,pct_vs_esperado:0.9778,cumplio_mes:1,meses_cumplidos:4,meses_transcurridos:4,
+       aporta_metas_epc:true,es_exigible:true,estatus:'verde',orden_dashboard:4,nota_metodologica:'Mide cumplimiento mensual del estándar y sostenimiento del ciclo EPC.',is_latest_data_month:true},
+      // Actividades campo (annual_cumulative_profiled)
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-06',mes_num:6,mes_label:'Junio',
+       indicator_id:'actividades_campo',indicador_nombre:'Actividades de campo',unidad:'actividades',categoria:'estrategico',modelo_medicion:'annual_cumulative_profiled',
+       valor_mes:21,valor_acumulado:61,meta_mes:0,meta_anual:128,esperado_al_corte:64,pct_meta_anual:0.4766,pct_vs_esperado:0.9531,cumplio_mes:1,meses_cumplidos:4,meses_transcurridos:4,
+       aporta_metas_epc:true,es_exigible:true,estatus:'amarillo',orden_dashboard:5,nota_metodologica:'Compara acumulado real vs esperado al corte con perfil marzo-octubre.',is_latest_data_month:true},
+      // Diplomado (milestone)
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-06',mes_num:6,mes_label:'Junio',
+       indicator_id:'jovenes_formados_diplomado',indicador_nombre:'Jóvenes formados en diplomado',unidad:'jóvenes',categoria:'estrategico',modelo_medicion:'milestone_window',
+       valor_mes:67,valor_acumulado:67,meta_mes:0,meta_anual:120,esperado_al_corte:60,pct_meta_anual:0.5583,pct_vs_esperado:1.1167,cumplio_mes:1,meses_cumplidos:1,meses_transcurridos:4,
+       aporta_metas_epc:true,es_exigible:true,estatus:'verde',orden_dashboard:7,nota_metodologica:'Solo se exige en la ventana del hito.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-06',mes_num:6,mes_label:'Junio',
+       indicator_id:'propuestas_juveniles',indicador_nombre:'Propuestas juveniles',unidad:'propuestas',categoria:'estrategico',modelo_medicion:'milestone_window',
+       valor_mes:5,valor_acumulado:5,meta_mes:0,meta_anual:12,esperado_al_corte:6,pct_meta_anual:0.4167,pct_vs_esperado:0.8333,cumplio_mes:1,meses_cumplidos:1,meses_transcurridos:4,
+       aporta_metas_epc:true,es_exigible:true,estatus:'amarillo',orden_dashboard:8,nota_metodologica:'Solo se exige en la ventana del hito.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-06',mes_num:6,mes_label:'Junio',
+       indicator_id:'capitales_semilla',indicador_nombre:'Capitales semilla entregados',unidad:'capitales',categoria:'estrategico',modelo_medicion:'milestone_window',
+       valor_mes:0,valor_acumulado:0,meta_mes:0,meta_anual:4,esperado_al_corte:0,pct_meta_anual:0,pct_vs_esperado:0,cumplio_mes:0,meses_cumplidos:0,meses_transcurridos:4,
+       aporta_metas_epc:true,es_exigible:false,estatus:'gris',orden_dashboard:9,nota_metodologica:'Sin registro de capitales semilla entregados en el informe de junio.',is_latest_data_month:true},
+      // Tácticos
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-06',mes_num:6,mes_label:'Junio',
+       indicator_id:'act_reforestacion',indicador_nombre:'Campañas de reforestación',unidad:'actividades',categoria:'tactico',modelo_medicion:'annual_cumulative_profiled',
+       valor_mes:0,valor_acumulado:0,meta_mes:0,meta_anual:20,esperado_al_corte:7,pct_meta_anual:0,pct_vs_esperado:0,cumplio_mes:0,meses_cumplidos:0,meses_transcurridos:4,
+       aporta_metas_epc:true,es_exigible:true,estatus:'rojo',orden_dashboard:10,nota_metodologica:'Ventana junio-agosto.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-06',mes_num:6,mes_label:'Junio',
+       indicator_id:'act_monitoreo_reforestadas',indicador_nombre:'Monitoreo de áreas reforestadas',unidad:'actividades',categoria:'tactico',modelo_medicion:'annual_cumulative_profiled',
+       valor_mes:0,valor_acumulado:0,meta_mes:0,meta_anual:8,esperado_al_corte:0,pct_meta_anual:0,pct_vs_esperado:0,cumplio_mes:0,meses_cumplidos:0,meses_transcurridos:4,
+       aporta_metas_epc:true,es_exigible:false,estatus:'gris',orden_dashboard:11,nota_metodologica:'Ventana octubre-diciembre.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-06',mes_num:6,mes_label:'Junio',
+       indicator_id:'act_tul',indicador_nombre:'Manejo / poda / mantenimiento de tul',unidad:'actividades',categoria:'tactico',modelo_medicion:'annual_cumulative_profiled',
+       valor_mes:0,valor_acumulado:2,meta_mes:0,meta_anual:10,esperado_al_corte:4,pct_meta_anual:0.2,pct_vs_esperado:0.5,cumplio_mes:0,meses_cumplidos:2,meses_transcurridos:4,
+       aporta_metas_epc:true,es_exigible:true,estatus:'amarillo',orden_dashboard:12,nota_metodologica:'Compara acumulado real vs esperado al corte.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-06',mes_num:6,mes_label:'Junio',
+       indicator_id:'act_ferias',indicador_nombre:'Ferias ambientales',unidad:'actividades',categoria:'tactico',modelo_medicion:'annual_cumulative_profiled',
+       valor_mes:1,valor_acumulado:6,meta_mes:0,meta_anual:16,esperado_al_corte:8,pct_meta_anual:0.375,pct_vs_esperado:0.75,cumplio_mes:1,meses_cumplidos:4,meses_transcurridos:4,
+       aporta_metas_epc:true,es_exigible:true,estatus:'amarillo',orden_dashboard:13,nota_metodologica:'Compara acumulado real vs esperado al corte.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-06',mes_num:6,mes_label:'Junio',
+       indicator_id:'act_huertos',indicador_nombre:'Huertos escolares',unidad:'actividades',categoria:'tactico',modelo_medicion:'milestone_window',
+       valor_mes:4,valor_acumulado:8,meta_mes:0,meta_anual:8,esperado_al_corte:4,pct_meta_anual:1.0,pct_vs_esperado:2.0,cumplio_mes:1,meses_cumplidos:3,meses_transcurridos:4,
+       aporta_metas_epc:true,es_exigible:true,estatus:'verde',orden_dashboard:14,nota_metodologica:'Ventana abril-septiembre.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-06',mes_num:6,mes_label:'Junio',
+       indicator_id:'act_giras',indicador_nombre:'Giras educativas',unidad:'actividades',categoria:'tactico',modelo_medicion:'annual_cumulative_profiled',
+       valor_mes:5,valor_acumulado:17,meta_mes:0,meta_anual:24,esperado_al_corte:14,pct_meta_anual:0.7083,pct_vs_esperado:1.2143,cumplio_mes:1,meses_cumplidos:4,meses_transcurridos:4,
+       aporta_metas_epc:true,es_exigible:true,estatus:'verde',orden_dashboard:15,nota_metodologica:'Compara acumulado real vs esperado al corte.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-06',mes_num:6,mes_label:'Junio',
+       indicator_id:'act_murales',indicador_nombre:'Murales pedagógicos',unidad:'actividades',categoria:'tactico',modelo_medicion:'milestone_window',
+       valor_mes:3,valor_acumulado:7,meta_mes:0,meta_anual:4,esperado_al_corte:4,pct_meta_anual:1.75,pct_vs_esperado:1.75,cumplio_mes:1,meses_cumplidos:3,meses_transcurridos:4,
+       aporta_metas_epc:true,es_exigible:true,estatus:'verde',orden_dashboard:16,nota_metodologica:'Ventana abril-mayo; junio registra 3 murales adicionales según informe.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-06',mes_num:6,mes_label:'Junio',
+       indicator_id:'act_centros_acopio',indicador_nombre:'Centros de acopio escolar',unidad:'actividades',categoria:'tactico',modelo_medicion:'milestone_window',
+       valor_mes:0,valor_acumulado:0,meta_mes:0,meta_anual:8,esperado_al_corte:0,pct_meta_anual:0,pct_vs_esperado:0,cumplio_mes:0,meses_cumplidos:0,meses_transcurridos:4,
+       aporta_metas_epc:true,es_exigible:false,estatus:'gris',orden_dashboard:17,nota_metodologica:'Sin ventana mensual definida.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-06',mes_num:6,mes_label:'Junio',
+       indicator_id:'act_limpiezas',indicador_nombre:'Campañas de limpieza escolar',unidad:'actividades',categoria:'tactico',modelo_medicion:'annual_cumulative_profiled',
+       valor_mes:3,valor_acumulado:16,meta_mes:0,meta_anual:24,esperado_al_corte:15,pct_meta_anual:0.6667,pct_vs_esperado:1.0667,cumplio_mes:1,meses_cumplidos:4,meses_transcurridos:4,
+       aporta_metas_epc:true,es_exigible:true,estatus:'verde',orden_dashboard:18,nota_metodologica:'Compara acumulado real vs esperado al corte.',is_latest_data_month:true},
+      {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-06',mes_num:6,mes_label:'Junio',
+       indicator_id:'act_proyectos_gestion',indicador_nombre:'Proyectos de gestión ambiental escolar',unidad:'actividades',categoria:'tactico',modelo_medicion:'milestone_window',
+       valor_mes:5,valor_acumulado:5,meta_mes:0,meta_anual:2,esperado_al_corte:1,pct_meta_anual:2.5,pct_vs_esperado:5.0,cumplio_mes:1,meses_cumplidos:1,meses_transcurridos:4,
+       aporta_metas_epc:true,es_exigible:true,estatus:'verde',orden_dashboard:19,nota_metodologica:'Presentación de 5 proyectos de gestión ambiental escolar y comunitaria.',is_latest_data_month:true}
+    ];
+
     // Inject into state
     const upsertTotalRow = row => {
       const idx = state.data.total.findIndex(r=>String(r.periodo_clave)===String(row.periodo_clave));
@@ -2343,13 +2455,21 @@
 
     upsertTotalRow(ABRIL_TOTAL);
     upsertTotalRow(MAYO_TOTAL);
+    upsertTotalRow(JUNIO_TOTAL);
     state.data.total.sort((a,b)=>String(a.periodo_clave).localeCompare(String(b.periodo_clave)));
 
     // Remove any existing embedded-period indicadores, then add corrected ones
-    state.data.indicadores = state.data.indicadores.filter(r=>!['2026-04','2026-05'].includes(String(r.periodo_clave)));
-    state.data.indicadores = state.data.indicadores.concat(ABRIL_INDICADORES, MAYO_INDICADORES);
+    state.data.indicadores = state.data.indicadores.filter(r=>!['2026-04','2026-05','2026-06'].includes(String(r.periodo_clave)));
+    state.data.indicadores = state.data.indicadores.concat(ABRIL_INDICADORES, MAYO_INDICADORES, JUNIO_INDICADORES);
 
-    state.periodo = '2026-05';
+    if(state.data.metadata && state.data.metadata[0]){
+      state.data.metadata[0].latest_period = '2026-06';
+      state.data.metadata[0].latest_month_label = 'Junio';
+      state.data.metadata[0].periodos_detectados = state.data.total.map(r=>String(r.periodo_clave)).join(' | ');
+      state.data.metadata[0].periods_count = state.data.total.length;
+    }
+
+    state.periodo = '2026-06';
         const periodos = state.data.total.filter(r=>isTrue(r.tiene_datos_mes)).sort((a,b)=> String(a.periodo_clave).localeCompare(String(b.periodo_clave)));
         state.periodo = periodos.length ? periodos[periodos.length-1].periodo_clave : '';
         buildPills(state.data.total);
