@@ -2173,7 +2173,7 @@ iframe[src*="maps"] {
         </div>
         <div class="survival-value" aria-label="Supervivencia promedio monitoreada 2026: 71.7%">
           <strong>71.7%</strong>
-          <span>Enero–mayo 2026</span>
+          <span>Enero–junio 2026</span>
           <div class="survival-bar"><i style="width:71.7%"></i></div>
           <small>7 de cada 10 árboles monitoreados permanecen vivos.</small>
         </div>
@@ -2354,7 +2354,17 @@ const COMPLEMENTARY_KPI_SEED = [
   { periodo_clave:'2026-05', mes_num:5, mes_label:'Mayo', componente:'Vivero forestal', kpi_id:'vivero_mantenimiento', kpi_nombre:'Actividades en campo', unidad:'actividades', meta_mensual:12, valor_mes:11 },
   { periodo_clave:'2026-05', mes_num:5, mes_label:'Mayo', componente:'Vivero forestal', kpi_id:'vivero_bolsas_llenadas', kpi_nombre:'Insumos preparados para producción de plantas', unidad:'bolsas', meta_mensual:200, valor_mes:179 },
   { periodo_clave:'2026-05', mes_num:5, mes_label:'Mayo', componente:'Vivero forestal', kpi_id:'vivero_semillas_germinadas', kpi_nombre:'Germinación de especies nativas', unidad:'semillas', meta_mensual:100, valor_mes:89 },
-  { periodo_clave:'2026-05', mes_num:5, mes_label:'Mayo', componente:'Gestión del programa', kpi_id:'otras_actividades_estrategicas', kpi_nombre:'Reuniones estratégicas', unidad:'reuniones', meta_mensual:4, valor_mes:4, detalle:['Mesa estratégica de seguimiento de reforestación en mayo','Reunión de revisión de indicadores y mapas en mayo','Coordinación operativa para acciones de campo en mayo','Seguimiento técnico y administrativo de mayo'] }
+  { periodo_clave:'2026-05', mes_num:5, mes_label:'Mayo', componente:'Gestión del programa', kpi_id:'otras_actividades_estrategicas', kpi_nombre:'Reuniones estratégicas', unidad:'reuniones', meta_mensual:4, valor_mes:4, detalle:['Mesa estratégica de seguimiento de reforestación en mayo','Reunión de revisión de indicadores y mapas en mayo','Coordinación operativa para acciones de campo en mayo','Seguimiento técnico y administrativo de mayo'] },
+
+  { periodo_clave:'2026-06', mes_num:6, mes_label:'Junio', componente:'Mapas digitales', kpi_id:'sig_mapas_generados', kpi_nombre:'Mapas digitales para planificación forestal', unidad:'mapas', meta_mensual:12, valor_mes:12, detalle:['Mapa de seguimiento de áreas monitoreadas en junio','Mapa operativo para recorridos de campo en junio','Mapa de actualización de sitios priorizados en junio','Mapa de sectores listos para reforestación en junio','Mapa de cobertura forestal y uso actual del suelo en junio','Mapa de rutas hacia viveros y áreas de plantación en junio','Mapa de comunidades con acuerdos de intervención en junio','Mapa de seguimiento de polígonos de intervención forestal en junio','Mapa de apoyo interinstitucional para delimitación de polígonos de extracción de arenas en junio','Mapa de puntos de verificación integrados al SIG en junio','Mapa de apoyo para reporte técnico mensual de junio','Mapa de avance de restauración forestal de junio'] },
+  { periodo_clave:'2026-06', mes_num:6, mes_label:'Junio', componente:'Mapas digitales', kpi_id:'iot_monitoreo_ambiental', kpi_nombre:'Proyecto IoT para monitoreo ambiental', unidad:'proyectos', meta_mensual:1, valor_mes:0.97, detalle:['Prototipo con Raspberry Pi 4B en seguimiento funcional','Sensores ambientales configurados para seguimiento de campo','Registro de datos para continuidad del monitoreo'] },
+  { periodo_clave:'2026-06', mes_num:6, mes_label:'Junio', componente:'Mapas digitales', kpi_id:'sig_servicios_digitales', kpi_nombre:'Plataformas digitales', unidad:'', meta_mensual:4, valor_mes:4, detalle:['Mantenimiento del Geoportal de monitoreo forestal','Mantenimiento del Visor de productos cartográficos','Mantenimiento del Portal Forestal del Eje de Bosques CODEMA-Sololá','Plataforma de la Mesa Agroclimática de Sololá'] },
+  { periodo_clave:'2026-06', mes_num:6, mes_label:'Junio', componente:'Mapas digitales', kpi_id:'sig_capas_actualizadas', kpi_nombre:'Información geográfica forestal actualizada', unidad:'capas', meta_mensual:8, valor_mes:9, detalle:['Capa de sitios priorizados actualizada en junio','Capa de cobertura forestal revisada en junio','Capa de microcuencas con prioridad de intervención en junio','Capa de comunidades con coordinación activa en junio','Capa de rutas logísticas para temporada en junio','Capa de puntos de seguimiento integrados en junio','Capa de áreas listas para plantación en junio','Capa de avance de restauración forestal de junio','Capa de polígonos de delimitación de extracción de arenas para apoyo interinstitucional en junio'] },
+  { periodo_clave:'2026-06', mes_num:6, mes_label:'Junio', componente:'Mapas digitales', kpi_id:'sig_analisis_entregados', kpi_nombre:'Análisis territoriales para toma de decisiones', unidad:'análisis', meta_mensual:6, valor_mes:6, detalle:['Análisis de preparación para temporada de campo en junio','Cruce de polígonos con comunidades priorizadas en junio','Evaluación de cobertura forestal reciente en junio','Priorización de zonas listas para plantación en junio','Análisis de apoyo interinstitucional para delimitación de polígonos de extracción de arenas en la cuenca','Informe SIG para planificación mensual de junio'] },
+  { periodo_clave:'2026-06', mes_num:6, mes_label:'Junio', componente:'Vivero forestal', kpi_id:'vivero_mantenimiento', kpi_nombre:'Actividades en campo', unidad:'actividades', meta_mensual:12, valor_mes:12 },
+  { periodo_clave:'2026-06', mes_num:6, mes_label:'Junio', componente:'Vivero forestal', kpi_id:'vivero_bolsas_llenadas', kpi_nombre:'Insumos preparados para producción de plantas', unidad:'bolsas', meta_mensual:200, valor_mes:194 },
+  { periodo_clave:'2026-06', mes_num:6, mes_label:'Junio', componente:'Vivero forestal', kpi_id:'vivero_semillas_germinadas', kpi_nombre:'Germinación de especies nativas', unidad:'semillas', meta_mensual:100, valor_mes:96 },
+  { periodo_clave:'2026-06', mes_num:6, mes_label:'Junio', componente:'Gestión del programa', kpi_id:'otras_actividades_estrategicas', kpi_nombre:'Reuniones estratégicas', unidad:'reuniones', meta_mensual:4, valor_mes:5, detalle:['Mesa estratégica de seguimiento de reforestación en junio','Reunión de revisión de indicadores y mapas en junio','Coordinación operativa para acciones de campo en junio','Apoyo interinstitucional para creación de polígonos de delimitación de extracción de arenas','Seguimiento técnico y administrativo de junio'] }
 
 ];
 
@@ -2543,6 +2553,7 @@ function applyProgramAdjustments(rows){
   const mar = ensureRow('2026-03', '2026-02');
   const apr = ensureRow('2026-04', '2026-03');
   const may = ensureRow('2026-05', '2026-04');
+  const jun = ensureRow('2026-06', '2026-05');
 
   // Marzo conserva la lectura anterior aproximada de 1,977 para el indicador de siembra
   // y para vivero, antes de mover 2,200 al mes de abril.
@@ -2696,6 +2707,71 @@ function applyProgramAdjustments(rows){
   });
 
 
+  may.is_latest_data_month = 'False';
+
+  const haJun = 14.06;
+  const sigJun = 1;
+  const arbolesJun = 7670;
+  const plantasJun = 2500;
+  const especiesJun = especiesMayo;
+
+  Object.assign(jun, {
+    program_id: 'reforestacion',
+    program_name: 'Reforestación',
+    anio: '2026',
+    mes_num: '6',
+    mes_label: 'Junio',
+    fecha_corte: '2026-06-30',
+    monitoreo_activo: 'True',
+    ha_monitoreadas_registradas_mes: String(+(haJun - haMayo).toFixed(2)),
+    ha_monitoreadas_kpi_mes: String(+(haJun - haMayo).toFixed(2)),
+    ha_monitoreadas_kpi_acum: String(haJun),
+    meta_ha: mar.meta_ha || '35',
+    pct_meta_ha: String(haJun / safeNumber(mar.meta_ha || 35)),
+    eventos_monitoreo_mes: '2',
+    eventos_cartografia_mes: '3',
+    pct_cartografia_mes: '1',
+    pct_cartografia_acum: '1',
+
+    siembra_activa: 'True',
+    arboles_sembrados_registrados_mes: String(arbolesJun - 200),
+    arboles_sembrados_kpi_mes: String(arbolesJun - 200),
+    arboles_sembrados_acum: String(arbolesJun),
+    meta_arboles: mar.meta_arboles || '90000',
+    pct_meta_arboles: String(arbolesJun / safeNumber(mar.meta_arboles || 90000)),
+    area_intervenida_ha_mes: '8.30',
+
+    aporte_sig_mes: String(+(sigJun - sigMayo).toFixed(2)),
+    aporte_sig_acum: String(sigJun),
+    meta_unidad_sig: mar.meta_unidad_sig || '1',
+    pct_meta_sig: String(sigJun / safeNumber(mar.meta_unidad_sig || 1)),
+    hitos_sig_logrados_mes: '5',
+
+    vivero_activo: 'True',
+    plantas_netas_mes: String(plantasJun - plantasMayo),
+    plantas_netas_acum: String(plantasJun),
+    meta_plantas: mar.meta_plantas || '10000',
+    pct_meta_plantas: String(plantasJun / safeNumber(mar.meta_plantas || 10000)),
+    especies_activas_mes: String(Math.max(0, especiesJun - especiesMayo)),
+    especies_acumuladas_proxy: String(especiesJun),
+    meta_especies: mar.meta_especies || '10',
+    pct_meta_especies: String(especiesJun / safeNumber(mar.meta_especies || 10)),
+
+    logros_texto: 'En junio se registró avance operativo sobre la base de mayo: 14.06 hectáreas monitoreadas acumuladas, 7,670 árboles reforestados acumulados, sistema forestal digital consolidado al 100% y vivero con 2,500 plantas nativas acumuladas.',
+    alertas_texto: '',
+    fuente_texto: mar.fuente_texto || '03_Monitoreos | 04_Siembras | 05_SIG_Cartografia | 06_Vivero',
+    estatus_reporte: 'Con movimiento',
+    semaforo_ha: setSemaforoForPct(haJun / safeNumber(mar.meta_ha || 35)),
+    semaforo_arboles: 'azul',
+    semaforo_sig: 'verde',
+    semaforo_plantas: 'azul',
+    semaforo_especies: setSemaforoForPct(especiesJun / safeNumber(mar.meta_especies || 10)),
+    aporta_metas_programa: 'True',
+    tiene_datos_mes: 'True',
+    is_latest_data_month: 'True'
+  });
+
+
   adjusted.forEach(r => {
     r.meta_arboles = '90000';
     if (safeNumber(r.mes_num) < 5) {
@@ -2770,7 +2846,7 @@ function getRowsUpToSelected(){
 }
 
 const ACTIVE_YEAR = 2026;
-const ACTIVE_MONTH_MAX = 5;
+const ACTIVE_MONTH_MAX = 6;
 let presentationIndex = 0;
 
 
@@ -3128,6 +3204,57 @@ const MONTHLY_DETAIL_BY_PERIOD = {
       'Coordinación operativa para acciones de campo en mayo',
       'Seguimiento técnico y administrativo de mayo'
     ]
+  },
+  '2026-06': {
+    sig_mapas_generados: [
+      'Mapa de seguimiento de áreas monitoreadas en junio',
+      'Mapa operativo para recorridos de campo en junio',
+      'Mapa de actualización de sitios priorizados en junio',
+      'Mapa de sectores listos para reforestación en junio',
+      'Mapa de cobertura forestal y uso actual del suelo en junio',
+      'Mapa de rutas hacia viveros y áreas de plantación en junio',
+      'Mapa de comunidades con acuerdos de intervención en junio',
+      'Mapa de seguimiento de polígonos de intervención forestal en junio',
+      'Mapa de apoyo interinstitucional para delimitación de polígonos de extracción de arenas en junio',
+      'Mapa de puntos de verificación integrados al SIG en junio',
+      'Mapa de apoyo para reporte técnico mensual de junio',
+      'Mapa de avance de restauración forestal de junio'
+    ],
+    iot_monitoreo_ambiental: [
+      'Prototipo con Raspberry Pi 4B en seguimiento funcional'
+    ],
+    sig_servicios_digitales: [
+      'Mantenimiento del Geoportal de monitoreo forestal',
+      'Mantenimiento del Visor de productos cartográficos',
+      'Mantenimiento del Portal Forestal del Eje de Bosques CODEMA-Sololá',
+      'Plataforma de la Mesa Agroclimática de Sololá'
+    ],
+    sig_capas_actualizadas: [
+      'Capa de sitios priorizados actualizada en junio',
+      'Capa de cobertura forestal revisada en junio',
+      'Capa de microcuencas con prioridad de intervención en junio',
+      'Capa de comunidades con coordinación activa en junio',
+      'Capa de rutas logísticas para temporada en junio',
+      'Capa de puntos de seguimiento integrados en junio',
+      'Capa de áreas listas para plantación en junio',
+      'Capa de avance de restauración forestal de junio',
+      'Capa de polígonos de delimitación de extracción de arenas para apoyo interinstitucional en junio'
+    ],
+    sig_analisis_entregados: [
+      'Análisis de preparación para temporada de campo en junio',
+      'Cruce de polígonos con comunidades priorizadas en junio',
+      'Evaluación de cobertura forestal reciente en junio',
+      'Priorización de zonas listas para plantación en junio',
+      'Análisis de apoyo interinstitucional para delimitación de polígonos de extracción de arenas en la cuenca',
+      'Informe SIG para planificación mensual de junio'
+    ],
+    otras_actividades_estrategicas: [
+      'Mesa estratégica de seguimiento de reforestación en junio',
+      'Reunión de revisión de indicadores y mapas en junio',
+      'Coordinación operativa para acciones de campo en junio',
+      'Apoyo interinstitucional para creación de polígonos de delimitación de extracción de arenas',
+      'Seguimiento técnico y administrativo de junio'
+    ]
   }
 };
 
@@ -3418,7 +3545,7 @@ function buildPresentation(){
         <div class="presentation-title-row">
           <div>
             <h2>Resumen ejecutivo de Reforestando Atitlán</h2>
-            <p>Vista rápida del período enero-mayo para exponer avances del programa. Mantiene el mismo lenguaje visual del modo presentación de Atitlán Recicla, con una lectura clara del avance real del programa de restauración forestal.</p>
+            <p>Vista rápida del período enero-junio para exponer avances del programa. Mantiene el mismo lenguaje visual del modo presentación de Atitlán Recicla, con una lectura clara del avance real del programa de restauración forestal.</p>
           </div>
           <div class="presentation-brand-badge">
             <img src="./reforestando_logo.png" alt="Logo de Reforestando Atitlán">
@@ -3458,7 +3585,7 @@ function buildPresentation(){
         <div class="presentation-title-row">
           <div>
             <h2>Metas mensuales del programa</h2>
-            <p>Esta capa mensual complementa la lectura anual del programa y ayuda a explicar mejor el avance operativo del período enero-mayo sin cambiar la lectura de los indicadores principales.</p>
+            <p>Esta capa mensual complementa la lectura anual del programa y ayuda a explicar mejor el avance operativo del período enero-junio sin cambiar la lectura de los indicadores principales.</p>
           </div>
         </div>
         <div class="presentation-kpi-pairs">
@@ -3469,11 +3596,11 @@ function buildPresentation(){
 
     <section class="presentation-slide">
       <div class="presentation-slide-inner">
-        <div class="presentation-kicker">Trayectoria enero · mayo</div>
+        <div class="presentation-kicker">Trayectoria enero · junio</div>
         <div class="presentation-title-row">
           <div>
             <h2>Ruta temprana del programa</h2>
-            <p>El período enero-mayo muestra la ruta operativa del programa: monitoreo activo, sistema forestal digital consolidado, vivero en acumulación y primeras acciones de reforestación registradas.</p>
+            <p>El período enero-junio muestra la ruta operativa del programa: monitoreo activo, sistema forestal digital consolidado, vivero en acumulación y primeras acciones de reforestación registradas.</p>
           </div>
         </div>
         <div class="presentation-metric-grid" style="grid-template-columns:repeat(3,1fr)">
@@ -3481,7 +3608,7 @@ function buildPresentation(){
         </div>
         <div class="presentation-note" style="margin-top:18px">
           <h3>Interpretación</h3>
-          <p>Al presente mes de mayo, el tablero consolida monitoreo, cartografía, sistema forestal digital, vivero y primeras acciones de reforestación registradas en campo.</p>
+          <p>Al presente mes de junio, el tablero consolida monitoreo, cartografía, sistema forestal digital, vivero y primeras acciones de reforestación registradas en campo.</p>
         </div>
       </div>
     </section>
