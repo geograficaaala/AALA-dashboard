@@ -719,8 +719,31 @@ async function init(){
     if(_mayoIdx>=0){ state.total[_mayoIdx]=MAYO_2026; }
     else { state.total.push(MAYO_2026); state.total.sort((a,b)=>String(a.mes_clave).localeCompare(String(b.mes_clave))); }
     state.periods = state.total.map(r=>String(r.mes_clave)).filter(Boolean);
-    state.period = '2026-05';
-    state.metadata.latest_period = '2026-05';
+
+    // ── PATCH: Datos correctos Junio 2026 (agregado sin modificar enero-mayo) ──
+    const JUNIO_2026 = {
+      program_id:'conservando_atitlan', program_name:'Conservando Atitlán',
+      mes_clave:'2026-06', anio:2026, mes_num:6, mes_label:'Junio',
+      aporta_metas_programa:true,
+      [JORNADA_RECOLECCION_FIELD]:1, jornadas_codigos_unicos_mes:10,
+      filas_recoleccion_validas_mes:10, municipios_visitados_mes:10,
+      inmuebles_atendidos_mes:93,
+      litros_aceite_recolectados_mes:8075, litros_agua_protegidos_mes:8075000,
+      clientes_recurrentes_atendidos_mes:0, filas_clientes_recurrentes_mes:0,
+      jabones_hotel_producidos_mes:4200, jabones_tocador_producidos_mes:250,
+      jabones_producidos_mes:4450,
+      jabones_hotel_vendidos_mes:2000, jabones_tocador_vendidos_mes:28,
+      jabones_vendidos_mes:2028, ingresos_ventas_q_mes:2500,
+      publicaciones_redes_mes:8, pruebas_jabon_liquido_mes:0,
+      velas_vendidas_mes:150, ingresos_ventas_velas_q_mes:2575,
+      tiene_datos_mes:true, is_latest_data_month:true
+    };
+    const _junioIdx = state.total.findIndex(r=>String(r.mes_clave)==='2026-06');
+    if(_junioIdx>=0){ state.total[_junioIdx]=JUNIO_2026; }
+    else { state.total.push(JUNIO_2026); state.total.sort((a,b)=>String(a.mes_clave).localeCompare(String(b.mes_clave))); }
+    state.periods = state.total.map(r=>String(r.mes_clave)).filter(Boolean);
+    state.period = '2026-06';
+    state.metadata.latest_period = '2026-06';
     buildMonthPills();
     buildTrendOptions();
     document.getElementById('btnPresentation').addEventListener('click',openPresentation);
@@ -896,7 +919,7 @@ function computeMonthlyMetrics(){
   const soldHotel=toNum(row?.jabones_hotel_vendidos_mes);
   const soldTocador=toNum(row?.jabones_tocador_vendidos_mes);
   const soldTotal=toNum(row?.jabones_vendidos_mes);
-  const velasVendidas=GOALS.velasVendidasMes||50;
+  const velasVendidas=toNum(row?.velas_vendidas_mes)||(GOALS.velasVendidasMes||50);
   const aceiteMes=toNum(row?.litros_aceite_recolectados_mes);
   const aguaMes=toNum(row?.litros_agua_protegidos_mes);
   const jabonesProdMes=toNum(row?.jabones_producidos_mes);
