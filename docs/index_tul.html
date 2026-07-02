@@ -1530,8 +1530,8 @@
 
   <script>
     const ACTIVE_YEAR = 2026;
-    const ACTIVE_MONTH_MAX = 5;
-    const DEFAULT_MONTH = 5;
+    const ACTIVE_MONTH_MAX = 6;
+    const DEFAULT_MONTH = 6;
 
     const ANNUAL_GOALS = {
       jornadas: 21,
@@ -1670,6 +1670,34 @@
           municipios: 5,
           sitios: 8
         }
+      },
+      6: {
+        monthly: {
+          jornadas: 2,
+          jornadasGoal: 2,
+          metros: 222,
+          metrosGoal: 225,
+          macollas: 130,
+          macollasGoal: 132,
+          mantenimiento: 0,
+          mantenimientoGoal: 1,
+          mapas: 1,
+          mapasGoal: 1,
+          capas: 0,
+          capasGoal: 0,
+          sitios: 2,
+          sitiosGoal: 2
+        },
+        annual: {
+          jornadas: 10,
+          metros: 1125,
+          macollas: 676,
+          mantenimiento: 4,
+          mapas: 5,
+          capas: 1,
+          municipios: 5,
+          sitios: 10
+        }
       }
     };
 
@@ -1682,8 +1710,8 @@
       { month: 4, date: '24-abr', municipio: 'San Juan La Laguna', sitio: 'Las Cristalinas', actividad: 'Siembra', semillero: 'San Pablo La Laguna (2 puntos)', coords: '415592, 1626421' },
       { month: 5, date: '08-may', municipio: 'San Pedro La Laguna', sitio: 'Playa Dorada 1', actividad: 'Siembra', semillero: 'Santa Catarina Palopó', coords: '419710, 1623057' },
       { month: 5, date: '22-may', municipio: 'San Pedro La Laguna', sitio: 'Playa Dorada 2, 3, 4', actividad: 'Siembra', semillero: 'Santa Catarina Palopó', coords: '419942, 1622765' },
-      { month: 6, date: '12-jun', municipio: 'San Antonio Palopó', sitio: 'Chicaman', actividad: 'Siembra', semillero: 'Santa Catarina Palopó', coords: '432879, 1621322' },
-      { month: 6, date: '26-jun', municipio: 'San Juan La Laguna', sitio: 'Pachites 2', actividad: 'Siembra', semillero: 'San Pablo La Laguna', coords: '415350, 1626251' },
+      { month: 6, date: 'Junio', municipio: 'San Antonio Palopó', sitio: 'Chicaman', actividad: 'Siembra · 67 macollas', semillero: 'AALA, CONAP, AMSCLAE, epecistas y voluntarios', coords: '432879, 1621322' },
+      { month: 6, date: 'Junio', municipio: 'San Antonio Palopó', sitio: 'Tzampetey', actividad: 'Siembra · 63 macollas', semillero: 'AALA, CONAP, AMSCLAE y voluntario local', coords: '431955, 1620392' },
       { month: 7, date: '10-jul', municipio: 'San Antonio Palopó', sitio: 'Chicaman, Agua Escondida 1', actividad: 'Siembra', semillero: 'Santa Catarina Palopó', coords: '433656, 1621863' },
       { month: 7, date: '24-jul', municipio: 'Panajachel', sitio: 'Mariposario 2', actividad: 'Siembra', semillero: 'Por validar', coords: '427622, 1630608' },
       { month: 8, date: '07-ago', municipio: 'San Antonio Palopó', sitio: 'Chicaman, Agua Escondida 2', actividad: 'Siembra', semillero: 'Santa Catarina Palopó', coords: '433646, 1621925' },
@@ -1732,6 +1760,15 @@
           ['Ejecución', '2 jornadas realizadas en San Pedro La Laguna.'],
           ['Restauración', '198 metros lineales sembrados y 132 macollas establecidas.'],
           ['Seguimiento', '4 mapas acumulados, 5 municipios atendidos y 8 sitios intervenidos a mayo.']
+        ]
+      },
+      6: {
+        headline: 'Junio activa dos siembras de tul en San Antonio Palopó.',
+        body: 'Durante el período se realizaron dos jornadas de siembra de tul en Chicaman y Tzampetey, ambas en San Antonio Palopó. Las actividades contaron con participación de AALA, CONAP, AMSCLAE, epecistas y voluntarios. En conjunto se establecieron 130 macollas. Para la lectura de metros lineales se utilizó una estimación técnica proporcional a la meta mensual del tablero: 225 metros para 132 macollas, equivalente a aproximadamente 1.70 metros por macolla; por ello, 130 macollas se registran como 222 metros lineales estimados.',
+        items: [
+          ['Ejecución', '2 jornadas realizadas en Chicaman y Tzampetey, San Antonio Palopó.'],
+          ['Restauración', '222 metros lineales estimados y 130 macollas establecidas.'],
+          ['Participación', 'AALA, CONAP, AMSCLAE, epecistas y voluntarios acompañaron las jornadas.']
         ]
       }
     };
@@ -1969,7 +2006,7 @@
 
                   <div class="event-main">
                     <strong>${e.municipio} · ${e.sitio}</strong>
-                    <span>${e.actividad} · Semillero: ${e.semillero}</span>
+                    <span>${e.actividad} · ${e.semillero && e.semillero.includes('AALA') ? 'Participación: ' + e.semillero : 'Semillero: ' + e.semillero}</span>
                     <span>Coordenadas: ${e.coords}</span>
                   </div>
 
