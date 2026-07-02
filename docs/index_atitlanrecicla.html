@@ -8268,5 +8268,237 @@ function renderIncomeMaterialCards(state, ctx){
 })();
 </script>
 
+
+
+<script id="aala-excel-junio-2026-exacto">
+(function(){
+  'use strict';
+
+  /*
+    Parche quirúrgico para que JUNIO 2026 de Atitlán Recicla coincida con el Excel CDM 2026 - junio.xlsx.
+    No modifica enero-mayo: solo inserta/reemplaza las filas del periodo 2026-06 y recalcula el precálculo de junio.
+  */
+
+  const JUN_TOTAL = {"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona":"TOTAL","mujeres_activas":58.0,"mujeres_actividades":37.0,"mujeres_comercializacion":30.0,"mujeres_comercializacion_no_inscritas":2.0,"mujeres_inscritas_total":64.0,"mujeres_nuevas_inscritas":0.0,"materiales_lideresas_qq":1666.91,"materiales_municipalidad_qq":179.78,"total_materiales_qq":1846.69,"ingreso_bruto_lideresas":37374.78,"gasto_transporte":2335.0,"pago_coop_lideresas":97.35,"ingreso_neto_lideresas":37277.43,"ingreso_bruto_municipalidad":3810.83,"pago_coop_municipalidad":523.88,"ingreso_neto_municipalidad":3286.9500000000003,"ingreso_bruto_total":41185.61,"ingreso_neto_total_territorio":40564.38,"ingreso_neto_cooperativa":621.23,"horas_trabajadas_lideresas":1742.25,"ingreso_diario_lideresa":233.592375,"pet_qq":166.14999999999998,"vidrio_cerveza_gronn_unid":0.0,"vidrio_vino_gronn_unid":0.0,"vidrio_cerveza_surusic_unid":0.0,"vidrio_vino_surusic_unid":0.0,"vidrio_peso_qq":1085.97,"vidrio_total_qq":1085.97,"ingreso_pet":4622.39,"ingreso_vidrio_peso":21032.85,"ingreso_vidrio_gronn":0.0,"ingreso_vidrio_surusic":0.0,"pct_participacion_actividades":0.6379310344827587,"pct_participacion_comercializacion":0.5517241379310345};
+  const JUN_ZONES = [{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona":"Kaqchikel","mujeres_activas":22.0,"mujeres_actividades":7.0,"mujeres_comercializacion":7.0,"mujeres_comercializacion_no_inscritas":0.0,"mujeres_inscritas_total":20.0,"mujeres_nuevas_inscritas":0.0,"materiales_lideresas_qq":851.71,"materiales_municipalidad_qq":0.0,"total_materiales_qq":851.71,"ingreso_bruto_lideresas":18904.71,"gasto_transporte":1200.0,"pago_coop_lideresas":3.75,"ingreso_neto_lideresas":18900.96,"ingreso_bruto_municipalidad":0.0,"pago_coop_municipalidad":0.0,"ingreso_neto_municipalidad":0.0,"ingreso_bruto_total":18904.71,"ingreso_neto_total_territorio":18900.96,"ingreso_neto_cooperativa":3.75,"horas_trabajadas_lideresas":692.0,"ingreso_diario_lideresa":272.26696666666663,"pet_qq":58.309999999999995,"vidrio_cerveza_gronn_unid":0.0,"vidrio_vino_gronn_unid":0.0,"vidrio_cerveza_surusic_unid":0.0,"vidrio_vino_surusic_unid":0.0,"vidrio_peso_qq":430.99,"vidrio_total_qq":430.99,"ingreso_pet":2088.05,"ingreso_vidrio_peso":9538.689999999999,"ingreso_vidrio_gronn":0.0,"ingreso_vidrio_surusic":0.0,"pct_participacion_actividades":0.3181818181818182,"pct_participacion_comercializacion":0.3181818181818182,"territorios_reportados":4},{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona":"Las Lagunas","mujeres_activas":9.0,"mujeres_actividades":9.0,"mujeres_comercializacion":8.0,"mujeres_comercializacion_no_inscritas":0.0,"mujeres_inscritas_total":13.0,"mujeres_nuevas_inscritas":0.0,"materiales_lideresas_qq":68.08,"materiales_municipalidad_qq":152.71,"total_materiales_qq":220.79000000000002,"ingreso_bruto_lideresas":1447.61,"gasto_transporte":0.0,"pago_coop_lideresas":7.5,"ingreso_neto_lideresas":1440.11,"ingreso_bruto_municipalidad":3111.61,"pago_coop_municipalidad":454.91,"ingreso_neto_municipalidad":2656.7000000000003,"ingreso_bruto_total":4559.22,"ingreso_neto_total_territorio":4096.81,"ingreso_neto_cooperativa":462.41,"horas_trabajadas_lideresas":92.25,"ingreso_diario_lideresa":44.11533333333333,"pet_qq":26.48,"vidrio_cerveza_gronn_unid":0.0,"vidrio_vino_gronn_unid":0.0,"vidrio_cerveza_surusic_unid":0.0,"vidrio_vino_surusic_unid":0.0,"vidrio_peso_qq":152.65,"vidrio_total_qq":152.65,"ingreso_pet":600.85,"ingreso_vidrio_peso":2633.3,"ingreso_vidrio_gronn":0.0,"ingreso_vidrio_surusic":0.0,"pct_participacion_actividades":1.0,"pct_participacion_comercializacion":0.8888888888888888,"territorios_reportados":4},{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona":"Tzolojya","mujeres_activas":14.0,"mujeres_actividades":9.0,"mujeres_comercializacion":4.0,"mujeres_comercializacion_no_inscritas":1.0,"mujeres_inscritas_total":14.0,"mujeres_nuevas_inscritas":0.0,"materiales_lideresas_qq":218.67000000000002,"materiales_municipalidad_qq":27.07,"total_materiales_qq":245.74000000000004,"ingreso_bruto_lideresas":4484.46,"gasto_transporte":0.0,"pago_coop_lideresas":6.6,"ingreso_neto_lideresas":4477.86,"ingreso_bruto_municipalidad":699.22,"pago_coop_municipalidad":68.97,"ingreso_neto_municipalidad":630.25,"ingreso_bruto_total":5183.68,"ingreso_neto_total_territorio":5108.11,"ingreso_neto_cooperativa":75.57,"horas_trabajadas_lideresas":269.0,"ingreso_diario_lideresa":216.98533333333333,"pet_qq":17.61,"vidrio_cerveza_gronn_unid":0.0,"vidrio_vino_gronn_unid":0.0,"vidrio_cerveza_surusic_unid":0.0,"vidrio_vino_surusic_unid":0.0,"vidrio_peso_qq":154.32999999999998,"vidrio_total_qq":154.32999999999998,"ingreso_pet":586.8,"ingreso_vidrio_peso":3254.8599999999997,"ingreso_vidrio_gronn":0.0,"ingreso_vidrio_surusic":0.0,"pct_participacion_actividades":0.6428571428571429,"pct_participacion_comercializacion":0.35714285714285715,"territorios_reportados":5},{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona":"Zona Sur","mujeres_activas":13.0,"mujeres_actividades":12.0,"mujeres_comercializacion":11.0,"mujeres_comercializacion_no_inscritas":1.0,"mujeres_inscritas_total":17.0,"mujeres_nuevas_inscritas":0.0,"materiales_lideresas_qq":528.45,"materiales_municipalidad_qq":0.0,"total_materiales_qq":528.45,"ingreso_bruto_lideresas":12538.0,"gasto_transporte":1135.0,"pago_coop_lideresas":79.5,"ingreso_neto_lideresas":12458.5,"ingreso_bruto_municipalidad":0.0,"pago_coop_municipalidad":0.0,"ingreso_neto_municipalidad":0.0,"ingreso_bruto_total":12538.0,"ingreso_neto_total_territorio":12458.5,"ingreso_neto_cooperativa":79.5,"horas_trabajadas_lideresas":689.0,"ingreso_diario_lideresa":224.65428571428572,"pet_qq":63.75,"vidrio_cerveza_gronn_unid":0.0,"vidrio_vino_gronn_unid":0.0,"vidrio_cerveza_surusic_unid":0.0,"vidrio_vino_surusic_unid":0.0,"vidrio_peso_qq":348.0,"vidrio_total_qq":348.0,"ingreso_pet":3003.75,"ingreso_vidrio_peso":5606.0,"ingreso_vidrio_gronn":0.0,"ingreso_vidrio_surusic":0.0,"pct_participacion_actividades":0.9230769230769231,"pct_participacion_comercializacion":0.9230769230769231,"territorios_reportados":2}];
+  const JUN_TERRITORIES = [{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona":"Kaqchikel","record_key":"ATITLAN_RECICLA|2026|06|Panajachel","territorio":"Panajachel","tipo_operacion":"mujeres","mujeres_activas":11.0,"mujeres_actividades":5.0,"mujeres_comercializacion":5.0,"mujeres_comercializacion_no_inscritas":0.0,"mujeres_inscritas_total":7.0,"mujeres_nuevas_inscritas":0.0,"materiales_lideresas_qq":786.47,"materiales_municipalidad_qq":0.0,"total_materiales_qq":786.47,"ingreso_bruto_lideresas":17682.91,"gasto_transporte":1200.0,"pago_coop_lideresas":3.75,"ingreso_neto_lideresas":17679.16,"ingreso_bruto_municipalidad":0.0,"pago_coop_municipalidad":0.0,"ingreso_neto_municipalidad":0.0,"ingreso_bruto_total":17682.91,"ingreso_neto_total_territorio":17679.16,"ingreso_neto_cooperativa":3.75,"horas_trabajadas_lideresas":611.0,"ingreso_diario_lideresa":707.1664,"pet_qq":57.33,"vidrio_cerveza_gronn_unid":0.0,"vidrio_vino_gronn_unid":0.0,"vidrio_cerveza_surusic_unid":0.0,"vidrio_vino_surusic_unid":0.0,"vidrio_peso_qq":371.23,"vidrio_total_qq":371.23,"ingreso_pet":2056.25,"ingreso_vidrio_peso":8405.56,"ingreso_vidrio_gronn":0.0,"ingreso_vidrio_surusic":0.0,"pct_participacion_actividades":0.45454545454545453,"pct_participacion_comercializacion":0.45454545454545453},{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona":"Kaqchikel","record_key":"ATITLAN_RECICLA|2026|06|San Antonio Palopó","territorio":"San Antonio Palopó","tipo_operacion":"mujeres","mujeres_activas":4.0,"mujeres_actividades":0.0,"mujeres_comercializacion":0.0,"mujeres_comercializacion_no_inscritas":0,"mujeres_inscritas_total":4.0,"mujeres_nuevas_inscritas":0.0,"materiales_lideresas_qq":0.0,"materiales_municipalidad_qq":0.0,"total_materiales_qq":0.0,"ingreso_bruto_lideresas":0.0,"gasto_transporte":0,"pago_coop_lideresas":0.0,"ingreso_neto_lideresas":0.0,"ingreso_bruto_municipalidad":0.0,"pago_coop_municipalidad":0.0,"ingreso_neto_municipalidad":0.0,"ingreso_bruto_total":0.0,"ingreso_neto_total_territorio":0.0,"ingreso_neto_cooperativa":0.0,"horas_trabajadas_lideresas":0.0,"ingreso_diario_lideresa":"NA","pet_qq":0.0,"vidrio_cerveza_gronn_unid":0.0,"vidrio_vino_gronn_unid":0.0,"vidrio_cerveza_surusic_unid":0.0,"vidrio_vino_surusic_unid":0.0,"vidrio_peso_qq":0.0,"vidrio_total_qq":0.0,"ingreso_pet":0.0,"ingreso_vidrio_peso":0.0,"ingreso_vidrio_gronn":0.0,"ingreso_vidrio_surusic":0.0,"pct_participacion_actividades":0.0,"pct_participacion_comercializacion":0.0},{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona":"Kaqchikel","record_key":"ATITLAN_RECICLA|2026|06|San Juan La Laguna","territorio":"San Juan La Laguna","tipo_operacion":"mujeres","mujeres_activas":3.0,"mujeres_actividades":1.0,"mujeres_comercializacion":1.0,"mujeres_comercializacion_no_inscritas":0.0,"mujeres_inscritas_total":5.0,"mujeres_nuevas_inscritas":0.0,"materiales_lideresas_qq":46.57,"materiales_municipalidad_qq":0.0,"total_materiales_qq":46.57,"ingreso_bruto_lideresas":898.17,"gasto_transporte":0.0,"pago_coop_lideresas":0.0,"ingreso_neto_lideresas":898.17,"ingreso_bruto_municipalidad":0.0,"pago_coop_municipalidad":0.0,"ingreso_neto_municipalidad":0.0,"ingreso_bruto_total":898.17,"ingreso_neto_total_territorio":898.17,"ingreso_neto_cooperativa":0.0,"horas_trabajadas_lideresas":49.0,"ingreso_diario_lideresa":44.9085,"pet_qq":0.68,"vidrio_cerveza_gronn_unid":0.0,"vidrio_vino_gronn_unid":0.0,"vidrio_cerveza_surusic_unid":0.0,"vidrio_vino_surusic_unid":0.0,"vidrio_peso_qq":43.17,"vidrio_total_qq":43.17,"ingreso_pet":19.8,"ingreso_vidrio_peso":845.55,"ingreso_vidrio_gronn":0.0,"ingreso_vidrio_surusic":0.0,"pct_participacion_actividades":0.3333333333333333,"pct_participacion_comercializacion":0.3333333333333333},{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona":"Kaqchikel","record_key":"ATITLAN_RECICLA|2026|06|Santa Catarina Palopó","territorio":"Santa Catarina Palopó","tipo_operacion":"mujeres","mujeres_activas":4.0,"mujeres_actividades":1.0,"mujeres_comercializacion":1.0,"mujeres_comercializacion_no_inscritas":0.0,"mujeres_inscritas_total":4.0,"mujeres_nuevas_inscritas":0.0,"materiales_lideresas_qq":18.67,"materiales_municipalidad_qq":0.0,"total_materiales_qq":18.67,"ingreso_bruto_lideresas":323.63,"gasto_transporte":0.0,"pago_coop_lideresas":0.0,"ingreso_neto_lideresas":323.63,"ingreso_bruto_municipalidad":0.0,"pago_coop_municipalidad":0.0,"ingreso_neto_municipalidad":0.0,"ingreso_bruto_total":323.63,"ingreso_neto_total_territorio":323.63,"ingreso_neto_cooperativa":0.0,"horas_trabajadas_lideresas":32.0,"ingreso_diario_lideresa":64.726,"pet_qq":0.3,"vidrio_cerveza_gronn_unid":0.0,"vidrio_vino_gronn_unid":0.0,"vidrio_cerveza_surusic_unid":0.0,"vidrio_vino_surusic_unid":0.0,"vidrio_peso_qq":16.59,"vidrio_total_qq":16.59,"ingreso_pet":12.0,"ingreso_vidrio_peso":287.58,"ingreso_vidrio_gronn":0.0,"ingreso_vidrio_surusic":0.0,"pct_participacion_actividades":0.25,"pct_participacion_comercializacion":0.25},{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona":"Las Lagunas","record_key":"ATITLAN_RECICLA|2026|06|Jaibalito","territorio":"Jaibalito","tipo_operacion":"mujeres","mujeres_activas":2.0,"mujeres_actividades":2.0,"mujeres_comercializacion":2.0,"mujeres_comercializacion_no_inscritas":0.0,"mujeres_inscritas_total":3.0,"mujeres_nuevas_inscritas":0.0,"materiales_lideresas_qq":15.36,"materiales_municipalidad_qq":0.0,"total_materiales_qq":15.36,"ingreso_bruto_lideresas":307.77,"gasto_transporte":0.0,"pago_coop_lideresas":0.0,"ingreso_neto_lideresas":307.77,"ingreso_bruto_municipalidad":0.0,"pago_coop_municipalidad":0.0,"ingreso_neto_municipalidad":0.0,"ingreso_bruto_total":307.77,"ingreso_neto_total_territorio":307.77,"ingreso_neto_cooperativa":0.0,"horas_trabajadas_lideresas":22.3,"ingreso_diario_lideresa":30.776999999999997,"pet_qq":0.69,"vidrio_cerveza_gronn_unid":0.0,"vidrio_vino_gronn_unid":0.0,"vidrio_cerveza_surusic_unid":0.0,"vidrio_vino_surusic_unid":0.0,"vidrio_peso_qq":5.51,"vidrio_total_qq":5.51,"ingreso_pet":24.05,"ingreso_vidrio_peso":121.22,"ingreso_vidrio_gronn":0.0,"ingreso_vidrio_surusic":0.0,"pct_participacion_actividades":1.0,"pct_participacion_comercializacion":1.0},{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona":"Las Lagunas","record_key":"ATITLAN_RECICLA|2026|06|San Marcos La Laguna","territorio":"San Marcos La Laguna","tipo_operacion":"muni","mujeres_activas":0.0,"mujeres_actividades":0.0,"mujeres_comercializacion":0.0,"mujeres_comercializacion_no_inscritas":0.0,"mujeres_inscritas_total":0.0,"mujeres_nuevas_inscritas":0.0,"materiales_lideresas_qq":0.0,"materiales_municipalidad_qq":152.71,"total_materiales_qq":152.71,"ingreso_bruto_lideresas":0.0,"gasto_transporte":0.0,"pago_coop_lideresas":0.0,"ingreso_neto_lideresas":0.0,"ingreso_bruto_municipalidad":3111.61,"pago_coop_municipalidad":454.91,"ingreso_neto_municipalidad":2656.7000000000003,"ingreso_bruto_total":3111.61,"ingreso_neto_total_territorio":2656.7000000000003,"ingreso_neto_cooperativa":454.91,"horas_trabajadas_lideresas":0.0,"ingreso_diario_lideresa":"NA","pet_qq":24.43,"vidrio_cerveza_gronn_unid":0.0,"vidrio_vino_gronn_unid":0.0,"vidrio_cerveza_surusic_unid":0.0,"vidrio_vino_surusic_unid":0.0,"vidrio_peso_qq":102.64,"vidrio_total_qq":102.64,"ingreso_pet":534.35,"ingreso_vidrio_peso":1595.84,"ingreso_vidrio_gronn":0.0,"ingreso_vidrio_surusic":0.0,"pct_participacion_actividades":0,"pct_participacion_comercializacion":0},{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona":"Las Lagunas","record_key":"ATITLAN_RECICLA|2026|06|Santa Cruz La Laguna","territorio":"Santa Cruz La Laguna","tipo_operacion":"mujeres","mujeres_activas":3.0,"mujeres_actividades":3.0,"mujeres_comercializacion":2.0,"mujeres_comercializacion_no_inscritas":0.0,"mujeres_inscritas_total":5.0,"mujeres_nuevas_inscritas":0.0,"materiales_lideresas_qq":40.2,"materiales_municipalidad_qq":0.0,"total_materiales_qq":40.2,"ingreso_bruto_lideresas":906.54,"gasto_transporte":0.0,"pago_coop_lideresas":7.5,"ingreso_neto_lideresas":899.04,"ingreso_bruto_municipalidad":0.0,"pago_coop_municipalidad":0.0,"ingreso_neto_municipalidad":0.0,"ingreso_bruto_total":906.54,"ingreso_neto_total_territorio":899.04,"ingreso_neto_cooperativa":7.5,"horas_trabajadas_lideresas":51.5,"ingreso_diario_lideresa":89.904,"pet_qq":1.34,"vidrio_cerveza_gronn_unid":0.0,"vidrio_vino_gronn_unid":0.0,"vidrio_cerveza_surusic_unid":0.0,"vidrio_vino_surusic_unid":0.0,"vidrio_peso_qq":32.12,"vidrio_total_qq":32.12,"ingreso_pet":42.15,"ingreso_vidrio_peso":685.64,"ingreso_vidrio_gronn":0.0,"ingreso_vidrio_surusic":0.0,"pct_participacion_actividades":1.0,"pct_participacion_comercializacion":0.6666666666666666},{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona":"Las Lagunas","record_key":"ATITLAN_RECICLA|2026|06|Tzununá","territorio":"Tzununá","tipo_operacion":"mujeres","mujeres_activas":4.0,"mujeres_actividades":4.0,"mujeres_comercializacion":4.0,"mujeres_comercializacion_no_inscritas":0.0,"mujeres_inscritas_total":5.0,"mujeres_nuevas_inscritas":0.0,"materiales_lideresas_qq":12.52,"materiales_municipalidad_qq":0.0,"total_materiales_qq":12.52,"ingreso_bruto_lideresas":233.3,"gasto_transporte":0.0,"pago_coop_lideresas":0.0,"ingreso_neto_lideresas":233.3,"ingreso_bruto_municipalidad":0.0,"pago_coop_municipalidad":0.0,"ingreso_neto_municipalidad":0.0,"ingreso_bruto_total":233.3,"ingreso_neto_total_territorio":233.3,"ingreso_neto_cooperativa":0.0,"horas_trabajadas_lideresas":18.45,"ingreso_diario_lideresa":11.665000000000001,"pet_qq":0.02,"vidrio_cerveza_gronn_unid":0.0,"vidrio_vino_gronn_unid":0.0,"vidrio_cerveza_surusic_unid":0.0,"vidrio_vino_surusic_unid":0.0,"vidrio_peso_qq":12.38,"vidrio_total_qq":12.38,"ingreso_pet":0.3,"ingreso_vidrio_peso":230.6,"ingreso_vidrio_gronn":0.0,"ingreso_vidrio_surusic":0.0,"pct_participacion_actividades":1.0,"pct_participacion_comercializacion":1.0},{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona":"Tzolojya","record_key":"ATITLAN_RECICLA|2026|06|San Andrés Semetabaj","territorio":"San Andrés Semetabaj","tipo_operacion":"mujeres","mujeres_activas":3.0,"mujeres_actividades":1.0,"mujeres_comercializacion":1.0,"mujeres_comercializacion_no_inscritas":0.0,"mujeres_inscritas_total":3.0,"mujeres_nuevas_inscritas":0.0,"materiales_lideresas_qq":30.77,"materiales_municipalidad_qq":0.0,"total_materiales_qq":30.77,"ingreso_bruto_lideresas":766.37,"gasto_transporte":0.0,"pago_coop_lideresas":6.6,"ingreso_neto_lideresas":759.77,"ingreso_bruto_municipalidad":0.0,"pago_coop_municipalidad":0.0,"ingreso_neto_municipalidad":0.0,"ingreso_bruto_total":766.37,"ingreso_neto_total_territorio":759.77,"ingreso_neto_cooperativa":6.6,"horas_trabajadas_lideresas":50.0,"ingreso_diario_lideresa":151.954,"pet_qq":2.75,"vidrio_cerveza_gronn_unid":0.0,"vidrio_vino_gronn_unid":0.0,"vidrio_cerveza_surusic_unid":0.0,"vidrio_vino_surusic_unid":0.0,"vidrio_peso_qq":20.52,"vidrio_total_qq":20.52,"ingreso_pet":106.25,"ingreso_vidrio_peso":430.92,"ingreso_vidrio_gronn":0.0,"ingreso_vidrio_surusic":0.0,"pct_participacion_actividades":0.3333333333333333,"pct_participacion_comercializacion":0.3333333333333333},{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona":"Tzolojya","record_key":"ATITLAN_RECICLA|2026|06|Santa Clara La Laguna","territorio":"Santa Clara La Laguna","tipo_operacion":"mujeres","mujeres_activas":5.0,"mujeres_actividades":3.0,"mujeres_comercializacion":2.0,"mujeres_comercializacion_no_inscritas":1.0,"mujeres_inscritas_total":5.0,"mujeres_nuevas_inscritas":0.0,"materiales_lideresas_qq":83.67,"materiales_municipalidad_qq":0.0,"total_materiales_qq":83.67,"ingreso_bruto_lideresas":1834.62,"gasto_transporte":0.0,"pago_coop_lideresas":0.0,"ingreso_neto_lideresas":1834.62,"ingreso_bruto_municipalidad":0.0,"pago_coop_municipalidad":0.0,"ingreso_neto_municipalidad":0.0,"ingreso_bruto_total":1834.62,"ingreso_neto_total_territorio":1834.62,"ingreso_neto_cooperativa":0.0,"horas_trabajadas_lideresas":82.0,"ingreso_diario_lideresa":122.30799999999999,"pet_qq":0.2,"vidrio_cerveza_gronn_unid":0.0,"vidrio_vino_gronn_unid":0.0,"vidrio_cerveza_surusic_unid":0.0,"vidrio_vino_surusic_unid":0.0,"vidrio_peso_qq":78.63,"vidrio_total_qq":78.63,"ingreso_pet":8.0,"ingreso_vidrio_peso":1705.62,"ingreso_vidrio_gronn":0.0,"ingreso_vidrio_surusic":0.0,"pct_participacion_actividades":0.6,"pct_participacion_comercializacion":0.6},{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona":"Tzolojya","record_key":"ATITLAN_RECICLA|2026|06|Santa Lucía Utatlán","territorio":"Santa Lucía Utatlán","tipo_operacion":"muni","mujeres_activas":0.0,"mujeres_actividades":0.0,"mujeres_comercializacion":0.0,"mujeres_comercializacion_no_inscritas":0.0,"mujeres_inscritas_total":0.0,"mujeres_nuevas_inscritas":0.0,"materiales_lideresas_qq":0.0,"materiales_municipalidad_qq":22.02,"total_materiales_qq":22.02,"ingreso_bruto_lideresas":0.0,"gasto_transporte":0.0,"pago_coop_lideresas":0.0,"ingreso_neto_lideresas":0.0,"ingreso_bruto_municipalidad":543.72,"pago_coop_municipalidad":56.72,"ingreso_neto_municipalidad":487.0,"ingreso_bruto_total":543.72,"ingreso_neto_total_territorio":487.0,"ingreso_neto_cooperativa":56.72,"horas_trabajadas_lideresas":0.0,"ingreso_diario_lideresa":"NA","pet_qq":5.72,"vidrio_cerveza_gronn_unid":0.0,"vidrio_vino_gronn_unid":0.0,"vidrio_cerveza_surusic_unid":0.0,"vidrio_vino_surusic_unid":0.0,"vidrio_peso_qq":13.56,"vidrio_total_qq":13.56,"ingreso_pet":167.6,"ingreso_vidrio_peso":271.2,"ingreso_vidrio_gronn":0.0,"ingreso_vidrio_surusic":0.0,"pct_participacion_actividades":0,"pct_participacion_comercializacion":0},{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona":"Tzolojya","record_key":"ATITLAN_RECICLA|2026|06|Santa María Visitación","territorio":"Santa María Visitación","tipo_operacion":"muni","mujeres_activas":0.0,"mujeres_actividades":0.0,"mujeres_comercializacion":0.0,"mujeres_comercializacion_no_inscritas":0.0,"mujeres_inscritas_total":0.0,"mujeres_nuevas_inscritas":0.0,"materiales_lideresas_qq":0.0,"materiales_municipalidad_qq":5.05,"total_materiales_qq":5.05,"ingreso_bruto_lideresas":0.0,"gasto_transporte":0.0,"pago_coop_lideresas":0.0,"ingreso_neto_lideresas":0.0,"ingreso_bruto_municipalidad":155.5,"pago_coop_municipalidad":12.25,"ingreso_neto_municipalidad":143.25,"ingreso_bruto_total":155.5,"ingreso_neto_total_territorio":143.25,"ingreso_neto_cooperativa":12.25,"horas_trabajadas_lideresas":0.0,"ingreso_diario_lideresa":"NA","pet_qq":1.35,"vidrio_cerveza_gronn_unid":0.0,"vidrio_vino_gronn_unid":0.0,"vidrio_cerveza_surusic_unid":0.0,"vidrio_vino_surusic_unid":0.0,"vidrio_peso_qq":1.5,"vidrio_total_qq":1.5,"ingreso_pet":47.25,"ingreso_vidrio_peso":30.0,"ingreso_vidrio_gronn":0.0,"ingreso_vidrio_surusic":0.0,"pct_participacion_actividades":0,"pct_participacion_comercializacion":0},{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona":"Tzolojya","record_key":"ATITLAN_RECICLA|2026|06|Sololá","territorio":"Sololá","tipo_operacion":"mujeres","mujeres_activas":6.0,"mujeres_actividades":5.0,"mujeres_comercializacion":1.0,"mujeres_comercializacion_no_inscritas":0.0,"mujeres_inscritas_total":6.0,"mujeres_nuevas_inscritas":0.0,"materiales_lideresas_qq":104.23,"materiales_municipalidad_qq":0.0,"total_materiales_qq":104.23,"ingreso_bruto_lideresas":1883.47,"gasto_transporte":0.0,"pago_coop_lideresas":0.0,"ingreso_neto_lideresas":1883.47,"ingreso_bruto_municipalidad":0.0,"pago_coop_municipalidad":0.0,"ingreso_neto_municipalidad":0.0,"ingreso_bruto_total":1883.47,"ingreso_neto_total_territorio":1883.47,"ingreso_neto_cooperativa":0.0,"horas_trabajadas_lideresas":137.0,"ingreso_diario_lideresa":376.694,"pet_qq":7.59,"vidrio_cerveza_gronn_unid":0.0,"vidrio_vino_gronn_unid":0.0,"vidrio_cerveza_surusic_unid":0.0,"vidrio_vino_surusic_unid":0.0,"vidrio_peso_qq":40.12,"vidrio_total_qq":40.12,"ingreso_pet":257.7,"ingreso_vidrio_peso":817.12,"ingreso_vidrio_gronn":0.0,"ingreso_vidrio_surusic":0.0,"pct_participacion_actividades":0.8333333333333334,"pct_participacion_comercializacion":0.16666666666666666},{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona":"Zona Sur","record_key":"ATITLAN_RECICLA|2026|06|San Lucas Tolimán","territorio":"San Lucas Tolimán","tipo_operacion":"mujeres","mujeres_activas":5.0,"mujeres_actividades":5.0,"mujeres_comercializacion":4.0,"mujeres_comercializacion_no_inscritas":1.0,"mujeres_inscritas_total":6.0,"mujeres_nuevas_inscritas":0.0,"materiales_lideresas_qq":307.6,"materiales_municipalidad_qq":0.0,"total_materiales_qq":307.6,"ingreso_bruto_lideresas":8205.75,"gasto_transporte":575.0,"pago_coop_lideresas":37.5,"ingreso_neto_lideresas":8168.25,"ingreso_bruto_municipalidad":0.0,"pago_coop_municipalidad":0.0,"ingreso_neto_municipalidad":0.0,"ingreso_bruto_total":8205.75,"ingreso_neto_total_territorio":8168.25,"ingreso_neto_cooperativa":37.5,"horas_trabajadas_lideresas":337.0,"ingreso_diario_lideresa":326.73,"pet_qq":60.0,"vidrio_cerveza_gronn_unid":0.0,"vidrio_vino_gronn_unid":0.0,"vidrio_cerveza_surusic_unid":0.0,"vidrio_vino_surusic_unid":0.0,"vidrio_peso_qq":148.0,"vidrio_total_qq":148.0,"ingreso_pet":2870.0,"ingreso_vidrio_peso":2226.0,"ingreso_vidrio_gronn":0.0,"ingreso_vidrio_surusic":0.0,"pct_participacion_actividades":1.0,"pct_participacion_comercializacion":1.0},{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona":"Zona Sur","record_key":"ATITLAN_RECICLA|2026|06|Santiago Atitlán","territorio":"Santiago Atitlán","tipo_operacion":"mujeres","mujeres_activas":8.0,"mujeres_actividades":7.0,"mujeres_comercializacion":7.0,"mujeres_comercializacion_no_inscritas":0.0,"mujeres_inscritas_total":11.0,"mujeres_nuevas_inscritas":0.0,"materiales_lideresas_qq":220.85,"materiales_municipalidad_qq":0.0,"total_materiales_qq":220.85,"ingreso_bruto_lideresas":4332.25,"gasto_transporte":560.0,"pago_coop_lideresas":42.0,"ingreso_neto_lideresas":4290.25,"ingreso_bruto_municipalidad":0.0,"pago_coop_municipalidad":0.0,"ingreso_neto_municipalidad":0.0,"ingreso_bruto_total":4332.25,"ingreso_neto_total_territorio":4290.25,"ingreso_neto_cooperativa":42.0,"horas_trabajadas_lideresas":352.0,"ingreso_diario_lideresa":122.57857142857142,"pet_qq":3.75,"vidrio_cerveza_gronn_unid":0.0,"vidrio_vino_gronn_unid":0.0,"vidrio_cerveza_surusic_unid":0.0,"vidrio_vino_surusic_unid":0.0,"vidrio_peso_qq":200.0,"vidrio_total_qq":200.0,"ingreso_pet":133.75,"ingreso_vidrio_peso":3380.0,"ingreso_vidrio_gronn":0.0,"ingreso_vidrio_surusic":0.0,"pct_participacion_actividades":0.875,"pct_participacion_comercializacion":0.875}];
+  const JUN_MATERIALS_RESUMEN = [{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona_codigo":"Kaqchikel","municipio_origen":"Kaqchikel","material":"PET","cantidad":58.31,"pagado_unit_gtq":"","precio_vendido_unit_gtq":"","gtq_total_pagados":"","ingreso_total_venta":2088.05,"ingreso_cooperativa":""},{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona_codigo":"Kaqchikel","municipio_origen":"Kaqchikel","material":"Vidrio","cantidad":430.99,"pagado_unit_gtq":"","precio_vendido_unit_gtq":"","gtq_total_pagados":"","ingreso_total_venta":9538.69,"ingreso_cooperativa":""},{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona_codigo":"Kaqchikel","municipio_origen":"Kaqchikel","material":"Otros materiales","cantidad":362.41,"pagado_unit_gtq":"","precio_vendido_unit_gtq":"","gtq_total_pagados":"","ingreso_total_venta":7277.97,"ingreso_cooperativa":""},{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona_codigo":"Las Lagunas","municipio_origen":"Las Lagunas","material":"PET","cantidad":26.48,"pagado_unit_gtq":"","precio_vendido_unit_gtq":"","gtq_total_pagados":"","ingreso_total_venta":600.85,"ingreso_cooperativa":""},{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona_codigo":"Las Lagunas","municipio_origen":"Las Lagunas","material":"Vidrio","cantidad":152.65,"pagado_unit_gtq":"","precio_vendido_unit_gtq":"","gtq_total_pagados":"","ingreso_total_venta":2633.3,"ingreso_cooperativa":""},{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona_codigo":"Las Lagunas","municipio_origen":"Las Lagunas","material":"Otros materiales","cantidad":41.66,"pagado_unit_gtq":"","precio_vendido_unit_gtq":"","gtq_total_pagados":"","ingreso_total_venta":1325.07,"ingreso_cooperativa":""},{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona_codigo":"Tzolojya","municipio_origen":"Tzolojya","material":"PET","cantidad":17.61,"pagado_unit_gtq":"","precio_vendido_unit_gtq":"","gtq_total_pagados":"","ingreso_total_venta":586.8,"ingreso_cooperativa":""},{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona_codigo":"Tzolojya","municipio_origen":"Tzolojya","material":"Vidrio","cantidad":154.33,"pagado_unit_gtq":"","precio_vendido_unit_gtq":"","gtq_total_pagados":"","ingreso_total_venta":3254.86,"ingreso_cooperativa":""},{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona_codigo":"Tzolojya","municipio_origen":"Tzolojya","material":"Otros materiales","cantidad":73.8,"pagado_unit_gtq":"","precio_vendido_unit_gtq":"","gtq_total_pagados":"","ingreso_total_venta":1342.02,"ingreso_cooperativa":""},{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona_codigo":"Zona Sur","municipio_origen":"Zona Sur","material":"PET","cantidad":63.75,"pagado_unit_gtq":"","precio_vendido_unit_gtq":"","gtq_total_pagados":"","ingreso_total_venta":3003.75,"ingreso_cooperativa":""},{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona_codigo":"Zona Sur","municipio_origen":"Zona Sur","material":"Vidrio","cantidad":348.0,"pagado_unit_gtq":"","precio_vendido_unit_gtq":"","gtq_total_pagados":"","ingreso_total_venta":5606.0,"ingreso_cooperativa":""},{"programa":"atitlan_recicla","anio":2026,"mes_num":6,"mes":"JUN","zona_codigo":"Zona Sur","municipio_origen":"Zona Sur","material":"Otros materiales","cantidad":116.7,"pagado_unit_gtq":"","precio_vendido_unit_gtq":"","gtq_total_pagados":"","ingreso_total_venta":3928.25,"ingreso_cooperativa":""}];
+  const JUN_MATERIALS_RAW = [{"programa":"Atitlán Recicla","anio":2026,"mes_num":6,"mes":"JUN","zona_codigo":"Kaqchikel","municipio_origen":"Kaqchikel","material":"PET","cantidad":58.31,"pagado_unit_gtq":"","precio_vendido_unit_gtq":"","gtq_total_pagados":"","ingreso_total_venta":2088.05,"ingreso_cooperativa":"","record_key":"AR|2026|JUN|Kaqchikel|PET","recolector":"Resumen Excel","source_sheet":"CDM 2026 - junio / Agre_TOTAL","source_row":"junio-1"},{"programa":"Atitlán Recicla","anio":2026,"mes_num":6,"mes":"JUN","zona_codigo":"Kaqchikel","municipio_origen":"Kaqchikel","material":"Vidrio","cantidad":430.99,"pagado_unit_gtq":"","precio_vendido_unit_gtq":"","gtq_total_pagados":"","ingreso_total_venta":9538.69,"ingreso_cooperativa":"","record_key":"AR|2026|JUN|Kaqchikel|Vidrio","recolector":"Resumen Excel","source_sheet":"CDM 2026 - junio / Agre_TOTAL","source_row":"junio-2"},{"programa":"Atitlán Recicla","anio":2026,"mes_num":6,"mes":"JUN","zona_codigo":"Kaqchikel","municipio_origen":"Kaqchikel","material":"Otros materiales","cantidad":362.41,"pagado_unit_gtq":"","precio_vendido_unit_gtq":"","gtq_total_pagados":"","ingreso_total_venta":7277.97,"ingreso_cooperativa":"","record_key":"AR|2026|JUN|Kaqchikel|Otros materiales","recolector":"Resumen Excel","source_sheet":"CDM 2026 - junio / Agre_TOTAL","source_row":"junio-3"},{"programa":"Atitlán Recicla","anio":2026,"mes_num":6,"mes":"JUN","zona_codigo":"Las Lagunas","municipio_origen":"Las Lagunas","material":"PET","cantidad":26.48,"pagado_unit_gtq":"","precio_vendido_unit_gtq":"","gtq_total_pagados":"","ingreso_total_venta":600.85,"ingreso_cooperativa":"","record_key":"AR|2026|JUN|Las Lagunas|PET","recolector":"Resumen Excel","source_sheet":"CDM 2026 - junio / Agre_TOTAL","source_row":"junio-4"},{"programa":"Atitlán Recicla","anio":2026,"mes_num":6,"mes":"JUN","zona_codigo":"Las Lagunas","municipio_origen":"Las Lagunas","material":"Vidrio","cantidad":152.65,"pagado_unit_gtq":"","precio_vendido_unit_gtq":"","gtq_total_pagados":"","ingreso_total_venta":2633.3,"ingreso_cooperativa":"","record_key":"AR|2026|JUN|Las Lagunas|Vidrio","recolector":"Resumen Excel","source_sheet":"CDM 2026 - junio / Agre_TOTAL","source_row":"junio-5"},{"programa":"Atitlán Recicla","anio":2026,"mes_num":6,"mes":"JUN","zona_codigo":"Las Lagunas","municipio_origen":"Las Lagunas","material":"Otros materiales","cantidad":41.66,"pagado_unit_gtq":"","precio_vendido_unit_gtq":"","gtq_total_pagados":"","ingreso_total_venta":1325.07,"ingreso_cooperativa":"","record_key":"AR|2026|JUN|Las Lagunas|Otros materiales","recolector":"Resumen Excel","source_sheet":"CDM 2026 - junio / Agre_TOTAL","source_row":"junio-6"},{"programa":"Atitlán Recicla","anio":2026,"mes_num":6,"mes":"JUN","zona_codigo":"Tzolojya","municipio_origen":"Tzolojya","material":"PET","cantidad":17.61,"pagado_unit_gtq":"","precio_vendido_unit_gtq":"","gtq_total_pagados":"","ingreso_total_venta":586.8,"ingreso_cooperativa":"","record_key":"AR|2026|JUN|Tzolojya|PET","recolector":"Resumen Excel","source_sheet":"CDM 2026 - junio / Agre_TOTAL","source_row":"junio-7"},{"programa":"Atitlán Recicla","anio":2026,"mes_num":6,"mes":"JUN","zona_codigo":"Tzolojya","municipio_origen":"Tzolojya","material":"Vidrio","cantidad":154.33,"pagado_unit_gtq":"","precio_vendido_unit_gtq":"","gtq_total_pagados":"","ingreso_total_venta":3254.86,"ingreso_cooperativa":"","record_key":"AR|2026|JUN|Tzolojya|Vidrio","recolector":"Resumen Excel","source_sheet":"CDM 2026 - junio / Agre_TOTAL","source_row":"junio-8"},{"programa":"Atitlán Recicla","anio":2026,"mes_num":6,"mes":"JUN","zona_codigo":"Tzolojya","municipio_origen":"Tzolojya","material":"Otros materiales","cantidad":73.8,"pagado_unit_gtq":"","precio_vendido_unit_gtq":"","gtq_total_pagados":"","ingreso_total_venta":1342.02,"ingreso_cooperativa":"","record_key":"AR|2026|JUN|Tzolojya|Otros materiales","recolector":"Resumen Excel","source_sheet":"CDM 2026 - junio / Agre_TOTAL","source_row":"junio-9"},{"programa":"Atitlán Recicla","anio":2026,"mes_num":6,"mes":"JUN","zona_codigo":"Zona Sur","municipio_origen":"Zona Sur","material":"PET","cantidad":63.75,"pagado_unit_gtq":"","precio_vendido_unit_gtq":"","gtq_total_pagados":"","ingreso_total_venta":3003.75,"ingreso_cooperativa":"","record_key":"AR|2026|JUN|Zona Sur|PET","recolector":"Resumen Excel","source_sheet":"CDM 2026 - junio / Agre_TOTAL","source_row":"junio-10"},{"programa":"Atitlán Recicla","anio":2026,"mes_num":6,"mes":"JUN","zona_codigo":"Zona Sur","municipio_origen":"Zona Sur","material":"Vidrio","cantidad":348.0,"pagado_unit_gtq":"","precio_vendido_unit_gtq":"","gtq_total_pagados":"","ingreso_total_venta":5606.0,"ingreso_cooperativa":"","record_key":"AR|2026|JUN|Zona Sur|Vidrio","recolector":"Resumen Excel","source_sheet":"CDM 2026 - junio / Agre_TOTAL","source_row":"junio-11"},{"programa":"Atitlán Recicla","anio":2026,"mes_num":6,"mes":"JUN","zona_codigo":"Zona Sur","municipio_origen":"Zona Sur","material":"Otros materiales","cantidad":116.7,"pagado_unit_gtq":"","precio_vendido_unit_gtq":"","gtq_total_pagados":"","ingreso_total_venta":3928.25,"ingreso_cooperativa":"","record_key":"AR|2026|JUN|Zona Sur|Otros materiales","recolector":"Resumen Excel","source_sheet":"CDM 2026 - junio / Agre_TOTAL","source_row":"junio-12"}];
+  const JUN_SURUSIC = {"ventas":3060.0,"vidrio":45.0,"ventas_anual":29600.0,"vidrio_anual":476.0};
+
+  const JUN_GOALS = {
+    materiales_generales:17920,
+    pet:1680,
+    vidrio:11200,
+    ingreso_bruto_total:448000,
+    ingreso_bruto_mujeres:403200,
+    ingreso_bruto_municipalidades:44800,
+    ingreso_diario_lideresa:135,
+    participacion_actividades:0.75,
+    participacion_comercializacion:0.6,
+    surusic_ventas:67200,
+    surusic_vidrio:0
+  };
+
+  function n(v){
+    if(v === 'NA' || v === 'N/A' || v === null || v === undefined || v === '') return 0;
+    const x = Number(v);
+    return Number.isFinite(x) ? x : 0;
+  }
+
+  function avg(values){
+    const xs = (values || []).map(n).filter(Number.isFinite);
+    return xs.length ? xs.reduce((a,b)=>a+b,0)/xs.length : 0;
+  }
+
+  function norm(value){
+    return String(value ?? '')
+      .normalize('NFD').replace(/[̀-ͯ]/g,'')
+      .replace(/\s+/g,' ').trim().toLowerCase();
+  }
+
+  function sameZoneName(a,b){ return norm(a) === norm(b); }
+
+  function isJun2026(row){
+    return Number(row && row.anio) === 2026 &&
+      (Number(row && row.mes_num) === 6 || norm(row && row.mes) === 'jun');
+  }
+
+  function keyOf(row, keys){ return keys.map(k => norm(row && row[k])).join('|'); }
+
+  function upsertRows(baseRows, patchRows, keys){
+    const patchKeys = new Set(patchRows.map(r => keyOf(r, keys)));
+    const kept = (baseRows || []).filter(r => !patchKeys.has(keyOf(r, keys)));
+    return kept.concat(patchRows.map(r => Object.assign({}, r)));
+  }
+
+  function patchJunioExcel(data){
+    if(!data || data.__aalaExcelJunio2026Exacto) return data;
+
+    data.totalMes = upsertRows(data.totalMes, [JUN_TOTAL], ['anio','mes_num']);
+    data.zonaMes = upsertRows(data.zonaMes, JUN_ZONES, ['anio','mes_num','zona']);
+    data.territorioMes = upsertRows(data.territorioMes, JUN_TERRITORIES, ['anio','mes_num','territorio']);
+
+    data.materialesResumen = (data.materialesResumen || [])
+      .filter(r => !isJun2026(r))
+      .concat(JUN_MATERIALS_RESUMEN.map(r => Object.assign({}, r)));
+
+    data.materialesRaw = (data.materialesRaw || [])
+      .filter(r => !isJun2026(r))
+      .concat(JUN_MATERIALS_RAW.map(r => Object.assign({}, r)));
+
+    data.__aalaExcelJunio2026Exacto = true;
+    return data;
+  }
+
+  function rowMetric(row, id){
+    if(!row) return 0;
+    switch(id){
+      case 'materiales_generales': return n(row.total_materiales_qq);
+      case 'pet': return n(row.pet_qq);
+      case 'vidrio': return n(row.vidrio_total_qq || row.vidrio_peso_qq);
+      case 'ingreso_bruto_total': return n(row.ingreso_bruto_total);
+      case 'ingreso_bruto_mujeres': return n(row.ingreso_bruto_lideresas);
+      case 'ingreso_bruto_municipalidades': return n(row.ingreso_bruto_municipalidad);
+      case 'ingreso_diario_lideresa': return n(row.ingreso_diario_lideresa);
+      case 'participacion_actividades': return n(row.pct_participacion_actividades);
+      case 'participacion_comercializacion': return n(row.pct_participacion_comercializacion);
+      case 'surusic_ventas': return n(row.surusic_ventas);
+      case 'surusic_vidrio': return n(row.surusic_vidrio);
+      default: return 0;
+    }
+  }
+
+  const AVG_METRICS = new Set(['ingreso_diario_lideresa','participacion_actividades','participacion_comercializacion']);
+  const METRICS = ['materiales_generales','pet','vidrio','ingreso_bruto_total','ingreso_bruto_mujeres','ingreso_bruto_municipalidades','ingreso_diario_lideresa','participacion_actividades','participacion_comercializacion','surusic_ventas','surusic_vidrio'];
+
+  function buildPayload(monthRow, annualRows, programMonthly, programAnnual, monthNum){
+    const monthly = {};
+    const annual = {};
+    METRICS.forEach(id => {
+      monthly[id] = rowMetric(monthRow, id);
+      if(AVG_METRICS.has(id)) annual[id] = avg((annualRows || []).map(r => rowMetric(r, id)));
+      else annual[id] = (annualRows || []).reduce((acc,r)=>acc+rowMetric(r,id),0);
+    });
+
+    const shareMonthly = {};
+    const shareAnnual = {};
+    const progressMonthly = {};
+    const progressAnnual = {};
+    METRICS.forEach(id => {
+      shareMonthly[id] = (id.includes('participacion') || id === 'ingreso_diario_lideresa') ? null : (n(programMonthly[id]) ? monthly[id] / n(programMonthly[id]) : 0);
+      shareAnnual[id] = (id.includes('participacion') || id === 'ingreso_diario_lideresa') ? null : (n(programAnnual[id]) ? annual[id] / n(programAnnual[id]) : 0);
+      const goal = n(JUN_GOALS[id]);
+      if(!goal) {
+        progressMonthly[id] = null;
+        progressAnnual[id] = null;
+      } else if(AVG_METRICS.has(id)) {
+        progressMonthly[id] = monthly[id] / goal;
+        progressAnnual[id] = annual[id] / goal;
+      } else {
+        progressMonthly[id] = monthly[id] / (goal / 11);
+        progressAnnual[id] = annual[id] / ((goal / 11) * monthNum);
+      }
+    });
+
+    return { monthly, annual, shareMonthly, shareAnnual, progressMonthly, progressAnnual };
+  }
+
+  function buildJunioPrecalc(data){
+    if(!data || !window.ATITLAN_PRECALC) return;
+    const monthNum = 6;
+    const totalRows = (data.totalMes || []).filter(r => Number(r.anio) === 2026 && Number(r.mes_num) <= monthNum);
+    const totalRow = (data.totalMes || []).find(r => Number(r.anio) === 2026 && Number(r.mes_num) === monthNum);
+    const programMonthly = {};
+    const programAnnual = {};
+    METRICS.forEach(id => {
+      programMonthly[id] = rowMetric(totalRow, id);
+      programAnnual[id] = AVG_METRICS.has(id)
+        ? avg(totalRows.map(r => rowMetric(r,id)))
+        : totalRows.reduce((acc,r)=>acc+rowMetric(r,id),0);
+    });
+    programMonthly.surusic_ventas = n(JUN_SURUSIC.ventas);
+    programMonthly.surusic_vidrio = n(JUN_SURUSIC.vidrio);
+    programAnnual.surusic_ventas = n(JUN_SURUSIC.ventas_anual);
+    programAnnual.surusic_vidrio = n(JUN_SURUSIC.vidrio_anual);
+
+    const precalc = window.ATITLAN_PRECALC;
+    precalc.program = precalc.program || {};
+    precalc.program['2026|6'] = { monthly: programMonthly, annual: programAnnual };
+
+    precalc.byZone = precalc.byZone || {};
+    JUN_ZONES.forEach(zr => {
+      const zona = zr.zona;
+      const monthRow = (data.zonaMes || []).find(r => Number(r.anio) === 2026 && Number(r.mes_num) === monthNum && sameZoneName(r.zona, zona));
+      const annualRows = (data.zonaMes || []).filter(r => Number(r.anio) === 2026 && Number(r.mes_num) <= monthNum && sameZoneName(r.zona, zona));
+      precalc.byZone[zona] = precalc.byZone[zona] || {};
+      precalc.byZone[zona]['2026|6'] = buildPayload(monthRow, annualRows, programMonthly, programAnnual, monthNum);
+    });
+    if(precalc.byZone.Kaqchikel){
+      precalc.byZone.Kaqchiquel = precalc.byZone.Kaqchiquel || {};
+      precalc.byZone.Kaqchiquel['2026|6'] = precalc.byZone.Kaqchikel['2026|6'];
+    }
+
+    precalc.byMunicipio = precalc.byMunicipio || {};
+    JUN_TERRITORIES.forEach(tr => {
+      const territorio = tr.territorio;
+      const monthRow = (data.territorioMes || []).find(r => Number(r.anio) === 2026 && Number(r.mes_num) === monthNum && norm(r.territorio) === norm(territorio));
+      const annualRows = (data.territorioMes || []).filter(r => Number(r.anio) === 2026 && Number(r.mes_num) <= monthNum && norm(r.territorio) === norm(territorio));
+      precalc.byMunicipio[territorio] = precalc.byMunicipio[territorio] || {};
+      precalc.byMunicipio[territorio]['2026|6'] = buildPayload(monthRow, annualRows, programMonthly, programAnnual, monthNum);
+    });
+  }
+
+  if(typeof buildState === 'function'){
+    const buildStateAntesDeJunioExcel = buildState;
+    buildState = function(data){
+      patchJunioExcel(data);
+      const state = buildStateAntesDeJunioExcel(data);
+      buildJunioPrecalc(data);
+      if(state && Array.isArray(state.zones)){
+        state.zones = ['__all__','Kaqchikel','Las Lagunas','Tzolojya','Zona Sur'];
+      }
+      return state;
+    };
+  }
+
+  window.AALA_PATCH_JUNIO_2026_EXCEL = {
+    appliedTo: 'Atitlán Recicla',
+    period: '2026-06',
+    source: 'CDM 2026 - junio.xlsx',
+    patchJunioExcel
+  };
+
+  window.AALA_EXCEL_TRUTH_STATUS = Object.assign({}, window.AALA_EXCEL_TRUTH_STATUS || {}, {
+    source:'CDM 2026 - junio.xlsx',
+    months:'ENE-JUN 2026',
+    latest:'2026-06',
+    applied:true
+  });
+
+  document.addEventListener('DOMContentLoaded', function(){
+    try{
+      const data = window.currentData || (typeof currentData !== 'undefined' ? currentData : null);
+      if(data){
+        patchJunioExcel(data);
+        buildJunioPrecalc(data);
+        if(typeof buildState === 'function' && typeof render === 'function'){
+          const state = buildState(data);
+          if(typeof appState !== 'undefined') appState = state;
+          render(state);
+        }
+        try{
+          if(typeof renderImpactAnalyzer === 'function' && typeof appState !== 'undefined' && appState){
+            renderImpactAnalyzer(appState);
+          }
+        }catch(_){}
+      }
+    }catch(e){
+      console.warn('Parche junio 2026 exacto Atitlán Recicla:', e);
+    }
+  });
+})();
+</script>
+
 </body>
 </html>
