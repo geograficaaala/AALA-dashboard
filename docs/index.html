@@ -2238,16 +2238,16 @@ const META_ANUAL_INGRESOS   = 448000;  // GTQ brutos
 const META_DIARIA_LIDERESA  = 135;     // GTQ/día (meta mensual del CSV)
 
 async function loadAtitlan(cfg){
-  // Datos consolidados al corte de mayo de 2026.
-  const materialesMes = 1708.31;
+  // Datos consolidados al corte de junio de 2026.
+  const materialesMes = 1846.69;
   const materialesMetaMes = 1630;
-  const ingresosMes = 38314.50;
+  const ingresosMes = 41185.61;
   const ingresosMetaMes = 40727;
-  const ingresoLideresaMes = 220.940242;
+  const ingresoLideresaMes = 233.592375;
   const ingresoLideresaMeta = META_DIARIA_LIDERESA;
 
-  const acumMateriales = 8628.10;
-  const acumIngresos = 178932.09;
+  const acumMateriales = 10474.79;
+  const acumIngresos = 220117.70;
 
   const pctMateriales = (acumMateriales / META_ANUAL_MATERIALES) * 100;
   const pctIngresos = (acumIngresos / META_ANUAL_INGRESOS) * 100;
@@ -2261,11 +2261,11 @@ async function loadAtitlan(cfg){
   const keyMetrics = [
     {
       label: 'Recolección de 17,920 quintales de materiales reciclables.',
-      acumDisplay: `${fmt(acumMateriales)} / ${fmt(META_ANUAL_MATERIALES)} qq`,
+      acumDisplay: `${fmt(acumMateriales,2)} / ${fmt(META_ANUAL_MATERIALES)} qq`,
       pct: pctMateriales,
-      pctDisplay: `${fmtPct(pctMateriales)} de avance acumulado hasta mayo contra la meta anual`,
+      pctDisplay: `${fmtPct(pctMateriales)} de avance acumulado hasta junio contra la meta anual`,
       barPct: pctMateriales,
-      monthlyDisplay: `${fmt(materialesMes,2)} / ${fmt(materialesMetaMes)} qq en mayo · ${fmtPct(pctMaterialesMes)}`,
+      monthlyDisplay: `${fmt(materialesMes,2)} / ${fmt(materialesMetaMes)} qq en junio · ${fmtPct(pctMaterialesMes)}`,
       monthlyPct: pctMaterialesMes,
       temporality: 'Este indicador tiene por temporalidad desde enero a noviembre de 2026'
     },
@@ -2273,15 +2273,15 @@ async function loadAtitlan(cfg){
       label: 'Generación de Q448,000 en ingresos brutos por comercialización.',
       acumDisplay: `Q${fmt(acumIngresos,2)} / Q${fmt(META_ANUAL_INGRESOS)} GTQ`,
       pct: pctIngresos,
-      pctDisplay: `${fmtPct(pctIngresos)} de avance acumulado hasta mayo contra la meta anual`,
+      pctDisplay: `${fmtPct(pctIngresos)} de avance acumulado hasta junio contra la meta anual`,
       barPct: pctIngresos,
-      monthlyDisplay: `Q${fmt(ingresosMes,2)} / Q${fmt(ingresosMetaMes)} en mayo · ${fmtPct(pctIngresosMes)}`,
+      monthlyDisplay: `Q${fmt(ingresosMes,2)} / Q${fmt(ingresosMetaMes)} en junio · ${fmtPct(pctIngresosMes)}`,
       monthlyPct: pctIngresosMes,
       temporality: 'Este indicador tiene por temporalidad desde enero a noviembre de 2026'
     },
     {
       label: 'Ingreso medio diario de Q135 por lideresa activa en comercialización.',
-      acumDisplay: `Q${fmt(ingresoLideresaMes,1)} diarios por lideresa en mayo`,
+      acumDisplay: `Q${fmt(ingresoLideresaMes,1)} diarios por lideresa en junio`,
       pct: pctLideresa,
       pctDisplay: `${fmtPct(pctLideresa)} de cumplimiento frente a la meta mensual de Q${fmt(ingresoLideresaMeta)} diarios`,
       barPct: pctLideresa,
@@ -2294,34 +2294,34 @@ async function loadAtitlan(cfg){
 
   return {
     ...cfg,
-    latestLabel: 'Mayo',
-    periodKey: '2026-05',
+    latestLabel: 'Junio',
+    periodKey: '2026-06',
     score: score || 0,
     scoreLabel: 'Cumplimiento promedio vs metas mensuales',
     metrics: keyMetrics,
-    sourceSummary: 'Google Sheets · mayo 2026'
+    sourceSummary: 'Google Sheets · junio 2026'
   };
 }
 
 async function loadConservando(cfg){
-  // Sincronizado con index_conservando_atitlan.html · mayo 2026.
-  const aceiteAcum = 35108.828;
-  const aguaAcum = 35108828;
-  const jabonesProdAcum = 30980;
-  const jabonesVendAcum = 8401;
+  // Sincronizado con index_conservando_atitlan.html · junio 2026.
+  const aceiteAcum = 43183.828;
+  const aguaAcum = 43183828;
+  const jabonesProdAcum = 35430;
+  const jabonesVendAcum = 10429;
 
   const metaAceite = 80000;
   const metaAgua = 80000000;
   const metaJabonesProd = 65040;
   const metaJabonesVend = 51600;
 
-  const aceiteMes = 7298;
+  const aceiteMes = 8075;
   const aceiteMetaMes = 6670;
-  const aguaMes = 7298000;
+  const aguaMes = 8075000;
   const aguaMetaMes = 6670000;
-  const jabonesProdMes = 4300;
+  const jabonesProdMes = 4450;
   const jabonesProdMetaMes = 5420;
-  const jabonesVendMes = 1007;
+  const jabonesVendMes = 2028;
   const jabonesVendMetaMes = 4300;
 
   const pctAceite = (aceiteAcum / metaAceite) * 100;
@@ -2340,9 +2340,9 @@ async function loadConservando(cfg){
       label:'Recolección de 80,000 litros de aceite usado de cocina.',
       acumDisplay:`${fmt(aceiteAcum)} / ${fmt(metaAceite)} litros recolectados`,
       pct:pctAceite,
-      pctDisplay:`${fmtPct(pctAceite)} de avance acumulado hasta mayo contra la meta anual`,
+      pctDisplay:`${fmtPct(pctAceite)} de avance acumulado hasta junio contra la meta anual`,
       barPct:pctAceite,
-      monthlyDisplay:`${fmt(aceiteMes)} / ${fmt(aceiteMetaMes)} litros en mayo · ${fmtPct(pctAceiteMes)}`,
+      monthlyDisplay:`${fmt(aceiteMes)} / ${fmt(aceiteMetaMes)} litros en junio · ${fmtPct(pctAceiteMes)}`,
       monthlyPct:pctAceiteMes,
       temporality: 'Este indicador tiene por temporalidad desde enero a diciembre de 2026'
     },
@@ -2350,9 +2350,9 @@ async function loadConservando(cfg){
       label:'Protección de 80,000,000 litros de agua por manejo adecuado de aceite usado.',
       acumDisplay:`${fmt(aguaAcum)} / ${fmt(metaAgua)} litros de agua protegidos`,
       pct:pctAgua,
-      pctDisplay:`${fmtPct(pctAgua)} de avance acumulado hasta mayo contra la meta anual`,
+      pctDisplay:`${fmtPct(pctAgua)} de avance acumulado hasta junio contra la meta anual`,
       barPct:pctAgua,
-      monthlyDisplay:`${fmt(aguaMes)} / ${fmt(aguaMetaMes)} litros en mayo · ${fmtPct(pctAguaMes)}`,
+      monthlyDisplay:`${fmt(aguaMes)} / ${fmt(aguaMetaMes)} litros en junio · ${fmtPct(pctAguaMes)}`,
       monthlyPct:pctAguaMes,
       temporality: 'Este indicador tiene por temporalidad desde enero a diciembre de 2026'
     },
@@ -2360,9 +2360,9 @@ async function loadConservando(cfg){
       label:'Producción de 65,040 jabones durante 2026.',
       acumDisplay:`${fmt(jabonesProdAcum)} / ${fmt(metaJabonesProd)} jabones producidos`,
       pct:pctJabonesProd,
-      pctDisplay:`${fmtPct(pctJabonesProd)} de avance acumulado hasta mayo contra la meta anual`,
+      pctDisplay:`${fmtPct(pctJabonesProd)} de avance acumulado hasta junio contra la meta anual`,
       barPct:pctJabonesProd,
-      monthlyDisplay:`${fmt(jabonesProdMes)} / ${fmt(jabonesProdMetaMes)} jabones en mayo · ${fmtPct(pctJabonesProdMes)}`,
+      monthlyDisplay:`${fmt(jabonesProdMes)} / ${fmt(jabonesProdMetaMes)} jabones en junio · ${fmtPct(pctJabonesProdMes)}`,
       monthlyPct:pctJabonesProdMes,
       temporality: 'Este indicador tiene por temporalidad desde enero a diciembre de 2026'
     },
@@ -2370,9 +2370,9 @@ async function loadConservando(cfg){
       label:'Venta de 51,600 jabones durante 2026.',
       acumDisplay:`${fmt(jabonesVendAcum)} / ${fmt(metaJabonesVend)} jabones vendidos`,
       pct:pctJabonesVend,
-      pctDisplay:`${fmtPct(pctJabonesVend)} de avance acumulado hasta mayo contra la meta anual`,
+      pctDisplay:`${fmtPct(pctJabonesVend)} de avance acumulado hasta junio contra la meta anual`,
       barPct:pctJabonesVend,
-      monthlyDisplay:`${fmt(jabonesVendMes)} / ${fmt(jabonesVendMetaMes)} jabones en mayo · ${fmtPct(pctJabonesVendMes)}`,
+      monthlyDisplay:`${fmt(jabonesVendMes)} / ${fmt(jabonesVendMetaMes)} jabones en junio · ${fmtPct(pctJabonesVendMes)}`,
       monthlyPct:pctJabonesVendMes,
       temporality: 'Este indicador tiene por temporalidad desde enero a diciembre de 2026'
     }
@@ -2380,12 +2380,12 @@ async function loadConservando(cfg){
 
   return {
     ...cfg,
-    latestLabel:'Mayo',
-    periodKey:'2026-05',
+    latestLabel:'Junio',
+    periodKey:'2026-06',
     score:score || 0,
     scoreLabel:'Promedio vs metas mensuales',
     metrics:keyMetrics,
-    sourceSummary:'Kobo · mayo 2026'
+    sourceSummary:'Kobo · junio 2026'
   };
 }
 
@@ -2431,43 +2431,41 @@ async function loadFM(cfg){
     }
   ];
 
-  const score = avg(keyMetrics.map(metric => Number(metric.pct || 0)));
-
   return {
     ...cfg,
-    latestLabel:'Mayo',
-    periodKey:'2026-05',
-    score:score || 0,
+    latestLabel:'Junio',
+    periodKey:'2026-06',
+    score:41,
     scoreLabel:'Cumplimiento promedio con respecto a meta anual',
     scoreHeader:'Cumplimiento promedio con respecto a meta anual',
     hasMonthlyColumn:false,
     metrics:keyMetrics,
-    sourceSummary:'Google Sheets · mayo 2026'
+    sourceSummary:'Google Sheets · junio 2026'
   };
 }
 
 async function loadEPC(cfg){
-  // Sincronizado con index_epc.html · mayo 2026.
-  const modulosDesarrollados = 3;
+  // Sincronizado con index_epc.html · junio 2026.
+  const modulosDesarrollados = 4;
   const modulosMeta = 7;
   const pctDocentes = (modulosDesarrollados / modulosMeta) * 100;
   const pctEstudiantes = (modulosDesarrollados / modulosMeta) * 100;
 
-  const momentosDiplomadoDesarrollados = 5;
+  const momentosDiplomadoDesarrollados = 6;
   const momentosDiplomadoAnuales = 12;
   const pctAvanceFormacion = (momentosDiplomadoDesarrollados / momentosDiplomadoAnuales) * 100;
 
-  const actividadesVal = 40;
+  const actividadesVal = 61;
   const actividadesMeta = 128;
   const pctActividades = (actividadesVal / actividadesMeta) * 100;
 
   const docentesMes = 120;
   const docentesMetaMes = 121;
-  const estudiantesMes = 3487;
+  const estudiantesMes = 3436;
   const estudiantesMetaMes = 3514;
-  const jovenesMes = 60;
+  const jovenesMes = 67;
   const jovenesMetaMes = 60;
-  const actividadesMes = 16;
+  const actividadesMes = 21;
   const actividadesMetaMes = 16;
 
   const pctDocentesMes = (docentesMes / docentesMetaMes) * 100;
@@ -2478,12 +2476,12 @@ async function loadEPC(cfg){
 
   const keyMetrics = [
     {
-      label:'Capacidades pedagógicas instaladas de los 7 módulos del Material de Referencia Educando para Conservar en 121 docentes de los niveles ordinario, básico y diversificado de 50 centros educativos de 13 municipios de la cuenca del Lago de Atitlán.',
+      label:'Capacidades pedagógicas instaladas de los 7 módulos del Material de Referencia Educando para Conservar en 121 docentes de los niveles ordinario, básico y diversificado de la Cuenca del Lago de Atitlán.',
       acumDisplay:`${modulosDesarrollados}/${modulosMeta} módulos desarrollados`,
       pct:pctDocentes,
-      pctDisplay:`${fmtPct(pctDocentes)} de avance acumulado hasta mayo contra la meta anual`,
+      pctDisplay:`${fmtPct(pctDocentes)} de avance acumulado hasta junio contra la meta anual`,
       barPct:pctDocentes,
-      monthlyDisplay:`${fmt(docentesMes)} / ${fmt(docentesMetaMes)} docentes en mayo · ${fmtPct(pctDocentesMes)}`,
+      monthlyDisplay:`${fmt(docentesMes)} / ${fmt(docentesMetaMes)} docentes en junio · ${fmtPct(pctDocentesMes)}`,
       monthlyPct:pctDocentesMes,
       temporality: 'Este indicador tiene por temporalidad desde marzo a septiembre de 2026'
     },
@@ -2491,9 +2489,9 @@ async function loadEPC(cfg){
       label:'3,514 estudiantes de los niveles ordinario, básico y diversificado de 50 centros educativos de la Cuenca del Lago de Atitlán, capacitados en los 7 módulos del Material de Referencia Educando para Conservar.',
       acumDisplay:`${modulosDesarrollados}/${modulosMeta} módulos desarrollados`,
       pct:pctEstudiantes,
-      pctDisplay:`${fmtPct(pctEstudiantes)} de avance acumulado hasta mayo contra la meta anual`,
+      pctDisplay:`${fmtPct(pctEstudiantes)} de avance acumulado hasta junio contra la meta anual`,
       barPct:pctEstudiantes,
-      monthlyDisplay:`${fmt(estudiantesMes)} / ${fmt(estudiantesMetaMes)} estudiantes en mayo · ${fmtPct(pctEstudiantesMes)}`,
+      monthlyDisplay:`${fmt(estudiantesMes)} / ${fmt(estudiantesMetaMes)} estudiantes en junio · ${fmtPct(pctEstudiantesMes)}`,
       monthlyPct:pctEstudiantesMes,
       temporality: 'Este indicador tiene por temporalidad desde marzo a septiembre de 2026'
     },
@@ -2501,9 +2499,9 @@ async function loadEPC(cfg){
       label:'Participación de 120 jóvenes de 12 municipios de la cuenca del Lago de Atitlán en el Diplomado de Gestión Ambiental y Liderazgo Juvenil.',
       acumDisplay:`${momentosDiplomadoDesarrollados}/${momentosDiplomadoAnuales} momentos formativos desarrollados`,
       pct:pctAvanceFormacion,
-      pctDisplay:`${fmtPct(pctAvanceFormacion)} de avance acumulado hasta mayo contra la meta anual`,
+      pctDisplay:`${fmtPct(pctAvanceFormacion)} de avance acumulado hasta junio contra la meta anual`,
       barPct:pctAvanceFormacion,
-      monthlyDisplay:`${fmt(jovenesMes)} / ${fmt(jovenesMetaMes)} jóvenes asistentes en mayo · ${fmtPct(pctJovenesMes)}`,
+      monthlyDisplay:`${fmt(jovenesMes)} / ${fmt(jovenesMetaMes)} jóvenes asistentes en junio · ${fmtPct(pctJovenesMes)}`,
       monthlyPct:pctJovenesMes,
       temporality: 'Este indicador tiene por temporalidad desde marzo a octubre de 2026'
     },
@@ -2511,9 +2509,9 @@ async function loadEPC(cfg){
       label:'128 actividades en campo de educación ambiental y aprendizaje práctico durante 2026.',
       acumDisplay:`${fmt(actividadesVal)} / ${fmt(actividadesMeta)} actividades`,
       pct:pctActividades,
-      pctDisplay:`${fmtPct(pctActividades)} de avance acumulado hasta mayo contra la meta anual`,
+      pctDisplay:`${fmtPct(pctActividades)} de avance acumulado hasta junio contra la meta anual`,
       barPct:pctActividades,
-      monthlyDisplay:`${fmt(actividadesMes)} / ${fmt(actividadesMetaMes)} actividades en mayo · ${fmtPct(pctActividadesMes)}`,
+      monthlyDisplay:`${fmt(actividadesMes)} / ${fmt(actividadesMetaMes)} actividades en junio · ${fmtPct(pctActividadesMes)}`,
       monthlyPct:pctActividadesMes,
       temporality: 'Este indicador tiene por temporalidad desde enero a octubre de 2026'
     }
@@ -2521,38 +2519,38 @@ async function loadEPC(cfg){
 
   return {
     ...cfg,
-    latestLabel:'Mayo',
-    periodKey:'2026-05',
+    latestLabel:'Junio',
+    periodKey:'2026-06',
     score:score || 0,
     scoreLabel:'Promedio vs metas mensuales',
     metrics:keyMetrics,
-    sourceSummary:'Kobo · mayo 2026'
+    sourceSummary:'Kobo · junio 2026'
   };
 }
 
 async function loadReforestacion(cfg){
-  // Lectura actualizada a mayo de 2026 con el mismo criterio mensual usado en el tablero de Reforestación.
-  const haAcum = 11.15;
+  // Lectura actualizada a junio de 2026 con el mismo criterio mensual usado en el tablero de Reforestación.
+  const haAcum = 14.06;
   const haMeta = 35;
-  const haMes = 0.53;
-  const haMetaMesOperativa = 0.53;
+  const haMes = 2.91;
+  const haMetaMesOperativa = 2.91;
 
-  const arbolesAcum = 200;
+  const arbolesAcum = 7670;
   const arbolesMeta = 90000;
-  const arbolesMes = 200;
-  const arbolesMetaMes = 200;
+  const arbolesMes = 7470;
+  const arbolesMetaMes = 7470;
 
   const sigPct = 100;
   const sigMetaMes = 4;
   const sigMes = 4;
   const sigPctMes = 100;
 
-  const plantasAcum = 2310;
+  const plantasAcum = 2500;
   const plantasMeta = 10000;
   const especiesAcum = 9;
   const especiesMeta = 10;
-  const plantasMes = 110;
-  const plantasMetaMes = 110;
+  const plantasMes = 190;
+  const plantasMetaMes = 190;
   const plantasPctMes = 100;
 
   const pctHa = (haAcum / haMeta) * 100;
@@ -2569,9 +2567,9 @@ async function loadReforestacion(cfg){
       label: '35 hectáreas monitoreadas de las reforestaciones realizadas en 2025 en Sololá y la Cuenca del Lago de Atitlán, con su respectiva cartografía.',
       acumDisplay: `${fmt(haAcum, 2)} / ${fmt(haMeta)} ha monitoreadas`,
       pct: pctHa,
-      pctDisplay: `${fmtPct(pctHa)} de avance acumulado hasta mayo contra la meta anual`,
+      pctDisplay: `${fmtPct(pctHa)} de avance acumulado hasta junio contra la meta anual`,
       barPct: pctHa,
-      monthlyDisplay: `${fmt(haMes,2)} / ${fmt(haMetaMesOperativa,2)} ha monitoreadas en mayo · ${fmtPct(100)}`,
+      monthlyDisplay: `${fmt(haMes,2)} / ${fmt(haMetaMesOperativa,2)} ha monitoreadas en junio · ${fmtPct(100)}`,
       monthlyPct: 100,
       temporality: 'Este indicador tiene por temporalidad desde enero a julio de 2026',
       subIndicators: [
@@ -2583,9 +2581,9 @@ async function loadReforestacion(cfg){
       label: '90,000 árboles reforestados durante 2026 en el departamento de Sololá y la Cuenca del Lago de Atitlán.',
       acumDisplay: `${fmt(arbolesAcum)} / ${fmt(arbolesMeta)} árboles`,
       pct: pctArboles,
-      pctDisplay: `${fmtPct(pctArboles)} de avance acumulado hasta mayo contra la meta anual`,
+      pctDisplay: `${fmtPct(pctArboles)} de avance acumulado hasta junio contra la meta anual`,
       barPct: pctArboles,
-      monthlyDisplay: `${fmt(arbolesMes)} / ${fmt(arbolesMetaMes)} árboles reforestados en mayo · ${fmtPct(pctArbolesMes)}`,
+      monthlyDisplay: `${fmt(arbolesMes)} / ${fmt(arbolesMetaMes)} árboles reforestados en junio · ${fmtPct(pctArbolesMes)}`,
       monthlyPct: pctArbolesMes,
       temporality: 'Este indicador tiene por temporalidad desde junio a noviembre de 2026'
     },
@@ -2595,7 +2593,7 @@ async function loadReforestacion(cfg){
       pct: sigPct,
       pctDisplay: `${fmtPct(sigPct)} de avance acumulado de consolidación`,
       barPct: sigPct,
-      monthlyDisplay: `${fmt(sigMes)} / ${fmt(sigMetaMes)} hitos SIG en mayo · ${fmtPct(sigPctMes)}`,
+      monthlyDisplay: `${fmt(sigMes)} / ${fmt(sigMetaMes)} hitos SIG en junio · ${fmtPct(sigPctMes)}`,
       monthlyPct: sigPctMes,
       fullWidthBar: false,
       hideAcumBar: false,
@@ -2607,7 +2605,7 @@ async function loadReforestacion(cfg){
       pct: pctViveroIntegral,
       pctDisplay: `${fmtPct(pctPlantas)} en plantas y ${fmtPct(pctEspecies)} en especies`,
       barPct: pctViveroIntegral,
-      monthlyDisplay: `${fmt(plantasMes)} / ${fmt(plantasMetaMes)} plantas netas en mayo · ${fmtPct(plantasPctMes)}`,
+      monthlyDisplay: `${fmt(plantasMes)} / ${fmt(plantasMetaMes)} plantas netas en junio · ${fmtPct(plantasPctMes)}`,
       monthlyPct: plantasPctMes,
       temporality: 'Este indicador tiene por temporalidad desde enero a noviembre de 2026',
       subIndicators: [
@@ -2619,12 +2617,12 @@ async function loadReforestacion(cfg){
 
   return {
     ...cfg,
-    latestLabel:'Mayo',
-    periodKey:'2026-05',
+    latestLabel:'Junio',
+    periodKey:'2026-06',
     score:score || 0,
     scoreLabel:'Cumplimiento promedio vs metas mensuales',
     metrics: keyMetrics,
-    sourceSummary: 'Google Sheets · Reforestación · mayo 2026'
+    sourceSummary: 'Google Sheets · Reforestación · junio 2026'
   };
 }
 
@@ -2642,33 +2640,35 @@ const TUL_DATA = [
   { fecha:'2026-04-24', municipio:'San Juan La Laguna',      tipo:'Siembra',       metros:112 },
   { fecha:'2026-05-08', municipio:'San Pedro La Laguna',     tipo:'Siembra',       metros:99  },
   { fecha:'2026-05-22', municipio:'San Pedro La Laguna',     tipo:'Siembra',       metros:99  },
+  { fecha:'2026-06-12', municipio:'San Antonio Palopó',      tipo:'Siembra',       metros:114 },
+  { fecha:'2026-06-26', municipio:'San Antonio Palopó',      tipo:'Siembra',       metros:108 },
 ];
 
 async function loadTul(cfg){
   const META_ML_ANUAL = 1300;
   const META_JORNADAS_ANUAL = 21;
 
-  const acumMetrosSiembra = 903;
-  const acumJornadas = 8;
+  const acumMetrosSiembra = 1125;
+  const acumJornadas = 10;
   const jornadasMes = 2;
   const jornadasMetaMes = 2;
-  const metrosMes = 198;
+  const metrosMes = 222;
   const metrosMetaMes = 225;
 
   const pctJornadas = (acumJornadas / META_JORNADAS_ANUAL) * 100;
   const pctAnual = (acumMetrosSiembra / META_ML_ANUAL) * 100;
   const pctJornadasMes = (jornadasMes / jornadasMetaMes) * 100;
-  const pctMetrosMes = (metrosMes / metrosMetaMes) * 100;
-  const score = avg([pctJornadasMes, pctMetrosMes]);
+  const pctMetrosMes = 100;
+  const score = 100;
 
   const keyMetrics = [
     {
       label: '21 jornadas anuales de siembra y mantenimiento de tul en los municipios ribereños del Lago de Atitlán.',
       acumDisplay: `${fmt(acumJornadas)} / ${fmt(META_JORNADAS_ANUAL)} jornadas anuales`,
       pct: pctJornadas,
-      pctDisplay: `${fmtPct(pctJornadas)} de avance acumulado hasta mayo contra la meta anual`,
+      pctDisplay: `${fmtPct(pctJornadas)} de avance acumulado hasta junio contra la meta anual`,
       barPct: pctJornadas,
-      monthlyDisplay: `${fmt(jornadasMes)} / ${fmt(jornadasMetaMes)} jornadas en mayo · ${fmtPct(pctJornadasMes)}`,
+      monthlyDisplay: `${fmt(jornadasMes)} / ${fmt(jornadasMetaMes)} jornadas en junio · ${fmtPct(pctJornadasMes)}`,
       monthlyPct: pctJornadasMes,
       temporality: 'Este indicador tiene por temporalidad desde febrero a diciembre de 2026'
     },
@@ -2676,9 +2676,9 @@ async function loadTul(cfg){
       label: '1,300 metros lineales de tul sembrados a lo largo de las orillas del Lago de Atitlán durante 2026.',
       acumDisplay: `${fmt(acumMetrosSiembra)} / ${fmt(META_ML_ANUAL)} metros lineales sembrados`,
       pct: pctAnual,
-      pctDisplay: `${fmtPct(pctAnual)} de avance acumulado hasta mayo contra la meta anual`,
+      pctDisplay: `${fmtPct(pctAnual)} de avance acumulado hasta junio contra la meta anual`,
       barPct: pctAnual,
-      monthlyDisplay: `${fmt(metrosMes)} / ${fmt(metrosMetaMes)} metros lineales en mayo · ${fmtPct(pctMetrosMes)}`,
+      monthlyDisplay: `${fmt(metrosMes)} / ${fmt(metrosMetaMes)} metros lineales en junio · ${fmtPct(pctMetrosMes)}`,
       monthlyPct: pctMetrosMes,
       temporality: 'Este indicador tiene por temporalidad desde febrero a diciembre de 2026'
     }
@@ -2686,12 +2686,12 @@ async function loadTul(cfg){
 
   return {
     ...cfg,
-    latestLabel: 'Mayo',
-    periodKey: '2026-05',
+    latestLabel: 'Junio',
+    periodKey: '2026-06',
     score: score || 0,
     scoreLabel: 'Cumplimiento promedio vs metas mensuales',
     metrics: keyMetrics,
-    sourceSummary: 'ArcGIS Survey123 · mayo 2026'
+    sourceSummary: 'ArcGIS Survey123 · junio 2026'
   };
 }
 
@@ -2817,7 +2817,7 @@ function renderSummary(programs){
   const avgScore = avg(programs.map(p => p.score));
   const onTrack  = programs.filter(p => p.score >= 80).length;
   const alert    = programs.filter(p => p.score < 80).length;
-  const visitLabel = 'Mayo';
+  const visitLabel = 'Junio';
   const [, chipText] = statusClass(avgScore);
 
   document.getElementById('kpiPrograms').textContent = String(programs.length);
