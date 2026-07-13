@@ -756,6 +756,15 @@
       ...OP_ANNUAL_META
     ];
 
+    const ANNUAL_ACTUAL_OVERRIDES = {
+      '2026-06': {
+        act_tul_mes: 3,
+        act_huertos_mes: 4,
+        act_murales_mes: 5,
+        act_proyectos_gestion_mes: 0
+      }
+    };
+
     const PEDAGOGICAL_MODULES = [
       { periodo_clave:'2026-03', number:1, name:'Medio ambiente', month:'marzo', docentes:121, estudiantes:3514, centros:50, municipios:13 },
       { periodo_clave:'2026-04', number:2, name:'El bosque', month:'abril', docentes:120, estudiantes:3487, centros:50, municipios:13 }
@@ -1274,6 +1283,14 @@
         .reduce((acc, r) => acc + Number(r[key] || 0), 0);
     }
 
+    function annualActualValue(key, period){
+      const periodOverrides = ANNUAL_ACTUAL_OVERRIDES[String(period)] || {};
+      if(Object.prototype.hasOwnProperty.call(periodOverrides, key)){
+        return Number(periodOverrides[key] || 0);
+      }
+      return cumulativeValueForPeriod(key, period);
+    }
+
     function annualOperationalStatus(cfg, row){
       const monthNum = Number(row.mes_num || 0);
       if(cfg.start == null || cfg.end == null) return 'pending';
@@ -1284,7 +1301,7 @@
 
     function annualOperationalRows(row){
       return OP_ANNUAL_META.map(cfg => {
-        const actual = cumulativeValueForPeriod(cfg.key, state.periodo);
+        const actual = annualActualValue(cfg.key, state.periodo);
         const rawPct = cfg.annualTarget > 0 ? actual / cfg.annualTarget : 0;
         const status = annualOperationalStatus(cfg, row);
         const pct = status === 'pending' ? null : rawPct;
@@ -1394,8 +1411,7 @@
     }
 
     function operationalAnnualKpiData(cfg, row){
-      const monthRows = operationalMonthlyRowsForPeriod(cfg.key, state.periodo);
-      const actual = monthRows.reduce((acc, item) => acc + Number(item.value || 0), 0);
+      const actual = annualActualValue(cfg.key, state.periodo);
       const target = Number(cfg.annualTarget || 0);
       const pct = target > 0 ? actual / target : 0;
       const status = annualOperationalStatus(cfg, row);
@@ -2350,7 +2366,7 @@
       act_huertos_mes:4,     // Seguimiento a 4 huertos escolares.
       act_giras_mes:5,       // 5 giras educativas; 195 estudiantes.
       act_murales_mes:3,     // 3 proyectos de murales escolares.
-      act_centros_acopio_mes:0, act_limpiezas_mes:3, act_proyectos_gestion_mes:5,
+      act_centros_acopio_mes:0, act_limpiezas_mes:3, act_proyectos_gestion_mes:0,
       // Diplomado juvenil y gestión complementaria.
       docentes_induccion_mes:0, centros_induccion_mes:0, estudiantes_diagnostico_mes:0,
       diplomado_marzo_inscritos_mes:0,
@@ -2359,7 +2375,7 @@
       jovenes_formados_diplomado_mes:67, propuestas_juveniles_mes:5, capitales_semilla_mes:0,
       coordinaciones_clave_mes:4,
       coordinaciones_clave_texto:'4 actividades puntuales',
-      logros_texto:'Durante junio 2026 se desarrolló el Módulo 4: El Suelo. La cobertura pedagógica alcanzó 13 municipios, 49 centros educativos, 120 docentes y 3,436 estudiantes. Se cerró y clausuró el diplomado formativo con 67 estudiantes y presentación de 5 proyectos de gestión ambiental escolar y comunitaria. En actividades de campo se registraron 3 campañas de limpieza, 5 giras educativas, 1 feria ambiental, seguimiento a 4 huertos escolares y 3 murales escolares.',
+      logros_texto:'Durante junio 2026 se desarrolló el Módulo 4: El Suelo. La cobertura pedagógica alcanzó 13 municipios, 49 centros educativos, 120 docentes y 3,436 estudiantes. Se cerró y clausuró el diplomado formativo con 67 estudiantes. En actividades de campo se registraron 3 campañas de limpieza, 5 giras educativas, 1 feria ambiental, seguimiento a 4 huertos escolares y 3 murales escolares.',
       alertas_texto:'',
       fuente_texto:'Resumen junio 2026 EPC-Lisandro + Resumen para Junta Directiva AALA',
       tiene_datos_mes:true, is_latest_data_month:true
@@ -2414,7 +2430,7 @@
        aporta_metas_epc:true,es_exigible:false,estatus:'gris',orden_dashboard:11,nota_metodologica:'Ventana octubre-diciembre.',is_latest_data_month:true},
       {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-06',mes_num:6,mes_label:'Junio',
        indicator_id:'act_tul',indicador_nombre:'Manejo / poda / mantenimiento de tul',unidad:'actividades',categoria:'tactico',modelo_medicion:'annual_cumulative_profiled',
-       valor_mes:0,valor_acumulado:2,meta_mes:0,meta_anual:10,esperado_al_corte:4,pct_meta_anual:0.2,pct_vs_esperado:0.5,cumplio_mes:0,meses_cumplidos:2,meses_transcurridos:4,
+       valor_mes:0,valor_acumulado:3,meta_mes:0,meta_anual:10,esperado_al_corte:4,pct_meta_anual:0.3,pct_vs_esperado:0.75,cumplio_mes:0,meses_cumplidos:2,meses_transcurridos:4,
        aporta_metas_epc:true,es_exigible:true,estatus:'amarillo',orden_dashboard:12,nota_metodologica:'Compara acumulado real vs esperado al corte.',is_latest_data_month:true},
       {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-06',mes_num:6,mes_label:'Junio',
        indicator_id:'act_ferias',indicador_nombre:'Ferias ambientales',unidad:'actividades',categoria:'tactico',modelo_medicion:'annual_cumulative_profiled',
@@ -2422,7 +2438,7 @@
        aporta_metas_epc:true,es_exigible:true,estatus:'amarillo',orden_dashboard:13,nota_metodologica:'Compara acumulado real vs esperado al corte.',is_latest_data_month:true},
       {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-06',mes_num:6,mes_label:'Junio',
        indicator_id:'act_huertos',indicador_nombre:'Huertos escolares',unidad:'actividades',categoria:'tactico',modelo_medicion:'milestone_window',
-       valor_mes:4,valor_acumulado:8,meta_mes:0,meta_anual:8,esperado_al_corte:4,pct_meta_anual:1.0,pct_vs_esperado:2.0,cumplio_mes:1,meses_cumplidos:3,meses_transcurridos:4,
+       valor_mes:4,valor_acumulado:4,meta_mes:0,meta_anual:8,esperado_al_corte:4,pct_meta_anual:0.5,pct_vs_esperado:1.0,cumplio_mes:1,meses_cumplidos:3,meses_transcurridos:4,
        aporta_metas_epc:true,es_exigible:true,estatus:'verde',orden_dashboard:14,nota_metodologica:'Ventana abril-septiembre.',is_latest_data_month:true},
       {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-06',mes_num:6,mes_label:'Junio',
        indicator_id:'act_giras',indicador_nombre:'Giras educativas',unidad:'actividades',categoria:'tactico',modelo_medicion:'annual_cumulative_profiled',
@@ -2430,7 +2446,7 @@
        aporta_metas_epc:true,es_exigible:true,estatus:'verde',orden_dashboard:15,nota_metodologica:'Compara acumulado real vs esperado al corte.',is_latest_data_month:true},
       {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-06',mes_num:6,mes_label:'Junio',
        indicator_id:'act_murales',indicador_nombre:'Murales pedagógicos',unidad:'actividades',categoria:'tactico',modelo_medicion:'milestone_window',
-       valor_mes:3,valor_acumulado:7,meta_mes:0,meta_anual:4,esperado_al_corte:4,pct_meta_anual:1.75,pct_vs_esperado:1.75,cumplio_mes:1,meses_cumplidos:3,meses_transcurridos:4,
+       valor_mes:3,valor_acumulado:5,meta_mes:0,meta_anual:4,esperado_al_corte:4,pct_meta_anual:1.25,pct_vs_esperado:1.25,cumplio_mes:1,meses_cumplidos:3,meses_transcurridos:4,
        aporta_metas_epc:true,es_exigible:true,estatus:'verde',orden_dashboard:16,nota_metodologica:'Ventana abril-mayo; junio registra 3 murales adicionales según informe.',is_latest_data_month:true},
       {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-06',mes_num:6,mes_label:'Junio',
        indicator_id:'act_centros_acopio',indicador_nombre:'Centros de acopio escolar',unidad:'actividades',categoria:'tactico',modelo_medicion:'milestone_window',
@@ -2442,8 +2458,8 @@
        aporta_metas_epc:true,es_exigible:true,estatus:'verde',orden_dashboard:18,nota_metodologica:'Compara acumulado real vs esperado al corte.',is_latest_data_month:true},
       {program_id:'educando_para_conservar',programa:'Educando para Conservar',periodo_clave:'2026-06',mes_num:6,mes_label:'Junio',
        indicator_id:'act_proyectos_gestion',indicador_nombre:'Proyectos de gestión ambiental escolar',unidad:'actividades',categoria:'tactico',modelo_medicion:'milestone_window',
-       valor_mes:5,valor_acumulado:5,meta_mes:0,meta_anual:2,esperado_al_corte:1,pct_meta_anual:2.5,pct_vs_esperado:5.0,cumplio_mes:1,meses_cumplidos:1,meses_transcurridos:4,
-       aporta_metas_epc:true,es_exigible:true,estatus:'verde',orden_dashboard:19,nota_metodologica:'Presentación de 5 proyectos de gestión ambiental escolar y comunitaria.',is_latest_data_month:true}
+       valor_mes:0,valor_acumulado:0,meta_mes:0,meta_anual:2,esperado_al_corte:1,pct_meta_anual:0,pct_vs_esperado:0,cumplio_mes:0,meses_cumplidos:0,meses_transcurridos:4,
+       aporta_metas_epc:true,es_exigible:true,estatus:'verde',orden_dashboard:19,nota_metodologica:'Sin proyectos de gestión ambiental escolar registrados en junio.',is_latest_data_month:true}
     ];
 
     // Inject into state
