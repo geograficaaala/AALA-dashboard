@@ -95,3 +95,19 @@ fortalecimiento_municipal,Fortalecimiento municipal,2026-06,2026,6,Junio,otro_pe
 fortalecimiento_municipal,Fortalecimiento municipal,2026-06,2026,6,Junio,personas_capacitadas_total,Personas capacitadas totales,complementario,100,personas,57.0,68.0,,,,,
 fortalecimiento_municipal,Fortalecimiento municipal,2026-06,2026,6,Junio,reuniones_totales,Reuniones totales,complementario,100,reuniones,1.0,32.0,,,,,
 fortalecimiento_municipal,Fortalecimiento municipal,2026-06,2026,6,Junio,tecnicos_capacitados_total,Técnicos capacitados,complementario,100,personas,57.0,66.0,,,,,
+fortalecimiento_municipal,Fortalecimiento municipal,2026-07,2026,7,Julio,municipios_capacitacion_nucleo,Municipios alcanzados por capacitaciones núcleo,primario,1,municipios,12.0,14.0,15.0,8.75,0.9333333333333333,1.6,green
+fortalecimiento_municipal,Fortalecimiento municipal,2026-07,2026,7,Julio,personas_capacitadas_nucleo,Personas capacitadas en temas núcleo,primario,2,personas,41.0,109.0,75.0,43.75,1.4533333333333334,2.4914285714285715,green
+fortalecimiento_municipal,Fortalecimiento municipal,2026-07,2026,7,Julio,asistencias_priorizadas_proxy,Asistencias técnicas priorizadas de agua y saneamiento (proxy operativo),primario,3,proyectos,1.0,18.0,3.0,1.75,6.0,10.285714285714286,green
+fortalecimiento_municipal,Fortalecimiento municipal,2026-07,2026,7,Julio,estudios_rs_comercial_mercados,Estudios de residuos sólidos sector comercial / mercados finalizados,primario,4,estudios,1.0,3.0,2.0,1.1666666666666667,1.5,2.571428571428571,green
+fortalecimiento_municipal,Fortalecimiento municipal,2026-07,2026,7,Julio,pirdes_implementados,PIRDES implementados,primario,5,municipios,1.0,5.0,5.0,2.9166666666666665,1.0,1.7142857142857144,green
+fortalecimiento_municipal,Fortalecimiento municipal,2026-07,2026,7,Julio,reuniones_codema,Reuniones del eje de agua y saneamiento / CODEMA,primario,6,reuniones,1.0,6.0,10.0,5.833333333333333,0.6,1.0285714285714287,green
+fortalecimiento_municipal,Fortalecimiento municipal,2026-07,2026,7,Julio,mesas_tecnicas_departamentales,Mesas técnicas departamentales de agua y saneamiento,primario,7,mesas,0.0,0.0,2.0,1.1666666666666667,0.0,0.0,muted
+fortalecimiento_municipal,Fortalecimiento municipal,2026-07,2026,7,Julio,asistencias_nuevas_total,Asistencias nuevas totales,complementario,100,asistencias,2.0,23.0,,,,,
+fortalecimiento_municipal,Fortalecimiento municipal,2026-07,2026,7,Julio,estudios_finalizados_total,Estudios finalizados totales,complementario,100,estudios,1.0,7.0,,,,,
+fortalecimiento_municipal,Fortalecimiento municipal,2026-07,2026,7,Julio,eventos_capacitacion_total,Eventos de capacitación,complementario,100,eventos,2.0,9.0,,,,,
+fortalecimiento_municipal,Fortalecimiento municipal,2026-07,2026,7,Julio,mesas_tecnicas_municipales,Mesas técnicas municipales,complementario,100,mesas,0.0,11.0,,,,,
+fortalecimiento_municipal,Fortalecimiento municipal,2026-07,2026,7,Julio,operarios_capacitados_total,Operarios capacitados,complementario,100,personas,0.0,2.0,,,,,
+fortalecimiento_municipal,Fortalecimiento municipal,2026-07,2026,7,Julio,otro_personal_capacitado_total,Otro personal capacitado,complementario,100,personas,0.0,0.0,,,,,
+fortalecimiento_municipal,Fortalecimiento municipal,2026-07,2026,7,Julio,personas_capacitadas_total,Personas capacitadas totales,complementario,100,personas,41.0,109.0,,,,,
+fortalecimiento_municipal,Fortalecimiento municipal,2026-07,2026,7,Julio,reuniones_totales,Reuniones totales,complementario,100,reuniones,2.0,34.0,,,,,
+fortalecimiento_municipal,Fortalecimiento municipal,2026-07,2026,7,Julio,tecnicos_capacitados_total,Técnicos capacitados,complementario,100,personas,41.0,107.0,,,,,
