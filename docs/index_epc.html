@@ -762,6 +762,12 @@
         act_huertos_mes: 4,
         act_murales_mes: 5,
         act_proyectos_gestion_mes: 0
+      },
+      '2026-07': {
+        act_tul_mes: 5,
+        act_huertos_mes: 4,
+        act_murales_mes: 5,
+        act_proyectos_gestion_mes: 2
       }
     };
 
@@ -778,6 +784,7 @@
     // El avance anual de estudiantes se reconoce por sostenimiento dentro de las sesiones de cada cohorte, no por sumar estudiantes cada mes.
     const DIPLOMA_ANNUAL_STUDENTS = 120;
     const DIPLOMA_COHORT_SIZE = 60;
+    const DIPLOMA_COHORT_SIZES = { 1:60, 2:64 };
     const DIPLOMA_SESSIONS_PER_COHORT = 6;
     const DIPLOMA_ANNUAL_SESSIONS = 12;
     const DIPLOMA_SESSIONS = [
@@ -985,13 +992,17 @@
       return `${fmt(DIPLOMA_ANNUAL_STUDENTS)} estudiantes formados`;
     }
 
+    function diplomaCohortSize(cohort){
+      return Number(DIPLOMA_COHORT_SIZES[Number(cohort)] || DIPLOMA_COHORT_SIZE);
+    }
+
     function diplomaMonthlyStudentMainText(period){
       const sessions = diplomaSessionsInPeriod(period);
       if(!sessions.length) return 'Programado';
       const cohort = sessions[0].cohort;
       const completedInCohort = diplomaCompletedByCohort(period, cohort);
       const isFinalSessionMonth = completedInCohort >= DIPLOMA_SESSIONS_PER_COHORT && sessions.some(item => item.type === 'presentación final');
-      return `${fmt(DIPLOMA_COHORT_SIZE)} estudiantes ${isFinalSessionMonth ? 'formados' : 'en formación'}`;
+      return `${fmt(diplomaCohortSize(cohort))} estudiantes ${isFinalSessionMonth ? 'formados' : 'en formación'}`;
     }
 
     function sessionUnit(count){
@@ -1059,18 +1070,21 @@
       const isActive = sessions.length > 0;
       const progress = isActive ? 1 : 0;
       const cohort = isActive ? sessions[0].cohort : diplomaCurrentCohort(state.periodo);
+      const cohortSize = diplomaCohortSize(cohort);
+      const monthlyTarget = DIPLOMA_COHORT_SIZE;
+      const monthlyProgress = isActive && monthlyTarget > 0 ? cohortSize / monthlyTarget : 0;
       return {
         label:'Estudiantes del diplomado',
         window:'',
         hideWindow:true,
-        tone: greenToneFromProgress(isActive ? 'active' : 'pending', progress),
+        tone: greenToneFromProgress(isActive ? 'active' : 'pending', monthlyProgress),
         chip: isActive ? `Cohorte ${cohort}` : '',
         valueText: diplomaMonthlyStudentMainText(state.periodo),
-        reference: isActive ? `Meta mensual <strong>${fmt(DIPLOMA_COHORT_SIZE)} estudiantes sostenidos</strong>` : 'Estado <strong>Programado</strong>',
+        reference: isActive ? `Meta mensual <strong>${fmt(monthlyTarget)} estudiantes sostenidos</strong>` : 'Estado <strong>Programado</strong>',
         line1:'',
-        line2: isActive ? 'Cumplimiento de meta mensual: <strong>100.00%</strong>' : '',
-        progressWidth: progress * 100,
-        pillarHeight: Math.max(8, progress * 100)
+        line2: isActive ? `Cumplimiento de meta mensual: <strong>${fmtPct(monthlyProgress)}</strong>` : '',
+        progressWidth: Math.min(monthlyProgress, 1) * 100,
+        pillarHeight: Math.max(8, Math.min(monthlyProgress, 1) * 100)
       };
     }
 
@@ -1153,8 +1167,11 @@
     function operationalKpiData(cfg, row){
       const monthNum = Number(row.mes_num || 0);
       const actual = Number(row[cfg.key] || 0);
-      const hasWindow = Number.isFinite(Number(cfg.start)) && Number.isFinite(Number(cfg.end));
-      const status = !hasWindow ? 'pending' : (monthNum < cfg.start ? 'pending' : (monthNum > cfg.end ? 'closed' : 'active'));
+      const projectWindow = cfg.id === 'act_proyectos_gestion' && monthNum >= 7;
+      const startMonth = projectWindow ? 7 : cfg.start;
+      const endMonth = projectWindow ? 12 : cfg.end;
+      const hasWindow = Number.isFinite(Number(startMonth)) && Number.isFinite(Number(endMonth));
+      const status = !hasWindow ? 'pending' : (monthNum < startMonth ? 'pending' : (monthNum > endMonth ? 'closed' : 'active'));
       const progress = cfg.target > 0 ? actual / cfg.target : 0;
       const tone = toneFromProgress(status, progress);
       const isPendingWithoutResult = status === 'pending' && actual === 0;
@@ -1293,6 +1310,7 @@
 
     function annualOperationalStatus(cfg, row){
       const monthNum = Number(row.mes_num || 0);
+      if(cfg.key === 'act_proyectos_gestion_mes' && monthNum >= 7) return monthNum > 12 ? 'closed' : 'active';
       if(cfg.start == null || cfg.end == null) return 'pending';
       if(monthNum < Number(cfg.start)) return 'pending';
       if(monthNum > Number(cfg.end)) return 'closed';
@@ -1306,7 +1324,8 @@
         const status = annualOperationalStatus(cfg, row);
         const pct = status === 'pending' ? null : rawPct;
         const visualPct = status === 'pending' ? 0 : clampPct(rawPct);
-        return { ...cfg, actual, rawPct, pct, visualPct, status };
+        const window = cfg.key === 'act_proyectos_gestion_mes' && Number(row.mes_num || 0) >= 7 ? 'Julio a diciembre' : cfg.window;
+        return { ...cfg, window, actual, rawPct, pct, visualPct, status };
       });
     }
 
@@ -2462,6 +2481,560 @@
        aporta_metas_epc:true,es_exigible:true,estatus:'verde',orden_dashboard:19,nota_metodologica:'Sin proyectos de gestión ambiental escolar registrados en junio.',is_latest_data_month:true}
     ];
 
+
+
+    // ── PATCH: Datos de Julio 2026 EPC ────────────────────────────────────────
+    const JULIO_TOTAL = {
+  "program_id": "educando_para_conservar",
+  "program_name": "Educando para Conservar",
+  "periodo_clave": "2026-07",
+  "anio": 2026,
+  "mes_num": 7,
+  "mes_label": "Julio",
+  "mes_ciclo_epc": 5,
+  "aporta_metas_epc": true,
+  "docentes_mes": 115,
+  "estudiantes_epc_mes": 3178,
+  "centros_mes": 46,
+  "municipios_mes": 13,
+  "actividades_campo_mes": 25,
+  "estudiantes_actividades_campo_mes": 1815,
+  "act_reforestacion_mes": 14,
+  "act_monitoreo_reforestadas_mes": 0,
+  "act_tul_mes": 2,
+  "act_ferias_mes": 3,
+  "act_huertos_mes": 2,
+  "act_giras_mes": 0,
+  "act_murales_mes": 0,
+  "act_centros_acopio_mes": 0,
+  "act_limpiezas_mes": 1,
+  "act_proyectos_gestion_mes": 2,
+  "docentes_induccion_mes": 0,
+  "centros_induccion_mes": 0,
+  "estudiantes_diagnostico_mes": 0,
+  "diplomado_marzo_inscritos_mes": 0,
+  "diplomado_marzo_asistentes_mes": 0,
+  "diplomado_junio_inscritos_mes": 64,
+  "jovenes_formados_diplomado_mes": 0,
+  "propuestas_juveniles_mes": 0,
+  "capitales_semilla_mes": 0,
+  "coordinaciones_clave_mes": 0,
+  "coordinaciones_clave_texto": "Información no especificada",
+  "logros_texto": "Durante julio 2026 se desarrolló el Módulo 5 de la fase de co-facilitación en 13 municipios, con 46 centros educativos, 115 docentes y 3,178 estudiantes. Se realizaron 14 campañas de reforestación con 5,090 árboles y 880 estudiantes reportados; 3 ferias ambientales con 786 estudiantes; 2 jornadas de siembra de tul con 92 macollas y 82 participantes; seguimiento a 2 huertos escolares; 1 jornada de limpieza con 125 sacos recolectados; entrega de materiales para 2 proyectos de gestión ambiental escolar y un taller del Día del Árbol con 67 estudiantes. La segunda cohorte del diplomado inició con 64 estudiantes inscritos y 100% de asistencia en las clases 1 y 2.",
+  "alertas_texto": "El resumen mensual reporta 880 estudiantes en las reforestaciones, mientras que la tabla detallada suma 920 participantes. Para el indicador se conserva el dato consolidado de 880 estudiantes y el total coincidente de 5,090 árboles. Las actividades sin cifra de participantes no se suman al total de estudiantes de campo.",
+  "fuente_texto": "Resultados pedagógicos EPC julio 2026 + Resumen de informe para JD AALA julio 2026 + Reforestación 2026",
+  "tiene_datos_mes": true,
+  "is_latest_data_month": true
+};
+
+    // ── PATCH: Indicadores de Julio 2026 ──────────────────────────────────────
+    const JULIO_INDICADORES = [
+  {
+    "program_id": "educando_para_conservar",
+    "programa": "Educando para Conservar",
+    "periodo_clave": "2026-07",
+    "mes_num": 7,
+    "mes_label": "Julio",
+    "aporta_metas_epc": true,
+    "is_latest_data_month": true,
+    "indicator_id": "docentes_capacitados",
+    "indicador_nombre": "Docentes capacitados",
+    "unidad": "personas",
+    "categoria": "estrategico",
+    "modelo_medicion": "monthly_recurrent",
+    "valor_mes": 115,
+    "valor_acumulado": 596,
+    "meta_mes": 121,
+    "meta_anual": 8,
+    "esperado_al_corte": 121,
+    "pct_meta_anual": 0.9504132231404959,
+    "pct_vs_esperado": 0.9504132231404959,
+    "cumplio_mes": 1,
+    "meses_cumplidos": 5,
+    "meses_transcurridos": 5,
+    "es_exigible": true,
+    "estatus": "verde",
+    "orden_dashboard": 1,
+    "nota_metodologica": "Mide cumplimiento mensual del estándar y sostenimiento del ciclo EPC."
+  },
+  {
+    "program_id": "educando_para_conservar",
+    "programa": "Educando para Conservar",
+    "periodo_clave": "2026-07",
+    "mes_num": 7,
+    "mes_label": "Julio",
+    "aporta_metas_epc": true,
+    "is_latest_data_month": true,
+    "indicator_id": "centros_cobertura",
+    "indicador_nombre": "Centros alcanzados",
+    "unidad": "centros",
+    "categoria": "estrategico",
+    "modelo_medicion": "monthly_recurrent",
+    "valor_mes": 46,
+    "valor_acumulado": 245,
+    "meta_mes": 50,
+    "meta_anual": 8,
+    "esperado_al_corte": 50,
+    "pct_meta_anual": 0.92,
+    "pct_vs_esperado": 0.92,
+    "cumplio_mes": 1,
+    "meses_cumplidos": 5,
+    "meses_transcurridos": 5,
+    "es_exigible": true,
+    "estatus": "verde",
+    "orden_dashboard": 2,
+    "nota_metodologica": "Mide cumplimiento mensual del estándar y sostenimiento del ciclo EPC."
+  },
+  {
+    "program_id": "educando_para_conservar",
+    "programa": "Educando para Conservar",
+    "periodo_clave": "2026-07",
+    "mes_num": 7,
+    "mes_label": "Julio",
+    "aporta_metas_epc": true,
+    "is_latest_data_month": true,
+    "indicator_id": "municipios_actividad_pedagogica",
+    "indicador_nombre": "Municipios con actividad pedagógica",
+    "unidad": "municipios",
+    "categoria": "estrategico",
+    "modelo_medicion": "monthly_recurrent",
+    "valor_mes": 13,
+    "valor_acumulado": 65,
+    "meta_mes": 13,
+    "meta_anual": 8,
+    "esperado_al_corte": 13,
+    "pct_meta_anual": 1,
+    "pct_vs_esperado": 1,
+    "cumplio_mes": 1,
+    "meses_cumplidos": 5,
+    "meses_transcurridos": 5,
+    "es_exigible": true,
+    "estatus": "verde",
+    "orden_dashboard": 3,
+    "nota_metodologica": "Mide cumplimiento mensual del estándar y sostenimiento del ciclo EPC."
+  },
+  {
+    "program_id": "educando_para_conservar",
+    "programa": "Educando para Conservar",
+    "periodo_clave": "2026-07",
+    "mes_num": 7,
+    "mes_label": "Julio",
+    "aporta_metas_epc": true,
+    "is_latest_data_month": true,
+    "indicator_id": "estudiantes_epc",
+    "indicador_nombre": "Estudiantes EPC",
+    "unidad": "estudiantes",
+    "categoria": "estrategico",
+    "modelo_medicion": "monthly_recurrent",
+    "valor_mes": 3178,
+    "valor_acumulado": 17102,
+    "meta_mes": 3514,
+    "meta_anual": 8,
+    "esperado_al_corte": 3514,
+    "pct_meta_anual": 0.9043824701195219,
+    "pct_vs_esperado": 0.9043824701195219,
+    "cumplio_mes": 1,
+    "meses_cumplidos": 5,
+    "meses_transcurridos": 5,
+    "es_exigible": true,
+    "estatus": "verde",
+    "orden_dashboard": 4,
+    "nota_metodologica": "Mide cumplimiento mensual del estándar y sostenimiento del ciclo EPC."
+  },
+  {
+    "program_id": "educando_para_conservar",
+    "programa": "Educando para Conservar",
+    "periodo_clave": "2026-07",
+    "mes_num": 7,
+    "mes_label": "Julio",
+    "aporta_metas_epc": true,
+    "is_latest_data_month": true,
+    "indicator_id": "actividades_campo",
+    "indicador_nombre": "Actividades de campo",
+    "unidad": "actividades",
+    "categoria": "estrategico",
+    "modelo_medicion": "annual_cumulative_profiled",
+    "valor_mes": 25,
+    "valor_acumulado": 86,
+    "meta_mes": 0,
+    "meta_anual": 128,
+    "esperado_al_corte": 80,
+    "pct_meta_anual": 0.671875,
+    "pct_vs_esperado": 1.075,
+    "cumplio_mes": 1,
+    "meses_cumplidos": 5,
+    "meses_transcurridos": 5,
+    "es_exigible": true,
+    "estatus": "verde",
+    "orden_dashboard": 5,
+    "nota_metodologica": "Compara acumulado real vs esperado al corte con perfil marzo-octubre."
+  },
+  {
+    "program_id": "educando_para_conservar",
+    "programa": "Educando para Conservar",
+    "periodo_clave": "2026-07",
+    "mes_num": 7,
+    "mes_label": "Julio",
+    "aporta_metas_epc": true,
+    "is_latest_data_month": true,
+    "indicator_id": "jovenes_formados_diplomado",
+    "indicador_nombre": "Jóvenes formados en diplomado",
+    "unidad": "jóvenes",
+    "categoria": "estrategico",
+    "modelo_medicion": "milestone_window",
+    "valor_mes": 0,
+    "valor_acumulado": 67,
+    "meta_mes": 0,
+    "meta_anual": 120,
+    "esperado_al_corte": 60,
+    "pct_meta_anual": 0.5583333333333333,
+    "pct_vs_esperado": 1.1166666666666667,
+    "cumplio_mes": 0,
+    "meses_cumplidos": 1,
+    "meses_transcurridos": 5,
+    "es_exigible": true,
+    "estatus": "verde",
+    "orden_dashboard": 7,
+    "nota_metodologica": "La primera cohorte conserva 67 jóvenes formados; en julio inició la segunda cohorte con 64 inscritos."
+  },
+  {
+    "program_id": "educando_para_conservar",
+    "programa": "Educando para Conservar",
+    "periodo_clave": "2026-07",
+    "mes_num": 7,
+    "mes_label": "Julio",
+    "aporta_metas_epc": true,
+    "is_latest_data_month": true,
+    "indicator_id": "propuestas_juveniles",
+    "indicador_nombre": "Propuestas juveniles",
+    "unidad": "propuestas",
+    "categoria": "estrategico",
+    "modelo_medicion": "milestone_window",
+    "valor_mes": 0,
+    "valor_acumulado": 5,
+    "meta_mes": 0,
+    "meta_anual": 12,
+    "esperado_al_corte": 6,
+    "pct_meta_anual": 0.4166666666666667,
+    "pct_vs_esperado": 0.8333333333333334,
+    "cumplio_mes": 0,
+    "meses_cumplidos": 1,
+    "meses_transcurridos": 5,
+    "es_exigible": true,
+    "estatus": "amarillo",
+    "orden_dashboard": 8,
+    "nota_metodologica": "Sin nuevas propuestas juveniles reportadas en julio."
+  },
+  {
+    "program_id": "educando_para_conservar",
+    "programa": "Educando para Conservar",
+    "periodo_clave": "2026-07",
+    "mes_num": 7,
+    "mes_label": "Julio",
+    "aporta_metas_epc": true,
+    "is_latest_data_month": true,
+    "indicator_id": "capitales_semilla",
+    "indicador_nombre": "Capitales semilla entregados",
+    "unidad": "capitales",
+    "categoria": "estrategico",
+    "modelo_medicion": "milestone_window",
+    "valor_mes": 0,
+    "valor_acumulado": 0,
+    "meta_mes": 0,
+    "meta_anual": 4,
+    "esperado_al_corte": 0,
+    "pct_meta_anual": 0,
+    "pct_vs_esperado": 0,
+    "cumplio_mes": 0,
+    "meses_cumplidos": 0,
+    "meses_transcurridos": 5,
+    "es_exigible": false,
+    "estatus": "gris",
+    "orden_dashboard": 9,
+    "nota_metodologica": "Sin registro de capitales semilla entregados en julio."
+  },
+  {
+    "program_id": "educando_para_conservar",
+    "programa": "Educando para Conservar",
+    "periodo_clave": "2026-07",
+    "mes_num": 7,
+    "mes_label": "Julio",
+    "aporta_metas_epc": true,
+    "is_latest_data_month": true,
+    "indicator_id": "act_reforestacion",
+    "indicador_nombre": "Campañas de reforestación",
+    "unidad": "actividades",
+    "categoria": "tactico",
+    "modelo_medicion": "annual_cumulative_profiled",
+    "valor_mes": 14,
+    "valor_acumulado": 14,
+    "meta_mes": 0,
+    "meta_anual": 20,
+    "esperado_al_corte": 14,
+    "pct_meta_anual": 0.7,
+    "pct_vs_esperado": 1,
+    "cumplio_mes": 1,
+    "meses_cumplidos": 1,
+    "meses_transcurridos": 5,
+    "es_exigible": true,
+    "estatus": "verde",
+    "orden_dashboard": 10,
+    "nota_metodologica": "Julio reporta 14 campañas, 5,090 árboles y 880 estudiantes en el consolidado mensual."
+  },
+  {
+    "program_id": "educando_para_conservar",
+    "programa": "Educando para Conservar",
+    "periodo_clave": "2026-07",
+    "mes_num": 7,
+    "mes_label": "Julio",
+    "aporta_metas_epc": true,
+    "is_latest_data_month": true,
+    "indicator_id": "act_monitoreo_reforestadas",
+    "indicador_nombre": "Monitoreo de áreas reforestadas",
+    "unidad": "actividades",
+    "categoria": "tactico",
+    "modelo_medicion": "annual_cumulative_profiled",
+    "valor_mes": 0,
+    "valor_acumulado": 0,
+    "meta_mes": 0,
+    "meta_anual": 8,
+    "esperado_al_corte": 0,
+    "pct_meta_anual": 0,
+    "pct_vs_esperado": 0,
+    "cumplio_mes": 0,
+    "meses_cumplidos": 0,
+    "meses_transcurridos": 5,
+    "es_exigible": false,
+    "estatus": "gris",
+    "orden_dashboard": 11,
+    "nota_metodologica": "Ventana octubre-diciembre."
+  },
+  {
+    "program_id": "educando_para_conservar",
+    "programa": "Educando para Conservar",
+    "periodo_clave": "2026-07",
+    "mes_num": 7,
+    "mes_label": "Julio",
+    "aporta_metas_epc": true,
+    "is_latest_data_month": true,
+    "indicator_id": "act_tul",
+    "indicador_nombre": "Manejo / poda / mantenimiento de tul",
+    "unidad": "actividades",
+    "categoria": "tactico",
+    "modelo_medicion": "annual_cumulative_profiled",
+    "valor_mes": 2,
+    "valor_acumulado": 5,
+    "meta_mes": 0,
+    "meta_anual": 10,
+    "esperado_al_corte": 5,
+    "pct_meta_anual": 0.5,
+    "pct_vs_esperado": 1,
+    "cumplio_mes": 1,
+    "meses_cumplidos": 3,
+    "meses_transcurridos": 5,
+    "es_exigible": true,
+    "estatus": "verde",
+    "orden_dashboard": 12,
+    "nota_metodologica": "Dos jornadas en julio: Jaibal y Santa Catarina Palopó; 92 macollas en total."
+  },
+  {
+    "program_id": "educando_para_conservar",
+    "programa": "Educando para Conservar",
+    "periodo_clave": "2026-07",
+    "mes_num": 7,
+    "mes_label": "Julio",
+    "aporta_metas_epc": true,
+    "is_latest_data_month": true,
+    "indicator_id": "act_ferias",
+    "indicador_nombre": "Ferias ambientales",
+    "unidad": "actividades",
+    "categoria": "tactico",
+    "modelo_medicion": "annual_cumulative_profiled",
+    "valor_mes": 3,
+    "valor_acumulado": 9,
+    "meta_mes": 0,
+    "meta_anual": 16,
+    "esperado_al_corte": 10,
+    "pct_meta_anual": 0.5625,
+    "pct_vs_esperado": 0.9,
+    "cumplio_mes": 1,
+    "meses_cumplidos": 5,
+    "meses_transcurridos": 5,
+    "es_exigible": true,
+    "estatus": "amarillo",
+    "orden_dashboard": 13,
+    "nota_metodologica": "Tres ferias en Sololá, San Pablo La Laguna y San Lucas Tolimán; 786 estudiantes."
+  },
+  {
+    "program_id": "educando_para_conservar",
+    "programa": "Educando para Conservar",
+    "periodo_clave": "2026-07",
+    "mes_num": 7,
+    "mes_label": "Julio",
+    "aporta_metas_epc": true,
+    "is_latest_data_month": true,
+    "indicator_id": "act_huertos",
+    "indicador_nombre": "Huertos escolares",
+    "unidad": "actividades",
+    "categoria": "tactico",
+    "modelo_medicion": "milestone_window",
+    "valor_mes": 2,
+    "valor_acumulado": 4,
+    "meta_mes": 0,
+    "meta_anual": 8,
+    "esperado_al_corte": 4,
+    "pct_meta_anual": 0.5,
+    "pct_vs_esperado": 1,
+    "cumplio_mes": 1,
+    "meses_cumplidos": 4,
+    "meses_transcurridos": 5,
+    "es_exigible": true,
+    "estatus": "verde",
+    "orden_dashboard": 14,
+    "nota_metodologica": "Seguimiento a dos huertos ya reportados; el acumulado único se conserva en cuatro."
+  },
+  {
+    "program_id": "educando_para_conservar",
+    "programa": "Educando para Conservar",
+    "periodo_clave": "2026-07",
+    "mes_num": 7,
+    "mes_label": "Julio",
+    "aporta_metas_epc": true,
+    "is_latest_data_month": true,
+    "indicator_id": "act_giras",
+    "indicador_nombre": "Giras educativas",
+    "unidad": "actividades",
+    "categoria": "tactico",
+    "modelo_medicion": "annual_cumulative_profiled",
+    "valor_mes": 0,
+    "valor_acumulado": 17,
+    "meta_mes": 0,
+    "meta_anual": 24,
+    "esperado_al_corte": 17,
+    "pct_meta_anual": 0.7083333333333334,
+    "pct_vs_esperado": 1,
+    "cumplio_mes": 0,
+    "meses_cumplidos": 4,
+    "meses_transcurridos": 5,
+    "es_exigible": true,
+    "estatus": "verde",
+    "orden_dashboard": 15,
+    "nota_metodologica": "Sin giras educativas reportadas en julio."
+  },
+  {
+    "program_id": "educando_para_conservar",
+    "programa": "Educando para Conservar",
+    "periodo_clave": "2026-07",
+    "mes_num": 7,
+    "mes_label": "Julio",
+    "aporta_metas_epc": true,
+    "is_latest_data_month": true,
+    "indicator_id": "act_murales",
+    "indicador_nombre": "Murales pedagógicos",
+    "unidad": "actividades",
+    "categoria": "tactico",
+    "modelo_medicion": "milestone_window",
+    "valor_mes": 0,
+    "valor_acumulado": 5,
+    "meta_mes": 0,
+    "meta_anual": 4,
+    "esperado_al_corte": 4,
+    "pct_meta_anual": 1.25,
+    "pct_vs_esperado": 1.25,
+    "cumplio_mes": 0,
+    "meses_cumplidos": 3,
+    "meses_transcurridos": 5,
+    "es_exigible": true,
+    "estatus": "verde",
+    "orden_dashboard": 16,
+    "nota_metodologica": "Sin nuevos murales reportados en julio; se conserva el acumulado previo."
+  },
+  {
+    "program_id": "educando_para_conservar",
+    "programa": "Educando para Conservar",
+    "periodo_clave": "2026-07",
+    "mes_num": 7,
+    "mes_label": "Julio",
+    "aporta_metas_epc": true,
+    "is_latest_data_month": true,
+    "indicator_id": "act_centros_acopio",
+    "indicador_nombre": "Centros de acopio escolar",
+    "unidad": "actividades",
+    "categoria": "tactico",
+    "modelo_medicion": "milestone_window",
+    "valor_mes": 0,
+    "valor_acumulado": 0,
+    "meta_mes": 0,
+    "meta_anual": 8,
+    "esperado_al_corte": 0,
+    "pct_meta_anual": 0,
+    "pct_vs_esperado": 0,
+    "cumplio_mes": 0,
+    "meses_cumplidos": 0,
+    "meses_transcurridos": 5,
+    "es_exigible": false,
+    "estatus": "gris",
+    "orden_dashboard": 17,
+    "nota_metodologica": "Sin registro de centros de acopio escolar en julio."
+  },
+  {
+    "program_id": "educando_para_conservar",
+    "programa": "Educando para Conservar",
+    "periodo_clave": "2026-07",
+    "mes_num": 7,
+    "mes_label": "Julio",
+    "aporta_metas_epc": true,
+    "is_latest_data_month": true,
+    "indicator_id": "act_limpiezas",
+    "indicador_nombre": "Campañas de limpieza escolar",
+    "unidad": "actividades",
+    "categoria": "tactico",
+    "modelo_medicion": "annual_cumulative_profiled",
+    "valor_mes": 1,
+    "valor_acumulado": 17,
+    "meta_mes": 0,
+    "meta_anual": 24,
+    "esperado_al_corte": 18,
+    "pct_meta_anual": 0.7083333333333334,
+    "pct_vs_esperado": 0.9444444444444444,
+    "cumplio_mes": 1,
+    "meses_cumplidos": 5,
+    "meses_transcurridos": 5,
+    "es_exigible": true,
+    "estatus": "amarillo",
+    "orden_dashboard": 18,
+    "nota_metodologica": "Una jornada en Santa Lucía Utatlán con 125 sacos de residuos sólidos recolectados."
+  },
+  {
+    "program_id": "educando_para_conservar",
+    "programa": "Educando para Conservar",
+    "periodo_clave": "2026-07",
+    "mes_num": 7,
+    "mes_label": "Julio",
+    "aporta_metas_epc": true,
+    "is_latest_data_month": true,
+    "indicator_id": "act_proyectos_gestion",
+    "indicador_nombre": "Proyectos de gestión ambiental escolar",
+    "unidad": "actividades",
+    "categoria": "tactico",
+    "modelo_medicion": "milestone_window",
+    "valor_mes": 2,
+    "valor_acumulado": 2,
+    "meta_mes": 0,
+    "meta_anual": 2,
+    "esperado_al_corte": 2,
+    "pct_meta_anual": 1,
+    "pct_vs_esperado": 1,
+    "cumplio_mes": 1,
+    "meses_cumplidos": 1,
+    "meses_transcurridos": 5,
+    "es_exigible": true,
+    "estatus": "verde",
+    "orden_dashboard": 19,
+    "nota_metodologica": "Materiales y herramientas entregados para la ejecución de dos proyectos en San Juan La Laguna y Santa Lucía Utatlán."
+  }
+];
+
     // Inject into state
     const upsertTotalRow = row => {
       const idx = state.data.total.findIndex(r=>String(r.periodo_clave)===String(row.periodo_clave));
@@ -2472,20 +3045,21 @@
     upsertTotalRow(ABRIL_TOTAL);
     upsertTotalRow(MAYO_TOTAL);
     upsertTotalRow(JUNIO_TOTAL);
+    upsertTotalRow(JULIO_TOTAL);
     state.data.total.sort((a,b)=>String(a.periodo_clave).localeCompare(String(b.periodo_clave)));
 
     // Remove any existing embedded-period indicadores, then add corrected ones
-    state.data.indicadores = state.data.indicadores.filter(r=>!['2026-04','2026-05','2026-06'].includes(String(r.periodo_clave)));
-    state.data.indicadores = state.data.indicadores.concat(ABRIL_INDICADORES, MAYO_INDICADORES, JUNIO_INDICADORES);
+    state.data.indicadores = state.data.indicadores.filter(r=>!['2026-04','2026-05','2026-06','2026-07'].includes(String(r.periodo_clave)));
+    state.data.indicadores = state.data.indicadores.concat(ABRIL_INDICADORES, MAYO_INDICADORES, JUNIO_INDICADORES, JULIO_INDICADORES);
 
     if(state.data.metadata && state.data.metadata[0]){
-      state.data.metadata[0].latest_period = '2026-06';
-      state.data.metadata[0].latest_month_label = 'Junio';
+      state.data.metadata[0].latest_period = '2026-07';
+      state.data.metadata[0].latest_month_label = 'Julio';
       state.data.metadata[0].periodos_detectados = state.data.total.map(r=>String(r.periodo_clave)).join(' | ');
       state.data.metadata[0].periods_count = state.data.total.length;
     }
 
-    state.periodo = '2026-06';
+    state.periodo = '2026-07';
         const periodos = state.data.total.filter(r=>isTrue(r.tiene_datos_mes)).sort((a,b)=> String(a.periodo_clave).localeCompare(String(b.periodo_clave)));
         state.periodo = periodos.length ? periodos[periodos.length-1].periodo_clave : '';
         buildPills(state.data.total);
