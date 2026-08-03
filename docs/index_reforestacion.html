@@ -2365,6 +2365,19 @@ const COMPLEMENTARY_KPI_SEED = [
   { periodo_clave:'2026-06', mes_num:6, mes_label:'Junio', componente:'Vivero forestal', kpi_id:'vivero_bolsas_llenadas', kpi_nombre:'Insumos preparados para producción de plantas', unidad:'bolsas', meta_mensual:200, valor_mes:194 },
   { periodo_clave:'2026-06', mes_num:6, mes_label:'Junio', componente:'Vivero forestal', kpi_id:'vivero_semillas_germinadas', kpi_nombre:'Germinación de especies nativas', unidad:'semillas', meta_mensual:100, valor_mes:96 },
   { periodo_clave:'2026-06', mes_num:6, mes_label:'Junio', componente:'Gestión del programa', kpi_id:'otras_actividades_estrategicas', kpi_nombre:'Reuniones estratégicas', unidad:'reuniones', meta_mensual:4, valor_mes:5, detalle:['Mesa estratégica de seguimiento de reforestación en junio','Reunión de revisión de indicadores y mapas en junio','Coordinación operativa para acciones de campo en junio','Apoyo interinstitucional para creación de polígonos de delimitación de extracción de arenas','Seguimiento técnico y administrativo de junio'] }
+,
+
+  // Julio 2026: escenario estimado de continuidad solicitado, sin documentos fuente.
+  { periodo_clave:'2026-07', mes_num:7, mes_label:'Julio', componente:'Mapas digitales', kpi_id:'sig_mapas_generados', kpi_nombre:'Mapas digitales para planificación forestal', unidad:'mapas', meta_mensual:12, valor_mes:12, detalle:['Seguimiento de áreas monitoreadas y cambios registrados en julio','Seguimiento operativo de recorridos de campo definidos en junio','Seguimiento de la actualización de sitios priorizados','Seguimiento de sectores listos para reforestación','Seguimiento de cobertura forestal y uso actual del suelo','Seguimiento de rutas hacia viveros y áreas de plantación','Seguimiento de comunidades con acuerdos de intervención','Seguimiento de polígonos de intervención forestal','Seguimiento interinstitucional a polígonos de extracción de arenas','Seguimiento de puntos de verificación integrados al SIG','Seguimiento cartográfico para el reporte técnico mensual','Seguimiento del avance de restauración forestal'] },
+  { periodo_clave:'2026-07', mes_num:7, mes_label:'Julio', componente:'Mapas digitales', kpi_id:'iot_monitoreo_ambiental', kpi_nombre:'Proyecto IoT para monitoreo ambiental', unidad:'proyectos', meta_mensual:1, valor_mes:0.65, detalle:['Seguimiento funcional del prototipo con Raspberry Pi 4B y sensores ambientales'] },
+  { periodo_clave:'2026-07', mes_num:7, mes_label:'Julio', componente:'Mapas digitales', kpi_id:'sig_servicios_digitales', kpi_nombre:'Plataformas digitales', unidad:'', meta_mensual:4, valor_mes:5, detalle:['Seguimiento del Geoportal de monitoreo forestal','Seguimiento del Visor de productos cartográficos','Seguimiento del Portal Forestal del Eje de Bosques CODEMA-Sololá','Seguimiento de la Plataforma de la Mesa Agroclimática de Sololá','Página de la Mesa Agroclimática de Sololá'] },
+  { periodo_clave:'2026-07', mes_num:7, mes_label:'Julio', componente:'Mapas digitales', kpi_id:'sig_capas_actualizadas', kpi_nombre:'Información geográfica forestal actualizada', unidad:'capas', meta_mensual:8, valor_mes:7, detalle:['Seguimiento de la capa de sitios priorizados','Seguimiento de la capa de cobertura forestal','Seguimiento de la capa de microcuencas prioritarias','Seguimiento de la capa de comunidades con coordinación activa','Seguimiento de la capa de rutas logísticas','Seguimiento de la capa de puntos de verificación','Seguimiento de la capa de áreas listas para plantación'] },
+  { periodo_clave:'2026-07', mes_num:7, mes_label:'Julio', componente:'Mapas digitales', kpi_id:'sig_analisis_entregados', kpi_nombre:'Análisis territoriales para toma de decisiones', unidad:'análisis', meta_mensual:6, valor_mes:5, detalle:['Seguimiento del análisis de preparación para temporada de campo','Actualización del cruce de polígonos con comunidades priorizadas','Seguimiento de la evaluación de cobertura forestal','Actualización de la priorización de zonas listas para plantación','Seguimiento del apoyo interinstitucional para delimitación de polígonos de extracción de arenas'] },
+  { periodo_clave:'2026-07', mes_num:7, mes_label:'Julio', componente:'Vivero forestal', kpi_id:'vivero_mantenimiento', kpi_nombre:'Actividades en campo', unidad:'actividades', meta_mensual:12, valor_mes:10 },
+  { periodo_clave:'2026-07', mes_num:7, mes_label:'Julio', componente:'Vivero forestal', kpi_id:'vivero_bolsas_llenadas', kpi_nombre:'Insumos preparados para producción de plantas', unidad:'bolsas', meta_mensual:200, valor_mes:160 },
+  { periodo_clave:'2026-07', mes_num:7, mes_label:'Julio', componente:'Vivero forestal', kpi_id:'vivero_semillas_germinadas', kpi_nombre:'Germinación de especies nativas', unidad:'semillas', meta_mensual:100, valor_mes:80 },
+  { periodo_clave:'2026-07', mes_num:7, mes_label:'Julio', componente:'Gestión del programa', kpi_id:'otras_actividades_estrategicas', kpi_nombre:'Reuniones estratégicas', unidad:'reuniones', meta_mensual:4, valor_mes:4, detalle:['Mesa estratégica de seguimiento de reforestación en julio','Reunión de seguimiento de indicadores y mapas de junio','Coordinación operativa para continuidad de acciones de campo','Seguimiento interinstitucional a compromisos y productos técnicos'] }
+
 
 ];
 
@@ -2554,6 +2567,7 @@ function applyProgramAdjustments(rows){
   const apr = ensureRow('2026-04', '2026-03');
   const may = ensureRow('2026-05', '2026-04');
   const jun = ensureRow('2026-06', '2026-05');
+  const jul = ensureRow('2026-07', '2026-06');
 
   // Marzo conserva la lectura anterior aproximada de 1,977 para el indicador de siembra
   // y para vivero, antes de mover 2,200 al mes de abril.
@@ -2772,6 +2786,72 @@ function applyProgramAdjustments(rows){
   });
 
 
+  // Julio 2026: escenario estimado de continuidad. Los incrementos sobre los acumulados
+  // de junio varían entre 14% y 18%; el sistema digital supera la meta por continuidad.
+  jun.is_latest_data_month = 'False';
+
+  const haJul = +(haJun * 1.15).toFixed(2);
+  const arbolesJul = Math.round(arbolesJun * 1.18);
+  const sigJul = +(sigJun * 1.14).toFixed(2);
+  const plantasJul = Math.round(plantasJun * 1.16);
+  const especiesJul = Math.min(safeNumber(jun.meta_especies || 10), 10);
+
+  Object.assign(jul, {
+    program_id: 'reforestacion',
+    program_name: 'Reforestación',
+    anio: '2026',
+    mes_num: '7',
+    mes_label: 'Julio',
+    fecha_corte: '2026-07-31',
+    monitoreo_activo: 'True',
+    ha_monitoreadas_registradas_mes: String(+(haJul - haJun).toFixed(2)),
+    ha_monitoreadas_kpi_mes: String(+(haJul - haJun).toFixed(2)),
+    ha_monitoreadas_kpi_acum: String(haJul),
+    meta_ha: jun.meta_ha || '35',
+    pct_meta_ha: String(haJul / safeNumber(jun.meta_ha || 35)),
+    eventos_monitoreo_mes: '2',
+    eventos_cartografia_mes: '3',
+    pct_cartografia_mes: '1.15',
+    pct_cartografia_acum: '1.15',
+
+    siembra_activa: 'True',
+    arboles_sembrados_registrados_mes: String(arbolesJul - arbolesJun),
+    arboles_sembrados_kpi_mes: String(arbolesJul - arbolesJun),
+    arboles_sembrados_acum: String(arbolesJul),
+    meta_arboles: jun.meta_arboles || '90000',
+    pct_meta_arboles: String(arbolesJul / safeNumber(jun.meta_arboles || 90000)),
+    area_intervenida_ha_mes: String(+(8.30 * 1.15).toFixed(2)),
+
+    aporte_sig_mes: String(+(sigJul - sigJun).toFixed(2)),
+    aporte_sig_acum: String(sigJul),
+    meta_unidad_sig: jun.meta_unidad_sig || '1',
+    pct_meta_sig: String(sigJul / safeNumber(jun.meta_unidad_sig || 1)),
+    hitos_sig_logrados_mes: '6',
+
+    vivero_activo: 'True',
+    plantas_netas_mes: String(plantasJul - plantasJun),
+    plantas_netas_acum: String(plantasJul),
+    meta_plantas: jun.meta_plantas || '10000',
+    pct_meta_plantas: String(plantasJul / safeNumber(jun.meta_plantas || 10000)),
+    especies_activas_mes: String(Math.max(0, especiesJul - especiesJun)),
+    especies_acumuladas_proxy: String(especiesJul),
+    meta_especies: jun.meta_especies || '10',
+    pct_meta_especies: String(especiesJul / safeNumber(jun.meta_especies || 10)),
+
+    logros_texto: 'Escenario estimado de continuidad para julio: seguimiento de los 12 mapas elaborados en junio, incorporación de la página de la Mesa Agroclimática, avance proyectado a 16.17 hectáreas monitoreadas, 9,051 árboles reforestados, 114% de consolidación del sistema forestal digital y 2,900 plantas nativas en vivero.',
+    alertas_texto: 'Julio no cuenta con documentos fuente. Los valores mostrados corresponden a una estimación de continuidad solicitada y no deben interpretarse como ejecución verificada.',
+    fuente_texto: 'Escenario estimado de continuidad julio 2026 | Sin documentos fuente',
+    estatus_reporte: 'Estimación provisional',
+    semaforo_ha: setSemaforoForPct(haJul / safeNumber(jun.meta_ha || 35)),
+    semaforo_arboles: setSemaforoForPct(arbolesJul / safeNumber(jun.meta_arboles || 90000)),
+    semaforo_sig: setSemaforoForPct(sigJul / safeNumber(jun.meta_unidad_sig || 1)),
+    semaforo_plantas: setSemaforoForPct(plantasJul / safeNumber(jun.meta_plantas || 10000)),
+    semaforo_especies: setSemaforoForPct(especiesJul / safeNumber(jun.meta_especies || 10)),
+    aporta_metas_programa: 'True',
+    tiene_datos_mes: 'True',
+    is_latest_data_month: 'True'
+  });
+
   adjusted.forEach(r => {
     r.meta_arboles = '90000';
     if (safeNumber(r.mes_num) < 5) {
@@ -2846,7 +2926,7 @@ function getRowsUpToSelected(){
 }
 
 const ACTIVE_YEAR = 2026;
-const ACTIVE_MONTH_MAX = 6;
+const ACTIVE_MONTH_MAX = 7;
 let presentationIndex = 0;
 
 
@@ -3255,6 +3335,54 @@ const MONTHLY_DETAIL_BY_PERIOD = {
       'Apoyo interinstitucional para creación de polígonos de delimitación de extracción de arenas',
       'Seguimiento técnico y administrativo de junio'
     ]
+  },
+  '2026-07': {
+    sig_mapas_generados: [
+      'Seguimiento de áreas monitoreadas y cambios registrados en julio',
+      'Seguimiento operativo de recorridos de campo definidos en junio',
+      'Seguimiento de la actualización de sitios priorizados',
+      'Seguimiento de sectores listos para reforestación',
+      'Seguimiento de cobertura forestal y uso actual del suelo',
+      'Seguimiento de rutas hacia viveros y áreas de plantación',
+      'Seguimiento de comunidades con acuerdos de intervención',
+      'Seguimiento de polígonos de intervención forestal',
+      'Seguimiento interinstitucional a polígonos de extracción de arenas',
+      'Seguimiento de puntos de verificación integrados al SIG',
+      'Seguimiento cartográfico para el reporte técnico mensual',
+      'Seguimiento del avance de restauración forestal'
+    ],
+    iot_monitoreo_ambiental: [
+      'Seguimiento funcional del prototipo con Raspberry Pi 4B y sensores ambientales'
+    ],
+    sig_servicios_digitales: [
+      'Seguimiento del Geoportal de monitoreo forestal',
+      'Seguimiento del Visor de productos cartográficos',
+      'Seguimiento del Portal Forestal del Eje de Bosques CODEMA-Sololá',
+      'Seguimiento de la Plataforma de la Mesa Agroclimática de Sololá',
+      'Página de la Mesa Agroclimática de Sololá'
+    ],
+    sig_capas_actualizadas: [
+      'Seguimiento de la capa de sitios priorizados',
+      'Seguimiento de la capa de cobertura forestal',
+      'Seguimiento de la capa de microcuencas prioritarias',
+      'Seguimiento de la capa de comunidades con coordinación activa',
+      'Seguimiento de la capa de rutas logísticas',
+      'Seguimiento de la capa de puntos de verificación',
+      'Seguimiento de la capa de áreas listas para plantación'
+    ],
+    sig_analisis_entregados: [
+      'Seguimiento del análisis de preparación para temporada de campo',
+      'Actualización del cruce de polígonos con comunidades priorizadas',
+      'Seguimiento de la evaluación de cobertura forestal',
+      'Actualización de la priorización de zonas listas para plantación',
+      'Seguimiento del apoyo interinstitucional para delimitación de polígonos de extracción de arenas'
+    ],
+    otras_actividades_estrategicas: [
+      'Mesa estratégica de seguimiento de reforestación en julio',
+      'Reunión de seguimiento de indicadores y mapas de junio',
+      'Coordinación operativa para continuidad de acciones de campo',
+      'Seguimiento interinstitucional a compromisos y productos técnicos'
+    ]
   }
 };
 
@@ -3274,7 +3402,7 @@ function monthlyDetailItems(item){
 
   // El IoT se mantiene fijo; los demás listados cambian según el mes seleccionado.
   const periodDetails = MONTHLY_DETAIL_BY_PERIOD[item.periodo_clave] || {};
-  const pool = item.kpi_id === 'iot_monitoreo_ambiental'
+  const pool = item.kpi_id === 'iot_monitoreo_ambiental' && item.periodo_clave !== '2026-07'
     ? (MONTHLY_DETAIL_LIBRARY[item.kpi_id] || [])
     : (periodDetails[item.kpi_id] || MONTHLY_DETAIL_LIBRARY[item.kpi_id] || []);
 
