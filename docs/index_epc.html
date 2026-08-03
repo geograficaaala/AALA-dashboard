@@ -767,7 +767,7 @@
         act_tul_mes: 5,
         act_huertos_mes: 4,
         act_murales_mes: 5,
-        act_proyectos_gestion_mes: 2
+        act_proyectos_gestion_mes: 0
       }
     };
 
@@ -1167,9 +1167,43 @@
     function operationalKpiData(cfg, row){
       const monthNum = Number(row.mes_num || 0);
       const actual = Number(row[cfg.key] || 0);
-      const projectWindow = cfg.id === 'act_proyectos_gestion' && monthNum >= 7;
-      const startMonth = projectWindow ? 7 : cfg.start;
-      const endMonth = projectWindow ? 12 : cfg.end;
+      const annualCfg = OP_ANNUAL_META.find(item => item.key === cfg.key);
+      const annualActual = annualCfg ? annualActualValue(cfg.key, row.periodo_clave || state.periodo) : 0;
+      const annualTarget = Number(annualCfg?.annualTarget || 0);
+      const annualGoalReached = cfg.id === 'act_murales' && monthNum >= 7 && annualTarget > 0 && annualActual >= annualTarget;
+      if(annualGoalReached){
+        return {
+          label: cfg.label,
+          window: '',
+          hideWindow: true,
+          tone: 'tone-green',
+          chip: '',
+          valueText: 'Meta anual alcanzada',
+          reference: `Acumulado anual <strong>${fmt(annualActual)} murales</strong>`,
+          line1: '',
+          line2: '',
+          progressWidth: 100,
+          pillarHeight: 100
+        };
+      }
+      const noCompletedProjects = cfg.id === 'act_proyectos_gestion' && monthNum >= 7 && actual === 0;
+      if(noCompletedProjects){
+        return {
+          label: cfg.label,
+          window: '',
+          hideWindow: true,
+          tone: 'tone-green-0',
+          chip: '',
+          valueText: '0 actividades',
+          reference: 'Proyectos ejecutados <strong>0</strong>',
+          line1: '',
+          line2: 'Las entregas preparatorias no se contabilizan como proyectos ejecutados.',
+          progressWidth: 0,
+          pillarHeight: 8
+        };
+      }
+      const startMonth = cfg.start;
+      const endMonth = cfg.end;
       const hasWindow = Number.isFinite(Number(startMonth)) && Number.isFinite(Number(endMonth));
       const status = !hasWindow ? 'pending' : (monthNum < startMonth ? 'pending' : (monthNum > endMonth ? 'closed' : 'active'));
       const progress = cfg.target > 0 ? actual / cfg.target : 0;
@@ -1310,7 +1344,6 @@
 
     function annualOperationalStatus(cfg, row){
       const monthNum = Number(row.mes_num || 0);
-      if(cfg.key === 'act_proyectos_gestion_mes' && monthNum >= 7) return monthNum > 12 ? 'closed' : 'active';
       if(cfg.start == null || cfg.end == null) return 'pending';
       if(monthNum < Number(cfg.start)) return 'pending';
       if(monthNum > Number(cfg.end)) return 'closed';
@@ -1324,7 +1357,7 @@
         const status = annualOperationalStatus(cfg, row);
         const pct = status === 'pending' ? null : rawPct;
         const visualPct = status === 'pending' ? 0 : clampPct(rawPct);
-        const window = cfg.key === 'act_proyectos_gestion_mes' && Number(row.mes_num || 0) >= 7 ? 'Julio a diciembre' : cfg.window;
+        const window = cfg.window;
         return { ...cfg, window, actual, rawPct, pct, visualPct, status };
       });
     }
@@ -1438,7 +1471,10 @@
       const baseUnit = annualBaseUnit(cfg.resultSuffix || 'actividades acumuladas');
       const actualUnit = unitForCount(baseUnit, actual);
       const targetUnit = unitForCount(baseUnit, target);
-      const complianceText = status === 'pending' && actual === 0 ? 'Programado' : fmtPct(pct);
+      const annualGoalReached = cfg.key === 'act_murales_mes' && Number(row.mes_num || 0) >= 7 && target > 0 && actual >= target;
+      const complianceText = annualGoalReached
+        ? 'Meta anual alcanzada'
+        : (status === 'pending' && actual === 0 ? 'Programado' : fmtPct(pct));
       const progressWidth = status === 'pending' && actual === 0 ? 0 : Math.min(pct, 1) * 100;
 
       return {
@@ -1501,6 +1537,34 @@
       return OP_CONFIG.map(cfg => {
         const actual = Number(row[cfg.key] || 0);
         const target = Number(cfg.target || 0);
+        const annualCfg = OP_ANNUAL_META.find(item => item.key === cfg.key);
+        const annualActual = annualCfg ? annualActualValue(cfg.key, row.periodo_clave || state.periodo) : 0;
+        const annualTarget = Number(annualCfg?.annualTarget || 0);
+        const annualGoalReached = cfg.id === 'act_murales' && monthNum >= 7 && annualTarget > 0 && annualActual >= annualTarget;
+        if(annualGoalReached){
+          return {
+            label: cfg.label,
+            actual: 0,
+            target: 0,
+            status: 'closed',
+            pct: 1,
+            pctLabel: 'Meta anual alcanzada',
+            width: 100,
+            detail: `${fmt(annualActual)} murales acumulados`
+          };
+        }
+        if(cfg.id === 'act_proyectos_gestion' && monthNum >= 7 && actual === 0){
+          return {
+            label: cfg.label,
+            actual: 0,
+            target: 0,
+            status: 'pending',
+            pct: 0,
+            pctLabel: '0 proyectos ejecutados',
+            width: 0,
+            detail: 'Entregas preparatorias; sin proyectos ejecutados'
+          };
+        }
         const hasWindow = Number.isFinite(Number(cfg.start)) && Number.isFinite(Number(cfg.end));
         const status = !hasWindow ? 'pending' : (monthNum < cfg.start ? 'pending' : (monthNum > cfg.end ? 'closed' : 'active'));
         const pct = target > 0 ? actual / target : 0;
@@ -2498,7 +2562,7 @@
   "centros_mes": 46,
   "municipios_mes": 13,
   "actividades_campo_mes": 25,
-  "estudiantes_actividades_campo_mes": 1815,
+  "estudiantes_actividades_campo_mes": 1733,
   "act_reforestacion_mes": 14,
   "act_monitoreo_reforestadas_mes": 0,
   "act_tul_mes": 2,
@@ -2508,7 +2572,7 @@
   "act_murales_mes": 0,
   "act_centros_acopio_mes": 0,
   "act_limpiezas_mes": 1,
-  "act_proyectos_gestion_mes": 2,
+  "act_proyectos_gestion_mes": 0,
   "docentes_induccion_mes": 0,
   "centros_induccion_mes": 0,
   "estudiantes_diagnostico_mes": 0,
@@ -2520,8 +2584,8 @@
   "capitales_semilla_mes": 0,
   "coordinaciones_clave_mes": 0,
   "coordinaciones_clave_texto": "Información no especificada",
-  "logros_texto": "Durante julio 2026 se desarrolló el Módulo 5 de la fase de co-facilitación en 13 municipios, con 46 centros educativos, 115 docentes y 3,178 estudiantes. Se realizaron 14 campañas de reforestación con 5,090 árboles y 880 estudiantes reportados; 3 ferias ambientales con 786 estudiantes; 2 jornadas de siembra de tul con 92 macollas y 82 participantes; seguimiento a 2 huertos escolares; 1 jornada de limpieza con 125 sacos recolectados; entrega de materiales para 2 proyectos de gestión ambiental escolar y un taller del Día del Árbol con 67 estudiantes. La segunda cohorte del diplomado inició con 64 estudiantes inscritos y 100% de asistencia en las clases 1 y 2.",
-  "alertas_texto": "El resumen mensual reporta 880 estudiantes en las reforestaciones, mientras que la tabla detallada suma 920 participantes. Para el indicador se conserva el dato consolidado de 880 estudiantes y el total coincidente de 5,090 árboles. Las actividades sin cifra de participantes no se suman al total de estudiantes de campo.",
+  "logros_texto": "Durante julio 2026 se desarrolló el Módulo 5 de la fase de co-facilitación en 13 municipios, con 46 centros educativos, 115 docentes y 3,178 estudiantes. Se realizaron 14 campañas de reforestación con 5,090 árboles y 880 estudiantes reportados; 3 ferias ambientales con 786 estudiantes; 2 jornadas de siembra de tul con 92 macollas y 82 participantes combinados entre estudiantes y docentes; seguimiento a 2 huertos escolares; 1 jornada de limpieza con 125 sacos recolectados; dos entregas de materiales y herramientas como preparación para futuros proyectos de gestión ambiental escolar, sin proyectos ejecutados registrados; y un taller del Día del Árbol con 67 estudiantes. La segunda cohorte del diplomado inició con 64 estudiantes inscritos y 100% de asistencia en las clases 1 y 2.",
+  "alertas_texto": "La cobertura pedagógica del Módulo 5 confirma 115 docentes y 3,178 estudiantes. En reforestación, el resumen mensual reporta 880 estudiantes, mientras que la tabla detallada suma 920 participantes; no se infiere una cantidad de docentes porque la fuente no la desglosa. Las jornadas de tul reportan 82 participantes combinados entre estudiantes y docentes, por lo que no se incorporan al total exclusivamente estudiantil. La entrega de materiales para dos iniciativas no se contabiliza como proyectos de gestión ambiental escolar ejecutados.",
   "fuente_texto": "Resultados pedagógicos EPC julio 2026 + Resumen de informe para JD AALA julio 2026 + Reforestación 2026",
   "tiene_datos_mes": true,
   "is_latest_data_month": true
@@ -2944,10 +3008,10 @@
     "cumplio_mes": 0,
     "meses_cumplidos": 3,
     "meses_transcurridos": 5,
-    "es_exigible": true,
+    "es_exigible": false,
     "estatus": "verde",
     "orden_dashboard": 16,
-    "nota_metodologica": "Sin nuevos murales reportados en julio; se conserva el acumulado previo."
+    "nota_metodologica": "Meta anual alcanzada: 5 murales acumulados frente a una meta anual de 4. En julio no corresponde una nueva meta mensual."
   },
   {
     "program_id": "educando_para_conservar",
@@ -3018,20 +3082,20 @@
     "unidad": "actividades",
     "categoria": "tactico",
     "modelo_medicion": "milestone_window",
-    "valor_mes": 2,
-    "valor_acumulado": 2,
+    "valor_mes": 0,
+    "valor_acumulado": 0,
     "meta_mes": 0,
     "meta_anual": 2,
-    "esperado_al_corte": 2,
-    "pct_meta_anual": 1,
-    "pct_vs_esperado": 1,
-    "cumplio_mes": 1,
-    "meses_cumplidos": 1,
+    "esperado_al_corte": 0,
+    "pct_meta_anual": 0,
+    "pct_vs_esperado": 0,
+    "cumplio_mes": 0,
+    "meses_cumplidos": 0,
     "meses_transcurridos": 5,
-    "es_exigible": true,
-    "estatus": "verde",
+    "es_exigible": false,
+    "estatus": "gris",
     "orden_dashboard": 19,
-    "nota_metodologica": "Materiales y herramientas entregados para la ejecución de dos proyectos en San Juan La Laguna y Santa Lucía Utatlán."
+    "nota_metodologica": "Se registraron dos entregas preparatorias de materiales y herramientas; no se contabilizan como proyectos de gestión ambiental escolar ejecutados."
   }
 ];
 
