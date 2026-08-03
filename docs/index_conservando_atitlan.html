@@ -742,8 +742,34 @@ async function init(){
     if(_junioIdx>=0){ state.total[_junioIdx]=JUNIO_2026; }
     else { state.total.push(JUNIO_2026); state.total.sort((a,b)=>String(a.mes_clave).localeCompare(String(b.mes_clave))); }
     state.periods = state.total.map(r=>String(r.mes_clave)).filter(Boolean);
-    state.period = '2026-06';
-    state.metadata.latest_period = '2026-06';
+
+    // ── PATCH: Datos correctos Julio 2026 (agregado sin modificar enero-junio) ──
+    const JULIO_2026 = {
+      program_id:'conservando_atitlan', program_name:'Conservando Atitlán',
+      mes_clave:'2026-07', anio:2026, mes_num:7, mes_label:'Julio',
+      aporta_metas_programa:true,
+      [JORNADA_RECOLECCION_FIELD]:1, jornadas_codigos_unicos_mes:9,
+      filas_recoleccion_validas_mes:9, municipios_visitados_mes:9,
+      inmuebles_atendidos_mes:86,
+      litros_aceite_recolectados_mes:6344, litros_agua_protegidos_mes:6344000,
+      clientes_recurrentes_atendidos_mes:0, filas_clientes_recurrentes_mes:0,
+      jabones_hotel_producidos_mes:3000, jabones_tocador_producidos_mes:400,
+      jabones_producidos_mes:3400,
+      jabones_hotel_vendidos_mes:2000, jabones_tocador_vendidos_mes:0,
+      jabones_vendidos_mes:2000, ingresos_ventas_q_mes:2200,
+      publicaciones_redes_mes:8, pruebas_jabon_liquido_mes:0,
+      velas_vendidas_mes:40, ingresos_ventas_velas_q_mes:780,
+      fuente_indicadores_mes:'07. Cuadro indicadores - Conservando Atitlán julio 2026.docx',
+      fuente_operativa_mes:'07. Informe Julio 2026 Recolección de Aceite Usado.pdf',
+      observaciones_mes:'Nueve municipios con actividad ejecutada; San Pedro La Laguna no se contabiliza porque no tuvo actividad y fue retirado del programa.',
+      tiene_datos_mes:true, is_latest_data_month:true
+    };
+    const _julioIdx = state.total.findIndex(r=>String(r.mes_clave)==='2026-07');
+    if(_julioIdx>=0){ state.total[_julioIdx]=JULIO_2026; }
+    else { state.total.push(JULIO_2026); state.total.sort((a,b)=>String(a.mes_clave).localeCompare(String(b.mes_clave))); }
+    state.periods = state.total.map(r=>String(r.mes_clave)).filter(Boolean);
+    state.period = '2026-07';
+    state.metadata.latest_period = '2026-07';
     buildMonthPills();
     buildTrendOptions();
     document.getElementById('btnPresentation').addEventListener('click',openPresentation);
