@@ -625,7 +625,976 @@
     .pres-chip.green,.pres-chip.yellow,.pres-chip.red,.pres-chip.blue,.pres-chip.gray,.pres-chip.purple{background:#eefaf3!important;color:#1f7b5a!important}
     .kpi-achieved{display:none!important}
 
-  </style></head><body><header class="header"><a class="header-brand" href="./index.html"><img src="./aala_logo.png" alt="Logo AALA" class="header-logo-img"><span class="brand-text"><span class="brand-kicker">Asociación Amigos del Lago de Atitlán</span><span class="brand-title">Conservando Atitlán · Tablero de programa</span></span></a><div class="header-stack"><nav class="nav-tabs" aria-label="Navegación"><a class="nav-tab active" href="#resumen">Resumen</a><a class="nav-tab" href="#kpis-estrategicos">Indicadores</a><a class="nav-tab" href="#tendencias">Tendencias</a><a class="nav-tab" href="#diagnostico">Diagnóstico</a></nav><div class="header-utility"><a class="back" href="./index.html"><span class="back-arrow">&#8592;</span>Volver al inicio</a><div class="view-switcher" role="group"><button class="view-btn active" id="btnFull" type="button" onclick="switchView('full')">Tablero completo</button><button class="view-btn" id="btnExec" type="button" onclick="switchView('exec')">Resumen ejecutivo</button></div><button class="present-btn" type="button" id="btnPresentation">&#9654; Presentación</button><div class="period-rack"><span class="period-rack-label">Mes</span><div class="month-pills" id="monthPills" role="group" aria-label="Seleccionar mes"></div></div></div></div></header><div class="wrap"><main><div id="resumen"></div><!-- EXECUTIVE VIEW --><div id="execView" style="display:none"><!-- Status banner --><div class="exec-status-card" style="margin-bottom:18px"><div class="es-label">Resumen del programa</div><div class="es-title">Conservando Atitlán</div><div class="exec-status-badge" id="execStatusBadge">Cargando…</div><div style="font-size:.8rem;opacity:.7;margin-top:4px" id="execPeriodInfo">—</div></div><!-- Indicator strip: 6 cards styled like Atitlán Recicla --><div class="kpi-grid" id="execKpiGrid" style="margin-bottom:18px"></div><!-- Accumulated strip --><div class="exec-strip" id="execStrip" style="margin-bottom:18px"></div><!-- Chart + Notices row --><div class="exec-row-2" style="margin-bottom:18px"><article class="card panel"><h3>Avance acumulado</h3><p class="sub" id="execChartSub">Comparación clara entre avance acumulado, avance esperado a la fecha y meta anual.</p><div id="execProgressChart" style="overflow:visible;padding:4px 0"></div></article><article class="card panel"><h3>Lectura operativa</h3><p class="sub">Resumen de comportamiento del mes.</p><div id="execNoticePanel"></div></article></div><article class="card exec-diag" id="execDiagPanel"></article></div><!-- FULL DASHBOARD --><div id="fullView"><section class="hero hero-clean hero-with-logo" id="heroSection"><article class="card hero-main"><h1>Conservando Atitlán</h1><p class="hero-lead">Conservando Atitlán es un programa cuya misión evita la contaminación del lago de Atitlán por aceites usados de cocina, este objetivo se logra al recuperar dicho residuo generado en 150 negocios entre hoteles, restaurantes y comedores en la cuenca del lago de Atitlán. Este programa tiene un impacto ambiental importante, ya que, por cada litro de aceite usado de cocina recuperado, se protegen mil (1,000) litros de agua. Actualmente el programa Conservando Atitlán impulsa la producción de jabones y velas artesanales de alta calidad a través de la marca ATI’T, generando un impacto social a través de dar empleo a jóvenes y señoritas apoyando a su economía familiar.</p></article><aside class="card hero-logo-card" aria-label="Logo del programa"><img id="programLogo" src="./Conservando%20Atitl%C3%A1n%20.png" alt="Logo Conservando Atitlán" onerror="this.onerror=null;this.src='./logosatitlan.png';"></aside></section><section class="section section-full-only" id="kpis-estrategicos"><div class="section-head section-head-simple"><div><h2>Metas anuales y avance acumulado</h2></div></div><div class="kpi-grid" id="strategicGrid"></div></section><section class="section section-full-only" id="metas-mensuales"><div class="section-head section-head-simple"><div><h2 id="monthlyKpiTitle">Metas mensuales</h2></div></div><div class="kpi-grid" id="monthlyGrid"></div></section><div class="section-divider">Tendencias y lectura comparativa</div><section class="section section-full-only" id="tendencias"><div class="chart-grid" style="grid-template-columns:1fr"><article class="card panel"><div class="panel-top"><div><h3>Tendencia mensual</h3><p class="sub" id="trendChartSub">Serie histórica del indicador seleccionado con su referencia de meta mensual cuando existe.</p></div><select class="indicator-select" id="trendIndicator"></select></div><div class="viz-wrap" id="trendChartHost"><canvas id="trendChart"></canvas></div></article></div><div class="chart-grid section" style="margin-top:18px"><article class="card panel"><h3>Cadena de valor del jabón</h3><p class="sub" id="soapChartSub"></p><div class="viz-wrap" id="soapChartHost"><canvas id="soapChart"></canvas></div></article></div></section><div class="section-divider section-full-only">Análisis del mes</div><section class="section section-full-only" id="diagnostico"><div class="section-head section-head-simple"><div><h2 id="diagTitle">Análisis del mes</h2></div></div><div class="diagnostic-grid"><article class="card panel"><div class="prose" id="diagnosticProse"></div></article><article class="card panel"><div class="diagnostic-list" id="diagnosticList"></div></article></div></section><section class="section hidden" id="loadingWrap"><div class="loading-state" id="loadingState">Cargando información del programa…</div></section><section class="section hidden" id="errorWrap"><div class="error-state" id="errorState">No se pudo cargar la información.</div></section></div><!-- /fullView --></main></div><footer class="site-footer"><div class="footer-wrap"><section class="footer-brand"><div class="footer-brandline"><div class="footer-title">Asociación Amigos del Lago de Atitlán</div></div><p class="footer-copy">La Asociación Amigos del Lago de Atitlán se enfoca en generar una cultura regenerativa en la cuenca Lago, para que los seres humanos podamos coexistir de forma sostenible y sana con el entorno natural. Hacemos educación ambiental, reforestación, reciclaje, empoderamiento económico de mujeres, asesoría municipal en agua y saneamiento.</p></section><section class="footer-col"><h3>Contacto y sitio</h3><div class="footer-links"><a href="https://amigosdeatitlan.org/" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><path d="M12 3c2.7 2.8 4.1 5.8 4.1 9S14.7 18.2 12 21c-2.7-2.8-4.1-5.8-4.1-9S9.3 5.8 12 3z"></path></svg></span><span>Página web</span></a><a href="https://www.youtube.com/@asociacionamigosdellagodea2358" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2a2.9 2.9 0 0 0-2-2C17.8 4.7 12 4.7 12 4.7s-5.8 0-7.6.5a2.9 2.9 0 0 0-2 2A29.6 29.6 0 0 0 2 12a29.6 29.6 0 0 0 .4 4.8 2.9 2.9 0 0 0 2 2c1.8.5 7.6.5 7.6.5s5.8 0 7.6-.5a2.9 2.9 0 0 0 2-2A29.6 29.6 0 0 0 22 12a29.6 29.6 0 0 0-.4-4.8ZM10 15.5v-7l6 3.5-6 3.5Z"></path></svg></span><span>YouTube</span></a><a href="https://www.facebook.com/AmigoAtitlan/?locale=es_LA" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.7-1.6H17V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4V11H7.5v3h2.8v8h3.2Z"></path></svg></span><span>Facebook</span></a></div></section><section class="footer-col"><h3>Redes sociales</h3><div class="footer-links"><a href="https://www.instagram.com/amigoslagoatitlan/" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg></span><span>Instagram</span></a><a href="https://www.linkedin.com/in/aala-atitl%C3%A1n-3653a0325/" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.9 8.1a1.9 1.9 0 1 1 0-3.8 1.9 1.9 0 0 1 0 3.8ZM5.2 9.8h3.3V19H5.2V9.8Zm5.2 0h3.2v1.3h.1c.4-.8 1.5-1.6 3.1-1.6 3.3 0 3.9 2.1 3.9 4.9V19h-3.3v-4c0-.9 0-2.1-1.3-2.1s-1.5 1-1.5 2V19h-3.3V9.8Z"></path></svg></span><span>LinkedIn</span></a></div></section><section class="footer-mark" aria-label="Imagen institucional"><img src="./chill_lago.png" alt="AALA — Cuenca del Lago de Atitlán"></section></div></footer><!-- PRESENTATION OVERLAY --><div class="presentation-overlay" id="presentationOverlay" aria-hidden="true"><div class="presentation-chrome"><div class="presentation-meta" id="presentationMeta"><span>Modo presentación</span></div><div class="presentation-actions"><button class="pres-btn" type="button" onclick="prevSlide()">&#8592; Anterior</button><button class="pres-btn" type="button" onclick="nextSlide()">Siguiente &#8594;</button><button class="pres-btn primary" type="button" onclick="closePresentation()">&#215; Cerrar</button></div></div><div class="presentation-stage-wrap"><div class="presentation-stage"><div class="presentation-track" id="presentationTrack"></div></div></div><div class="pres-footer-bar"><div class="pres-dots" id="presDots"></div><div class="pres-counter" id="presCounter">1 / 1</div></div></div><script>
+  </style><style id="aala-conservando-unified-visual-2026">
+/* Capa exclusivamente visual: no modifica datos, cálculos ni lógica JavaScript. */
+:root{
+  --bg:#ffffff;
+  --surface:#ffffff;
+  --surface-2:#f7f9fc;
+  --surface-3:#eef3f8;
+  --card:#ffffff;
+  --text:#173b6c;
+  --text-2:#3d5a80;
+  --muted:#667085;
+  --line:#dde5ef;
+  --line-soft:#edf1f6;
+  --lake-deep:#173b6c;
+  --lake:#2767a8;
+  --lake-light:#4b86c5;
+  --lake-soft:#dbe9f7;
+  --blue:#173b6c;
+  --blue-mid:#2767a8;
+  --blue-light:#4b86c5;
+  --blue-soft:#dbe9f7;
+  --blue-pale:#eef5fc;
+  --forest:#2767a8;
+  --forest-mid:#4b86c5;
+  --forest-soft:#dbe9f7;
+  --forest-pale:#eef5fc;
+  --sand:#2767a8;
+  --sand-soft:#dbe9f7;
+  --danger:#2767a8;
+  --danger-soft:#dbe9f7;
+  --shadow-sm:0 4px 16px rgba(23,59,108,.06);
+  --shadow:0 12px 30px rgba(23,59,108,.10);
+  --shadow-lg:0 20px 48px rgba(23,59,108,.16);
+  --radius:16px;
+  --radius-md:14px;
+  --radius-sm:12px;
+  --radius-xs:8px;
+  --font-head:Arial,Helvetica,sans-serif;
+  --font-body:Arial,Helvetica,sans-serif;
+  --font-mono:Arial,Helvetica,sans-serif;
+}
+
+html{scroll-padding-top:180px}
+body{
+  font-family:Arial,Helvetica,sans-serif!important;
+  background:#fff!important;
+  background-image:none!important;
+  color:var(--text)!important;
+  overflow-x:hidden!important;
+}
+body::before,body::after{display:none!important;background:none!important}
+button,select,input,textarea{font-family:Arial,Helvetica,sans-serif!important}
+.wrap{
+  width:min(1480px,calc(100vw - 48px))!important;
+  max-width:none!important;
+  margin:0 auto!important;
+  padding:42px 0 60px!important;
+}
+
+/* Header igual al tablero Atitlán Recicla */
+.header{
+  position:sticky!important;
+  top:0!important;
+  z-index:600!important;
+  display:grid!important;
+  grid-template-columns:minmax(300px,.7fr) minmax(0,1.3fr)!important;
+  align-items:center!important;
+  gap:28px!important;
+  min-height:76px!important;
+  padding:10px clamp(18px,3vw,48px)!important;
+  background:#fff!important;
+  background-image:none!important;
+  border:0!important;
+  border-bottom:1px solid var(--line)!important;
+  box-shadow:0 5px 18px rgba(23,59,108,.07)!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+.header-brand{gap:12px!important;min-width:0!important}
+.header-logo-img{
+  height:44px!important;
+  width:auto!important;
+  padding:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.brand-text{gap:2px!important}
+.header .brand-kicker{
+  color:var(--blue-mid)!important;
+  font-size:.68rem!important;
+  font-weight:800!important;
+  letter-spacing:.11em!important;
+}
+.header .brand-title{
+  color:var(--blue)!important;
+  font-size:.96rem!important;
+  font-weight:700!important;
+}
+.header-stack{
+  margin-left:auto!important;
+  width:100%!important;
+  min-width:0!important;
+  display:grid!important;
+  gap:8px!important;
+  justify-items:end!important;
+}
+.nav-tabs{
+  margin:0!important;
+  display:flex!important;
+  justify-content:flex-end!important;
+  gap:20px!important;
+  width:auto!important;
+  max-width:100%!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  overflow-x:auto!important;
+  scrollbar-width:none!important;
+}
+.nav-tabs::-webkit-scrollbar{display:none}
+.header .nav-tab{
+  position:relative!important;
+  flex:0 0 auto!important;
+  padding:8px 1px 9px!important;
+  border:0!important;
+  border-bottom:3px solid transparent!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:var(--text-2)!important;
+  box-shadow:none!important;
+  font-size:.78rem!important;
+  font-weight:700!important;
+}
+.header .nav-tab:hover{
+  color:var(--blue-mid)!important;
+  background:transparent!important;
+  border-bottom-color:var(--blue-soft)!important;
+}
+.header .nav-tab.active{
+  color:var(--blue)!important;
+  background:transparent!important;
+  border-bottom-color:var(--blue-mid)!important;
+  box-shadow:none!important;
+}
+.header-utility{
+  width:100%!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  flex-wrap:wrap!important;
+  gap:8px!important;
+}
+.header .back,
+.header .view-btn,
+.header .present-btn{
+  width:auto!important;
+  min-height:36px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:7px!important;
+  padding:8px 12px!important;
+  border:1px solid var(--line)!important;
+  border-radius:10px!important;
+  background:#fff!important;
+  background-image:none!important;
+  color:var(--text-2)!important;
+  box-shadow:none!important;
+  font-size:.76rem!important;
+  font-weight:700!important;
+}
+.header .back:hover,
+.header .view-btn:hover,
+.header .present-btn:hover{
+  transform:translateY(-1px)!important;
+  color:var(--blue)!important;
+  border-color:var(--blue-light)!important;
+  background:var(--blue-pale)!important;
+}
+.header .back-arrow{
+  width:20px!important;
+  height:20px!important;
+  border:0!important;
+  background:var(--blue-pale)!important;
+  color:var(--blue-mid)!important;
+}
+.header .view-switcher{
+  display:inline-flex!important;
+  gap:4px!important;
+  padding:3px!important;
+  border:1px solid var(--line)!important;
+  border-radius:12px!important;
+  background:var(--surface-2)!important;
+}
+.header .view-switcher .view-btn{border:0!important;background:transparent!important}
+.header .view-switcher .view-btn.active,
+.header .present-btn{
+  color:#fff!important;
+  background:var(--blue-mid)!important;
+  background-image:none!important;
+  border-color:var(--blue-mid)!important;
+  box-shadow:0 5px 12px rgba(39,103,168,.18)!important;
+}
+.header .view-switcher .view-btn.active:hover,
+.header .present-btn:hover{background:var(--blue)!important;color:#fff!important}
+.period-rack{
+  min-width:0!important;
+  flex:1 1 520px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:10px!important;
+}
+.header .period-rack-label{
+  flex:0 0 auto!important;
+  color:var(--muted)!important;
+  font-size:.66rem!important;
+  font-weight:800!important;
+  letter-spacing:.11em!important;
+  text-transform:uppercase!important;
+}
+.header .month-pills{
+  display:flex!important;
+  align-items:center!important;
+  gap:3px!important;
+  min-width:0!important;
+  max-width:100%!important;
+  padding:4px!important;
+  border:1px solid var(--line)!important;
+  border-radius:12px!important;
+  background:var(--surface-2)!important;
+  box-shadow:none!important;
+  overflow-x:auto!important;
+  scroll-snap-type:x proximity!important;
+  scrollbar-width:none!important;
+}
+.header .month-pills::-webkit-scrollbar{display:none!important}
+.header .month-pill,
+.header .month-pills button{
+  flex:0 0 auto!important;
+  min-width:42px!important;
+  min-height:32px!important;
+  padding:7px 10px!important;
+  border:0!important;
+  border-radius:8px!important;
+  background:transparent!important;
+  background-image:none!important;
+  color:var(--text-2)!important;
+  box-shadow:none!important;
+  font-size:.76rem!important;
+  font-weight:700!important;
+  text-align:center!important;
+  scroll-snap-align:center!important;
+}
+.header .month-pill:hover:not(:disabled),
+.header .month-pills button:hover:not(:disabled){
+  transform:none!important;
+  color:var(--blue)!important;
+  background:var(--blue-soft)!important;
+}
+.header .month-pill.active,
+.header .month-pills button.active{
+  color:#fff!important;
+  background:var(--blue-mid)!important;
+  border:0!important;
+  box-shadow:0 4px 10px rgba(39,103,168,.20)!important;
+}
+.header .month-pill:disabled{opacity:.32!important}
+
+/* Hero limpio, centrado y sin recuadros */
+.hero.hero-clean.hero-with-logo{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(210px,280px)!important;
+  align-items:center!important;
+  gap:clamp(28px,5vw,74px)!important;
+  margin:0 0 34px!important;
+  padding:28px 0 42px!important;
+  border-bottom:1px solid var(--line)!important;
+}
+.hero.hero-clean.hero-with-logo .hero-main,
+.hero.hero-clean.hero-with-logo .hero-logo-card{
+  min-height:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  color:var(--text)!important;
+  overflow:visible!important;
+}
+.hero.hero-clean.hero-with-logo .hero-main::before,
+.hero.hero-clean.hero-with-logo .hero-main::after{display:none!important}
+.hero.hero-clean.hero-with-logo h1{
+  width:100%!important;
+  margin:0 0 22px!important;
+  color:var(--blue)!important;
+  background:none!important;
+  -webkit-text-fill-color:currentColor!important;
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:clamp(3rem,5vw,5rem)!important;
+  font-weight:700!important;
+  line-height:1.02!important;
+  letter-spacing:-.045em!important;
+  text-align:center!important;
+}
+.hero.hero-clean.hero-with-logo .hero-lead{
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  color:var(--text-2)!important;
+  font-size:1rem!important;
+  line-height:1.8!important;
+  text-align:justify!important;
+  text-justify:inter-word!important;
+  hyphens:auto!important;
+}
+.hero.hero-clean.hero-with-logo .hero-logo-card{
+  width:100%!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+.hero.hero-clean.hero-with-logo .hero-logo-card img{
+  width:min(100%,230px)!important;
+  max-width:230px!important;
+  max-height:250px!important;
+  height:auto!important;
+  object-fit:contain!important;
+  filter:drop-shadow(0 14px 24px rgba(23,59,108,.13))!important;
+  animation:conservandoLogoFloat 6s ease-in-out infinite!important;
+}
+@keyframes conservandoLogoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+/* Sistema visual general */
+.card,.panel,.chart-wrap,.viz-wrap,.filter,.summary-cell,.diag-item,.exec-strip-card{
+  background:#fff!important;
+  background-image:none!important;
+  border-color:var(--line)!important;
+}
+.card{
+  border:1px solid var(--line)!important;
+  border-radius:var(--radius)!important;
+  box-shadow:var(--shadow-sm)!important;
+}
+.card:hover{border-color:#c8d8ea!important;box-shadow:var(--shadow)!important}
+.panel{padding:24px 26px!important}
+.panel h3,.section-head h2{
+  font-family:Arial,Helvetica,sans-serif!important;
+  color:var(--blue)!important;
+  font-weight:700!important;
+  letter-spacing:-.025em!important;
+}
+.section-head{
+  align-items:end!important;
+  padding-bottom:10px!important;
+  border-bottom:1px solid var(--line)!important;
+}
+.section-head h2{font-size:1.55rem!important}
+.section-head p,.panel p.sub{color:var(--muted)!important}
+.section-divider{
+  margin:34px 0 20px!important;
+  color:var(--blue-mid)!important;
+  font-size:.72rem!important;
+  font-weight:800!important;
+  letter-spacing:.13em!important;
+}
+.section-divider::before,.section-divider::after{
+  height:1px!important;
+  background:var(--line)!important;
+  background-image:none!important;
+}
+.chart-grid{gap:20px!important}
+.viz-wrap{
+  border:1px solid var(--line)!important;
+  border-radius:12px!important;
+  background:#fff!important;
+  background-image:none!important;
+  box-shadow:none!important;
+}
+.indicator-select{
+  border:1px solid var(--line)!important;
+  border-radius:10px!important;
+  background:#fff!important;
+  color:var(--text)!important;
+}
+.indicator-select:focus{border-color:var(--blue-mid)!important;box-shadow:0 0 0 3px rgba(39,103,168,.12)!important}
+
+/* KPIs: mismo marco azul en L, números moderados y animación rápida */
+.kpi-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:clamp(18px,2vw,28px)!important;
+  align-items:stretch!important;
+}
+.kpi,
+.kpi.kpi-simple{
+  --tone:#2767A8!important;
+  --tone-soft:#EAF2FB!important;
+  position:relative!important;
+  min-height:210px!important;
+  padding:24px 22px 20px 26px!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+  opacity:1!important;
+  transform:none!important;
+  animation:none!important;
+  transition:transform .18s ease,background-color .18s ease!important;
+}
+.kpi:hover,
+.kpi.kpi-simple:hover{
+  transform:translateY(-3px)!important;
+  border:0!important;
+  background:rgba(234,242,251,.32)!important;
+  box-shadow:none!important;
+}
+.kpi::before,
+.kpi::after{
+  content:''!important;
+  display:block!important;
+  position:absolute!important;
+  left:0!important;
+  top:0!important;
+  z-index:0!important;
+  border-radius:999px!important;
+  background:#2767A8!important;
+  background-image:none!important;
+  pointer-events:none!important;
+  opacity:1!important;
+}
+.kpi::before{
+  width:82px!important;
+  height:4px!important;
+  transform-origin:left center!important;
+  animation:conservandoKpiLTop .24s cubic-bezier(.2,.75,.25,1) both!important;
+  animation-delay:0ms!important;
+}
+.kpi::after{
+  width:4px!important;
+  height:76px!important;
+  transform-origin:center top!important;
+  animation:conservandoKpiLSide .24s cubic-bezier(.2,.75,.25,1) both!important;
+  animation-delay:0ms!important;
+}
+.kpi>*{position:relative!important;z-index:1!important}
+.kpi.tone-green,.kpi.tone-yellow,.kpi.tone-red,.kpi.tone-blue,.kpi.tone-gray,.kpi.tone-purple,.kpi.tone-muted{
+  --tone:#2767A8!important;
+  --tone-soft:#EAF2FB!important;
+}
+.kpi-label{
+  min-height:0!important;
+  max-width:none!important;
+  color:var(--text-2)!important;
+  font-size:.77rem!important;
+  font-weight:800!important;
+  line-height:1.38!important;
+  letter-spacing:.08em!important;
+  text-transform:uppercase!important;
+}
+.kpi-figure{grid-template-columns:18px minmax(0,1fr)!important;gap:16px!important;min-height:105px!important}
+.kpi-pillar{width:16px!important;height:90px!important}
+.kpi-pillar-track{width:8px!important;height:90px!important;background:var(--blue-pale)!important}
+.kpi-pillar-fill{
+  width:8px!important;
+  background:var(--blue-mid)!important;
+  background-image:none!important;
+  box-shadow:0 5px 14px rgba(39,103,168,.22)!important;
+  transition-duration:.38s!important;
+  transition-timing-function:cubic-bezier(.22,.61,.36,1)!important;
+}
+.kpi-value,
+.kpi-simple-value{
+  font-family:Arial,Helvetica,sans-serif!important;
+  color:var(--blue)!important;
+  font-size:clamp(1.9rem,2.45vw,3rem)!important;
+  font-weight:700!important;
+  line-height:.98!important;
+  letter-spacing:-.045em!important;
+  overflow-wrap:anywhere!important;
+}
+.kpi-simple-value span{color:var(--text-2)!important}
+.kpi-achieved,.kpi.tone-green .kpi-achieved,.kpi.tone-yellow .kpi-achieved,.kpi.tone-red .kpi-achieved,.kpi.tone-blue .kpi-achieved,.kpi.tone-gray .kpi-achieved,.kpi.tone-purple .kpi-achieved{
+  color:var(--blue)!important;
+}
+.kpi-reference,.kpi-meta{color:var(--muted)!important}
+.kpi-reference strong,.kpi-meta strong{color:var(--text-2)!important}
+.kpi-progress-line{
+  height:6px!important;
+  background:var(--line)!important;
+}
+.kpi-pillar-fill,
+.kpi-progress-line span,
+.kpi .progress>span{
+  background:var(--blue-mid)!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  transition-duration:.38s!important;
+  transition-timing-function:cubic-bezier(.22,.61,.36,1)!important;
+}
+.kpi-progress-line::after{display:none!important}
+@keyframes conservandoKpiLTop{from{transform:scaleX(.12);opacity:.25}to{transform:scaleX(1);opacity:1}}
+@keyframes conservandoKpiLSide{from{transform:scaleY(.12);opacity:.25}to{transform:scaleY(1);opacity:1}}
+
+/* Resumen ejecutivo con la misma identidad */
+.exec-status-card{
+  background:var(--blue)!important;
+  background-image:none!important;
+  border-radius:16px!important;
+  box-shadow:var(--shadow)!important;
+}
+.exec-strip{gap:16px!important}
+.exec-strip-card{
+  border:1px solid var(--line)!important;
+  border-radius:12px!important;
+  box-shadow:var(--shadow-sm)!important;
+}
+.exec-strip-card .chip,
+.chip.green,.chip.yellow,.chip.red,.chip.blue,.chip.gray,.chip.purple{
+  color:var(--blue)!important;
+  background:var(--blue-pale)!important;
+  border-color:var(--blue-soft)!important;
+}
+.exec-diag{
+  border-left-color:var(--blue-mid)!important;
+  background:#fff!important;
+  background-image:none!important;
+}
+.exec-diag strong{color:var(--blue-mid)!important}
+
+/* Análisis del mes centrado, sin cajas de texto y a todo el ancho */
+#diagnostico .section-head{
+  display:block!important;
+  border-bottom:0!important;
+  text-align:center!important;
+  margin-bottom:22px!important;
+}
+#diagnostico .section-head h2{
+  margin:0!important;
+  font-size:clamp(1.7rem,2.6vw,2.4rem)!important;
+  text-align:center!important;
+}
+#diagnostico .diagnostic-grid{
+  grid-template-columns:1fr!important;
+  gap:24px!important;
+  width:100%!important;
+}
+#diagnostico .diagnostic-grid>.card{
+  width:100%!important;
+  max-width:none!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+#diagnostico .diagnostic-grid>.card:hover{transform:none!important;box-shadow:none!important}
+#diagnosticProse{
+  width:100%!important;
+  max-width:none!important;
+  color:var(--text-2)!important;
+  font-size:1rem!important;
+  line-height:1.85!important;
+  text-align:justify!important;
+  text-justify:inter-word!important;
+  hyphens:auto!important;
+}
+#diagnosticProse p{width:100%!important;max-width:none!important;margin-bottom:15px!important}
+#diagnosticProse strong{color:var(--blue-mid)!important}
+.diagnostic-list{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:0!important;
+  padding:20px 0!important;
+  border-top:1px solid var(--line)!important;
+  border-bottom:1px solid var(--line)!important;
+}
+.diag-item{
+  padding:8px 18px!important;
+  border:0!important;
+  border-left:1px solid var(--line)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  text-align:center!important;
+}
+.diag-item:first-child{border-left:0!important}
+.diag-item h4{color:var(--blue-mid)!important;text-align:center!important}
+.diag-item p{color:var(--text-2)!important;text-align:justify!important}
+
+/* Footer igual al tablero Atitlán Recicla */
+.site-footer{
+  margin-top:44px!important;
+  background:var(--blue)!important;
+  background-image:none!important;
+  color:#fff!important;
+  overflow:hidden!important;
+}
+.site-footer::before{display:none!important}
+.footer-wrap{
+  width:min(1480px,calc(100vw - 48px))!important;
+  margin:0 auto!important;
+  padding:38px 0 34px!important;
+  grid-template-columns:minmax(0,1.35fr) repeat(2,minmax(180px,.65fr)) auto!important;
+  gap:36px!important;
+  align-items:start!important;
+}
+.footer-brand{max-width:56ch!important}
+.footer-title{font-size:1.1rem!important;font-weight:700!important}
+.footer-copy{
+  color:rgba(255,255,255,.82)!important;
+  font-size:.9rem!important;
+  line-height:1.75!important;
+  text-align:justify!important;
+  text-justify:inter-word!important;
+}
+.footer-col h3{color:rgba(255,255,255,.72)!important}
+.footer-links a{color:#fff!important}
+.footer-links a:hover{color:#fff!important}
+.footer-mark img{filter:brightness(0) invert(1);opacity:.74!important}
+
+/* Modo presentación */
+.presentation-overlay{background:#102a4d!important;background-image:none!important}
+.pres-slide{background:#f7f9fc!important;background-image:none!important}
+.pres-card,.pres-kpi-pair,.pres-visual-card,.pres-list-card,.pres-note{background:#fff!important;background-image:none!important}
+.pres-btn.primary{background:var(--blue-mid)!important;background-image:none!important}
+.pres-bar.green,.pres-bar.yellow,.pres-bar.red,.pres-bar.blue,.pres-bar.gray{background:var(--blue-mid)!important}
+.pres-chip.green,.pres-chip.yellow,.pres-chip.red,.pres-chip.blue,.pres-chip.gray,.pres-chip.purple{color:var(--blue)!important;background:var(--blue-pale)!important}
+
+:focus-visible{outline:3px solid rgba(39,103,168,.35)!important;outline-offset:3px!important}
+
+@media(max-width:1280px){
+  .header{grid-template-columns:1fr!important;gap:8px!important}
+  .header-stack{justify-items:stretch!important}
+  .nav-tabs{justify-content:flex-start!important}
+  .header-utility{justify-content:flex-start!important}
+  .period-rack{flex-basis:100%!important;justify-content:flex-start!important}
+  .footer-wrap{grid-template-columns:1.2fr .7fr .7fr!important}
+  .footer-mark{grid-column:1/-1!important;justify-self:end!important}
+}
+
+@media(max-width:980px){
+  html{scroll-padding-top:20px!important}
+  .header{position:relative!important;padding:10px 18px 14px!important}
+  .header-brand{width:100%!important}
+  .header-stack{width:100%!important}
+  .nav-tabs{width:100%!important;justify-content:flex-start!important;gap:18px!important}
+  .header-utility{display:grid!important;grid-template-columns:1fr!important;align-items:stretch!important}
+  .header .back{width:100%!important;justify-content:center!important}
+  .header .view-switcher{width:100%!important;overflow-x:auto!important;scrollbar-width:none!important}
+  .header .view-switcher .view-btn{flex:1 0 auto!important}
+  .header .present-btn{width:100%!important}
+  .period-rack{width:100%!important;display:grid!important;grid-template-columns:1fr!important;gap:6px!important}
+  .header .month-pills{width:100%!important}
+  .hero.hero-clean.hero-with-logo{
+    grid-template-columns:1fr!important;
+    gap:24px!important;
+    padding-top:12px!important;
+  }
+  .hero.hero-clean.hero-with-logo .hero-logo-card{order:1!important}
+  .hero.hero-clean.hero-with-logo .hero-main{order:2!important}
+  .hero.hero-clean.hero-with-logo .hero-logo-card img{width:170px!important;max-width:170px!important}
+  .hero.hero-clean.hero-with-logo h1{font-size:clamp(2.7rem,10vw,4rem)!important}
+  .kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .diagnostic-list{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .diag-item:nth-child(odd){border-left:0!important}
+  .footer-wrap{grid-template-columns:1fr 1fr!important}
+  .footer-brand{grid-column:1/-1!important}
+  .footer-mark{grid-column:1/-1!important}
+}
+
+@media(max-width:780px){
+  html{scroll-padding-top:20px!important}
+  body{-webkit-text-size-adjust:100%}
+  .wrap{
+    width:min(100vw - 24px,1480px)!important;
+    padding:22px 0 46px!important;
+  }
+
+  /* Header móvil compacto */
+  .header{
+    position:relative!important;
+    top:auto!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:stretch!important;
+    gap:0!important;
+    min-height:0!important;
+    padding:9px 12px 11px!important;
+    box-shadow:0 3px 14px rgba(23,59,108,.07)!important;
+  }
+  .header-brand{
+    width:100%!important;
+    min-width:0!important;
+    gap:9px!important;
+    padding:0 1px 9px!important;
+    border-bottom:1px solid var(--line)!important;
+  }
+  .header-logo-img{height:35px!important;width:auto!important;flex:0 0 auto!important}
+  .header .brand-text{min-width:0!important;gap:1px!important}
+  .header .brand-kicker{
+    font-size:.55rem!important;
+    line-height:1.15!important;
+    letter-spacing:.08em!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+  }
+  .header .brand-title{
+    font-size:.81rem!important;
+    line-height:1.2!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+  }
+  .header-stack{
+    width:100%!important;
+    margin:0!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:stretch!important;
+    gap:7px!important;
+    padding-top:4px!important;
+  }
+  .header .nav-tabs{
+    order:1!important;
+    width:100%!important;
+    max-width:none!important;
+    justify-content:flex-start!important;
+    gap:0!important;
+    padding:0 1px!important;
+    border-bottom:1px solid var(--line)!important;
+    overflow-x:auto!important;
+    scroll-snap-type:x proximity!important;
+  }
+  .header .nav-tab{
+    flex:0 0 auto!important;
+    min-height:37px!important;
+    padding:10px 11px 8px!important;
+    font-size:.69rem!important;
+    line-height:1!important;
+    scroll-snap-align:start!important;
+  }
+  .header-utility{
+    order:2!important;
+    width:100%!important;
+    display:grid!important;
+    grid-template-columns:40px minmax(0,1fr) 78px!important;
+    align-items:center!important;
+    gap:6px!important;
+  }
+  .header .back{
+    grid-column:1!important;
+    width:40px!important;
+    min-width:40px!important;
+    height:38px!important;
+    min-height:38px!important;
+    padding:0!important;
+    font-size:0!important;
+    border-radius:9px!important;
+  }
+  .header .back-arrow{width:24px!important;height:24px!important;margin:0!important;font-size:.82rem!important}
+  .header .view-switcher{
+    grid-column:2!important;
+    width:100%!important;
+    min-width:0!important;
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:3px!important;
+    padding:3px!important;
+    border-radius:10px!important;
+  }
+  .header .view-switcher .view-btn{
+    width:100%!important;
+    min-width:0!important;
+    min-height:32px!important;
+    padding:7px 5px!important;
+    font-size:0!important;
+    border-radius:7px!important;
+  }
+  .header #btnFull::after,
+  .header #btnExec::after,
+  .header #btnPresentation::after{
+    display:inline!important;
+    font-family:Arial,Helvetica,sans-serif!important;
+    font-size:.68rem!important;
+    font-weight:700!important;
+    line-height:1!important;
+    white-space:nowrap!important;
+  }
+  .header #btnFull::after{content:'Completo'}
+  .header #btnExec::after{content:'Ejecutivo'}
+  .header .present-btn{
+    grid-column:3!important;
+    width:78px!important;
+    min-width:78px!important;
+    min-height:38px!important;
+    padding:7px 5px!important;
+    font-size:0!important;
+    border-radius:9px!important;
+    box-shadow:none!important;
+  }
+  .header #btnPresentation::after{content:'Presentar'}
+  .header .period-rack{
+    grid-column:1/-1!important;
+    width:100%!important;
+    min-width:0!important;
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:4px!important;
+    padding-top:1px!important;
+  }
+  .header .period-rack-label{
+    display:block!important;
+    padding-left:2px!important;
+    font-size:.58rem!important;
+    line-height:1.2!important;
+    letter-spacing:.09em!important;
+  }
+  .header .month-pills{
+    width:100%!important;
+    max-width:none!important;
+    gap:2px!important;
+    padding:3px!important;
+    border-radius:10px!important;
+    scroll-padding-inline:3px!important;
+  }
+  .header .month-pill,
+  .header .month-pills button{
+    min-width:46px!important;
+    min-height:34px!important;
+    padding:7px 10px!important;
+    border-radius:7px!important;
+    font-size:.69rem!important;
+  }
+
+  /* Hero móvil */
+  .hero.hero-clean.hero-with-logo{
+    grid-template-columns:1fr!important;
+    align-items:start!important;
+    gap:14px!important;
+    margin:0 0 26px!important;
+    padding:18px 0 30px!important;
+  }
+  .hero.hero-clean.hero-with-logo .hero-logo-card{
+    order:1!important;
+    width:100%!important;
+    display:flex!important;
+    justify-content:center!important;
+  }
+  .hero.hero-clean.hero-with-logo .hero-logo-card img{
+    width:116px!important;
+    max-width:116px!important;
+    max-height:122px!important;
+    margin:0 auto!important;
+    animation:none!important;
+    filter:drop-shadow(0 8px 15px rgba(23,59,108,.12))!important;
+  }
+  .hero.hero-clean.hero-with-logo .hero-main{order:2!important;width:100%!important}
+  .hero.hero-clean.hero-with-logo h1{
+    margin-bottom:14px!important;
+    font-size:clamp(2.05rem,10.5vw,2.7rem)!important;
+    line-height:1.04!important;
+    letter-spacing:-.04em!important;
+    text-wrap:balance!important;
+  }
+  .hero.hero-clean.hero-with-logo .hero-lead{
+    font-size:.92rem!important;
+    line-height:1.7!important;
+    text-align:justify!important;
+    text-justify:inter-word!important;
+    hyphens:auto!important;
+    overflow-wrap:anywhere!important;
+  }
+
+  /* KPIs móviles */
+  .kpi-grid{grid-template-columns:1fr!important}
+  .kpi,.kpi.kpi-simple{
+    min-height:0!important;
+    padding:22px 16px 20px 22px!important;
+    transition:none!important;
+  }
+  .kpi:hover,.kpi.kpi-simple:hover{transform:none!important;background:transparent!important}
+  .kpi::before{width:64px!important;animation-duration:.18s!important}
+  .kpi::after{height:62px!important;animation-duration:.18s!important}
+  .kpi-value,.kpi-simple-value{font-size:clamp(1.75rem,9vw,2.55rem)!important}
+  .kpi-figure{grid-template-columns:1fr!important;min-height:0!important}
+  .kpi-pillar{display:none!important}
+
+  /* Análisis móvil */
+  #diagnostico .section-head h2{font-size:1.75rem!important}
+  #diagnosticProse{font-size:.94rem!important;line-height:1.78!important}
+  .diagnostic-list{grid-template-columns:1fr!important}
+  .diag-item{
+    border-left:0!important;
+    border-top:1px solid var(--line)!important;
+    padding:14px 0!important;
+  }
+  .diag-item:first-child{border-top:0!important}
+
+  /* Footer móvil */
+  .site-footer{margin-top:34px!important}
+  .footer-wrap{
+    width:min(100vw - 32px,1480px)!important;
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:24px 18px!important;
+    padding:30px 0 28px!important;
+    align-items:start!important;
+  }
+  .footer-brand{
+    grid-column:1/-1!important;
+    justify-items:center!important;
+    max-width:none!important;
+    text-align:center!important;
+  }
+  .footer-brandline{width:100%!important;justify-content:center!important}
+  .footer-title{font-size:1rem!important;line-height:1.3!important;text-align:center!important}
+  .footer-copy{
+    max-width:42rem!important;
+    margin:0 auto!important;
+    font-size:.86rem!important;
+    line-height:1.68!important;
+    text-align:justify!important;
+    text-justify:inter-word!important;
+    hyphens:auto!important;
+  }
+  .footer-col{min-width:0!important}
+  .footer-col h3{margin-bottom:8px!important;font-size:.66rem!important;letter-spacing:.1em!important}
+  .footer-links{gap:3px!important}
+  .footer-links a{
+    width:100%!important;
+    min-height:40px!important;
+    padding:6px 0!important;
+    gap:8px!important;
+    font-size:.83rem!important;
+    line-height:1.25!important;
+    text-decoration:none!important;
+  }
+  .social-icon,.social-icon svg{width:17px!important;height:17px!important}
+  .footer-mark{
+    grid-column:1/-1!important;
+    justify-self:center!important;
+    align-self:center!important;
+    justify-content:center!important;
+  }
+  .footer-mark img{width:108px!important;max-width:108px!important;margin:0 auto!important}
+}
+
+@media(max-width:380px){
+  .header .nav-tab{padding-inline:9px!important;font-size:.66rem!important}
+  .header-utility{grid-template-columns:38px minmax(0,1fr) 72px!important}
+  .header .back{width:38px!important;min-width:38px!important}
+  .header .present-btn{width:72px!important;min-width:72px!important}
+  .header #btnFull::after,.header #btnExec::after,.header #btnPresentation::after{font-size:.64rem!important}
+  .hero.hero-clean.hero-with-logo h1{font-size:2rem!important}
+  .footer-wrap{gap:22px 14px!important}
+  .footer-links a{font-size:.79rem!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
+}
+</style>
+
+</head><body><header class="header"><a class="header-brand" href="./index.html"><img src="./aala_logo.png" alt="Logo AALA" class="header-logo-img"><span class="brand-text"><span class="brand-kicker">Asociación Amigos del Lago de Atitlán</span><span class="brand-title">Conservando Atitlán · Tablero de programa</span></span></a><div class="header-stack"><nav class="nav-tabs" aria-label="Navegación"><a class="nav-tab active" href="#resumen">Resumen</a><a class="nav-tab" href="#kpis-estrategicos">Indicadores</a><a class="nav-tab" href="#tendencias">Tendencias</a><a class="nav-tab" href="#diagnostico">Diagnóstico</a></nav><div class="header-utility"><a class="back" href="./index.html"><span class="back-arrow">&#8592;</span>Volver al inicio</a><div class="view-switcher" role="group"><button class="view-btn active" id="btnFull" type="button" onclick="switchView('full')">Tablero completo</button><button class="view-btn" id="btnExec" type="button" onclick="switchView('exec')">Resumen ejecutivo</button></div><button class="present-btn" type="button" id="btnPresentation">&#9654; Presentación</button><div class="period-rack"><span class="period-rack-label">Mes</span><div class="month-pills" id="monthPills" role="group" aria-label="Seleccionar mes"></div></div></div></div></header><div class="wrap"><main><div id="resumen"></div><!-- EXECUTIVE VIEW --><div id="execView" style="display:none"><!-- Status banner --><div class="exec-status-card" style="margin-bottom:18px"><div class="es-label">Resumen del programa</div><div class="es-title">Conservando Atitlán</div><div class="exec-status-badge" id="execStatusBadge">Cargando…</div><div style="font-size:.8rem;opacity:.7;margin-top:4px" id="execPeriodInfo">—</div></div><!-- Indicator strip: 6 cards styled like Atitlán Recicla --><div class="kpi-grid" id="execKpiGrid" style="margin-bottom:18px"></div><!-- Accumulated strip --><div class="exec-strip" id="execStrip" style="margin-bottom:18px"></div><!-- Chart + Notices row --><div class="exec-row-2" style="margin-bottom:18px"><article class="card panel"><h3>Avance acumulado</h3><p class="sub" id="execChartSub">Comparación clara entre avance acumulado, avance esperado a la fecha y meta anual.</p><div id="execProgressChart" style="overflow:visible;padding:4px 0"></div></article><article class="card panel"><h3>Lectura operativa</h3><p class="sub">Resumen de comportamiento del mes.</p><div id="execNoticePanel"></div></article></div><article class="card exec-diag" id="execDiagPanel"></article></div><!-- FULL DASHBOARD --><div id="fullView"><section class="hero hero-clean hero-with-logo" id="heroSection"><article class="card hero-main"><h1>Conservando Atitlán</h1><p class="hero-lead">Conservando Atitlán es un programa cuya misión evita la contaminación del lago de Atitlán por aceites usados de cocina, este objetivo se logra al recuperar dicho residuo generado en 150 negocios entre hoteles, restaurantes y comedores en la cuenca del lago de Atitlán. Este programa tiene un impacto ambiental importante, ya que, por cada litro de aceite usado de cocina recuperado, se protegen mil (1,000) litros de agua. Actualmente el programa Conservando Atitlán impulsa la producción de jabones y velas artesanales de alta calidad a través de la marca ATI’T, generando un impacto social a través de dar empleo a jóvenes y señoritas apoyando a su economía familiar.</p></article><aside class="card hero-logo-card" aria-label="Logo del programa"><img id="programLogo" src="./Conservando%20Atitl%C3%A1n%20.png" alt="Logo Conservando Atitlán" onerror="this.onerror=null;this.src='./logosatitlan.png';"></aside></section><section class="section section-full-only" id="kpis-estrategicos"><div class="section-head section-head-simple"><div><h2>Metas anuales y avance acumulado</h2></div></div><div class="kpi-grid" id="strategicGrid"></div></section><section class="section section-full-only" id="metas-mensuales"><div class="section-head section-head-simple"><div><h2 id="monthlyKpiTitle">Metas mensuales</h2></div></div><div class="kpi-grid" id="monthlyGrid"></div></section><div class="section-divider">Tendencias y lectura comparativa</div><section class="section section-full-only" id="tendencias"><div class="chart-grid" style="grid-template-columns:1fr"><article class="card panel"><div class="panel-top"><div><h3>Tendencia mensual</h3><p class="sub" id="trendChartSub">Serie histórica del indicador seleccionado con su referencia de meta mensual cuando existe.</p></div><select class="indicator-select" id="trendIndicator"></select></div><div class="viz-wrap" id="trendChartHost"><canvas id="trendChart"></canvas></div></article></div><div class="chart-grid section" style="margin-top:18px"><article class="card panel"><h3>Cadena de valor del jabón</h3><p class="sub" id="soapChartSub"></p><div class="viz-wrap" id="soapChartHost"><canvas id="soapChart"></canvas></div></article></div></section><div class="section-divider section-full-only">Análisis del mes</div><section class="section section-full-only" id="diagnostico"><div class="section-head section-head-simple"><div><h2 id="diagTitle">Análisis del mes</h2></div></div><div class="diagnostic-grid"><article class="card panel"><div class="prose" id="diagnosticProse"></div></article><article class="card panel"><div class="diagnostic-list" id="diagnosticList"></div></article></div></section><section class="section hidden" id="loadingWrap"><div class="loading-state" id="loadingState">Cargando información del programa…</div></section><section class="section hidden" id="errorWrap"><div class="error-state" id="errorState">No se pudo cargar la información.</div></section></div><!-- /fullView --></main></div><footer class="site-footer"><div class="footer-wrap"><section class="footer-brand"><div class="footer-brandline"><div class="footer-title">Asociación Amigos del Lago de Atitlán</div></div><p class="footer-copy">La Asociación Amigos del Lago de Atitlán se enfoca en generar una cultura regenerativa en la cuenca Lago, para que los seres humanos podamos coexistir de forma sostenible y sana con el entorno natural. Hacemos educación ambiental, reforestación, reciclaje, empoderamiento económico de mujeres, asesoría municipal en agua y saneamiento.</p></section><section class="footer-col"><h3>Contacto y sitio</h3><div class="footer-links"><a href="https://amigosdeatitlan.org/" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><path d="M12 3c2.7 2.8 4.1 5.8 4.1 9S14.7 18.2 12 21c-2.7-2.8-4.1-5.8-4.1-9S9.3 5.8 12 3z"></path></svg></span><span>Página web</span></a><a href="https://www.youtube.com/@asociacionamigosdellagodea2358" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2a2.9 2.9 0 0 0-2-2C17.8 4.7 12 4.7 12 4.7s-5.8 0-7.6.5a2.9 2.9 0 0 0-2 2A29.6 29.6 0 0 0 2 12a29.6 29.6 0 0 0 .4 4.8 2.9 2.9 0 0 0 2 2c1.8.5 7.6.5 7.6.5s5.8 0 7.6-.5a2.9 2.9 0 0 0 2-2A29.6 29.6 0 0 0 22 12a29.6 29.6 0 0 0-.4-4.8ZM10 15.5v-7l6 3.5-6 3.5Z"></path></svg></span><span>YouTube</span></a><a href="https://www.facebook.com/AmigoAtitlan/?locale=es_LA" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.7-1.6H17V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4V11H7.5v3h2.8v8h3.2Z"></path></svg></span><span>Facebook</span></a></div></section><section class="footer-col"><h3>Redes sociales</h3><div class="footer-links"><a href="https://www.instagram.com/amigoslagoatitlan/" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg></span><span>Instagram</span></a><a href="https://www.linkedin.com/in/aala-atitl%C3%A1n-3653a0325/" target="_blank" rel="noreferrer noopener"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.9 8.1a1.9 1.9 0 1 1 0-3.8 1.9 1.9 0 0 1 0 3.8ZM5.2 9.8h3.3V19H5.2V9.8Zm5.2 0h3.2v1.3h.1c.4-.8 1.5-1.6 3.1-1.6 3.3 0 3.9 2.1 3.9 4.9V19h-3.3v-4c0-.9 0-2.1-1.3-2.1s-1.5 1-1.5 2V19h-3.3V9.8Z"></path></svg></span><span>LinkedIn</span></a></div></section><section class="footer-mark" aria-label="Imagen institucional"><img src="./chill_lago.png" alt="AALA — Cuenca del Lago de Atitlán"></section></div></footer><!-- PRESENTATION OVERLAY --><div class="presentation-overlay" id="presentationOverlay" aria-hidden="true"><div class="presentation-chrome"><div class="presentation-meta" id="presentationMeta"><span>Modo presentación</span></div><div class="presentation-actions"><button class="pres-btn" type="button" onclick="prevSlide()">&#8592; Anterior</button><button class="pres-btn" type="button" onclick="nextSlide()">Siguiente &#8594;</button><button class="pres-btn primary" type="button" onclick="closePresentation()">&#215; Cerrar</button></div></div><div class="presentation-stage-wrap"><div class="presentation-stage"><div class="presentation-track" id="presentationTrack"></div></div></div><div class="pres-footer-bar"><div class="pres-dots" id="presDots"></div><div class="pres-counter" id="presCounter">1 / 1</div></div></div><script>
 const PATHS = {
   total: './data/conservando_atitlan/total_mes.csv',
   indicadores: './data/conservando_atitlan/institucional_indicadores.csv',
