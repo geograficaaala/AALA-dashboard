@@ -2781,6 +2781,359 @@ tr:hover td{background:var(--blue-pale)!important}
 }
 </style>
 
+<style id="aala-mobile-polish-and-fast-kpis">
+/* Ajuste visual final: rendimiento de indicadores y adaptación móvil. */
+
+/* Animaciones más ágiles, sin retrasos escalonados costosos. */
+.kpi::before,
+.kpi::after,
+.goal-card::before,
+.goal-card::after{
+  animation-duration:.24s!important;
+  animation-delay:0ms!important;
+}
+.kpi-pillar-fill,
+.kpi-progress-line span,
+.kpi .progress>span,
+.goal-card .progress>span,
+.exec-kpi-bar span{
+  transition-duration:.38s!important;
+  transition-timing-function:cubic-bezier(.22,.61,.36,1)!important;
+}
+.kpi,
+.goal-card{
+  transition:transform .18s ease,background-color .18s ease!important;
+}
+
+@media(max-width:780px){
+  html{scroll-padding-top:20px!important}
+  body{-webkit-text-size-adjust:100%}
+  .wrap{
+    width:min(100vw - 24px,1480px)!important;
+    padding:22px 0 46px!important;
+  }
+
+  /* Header móvil compacto y ordenado */
+  .header{
+    position:relative!important;
+    top:auto!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:stretch!important;
+    gap:0!important;
+    min-height:0!important;
+    padding:9px 12px 11px!important;
+    box-shadow:0 3px 14px rgba(23,59,108,.07)!important;
+  }
+  .header-brand{
+    width:100%!important;
+    min-width:0!important;
+    gap:9px!important;
+    padding:0 1px 9px!important;
+    border-bottom:1px solid var(--line)!important;
+  }
+  .header-logo-img{
+    height:35px!important;
+    width:auto!important;
+    flex:0 0 auto!important;
+  }
+  .header .brand-text{min-width:0!important;gap:1px!important}
+  .header .brand-kicker{
+    font-size:.55rem!important;
+    line-height:1.15!important;
+    letter-spacing:.08em!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+  }
+  .header .brand-title{
+    font-size:.81rem!important;
+    line-height:1.2!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+  }
+  .header-stack{
+    width:100%!important;
+    margin:0!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:stretch!important;
+    gap:7px!important;
+    padding-top:4px!important;
+  }
+  .header .nav-tabs{
+    order:1!important;
+    width:100%!important;
+    max-width:none!important;
+    justify-content:flex-start!important;
+    gap:0!important;
+    padding:0 1px!important;
+    border-bottom:1px solid var(--line)!important;
+    overflow-x:auto!important;
+    scroll-snap-type:x proximity!important;
+  }
+  .header .nav-tab{
+    flex:0 0 auto!important;
+    min-height:37px!important;
+    padding:10px 11px 8px!important;
+    font-size:.69rem!important;
+    line-height:1!important;
+    scroll-snap-align:start!important;
+  }
+  .header-utility{
+    order:2!important;
+    width:100%!important;
+    display:grid!important;
+    grid-template-columns:40px minmax(0,1fr) 78px!important;
+    align-items:center!important;
+    gap:6px!important;
+  }
+  .header .back{
+    grid-column:1!important;
+    width:40px!important;
+    min-width:40px!important;
+    height:38px!important;
+    min-height:38px!important;
+    padding:0!important;
+    font-size:0!important;
+    border-radius:9px!important;
+  }
+  .header .back-arrow{
+    width:24px!important;
+    height:24px!important;
+    margin:0!important;
+    font-size:.82rem!important;
+  }
+  .header .view-switcher{
+    grid-column:2!important;
+    width:100%!important;
+    min-width:0!important;
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:3px!important;
+    padding:3px!important;
+    border-radius:10px!important;
+  }
+  .header .view-switcher .view-btn{
+    width:100%!important;
+    min-width:0!important;
+    min-height:32px!important;
+    padding:7px 5px!important;
+    font-size:0!important;
+    border-radius:7px!important;
+  }
+  .header #btnFull::after,
+  .header #btnExec::after,
+  .header #btnPresentation::after{
+    display:inline!important;
+    font-family:Arial,Helvetica,sans-serif!important;
+    font-size:.68rem!important;
+    font-weight:700!important;
+    line-height:1!important;
+    white-space:nowrap!important;
+  }
+  .header #btnFull::after{content:'Completo'}
+  .header #btnExec::after{content:'Ejecutivo'}
+  .header .present-btn{
+    grid-column:3!important;
+    width:78px!important;
+    min-width:78px!important;
+    min-height:38px!important;
+    padding:7px 5px!important;
+    font-size:0!important;
+    border-radius:9px!important;
+    box-shadow:none!important;
+  }
+  .header #btnPresentation::after{content:'Presentar'}
+  .header .period-rack{
+    grid-column:1/-1!important;
+    width:100%!important;
+    min-width:0!important;
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:4px!important;
+    padding-top:1px!important;
+  }
+  .header .period-rack-label{
+    display:block!important;
+    padding-left:2px!important;
+    font-size:.58rem!important;
+    line-height:1.2!important;
+    letter-spacing:.09em!important;
+  }
+  .header .month-pills{
+    width:100%!important;
+    max-width:none!important;
+    gap:2px!important;
+    padding:3px!important;
+    border-radius:10px!important;
+    scroll-padding-inline:3px!important;
+  }
+  .header .month-pill,
+  .header .month-pills button{
+    min-width:46px!important;
+    min-height:34px!important;
+    padding:7px 10px!important;
+    border-radius:7px!important;
+    font-size:.69rem!important;
+  }
+
+  /* Hero móvil: logo, título y narrativa con jerarquía clara */
+  .hero.hero-story-mode.hero-story-split{
+    grid-template-columns:1fr!important;
+    align-items:start!important;
+    gap:14px!important;
+    margin:0 0 26px!important;
+    padding:18px 0 30px!important;
+  }
+  .hero.hero-story-mode.hero-story-split .hero-logo-card{
+    order:1!important;
+    width:100%!important;
+    display:flex!important;
+    justify-content:center!important;
+  }
+  .hero.hero-story-mode.hero-story-split .hero-logo-card-inner{
+    width:auto!important;
+    min-height:0!important;
+  }
+  .hero.hero-story-mode.hero-story-split .hero-inline-logo{
+    width:116px!important;
+    max-width:116px!important;
+    max-height:122px!important;
+    margin:0 auto!important;
+    animation:none!important;
+    filter:drop-shadow(0 8px 15px rgba(23,59,108,.12))!important;
+  }
+  .hero.hero-story-mode.hero-story-split .hero-main{
+    order:2!important;
+    width:100%!important;
+  }
+  .hero.hero-story-mode.hero-story-split .hero-head-row{
+    margin:0 0 14px!important;
+  }
+  .hero.hero-story-mode.hero-story-split h1{
+    font-size:clamp(2.05rem,10.5vw,2.7rem)!important;
+    line-height:1.04!important;
+    letter-spacing:-.04em!important;
+    text-wrap:balance!important;
+  }
+  .hero.hero-story-mode.hero-story-split .hero-narrative p{
+    margin:0 0 12px!important;
+    font-size:.92rem!important;
+    line-height:1.7!important;
+    text-align:justify!important;
+    text-justify:inter-word!important;
+    hyphens:auto!important;
+    overflow-wrap:anywhere!important;
+  }
+
+  /* KPIs móviles: respuesta inmediata y sin efectos pesados */
+  .kpi,
+  .goal-card{
+    transition:none!important;
+  }
+  .kpi:hover,
+  .goal-card:hover{
+    transform:none!important;
+    background:transparent!important;
+  }
+  .kpi::before,
+  .kpi::after,
+  .goal-card::before,
+  .goal-card::after{
+    animation-duration:.18s!important;
+    animation-delay:0ms!important;
+  }
+
+  /* Footer móvil: dos columnas de enlaces y cierre institucional centrado */
+  .site-footer{
+    margin-top:34px!important;
+  }
+  .footer-wrap{
+    width:min(100vw - 32px,1480px)!important;
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:24px 18px!important;
+    padding:30px 0 28px!important;
+    align-items:start!important;
+  }
+  .footer-brand{
+    grid-column:1/-1!important;
+    justify-items:center!important;
+    max-width:none!important;
+    text-align:center!important;
+  }
+  .footer-brandline{
+    width:100%!important;
+    justify-content:center!important;
+  }
+  .footer-title{
+    font-size:1rem!important;
+    line-height:1.3!important;
+    text-align:center!important;
+  }
+  .footer-copy{
+    max-width:42rem!important;
+    margin:0 auto!important;
+    font-size:.86rem!important;
+    line-height:1.68!important;
+    text-align:justify!important;
+    text-justify:inter-word!important;
+    hyphens:auto!important;
+  }
+  .footer-col{
+    min-width:0!important;
+  }
+  .footer-col h3{
+    margin-bottom:8px!important;
+    font-size:.66rem!important;
+    letter-spacing:.1em!important;
+  }
+  .footer-links{
+    gap:3px!important;
+  }
+  .footer-links a{
+    width:100%!important;
+    min-height:40px!important;
+    padding:6px 0!important;
+    gap:8px!important;
+    font-size:.83rem!important;
+    line-height:1.25!important;
+    text-decoration:none!important;
+  }
+  .social-icon,
+  .social-icon svg{
+    width:17px!important;
+    height:17px!important;
+  }
+  .footer-mark{
+    grid-column:1/-1!important;
+    justify-self:center!important;
+    align-self:center!important;
+    justify-content:center!important;
+  }
+  .footer-mark img{
+    width:108px!important;
+    max-width:108px!important;
+    margin:0 auto!important;
+  }
+}
+
+@media(max-width:380px){
+  .header .nav-tab{padding-inline:9px!important;font-size:.66rem!important}
+  .header-utility{grid-template-columns:38px minmax(0,1fr) 72px!important}
+  .header .back{width:38px!important;min-width:38px!important}
+  .header .present-btn{width:72px!important;min-width:72px!important}
+  .header #btnFull::after,
+  .header #btnExec::after,
+  .header #btnPresentation::after{font-size:.64rem!important}
+  .hero.hero-story-mode.hero-story-split h1{font-size:2rem!important}
+  .footer-wrap{gap:22px 14px!important}
+  .footer-links a{font-size:.79rem!important}
+}
+</style>
+
 </head>
 <body class="view-full">
 
@@ -3356,7 +3709,7 @@ function animateMetricValue(node){
   const suffix=node.dataset.suffix||'';
   const decimals=Number(node.dataset.decimals||0);
   const start=performance.now();
-  const duration=950;
+  const duration=380;
   function step(now){
     const t=Math.min(1,(now-start)/duration);
     const eased=1-Math.pow(1-t,3);
