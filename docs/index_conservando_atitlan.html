@@ -2259,15 +2259,35 @@ function buildTrendOptions(){
 }
 function buildMonthPills(){
   const host=document.getElementById('monthPills');
+  if(!host) return;
+
+  const basePeriod=state.period||state.periods.at(-1)||'';
+  const year=String(basePeriod).split('-')[0];
+  if(!year){ host.innerHTML=''; return; }
+
+  const availablePeriods=new Set(
+    state.periods.filter(period=>String(period).startsWith(year+'-'))
+  );
+
   host.innerHTML='';
-  state.periods.forEach(period=>{
-    const m=Number(String(period).split('-')[1]);
+  Array.from({length:12},(_,index)=>index+1).forEach(month=>{
+    const period=`${year}-${String(month).padStart(2,'0')}`;
     const btn=document.createElement('button');
+    const hasData=availablePeriods.has(period);
+
     btn.type='button';
     btn.className='month-pill'+(period===state.period?' active':'');
-    btn.textContent=MONTHS_SHORT[m-1]||period;
+    btn.textContent=MONTHS_SHORT[month-1]||period;
     btn.title=periodLabel(period);
-    btn.addEventListener('click',()=>{state.period=period;render();});
+    btn.disabled=!hasData;
+
+    if(hasData){
+      btn.addEventListener('click',()=>{
+        state.period=period;
+        render();
+      });
+    }
+
     host.appendChild(btn);
   });
 }
