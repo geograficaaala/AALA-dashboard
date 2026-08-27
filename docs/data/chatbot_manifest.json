@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-26T05:51:01.554808-06:00",
+  "generated_at": "2026-08-27T15:03:32.322655-06:00",
   "cutoff": {
     "institutional_cutoff_period": "2026-07",
     "timezone": "America/Guatemala",
@@ -1928,7 +1928,8 @@
         "2026-04",
         "2026-05",
         "2026-06",
-        "2026-07"
+        "2026-07",
+        "2026-08"
       ],
       "available_periods_indicators": [
         "2026-01",
@@ -1937,7 +1938,8 @@
         "2026-04",
         "2026-05",
         "2026-06",
-        "2026-07"
+        "2026-07",
+        "2026-08"
       ],
       "valid_periods": [
         "2026-01",
@@ -1953,9 +1955,9 @@
       "metadata": {
         "programa_id": "fortalecimiento_municipal",
         "programa_nombre": "Fortalecimiento municipal",
-        "periodos_detectados": "2026-01 | 2026-02 | 2026-03 | 2026-04 | 2026-05 | 2026-06 | 2026-07",
+        "periodos_detectados": "2026-01 | 2026-02 | 2026-03 | 2026-04 | 2026-05 | 2026-06 | 2026-07 | 2026-08",
         "fecha_min_global": "2026-01",
-        "fecha_max_global": "2026-07",
+        "fecha_max_global": "2026-08",
         "usa_encabezado_como_fuente_periodo": false,
         "nota_asistencias_codede": "Indicador publicado como proxy operativo mientras no exista columna explícita CODEDE en el sheet.",
         "nota_capacitaciones": "Estado fila e INCOMPLETA solo alertan calidad; no excluyen KPIs si la fila sí trae evidencia operativa mínima.",
@@ -1985,7 +1987,7 @@
         {
           "field": "reuniones_totales_mes",
           "label": "Reuniones totales",
-          "value": 2.0
+          "value": 4.0
         }
       ],
       "latest_total": {
@@ -2029,8 +2031,8 @@
         "mesas_tecnicas_departamentales_acum": 0.0,
         "mesas_tecnicas_municipales_mes": 0.0,
         "mesas_tecnicas_municipales_acum": 11.0,
-        "reuniones_totales_mes": 2.0,
-        "reuniones_totales_acum": 34.0,
+        "reuniones_totales_mes": 4.0,
+        "reuniones_totales_acum": 36.0,
         "periodo_clave": "2026-07",
         "mes_label": "Julio",
         "tiene_datos_mes": true,
@@ -2298,8 +2300,8 @@
             "status": "gris",
             "bucket": "neutral",
             "is_required": false,
-            "value_month": 2.0,
-            "value_accumulated": 34.0,
+            "value_month": 4.0,
+            "value_accumulated": 36.0,
             "target_month": null,
             "target_year": null,
             "expected_to_date": null,
@@ -2591,8 +2593,8 @@
             "status": "gris",
             "bucket": "neutral",
             "is_required": false,
-            "value_month": 2.0,
-            "value_accumulated": 34.0,
+            "value_month": 4.0,
+            "value_accumulated": 36.0,
             "target_month": null,
             "target_year": null,
             "expected_to_date": null,
