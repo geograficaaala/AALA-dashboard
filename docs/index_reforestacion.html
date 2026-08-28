@@ -3312,7 +3312,7 @@ function applyProgramAdjustments(rows){
   const haAug = +(haJul * growthAug).toFixed(2);
   const arbolesAug = 32501;
   const sigAug = +(sigJul * growthAug).toFixed(2);
-  const plantasAug = plantasJul + 100;
+  const plantasAug = plantasJul;
   const especiesAug = especiesJul;
 
   Object.assign(aug, {
@@ -3357,9 +3357,9 @@ function applyProgramAdjustments(rows){
     meta_especies: jul.meta_especies || '10',
     pct_meta_especies: String(especiesAug / safeNumber(jul.meta_especies || 10)),
 
-    logros_texto: 'Actualización de agosto: se aplica un incremento operativo de 13.4% sobre los acumulados principales de julio, excepto reforestación y vivero. El acumulado de reforestación asciende a 32,501 árboles: 9,000 ya registrados, 2,500 en San Lucas Tolimán, 10,126 en Nahualá y 10,875 en Santiago Atitlán. El vivero pasa de 2,900 a 3,000 plantas, con un incremento puntual de 100 plantas. Los 10 seguimientos cartográficos se integran en Información geográfica forestal actualizada y en Análisis territoriales para toma de decisiones.',
+    logros_texto: 'Actualización de agosto: se aplica un incremento operativo de 13.4% sobre los acumulados principales de julio, excepto reforestación y vivero. El acumulado de reforestación asciende a 32,501 árboles: 9,000 ya registrados, 2,500 en San Lucas Tolimán, 10,126 en Nahualá y 10,875 en Santiago Atitlán. El vivero mantiene en agosto el mismo nivel reportado en julio: 2,900 plantas. Los 10 seguimientos cartográficos se integran en Información geográfica forestal actualizada y en Análisis territoriales para toma de decisiones.',
     alertas_texto: 'Parte de las reforestaciones se ha pausado temporalmente por la canícula extendida. El seguimiento prioriza supervivencia, disponibilidad hídrica, mantenimiento y reprogramación de jornadas cuando mejoren las condiciones de humedad.',
-    fuente_texto: 'Actualización agosto 2026 solicitada por usuario | Cifras específicas de reforestación aportadas por usuario | Incremento operativo 13.4% excepto reforestación y vivero | Seguimiento cartográfico propuesto para continuidad agosto',
+    fuente_texto: 'Actualización agosto 2026 solicitada por usuario | Cifras específicas de reforestación aportadas por usuario | Incremento operativo 13.4% excepto reforestación y vivero, que mantiene el valor de julio | Seguimiento cartográfico propuesto para continuidad agosto',
     estatus_reporte: 'Actualización de agosto',
     semaforo_ha: setSemaforoForPct(haAug / safeNumber(jul.meta_ha || 35)),
     semaforo_arboles: setSemaforoForPct(arbolesAug / safeNumber(jul.meta_arboles || 90000)),
