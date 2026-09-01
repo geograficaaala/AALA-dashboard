@@ -1,4 +1,4 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Conservando Atitlán · AALA</title><meta name="description" content="Tablero dinámico del programa Conservando Atitlán — Asociación Amigos del Lago de Atitlán."><link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script><style>
+<!doctype html><html lang="es"><head><!-- ACTUALIZADO: CONSERVANDO ATITLÁN · AGOSTO 2026 --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Conservando Atitlán · AALA</title><meta name="description" content="Tablero dinámico del programa Conservando Atitlán — Asociación Amigos del Lago de Atitlán."><link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script><style>
     :root{
       --bg:#f4f8f7; --surface:#fff; --surface-2:#f1f6f5; --surface-3:#e7efec;
       --text:#17314f; --text-2:#35546d; --muted:#6d8294;
@@ -1857,8 +1857,34 @@ async function init(){
     if(_julioIdx>=0){ state.total[_julioIdx]=JULIO_2026; }
     else { state.total.push(JULIO_2026); state.total.sort((a,b)=>String(a.mes_clave).localeCompare(String(b.mes_clave))); }
     state.periods = state.total.map(r=>String(r.mes_clave)).filter(Boolean);
-    state.period = '2026-07';
-    state.metadata.latest_period = '2026-07';
+
+    // ── PATCH: Datos correctos Agosto 2026 (agregado sin modificar enero-julio) ──
+    const AGOSTO_2026 = {
+      program_id:'conservando_atitlan', program_name:'Conservando Atitlán',
+      mes_clave:'2026-08', anio:2026, mes_num:8, mes_label:'Agosto',
+      aporta_metas_programa:true,
+      [JORNADA_RECOLECCION_FIELD]:1, jornadas_codigos_unicos_mes:10,
+      filas_recoleccion_validas_mes:9, municipios_visitados_mes:10,
+      inmuebles_atendidos_mes:87,
+      litros_aceite_recolectados_mes:7080, litros_agua_protegidos_mes:7080000,
+      clientes_recurrentes_atendidos_mes:0, filas_clientes_recurrentes_mes:0,
+      jabones_hotel_producidos_mes:4000, jabones_tocador_producidos_mes:300,
+      jabones_producidos_mes:4300,
+      jabones_hotel_vendidos_mes:1400, jabones_tocador_vendidos_mes:0,
+      jabones_vendidos_mes:1400, ingresos_ventas_q_mes:1500,
+      publicaciones_redes_mes:8, pruebas_jabon_liquido_mes:1,
+      velas_vendidas_mes:12, ingresos_ventas_velas_q_mes:230,
+      fuente_indicadores_mes:'08. Cuadro indicadores - Conservando Atitlán agosto 2026.docx',
+      fuente_operativa_mes:'08. Informe Agosto 2026 Recolección de Aceite Usado.pdf',
+      observaciones_mes:'El cuadro de indicadores reporta cobertura en los 10 municipios. El informe operativo registra 0 litros en San Pedro La Laguna y señala que no se llegó al municipio por restricción; se mantuvo comunicación con dos hoteles para coordinar servicio cuando exista ruta a San Juan La Laguna.',
+      tiene_datos_mes:true, is_latest_data_month:true
+    };
+    const _agostoIdx = state.total.findIndex(r=>String(r.mes_clave)==='2026-08');
+    if(_agostoIdx>=0){ state.total[_agostoIdx]=AGOSTO_2026; }
+    else { state.total.push(AGOSTO_2026); state.total.sort((a,b)=>String(a.mes_clave).localeCompare(String(b.mes_clave))); }
+    state.periods = state.total.map(r=>String(r.mes_clave)).filter(Boolean);
+    state.period = '2026-08';
+    state.metadata.latest_period = '2026-08';
     buildMonthPills();
     buildTrendOptions();
     document.getElementById('btnPresentation').addEventListener('click',openPresentation);
@@ -1975,7 +2001,7 @@ function computeStrategicMetrics(){
   const aguaAccum=sumMonths('litros_agua_protegidos_mes');
   const jabProdAccum=sumMonths('jabones_producidos_mes');
   const jabVendAccum=sumMonths('jabones_vendidos_mes');
-  const pruebasAccum=countMonthsWith(r=>GOALS.pruebasMeses.includes(toNum(r.mes_num))&&toNum(r.pruebas_jabon_liquido_mes)>0);
+  const pruebasAccum=countMonthsWith(r=>toNum(r.pruebas_jabon_liquido_mes)>0);
   const pruebasExpected=expectedPruebasAtCut(months);
   const ventasAccum=sumMonths('ingresos_ventas_q_mes');
   const velasProdAccum=GOALS.velasProducidas||50;
@@ -2161,7 +2187,7 @@ function renderDiagnostic(strategic,monthly){
   if(list) list.innerHTML=[
     {title:'Cadena de aceite y agua',body:`El acumulado de aceite llega a ${fmtN(aceiteAccum,2)} litros, protegiendo ${fmtI(aguaAccum)} litros de agua al mes seleccionado. Cada litro de aceite recolectado equivale a aproximadamente 1,000 litros de agua protegida de contaminación.`},
     {title:'Producción y comercialización',body:`La producción acumulada alcanza ${fmtI(jabProd)} jabones, mientras la venta suma ${fmtI(jabVend)} unidades y ${fmtQ(ventasAccum)} en ventas registradas. La tasa de conversión entre producción y venta es el indicador clave de la sostenibilidad comercial del programa.`},
-    {title:`Operación de ${lbl}`,body:`Se recolectaron ${fmtN(toNum(row?.litros_aceite_recolectados_mes),2)} litros de aceite, se produjeron ${fmtI(toNum(row?.jabones_producidos_mes))} jabones y se vendieron ${fmtI(toNum(row?.jabones_vendidos_mes))} unidades generando ${fmtQ(toNum(row?.ingresos_ventas_q_mes))} en ventas. Se visitaron ${fmtI(toNum(row?.municipios_visitados_mes))} municipios atendiendo ${fmtI(toNum(row?.inmuebles_atendidos_mes))} inmuebles.`}
+    {title:`Operación de ${lbl}`,body:`Se recolectaron ${fmtN(toNum(row?.litros_aceite_recolectados_mes),2)} litros de aceite, se produjeron ${fmtI(toNum(row?.jabones_producidos_mes))} jabones y se vendieron ${fmtI(toNum(row?.jabones_vendidos_mes))} unidades generando ${fmtQ(toNum(row?.ingresos_ventas_q_mes))} en ventas. Se reporta cobertura en ${fmtI(toNum(row?.municipios_visitados_mes))} municipios y ${fmtI(toNum(row?.inmuebles_atendidos_mes))} inmuebles que entregaron aceite.${row?.observaciones_mes?' '+String(row.observaciones_mes):''}`}
   ].map(item=>`<article class="diag-item"><h4>${escapeHtml(item.title)}</h4><p>${escapeHtml(item.body)}</p></article>`).join('');
 }
 
@@ -2386,7 +2412,7 @@ function progressMetricAbsolute(metricId, months){
   if(metricId==='agua') return {actual:sumMonths('litros_agua_protegidos_mes'), expected:(GOALS.aguaAnual/12)*months, target:GOALS.aguaAnual, unit:'litros_int'};
   if(metricId==='jabones-prod') return {actual:sumMonths('jabones_producidos_mes'), expected:GOALS.jabonesProducidosMensual*months, target:GOALS.jabonesProducidosAnual, unit:'jabones'};
   if(metricId==='jabones-vend') return {actual:sumMonths('jabones_vendidos_mes'), expected:GOALS.jabonesVendidosMensual*months, target:GOALS.jabonesVendidosAnual, unit:'jabones'};
-  if(metricId==='pruebas') return {actual:countMonthsWith(r=>GOALS.pruebasMeses.includes(toNum(r.mes_num))&&toNum(r.pruebas_jabon_liquido_mes)>0), expected:expectedPruebasAtCut(months), target:GOALS.pruebasAnual, unit:'pruebas'};
+  if(metricId==='pruebas') return {actual:countMonthsWith(r=>toNum(r.pruebas_jabon_liquido_mes)>0), expected:expectedPruebasAtCut(months), target:GOALS.pruebasAnual, unit:'pruebas'};
   if(metricId==='velas-prod') return {actual:GOALS.velasProducidas||50, expected:(GOALS.velasAnual/12)*months, target:GOALS.velasAnual, unit:'velas'};
   return {actual:0, expected:0, target:100, unit:''};
 }
