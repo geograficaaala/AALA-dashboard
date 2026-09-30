@@ -1883,8 +1883,50 @@ async function init(){
     if(_agostoIdx>=0){ state.total[_agostoIdx]=AGOSTO_2026; }
     else { state.total.push(AGOSTO_2026); state.total.sort((a,b)=>String(a.mes_clave).localeCompare(String(b.mes_clave))); }
     state.periods = state.total.map(r=>String(r.mes_clave)).filter(Boolean);
-    state.period = '2026-08';
-    state.metadata.latest_period = '2026-08';
+
+    // Septiembre 2026: agregado sin modificar los datos ni las metas anteriores.
+    const SEPTIEMBRE_2026 = {
+  "program_id": "conservando_atitlan",
+  "program_name": "Conservando Atitlán",
+  "mes_clave": "2026-09",
+  "anio": 2026,
+  "mes_num": 9,
+  "mes_label": "Septiembre",
+  "aporta_metas_programa": true,
+  "jornadas_recoleccion_ciclo_mes": 1,
+  "jornadas_codigos_unicos_mes": 10,
+  "filas_recoleccion_validas_mes": 10,
+  "municipios_visitados_mes": 10,
+  "inmuebles_atendidos_mes": 87,
+  "litros_aceite_recolectados_mes": 7041,
+  "litros_agua_protegidos_mes": 7041000,
+  "clientes_recurrentes_atendidos_mes": 0,
+  "filas_clientes_recurrentes_mes": 0,
+  "jabones_hotel_producidos_mes": 3500,
+  "jabones_tocador_producidos_mes": 250,
+  "jabones_producidos_mes": 3750,
+  "jabones_hotel_vendidos_mes": 1900,
+  "jabones_tocador_vendidos_mes": 21,
+  "jabones_vendidos_mes": 1921,
+  "ingresos_ventas_q_mes": 2365,
+  "publicaciones_redes_mes": 8,
+  "pruebas_jabon_liquido_mes": 0,
+  "velas_vendidas_mes": 43,
+  "ingresos_ventas_velas_q_mes": 878.4,
+  "fuente_indicadores_mes": "09. Cuadro indicadores - Conservando Atitlán serptiembre 2026.docx",
+  "fuente_operativa_mes": "09. Informe Septiembre 2026 Recolección de Aceite Usado.pdf",
+  "observaciones_mes": "Se recolectaron 7,041 litros de aceite en 10 municipios, incluido San Pedro La Laguna (38 litros, 2 inmuebles). Los 87 inmuebles que entregaron aceite se cuentan como establecimientos con litros positivos en las tablas del PDF; las visitas sin entrega no se cuentan como aportantes. Se usa 7,041,000 litros de agua protegida, según el PDF y la relación de 1,000 litros de agua por litro de aceite; el cuadro Word indica 7,080,000, valor que corresponde al aceite de agosto. Se conservan los totales municipales y el consolidado oficial del PDF, cuyos detalles presentan pequeñas diferencias por redondeo. Producción: 3,500 jabones de hotel + 250 de tocador = 3,750. Ventas: 1,900 de hotel + 21 de tocador = 1,921, por Q2,365.00. Las 43 velas vendidas (12 variadas + 31 de citronela), por Q878.40, se registran separadas de los ingresos de jabones. El Word mantiene la primera prueba de jabón líquido y 33% de avance; no confirma una segunda prueba ni su ejecución nueva en septiembre. La primera ya registrada en agosto se conserva en el acumulado, sin duplicarla. No se especifica un conteo nuevo de clientes recurrentes. Se mantienen intactos los datos y metas de enero a agosto.",
+  "tiene_datos_mes": true,
+  "is_latest_data_month": true
+};
+    const _septiembreIdx = state.total.findIndex(r=>String(r.mes_clave)==='2026-09');
+    if(_septiembreIdx>=0){ state.total[_septiembreIdx]=SEPTIEMBRE_2026; }
+    else { state.total.push(SEPTIEMBRE_2026); }
+    state.total.sort((a,b)=>String(a.mes_clave).localeCompare(String(b.mes_clave)));
+    state.periods = state.total.map(r=>String(r.mes_clave)).filter(Boolean);
+    state.period = '2026-09';
+    state.metadata.latest_period = '2026-09';
+    state.metadata.latest_month_label = 'Septiembre';
     buildMonthPills();
     buildTrendOptions();
     document.getElementById('btnPresentation').addEventListener('click',openPresentation);
