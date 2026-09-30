@@ -1909,8 +1909,8 @@ body::before,body::after{display:none!important}
 
   <script>
     const ACTIVE_YEAR = 2026;
-    const ACTIVE_MONTH_MAX = 8;
-    const DEFAULT_MONTH = 8;
+    const ACTIVE_MONTH_MAX = 9;
+    const DEFAULT_MONTH = 9;
 
     const ANNUAL_GOALS = {
       jornadas: 21,
@@ -2133,6 +2133,34 @@ body::before,body::after{display:none!important}
           municipios: 6,
           sitios: 14
         }
+      },
+      9: {
+        monthly: {
+          jornadas: 2,
+          jornadasGoal: 2,
+          metros: 171,
+          metrosGoal: 225,
+          macollas: 234,
+          macollasGoal: 132,
+          mantenimiento: 2,
+          mantenimientoGoal: 1,
+          mapas: 3,
+          mapasGoal: 1,
+          capas: 0,
+          capasGoal: 0,
+          sitios: 2,
+          sitiosGoal: 2
+        },
+        annual: {
+          jornadas: 16,
+          metros: 1790,
+          macollas: 1200,
+          mantenimiento: 8,
+          mapas: 10,
+          capas: 1,
+          municipios: 6,
+          sitios: 16
+        }
       }
     };
 
@@ -2222,6 +2250,15 @@ body::before,body::after{display:none!important}
           ['Ejecución', '2 jornadas realizadas en San Antonio Palopó y San Juan La Laguna.'],
           ['Restauración', '261 metros lineales y 153 macollas establecidas, cerca de 12% por encima de julio.'],
           ['Seguimiento', '1 mantenimiento, 1 mapa actualizado y 2 sitios incorporados al corte de agosto.']
+        ]
+      },
+      9: {
+        headline: 'Septiembre completa las dos jornadas programadas y actualiza el avance acumulado.',
+        body: 'Se registran como realizadas las jornadas del 11 de septiembre en Tzampetey, Piedra del Mono, y del 25 de septiembre en Panka, ambas en San Antonio Palopó. El cierre alcanza 1,790 metros lineales, 1,200 macollas, 8 mantenimientos, 10 mapas y 16 jornadas acumuladas, manteniendo la cobertura de 6 municipios. Por diferencia respecto de agosto, septiembre aporta 171 metros lineales, 234 macollas, 2 mantenimientos, 3 mapas y 2 jornadas. El cumplimiento mensual se calcula contra las metas vigentes del tablero.',
+        items: [
+          ['Ejecución', '2 jornadas realizadas en Tzampetey, Piedra del Mono, y Panka, San Antonio Palopó.'],
+          ['Restauración', '171 metros lineales y 234 macollas durante septiembre; 76% y 100% de cumplimiento mensual, respectivamente, según la escala del tablero.'],
+          ['Seguimiento', '2 mantenimientos y 3 mapas durante septiembre; 8 mantenimientos y 10 mapas acumulados, con cobertura en 6 municipios.']
         ]
       }
     };
