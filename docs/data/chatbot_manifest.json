@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-27T10:39:57.815581-06:00",
+  "generated_at": "2026-10-27T10:42:35.261450-06:00",
   "cutoff": {
     "institutional_cutoff_period": "2026-09",
     "timezone": "America/Guatemala",
@@ -1934,7 +1934,8 @@
         "2026-06",
         "2026-07",
         "2026-08",
-        "2026-09"
+        "2026-09",
+        "2026-10"
       ],
       "available_periods_indicators": [
         "2026-01",
@@ -1945,7 +1946,8 @@
         "2026-06",
         "2026-07",
         "2026-08",
-        "2026-09"
+        "2026-09",
+        "2026-10"
       ],
       "valid_periods": [
         "2026-01",
@@ -1963,9 +1965,9 @@
       "metadata": {
         "programa_id": "fortalecimiento_municipal",
         "programa_nombre": "Fortalecimiento municipal",
-        "periodos_detectados": "2026-01 | 2026-02 | 2026-03 | 2026-04 | 2026-05 | 2026-06 | 2026-07 | 2026-08 | 2026-09",
+        "periodos_detectados": "2026-01 | 2026-02 | 2026-03 | 2026-04 | 2026-05 | 2026-06 | 2026-07 | 2026-08 | 2026-09 | 2026-10",
         "fecha_min_global": "2026-01",
-        "fecha_max_global": "2026-09",
+        "fecha_max_global": "2026-10",
         "usa_encabezado_como_fuente_periodo": false,
         "nota_asistencias_codede": "Indicador publicado como proxy operativo mientras no exista columna explícita CODEDE en el sheet.",
         "nota_capacitaciones": "Estado fila e INCOMPLETA solo alertan calidad; no excluyen KPIs si la fila sí trae evidencia operativa mínima.",
