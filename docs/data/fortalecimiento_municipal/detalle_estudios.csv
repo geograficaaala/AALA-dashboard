@@ -15,7 +15,7 @@ row_number,module_name,fecha,anio,mes_num,mes_nombre,periodo,registro_valido,est
 14,estudios,2026-07-02,2026,7,Julio,2026-07,True,OK,False,Santa Lucía Utatlán,Caracterización de residuos sólidos,Planificación,True,True,True,Comercial | Mercados,"AALA, MARN, AMSCLAE, Municipalidad",Reunión de planificacion de estudio de caracterizacion de residuos y desechos solidos comunes del sector comercial y de mercados
 15,estudios,2026-08-07,2026,8,Agosto,2026-08,True,OK,False,Santa Lucía Utatlán,Caracterización de residuos sólidos,Planificación,True,True,True,Comercial | Mercados,Municipalidad,Aprobación del estudio de carcaterizacióndel sector comercial y de mercados se ejcutara el 21 de septiembre al 28 de septiembre.
 16,estudios,2026-09-04,2026,9,Septiembre,2026-09,True,OK,False,Santa Lucía Utatlán,Caracterización de residuos sólidos,Levantamiento,True,True,True,Comercial | Mercados,"Municipalidad, EPSUM, AMSCLAE, AALA","Se concluyo en la organizacion del recurso humano y gestion de insumos, 18/09 capacitación a personal municipal y del 21 al 28/09 proceso de levantamiento del estudio."
-17,estudios,,,,,,False,,False,,,,False,False,False,,,
+17,estudios,2026-10-12,2026,10,Octubre,2026-10,True,OK,False,Santa Lucía Utatlán,Caracterización de residuos sólidos,Análisis,True,True,True,Comercial,"Municipalidad, EPSUM, AMSCLAE, AALA, MARN","Se participo en el levantamiendo y toma de datos del estudio de caracterizacion de residuos del sector comercial las fechas 8,9,10,11, y 12 de octubre, ahora queda en la fase de análisis de datos e informe final."
 18,estudios,,,,,,False,,False,,,,False,False,False,,,
 19,estudios,,,,,,False,,False,,,,False,False,False,,,
 20,estudios,,,,,,False,,False,,,,False,False,False,,,
